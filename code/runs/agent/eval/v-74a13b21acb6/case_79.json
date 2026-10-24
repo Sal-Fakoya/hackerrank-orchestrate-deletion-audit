@@ -1,0 +1,335 @@
+{
+ "case_id": "case_79",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_5186",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_91"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1734",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_91"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_79",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_5186",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_91",
+    "reason": "Primary profile for the subject. Direct lookup by the subject's current email jieun.p449289@outlook.com at 2026-09-11T06:55:37Z returned rows=0, HTTP 404, before audit_at. The deletion worker reported PARTIAL (activity_3304), but the direct observation shows the profile is gone. No replica copy found in the failover snapshot (evidence_54). DELETE category, so ABSENT is compliant.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1734",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_91",
+    "reason": "Security audit record with subject_reference=user_77 and event_code ACCOUNT_DELETION_RECORDED, read on 2026-09-11 at 05:15:16Z. Retention runs until 2031-12-31, which is after audit_at, so the record is retained and verified as PRESENT.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_8754",
+    "reason": "Linked only through deletion-worker run activity_3302, which is shared with case_77, case_78 and case_92. No usable evidence ties this account to user_77 or the subject's email, user_id or hash. Cannot attribute it to this subject, so rejected. Its SUCCESS/absent claim is also not verified."
+   },
+   {
+    "resource_id": "analytics_5859",
+    "reason": "Linked only through shared deletion-worker run activity_3305 (shared with other requests). The only direct observation (evidence_91, rb-072541-024) is an analytics profile with customer_reference=null, email=null, phone=null and email_hash=null, which is identity-free. It cannot be attributed to the subject, so rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for a permanent account deletion for their email address and requests confirmation of the outcome, which is erasure of the person's own account and data.",
+   "summary: Subject user_77 (jieun.p449289@outlook.com). The primary account profile account_5186 is confirmed ABSENT by a direct 404 lookup on 2026-09-11 (evidence_91). The security audit record audit_record_1734 is PRESENT and retained until 2031, so it is verified as retained. Rejected account_8754 and analytics_5859 as unattributable in shared deletion run activity_3302/3305. No other subject-linked records (email, hashes, phone, name, user_id) were found in usable evidence. Connectors/backups tied to the subject were not found in the evidence searched."
+  ],
+  "usage": [
+   {
+    "case_id": "case_79",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1062,
+    "output_tokens": 87,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_79",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 467,
+    "cache_creation_input_tokens": 5347,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_79",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 997,
+    "cache_creation_input_tokens": 11746,
+    "cache_read_input_tokens": 10218
+   },
+   {
+    "case_id": "case_79",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 607,
+    "cache_creation_input_tokens": 21524,
+    "cache_read_input_tokens": 21964
+   },
+   {
+    "case_id": "case_79",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1493,
+    "cache_creation_input_tokens": 10875,
+    "cache_read_input_tokens": 43488
+   },
+   {
+    "case_id": "case_79",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1526,
+    "cache_creation_input_tokens": 6632,
+    "cache_read_input_tokens": 54363
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jieun.p449289@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 669
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_77",
+    "limit": 100
+   },
+   "output_chars": 770
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jieun.p4492@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Park",
+    "limit": 100
+   },
+   "output_chars": 19265
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5186"
+   },
+   "output_chars": 2092
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8754"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5859"
+   },
+   "output_chars": 2129
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1734"
+   },
+   "output_chars": 1595
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "368e72e6b905a4fd3c638de3ab3c66295f4783695262a17e12d7a301a739f1a5",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aed0cce8639e80e8f6fe039f0039920661649733e52b0ba6c7ded43b0880641c",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821063088310",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jieun",
+    "limit": 50
+   },
+   "output_chars": 12875
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-15T00:00:00Z",
+    "end": "2026-09-11T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31218
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-15T00:00:00Z",
+    "end": "2026-08-20T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 25228
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_273",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_274",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_79",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Ji-eun Park",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "p449289",
+    "limit": 50
+   },
+   "output_chars": 651
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tombstone",
+    "limit": 50
+   },
+   "output_chars": 6798
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5186"
+   },
+   "output_chars": 2092
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-15T00:00:00Z",
+    "end": "2026-09-11T08:00:00Z",
+    "limit": 5
+   },
+   "output_chars": 1534
+  }
+ ]
+}

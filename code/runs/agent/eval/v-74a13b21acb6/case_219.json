@@ -1,0 +1,412 @@
+{
+ "case_id": "case_219",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3382",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_81"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_219",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_3382",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_81",
+    "reason": "Security audit row in security_audit_records carries subject_reference user_217 (the subject's user_id) with event SUBJECT_REQUEST_AUDITED and retention_until 2033-12-31, which is after audit_at, so the retention condition holds and the record is retained (reported PRESENT for verification).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1007",
+    "reason": "Linked only through shared batch run activity_2259 (shared with case_218 and case_220). No usable evidence beyond the workflow activity row mentions this account or ties it to user_217, y.owusu52@gmail.com, or the hash/phone. Cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_4066",
+    "reason": "Linked only through shared batch run activity_2258 (shared with case_218 and case_220). No usable evidence ties it to this subject; the 'absent' hint is only a workflow claim and absence evidence for an unattributed account does not establish subject deletion."
+   },
+   {
+    "resource_id": "account_4678",
+    "reason": "Linked only through shared batch run activity_2260 (shared with case_218 and case_220). No usable evidence ties it to this subject; 'absent' is only a workflow claim."
+   },
+   {
+    "resource_id": "analytics_257",
+    "reason": "Linked only through shared batch run activity_2262. The only stored record (evidence_81, customer_analytics_profiles) is identity-free: email, phone, email_hash, customer_reference all null. Cannot be attributed to this subject in a shared run."
+   },
+   {
+    "resource_id": "analytics_7004",
+    "reason": "Linked only through shared batch run activity_2263. The only stored record (evidence_81) is identity-free with all identifiers null and no customer_reference. Cannot be attributed to this subject in a shared run."
+   },
+   {
+    "resource_id": "legal_hold_4961",
+    "reason": "Linked only through shared batch run activity_2264. No usable evidence (legal retention register evidence_27 or snapshots) lists legal_hold_4961 or links it to user_217, so no active legal hold for this subject is proven; not governed by this subject's records."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer asks to close their own account and process erasure of the associated personal data, which is a deletion request; the additional asks to verify records and send confirmation do not change that.",
+   "summary: Subject user_217 / y.owusu52@gmail.com. Only one resource is positively tied to the subject in usable evidence: audit_record_3382 (security audit row with subject_reference user_217, retention to 2033), which is retained as PRESENT with condition met. The deletion-worker batch run (activity_2258-2264) was shared with case_218 and case_220, and none of its candidate accounts, analytics profiles, or legal hold has evidence tying it to this subject, so they were rejected. No USER_PROFILE, SECONDARY_IDENTIFIER, search, support, export, or connector record matching the subject's email, hash, phone, or name was found in usable evidence (searches on email, hash, phone, user_id and name returned only other individuals such as yaw-osei@proton.me and akosua.owusu@outlook.com). Workflow COMPLETE claim not relied upon."
+  ],
+  "usage": [
+   {
+    "case_id": "case_219",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 89,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_219",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 381,
+    "cache_creation_input_tokens": 3834,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_219",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 624,
+    "cache_creation_input_tokens": 13197,
+    "cache_read_input_tokens": 8705
+   },
+   {
+    "case_id": "case_219",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 873,
+    "cache_creation_input_tokens": 11986,
+    "cache_read_input_tokens": 21902
+   },
+   {
+    "case_id": "case_219",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 475,
+    "cache_creation_input_tokens": 2702,
+    "cache_read_input_tokens": 33888
+   },
+   {
+    "case_id": "case_219",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 208,
+    "cache_creation_input_tokens": 6724,
+    "cache_read_input_tokens": 36590
+   },
+   {
+    "case_id": "case_219",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1584,
+    "cache_creation_input_tokens": 2188,
+    "cache_read_input_tokens": 43314
+   },
+   {
+    "case_id": "case_219",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 700,
+    "cache_creation_input_tokens": 10527,
+    "cache_read_input_tokens": 45502
+   },
+   {
+    "case_id": "case_219",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1745,
+    "cache_creation_input_tokens": 1796,
+    "cache_read_input_tokens": 56029
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-01T00:00:00Z",
+    "end": "2026-07-03T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31068
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_217",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "y.owusu52@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 59
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-05T00:00:00Z",
+    "end": "2026-06-09T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 14619
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1007"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4066"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4678"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_257"
+   },
+   "output_chars": 2120
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7004"
+   },
+   "output_chars": 2129
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_4961"
+   },
+   "output_chars": 1460
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_3382"
+   },
+   "output_chars": 1489
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1007",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4066",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4678",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2172a3b8447d18cd258b66963226405108b6a87ed4e21950de06bcec031e698d",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "owusu",
+    "limit": 100
+   },
+   "output_chars": 1538
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233244264004",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_81",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_22",
+    "offset": 0
+   },
+   "output_chars": 4650
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_81",
+    "offset": 3000
+   },
+   "output_chars": 3874
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yaw",
+    "limit": 100
+   },
+   "output_chars": 3241
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "owusu52",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold",
+    "limit": 100
+   },
+   "output_chars": 14204
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold_4961",
+    "limit": 50
+   },
+   "output_chars": 641
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "y.owusu",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2172a3b8",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-06T00:00:00Z",
+    "end": "2026-07-03T08:00:00Z",
+    "limit": 5
+   },
+   "output_chars": 1588
+  }
+ ]
+}

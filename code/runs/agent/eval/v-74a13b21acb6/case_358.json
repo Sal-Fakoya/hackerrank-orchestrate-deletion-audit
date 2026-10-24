@@ -1,0 +1,390 @@
+{
+ "case_id": "case_358",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_4067",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_33"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_1846",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_33"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_4067",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1846",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_4067",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1395",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1846",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_358",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_4067",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Customer search document customer_directory_v3 for user_356 (Maja Svensson, svensson.maja@icloud.com) is still present in the primary and in the ap_south and eu_west replicas at 2026-04-24T08:00:00Z. The deletion worker's DELETE_RECORD (activity_1242) reported FAILED. Always DELETE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_1846",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Support conversation CS-5846 (subject_reference user_356) still contains the customer's email address svensson.maja@icloud.com in the primary and in the ap_south and eu_west replicas at audit_at. It also carries shared order context (Cotton bedsheet set delivery update), so it must be REDACTED, not deleted. The REDACT_RECORD activity_1245 reported FAILED.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1395",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Security audit event account_deletion_reviewed for subject user_356 is present in the primary and replicas at audit_at. It is a deletion-workflow audit record within the retention period, so it is retained and verified as PRESENT. It carries only the internal user_356 reference and no direct identifiers.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "audit_record_2605",
+    "reason": "Belongs to user_358 (security audit event for another subject), not this subject."
+   },
+   {
+    "resource_id": "audit_record_1151",
+    "reason": "Belongs to user_353 (another subject), not this subject."
+   },
+   {
+    "resource_id": "search_4216",
+    "reason": "Index entry for maja.lund@outlook.com, a different person (Maja Lund); no match on svensson.maja@icloud.com, user_356 or the phone or hash."
+   },
+   {
+    "resource_id": "data_flow_3755",
+    "reason": "Connector for maja.lund@outlook.com, a different person; not linked to this subject and no reference to user_356."
+   },
+   {
+    "resource_id": "account_1433",
+    "reason": "Lookup for maja.lund@outlook.com returned NOT_FOUND; a different person's record, not this subject's."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to begin the deletion process for the account tied to their email and to include associated records, which is erasure of the person's own account and personal data. Asking for confirmation when review is complete is a follow-up on the same deletion, so it does not change the classification.",
+   "summary: Subject user_356 (svensson.maja@icloud.com). Three resources in scope, all still present at audit_at 2026-04-24T08:00:00Z per evidence_33: search_4067 (SEARCH_INDEX_ENTRY, still exposes email and name in primary and replicas, DELETE required), support_1846 (SUPPORT_MESSAGE with shared order context, REDACT required), and audit_record_1395 (SECURITY_AUDIT_LOG, retained). The workflow's FAILED results for search_4067 and support_1846 are confirmed as not removed. No active DATA_FLOW, backup, cache, export, analytics, marketing, or account-profile record referencing this subject was found in usable evidence; searches on email, user_356, name, phone and email hash returned no other subject records. The phone and hash searches returned nothing."
+  ],
+  "usage": [
+   {
+    "case_id": "case_358",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1051,
+    "output_tokens": 120,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_358",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 414,
+    "cache_creation_input_tokens": 2071,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_358",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 617,
+    "cache_creation_input_tokens": 12873,
+    "cache_read_input_tokens": 6942
+   },
+   {
+    "case_id": "case_358",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 823,
+    "cache_creation_input_tokens": 19761,
+    "cache_read_input_tokens": 19815
+   },
+   {
+    "case_id": "case_358",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 877,
+    "cache_creation_input_tokens": 10538,
+    "cache_read_input_tokens": 39576
+   },
+   {
+    "case_id": "case_358",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 392,
+    "cache_creation_input_tokens": 19100,
+    "cache_read_input_tokens": 50114
+   },
+   {
+    "case_id": "case_358",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1745,
+    "cache_creation_input_tokens": 7287,
+    "cache_read_input_tokens": 69214
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "svensson.maja@icloud.com",
+    "limit": 50
+   },
+   "output_chars": 5251
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_356",
+    "limit": 50
+   },
+   "output_chars": 7924
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "maja svensson",
+    "limit": 50
+   },
+   "output_chars": 2569
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4067"
+   },
+   "output_chars": 3994
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1395"
+   },
+   "output_chars": 3563
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_1846"
+   },
+   "output_chars": 4158
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46708137330",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "eaf4af328219a597197e75025806da72035a7523f2113b9f8fe5782bcc93617c",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "svensson",
+    "limit": 50
+   },
+   "output_chars": 5235
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "maja",
+    "limit": 50
+   },
+   "output_chars": 9083
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-29T00:00:00Z",
+    "end": "2026-04-24T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31106
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_33",
+    "offset": 0
+   },
+   "output_chars": 4551
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_1395",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-29T00:00:00Z",
+    "end": "2026-04-02T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 18663
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "CS-5846",
+    "limit": 50
+   },
+   "output_chars": 2716
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow",
+    "limit": 50
+   },
+   "output_chars": 35725
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "search_4067",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 348
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "support_1846",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 354
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 20
+   },
+   "output_chars": 14601
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  }
+ ]
+}

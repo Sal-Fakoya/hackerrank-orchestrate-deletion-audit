@@ -1,0 +1,490 @@
+{
+ "case_id": "case_321",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3667",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_74"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4964",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_74"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4964",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3667",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3667",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5151",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4964",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_321",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "data_flow_4964",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_74",
+    "reason": "customer_events_connector (data_flow_4964) carries customer_email k.nasser9089@yahoo.com, enabled=true, last_delivery_status=delivered as of 2026-05-14T11:44:54Z (evidence_74, before audit_at). An active connector can keep copying/recreating the subject's data, so it must be disabled. The deletion worker's CHECK_DATA_FLOW (activity_1479) also reported it still enabled.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_3667",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_74",
+    "reason": "search_3667 (customer_directory search document) still exposes email k.nasser9089@yahoo.com; index query at 2026-05-14T10:53:25Z returned it as a direct-identifier hit (evidence_74). The deletion worker's DELETE_RECORD (activity_1481) reported FAILED, so the record remains and must be deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_9178",
+    "reason": "Linked only through deletion-worker batch run activity_1477, which was shared with case_320 (andrei.horvat@outlook.com). No usable evidence ties this account to user_319 or k.nasser9089@yahoo.com; the only evidence is the activity claim, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_3525",
+    "reason": "Linked only through the shared batch run activity_1478 (shared with case_320). No usable evidence ties this account to this subject; its 'absent' claim is not needed for attribution and it is not attributable."
+   },
+   {
+    "resource_id": "data_flow_8828",
+    "reason": "customer_events_connector for andrei.horvat@outlook.com, belonging to case_320 (another customer). Not this subject."
+   },
+   {
+    "resource_id": "search_2256",
+    "reason": "Search document for andrei.horvat@outlook.com, belonging to case_320. Not this subject."
+   },
+   {
+    "resource_id": "karim.n36087@outlook.com records (data_flow_7263, search_360)",
+    "reason": "Different email (karim.n36087@outlook.com) not in the subject's identifier list; shares only the first name. Not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly requests deletion of the account registered to their own email address and asks for confirmation of the result, which is a deletion request. The embedded instruction to confirm is just a request for status, not an instruction to the classifier.",
+   "summary: Subject k.nasser9089@yahoo.com (user_319). Two in-scope resources remain live as of audit_at 2026-05-14T12:00Z per the 2026-05-14 export (evidence_74): the customer_events connector data_flow_4964 is still enabled and delivering the subject's email (ACTIVE, must be disabled), and search document search_3667 still exposes the subject's email (PRESENT, must be deleted). The workflow's COMPLETE claim is contradicted by these observations. No subject user profile, support, analytics, or backup record was found in usable evidence. Accounts account_9178 and account_3525 are linked only through a batch run shared with case_320 and no evidence ties them to this subject, so they were rejected.",
+   "future verification added for audit_record_5151 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_321",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 109,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_321",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 668,
+    "cache_creation_input_tokens": 2599,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_321",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 791,
+    "cache_creation_input_tokens": 5914,
+    "cache_read_input_tokens": 7470
+   },
+   {
+    "case_id": "case_321",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 723,
+    "cache_creation_input_tokens": 21398,
+    "cache_read_input_tokens": 13384
+   },
+   {
+    "case_id": "case_321",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 546,
+    "cache_creation_input_tokens": 10896,
+    "cache_read_input_tokens": 34782
+   },
+   {
+    "case_id": "case_321",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 939,
+    "cache_creation_input_tokens": 3439,
+    "cache_read_input_tokens": 45678
+   },
+   {
+    "case_id": "case_321",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 687,
+    "cache_creation_input_tokens": 23754,
+    "cache_read_input_tokens": 49117
+   },
+   {
+    "case_id": "case_321",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1688,
+    "cache_creation_input_tokens": 3425,
+    "cache_read_input_tokens": 72871
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k.nasser9089@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 2498
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_319",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k.nasser90@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 60
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Karim Nasser",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971568273316",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_4964"
+   },
+   "output_chars": 2296
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3667"
+   },
+   "output_chars": 3131
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9178"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3525"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-01T00:00:00Z",
+    "end": "2026-05-14T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30985
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_72",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_31",
+    "offset": 0
+   },
+   "output_chars": 4642
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "64c5d2d7366e21cb9bec5f2ea02dd611c42c464d01ed49d3d708025d7bf0ec87",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8a564a41da93d07d7924451109042fa42b2b24106d2302aee3020a6f61bdb1d3",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nasser",
+    "limit": 100
+   },
+   "output_chars": 4086
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_319",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-15T00:00:00Z",
+    "end": "2026-04-18T23:59:59Z",
+    "limit": 200
+   },
+   "output_chars": 20150
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9178",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3525",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_158",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "andrei.horvat@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 2513
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_3667",
+    "limit": 50
+   },
+   "output_chars": 2308
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 3000
+   },
+   "output_chars": 4616
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_72",
+    "offset": 2900
+   },
+   "output_chars": 3430
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 38394
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "9089",
+    "limit": 100
+   },
+   "output_chars": 2480
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "karim",
+    "limit": 50
+   },
+   "output_chars": 1347
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_159",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k.nasser",
+    "limit": 50
+   },
+   "output_chars": 2484
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  }
+ ]
+}

@@ -1,0 +1,483 @@
+{
+ "case_id": "case_546",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_8095",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_52"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_8095",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_518",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_8095",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_546",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "tombstone_8095",
+    "system_id": "identity_service",
+    "category": "ACCOUNT_TOMBSTONE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "Tombstone for user_546 in identity_service deleted_customer_references still holds the full name 'Mariana Costa', phone '+55 61 95778-4447' and the email hash 855010087...f8611efd (in both primary and failover views at 2026-09-20T12:00:00Z). Direct identifiers remain, so it must be redacted to the stable user_id only. The deletion worker's REDACT run reported FAILED (activity_3668).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_518",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "security_audit_events record account_deletion_reviewed for subject_reference user_546 is present in the failover replica and primary at 2026-09-20T12:00:00Z. It was recorded during this request's episode and no retention expiry is shown for it, so it stays retained as a security record. It carries only the user_id reference and no direct identifiers.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_294",
+    "reason": "Linked only through deletion run activity_3657 (shared with case_21, case_23, case_536, case_547, case_548). No usable evidence ties this account to user_546; not in any subject identifier search. Rejected as belonging to another subject."
+   },
+   {
+    "resource_id": "account_410",
+    "reason": "Linked only through shared batch run activity_3662 (shared with other cases). No evidence ties it to user_546 (no identifier, user_id or name match). Rejected."
+   },
+   {
+    "resource_id": "account_6440",
+    "reason": "Shared-run candidate whose only usable observation is a 404 identity-free lookup (evidence_92, profile null). Cannot be attributed to the subject. Rejected."
+   },
+   {
+    "resource_id": "account_7015",
+    "reason": "Shared batch run activity_3660 only; no evidence links it to user_546. Rejected."
+   },
+   {
+    "resource_id": "account_8832",
+    "reason": "Shared batch run activity_3658 only; no evidence links it to user_546. Rejected."
+   },
+   {
+    "resource_id": "account_9155",
+    "reason": "Shared batch run activity_3663 only; no evidence links it to user_546. Rejected."
+   },
+   {
+    "resource_id": "analytics_5335",
+    "reason": "Shared batch run activity_3665. Its only snapshot records (evidence_92, evidence_02) are all-null identity-free analytics profiles (no user_id, email, phone or hash), so they cannot be attributed to the subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Portuguese): The customer asks for permanent deletion of the account tied to their email, plus verification of current and previous identifiers and confirmation of the result, all part of the same erasure request. No negation or third-party element is present.",
+   "summary: Subject mariana.costa@outlook.com (user_546) has two in-scope residual records. tombstone_8095 (ACCOUNT_TOMBSTONE) still exposes name, phone and email hash at audit_at, so the redaction is incomplete. audit_record_518 (security audit) is retained. The shared-run account and analytics candidates were rejected because no usable evidence ties them to this subject. No active data flow, legal hold, or backup tied to the subject was found."
+  ],
+  "usage": [
+   {
+    "case_id": "case_546",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1083,
+    "output_tokens": 106,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_546",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 505,
+    "cache_creation_input_tokens": 6708,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_546",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 742,
+    "cache_creation_input_tokens": 5040,
+    "cache_read_input_tokens": 11579
+   },
+   {
+    "case_id": "case_546",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 836,
+    "cache_creation_input_tokens": 21681,
+    "cache_read_input_tokens": 16619
+   },
+   {
+    "case_id": "case_546",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1822,
+    "cache_creation_input_tokens": 10180,
+    "cache_read_input_tokens": 38300
+   },
+   {
+    "case_id": "case_546",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 983,
+    "cache_creation_input_tokens": 17576,
+    "cache_read_input_tokens": 48480
+   },
+   {
+    "case_id": "case_546",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1323,
+    "cache_creation_input_tokens": 5321,
+    "cache_read_input_tokens": 66056
+   },
+   {
+    "case_id": "case_546",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1806,
+    "cache_creation_input_tokens": 7393,
+    "cache_read_input_tokens": 71377
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mariana.costa@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 65
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_546",
+    "limit": 100
+   },
+   "output_chars": 3650
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mariana costa",
+    "limit": 100
+   },
+   "output_chars": 1881
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5561957784447",
+    "limit": 100
+   },
+   "output_chars": 1881
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "855010087865241c4a93cb954acae137c02d94f0e56485b1c7f09cfaf8611efd",
+    "limit": 100
+   },
+   "output_chars": 1932
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_294"
+   },
+   "output_chars": 1483
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_410"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6440"
+   },
+   "output_chars": 2124
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7015"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8832"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9155"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5335"
+   },
+   "output_chars": 3342
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_518"
+   },
+   "output_chars": 2650
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "tombstone_8095"
+   },
+   "output_chars": 2754
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-04T00:00:00Z",
+    "end": "2026-09-20T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_52",
+    "offset": 0
+   },
+   "output_chars": 4456
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_02",
+    "offset": 0
+   },
+   "output_chars": 4657
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_92",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_51",
+    "offset": 0
+   },
+   "output_chars": 2266
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_93",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mariana",
+    "limit": 100
+   },
+   "output_chars": 8848
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "costa",
+    "limit": 100
+   },
+   "output_chars": 9682
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "546",
+    "limit": 100
+   },
+   "output_chars": 12732
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_52",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_failover_replica WHERE record_json LIKE '%user_546%' OR record_json LIKE '%855010087%' OR record_json LIKE '%Costa%' OR record_json LIKE '%5561957%' OR record_json LIKE '%mariana%'"
+   },
+   "output_chars": 754
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_54",
+    "offset": 0
+   },
+   "output_chars": 2330
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_07",
+    "offset": 0
+   },
+   "output_chars": 4641
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mariana.costa",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "95778",
+    "limit": 100
+   },
+   "output_chars": 1873
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_518",
+    "limit": 100
+   },
+   "output_chars": 1828
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tombstone_8095",
+    "limit": 100
+   },
+   "output_chars": 2508
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-05T00:00:00Z",
+    "end": "2026-09-06T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 7667
+  }
+ ]
+}

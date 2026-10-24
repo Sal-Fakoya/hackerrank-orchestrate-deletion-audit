@@ -1,0 +1,175 @@
+{
+ "case_id": "case_232",
+ "mode": "baseline",
+ "judge_version": "7436d30c7fb8",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_9862",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_80"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9862",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_1956",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_7324",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8165",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8936",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_9682",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7757",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9862",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1544",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_232",
+  "mode": "baseline",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_1956",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "activity_2306",
+    "reason": "DELETE_RECORD SUCCESS",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_7324",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_80",
+    "reason": "status_code=404",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_8165",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "activity_2298",
+    "reason": "DELETE_RECORD SUCCESS",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_8936",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "activity_2299",
+    "reason": "DELETE_RECORD SUCCESS",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_9682",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "activity_2304",
+    "reason": "DELETE_RECORD SUCCESS",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_1544",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "TREATED",
+    "evidence_id": "evidence_80",
+    "reason": "record present",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_9862",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_80",
+    "reason": "record present",
+    "condition_met": true
+   }
+  ],
+  "rejected": [],
+  "notes": [
+   "future verification added for audit_record_7757 (post-audit identity link)"
+  ],
+  "usage": []
+ },
+ "transcript": []
+}

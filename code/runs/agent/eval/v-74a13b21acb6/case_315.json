@@ -1,0 +1,458 @@
+{
+ "case_id": "case_315",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_7421",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_74"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_7421",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2407",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_7421",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_315",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "backup_7421",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_74",
+    "reason": "Backup archive archive/customer-data/backup_7421.tar.zst is linked to the subject by exact customer_email d.mehta76@gmail.com in the 2026-05-14 records-assurance export (evidence_74), captured inside the request window, with restore_allowed=true. The restore path can still recreate the subject's data, so restore must be blocked. The workflow's CHECK_RESTORE_ACCESS (activity_1570) agrees it is restorable.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2583",
+    "reason": "Linked only through the shared deletion-worker batch run activity_1556 (shared_with other cases). No usable evidence ties this account to user_313, the email, the hash or the phone. Its DELETE SUCCESS is only a workflow claim; not attributable to this subject."
+   },
+   {
+    "resource_id": "account_591",
+    "reason": "Linked only through shared batch run activity_1562. The only observation (evidence_74) is an identity-free 404 lookup with no profile, which cannot be attributed to this subject in a shared run."
+   },
+   {
+    "resource_id": "account_6301",
+    "reason": "Linked only through shared batch run activity_1557. No identifier evidence ties it to the subject; the FAILED/present hint is a workflow claim only."
+   },
+   {
+    "resource_id": "account_782",
+    "reason": "Linked only through shared batch run activity_1564. No identifier evidence ties it to the subject; the present hint is a workflow claim only."
+   },
+   {
+    "resource_id": "account_9523",
+    "reason": "Linked only through shared batch run activity_1563. No identifier evidence ties it to the subject."
+   },
+   {
+    "resource_id": "analytics_2022",
+    "reason": "Linked only through shared batch run activity_1558. Its only profile observations (evidence_31, evidence_73) are all-null identity-free records, which cannot be attributed to the subject in a shared run."
+   },
+   {
+    "resource_id": "analytics_5532",
+    "reason": "Linked only through shared batch run activity_1565. Its profile in evidence_74 has all-null identifiers and no user reference, so it cannot be attributed to the subject in a shared run."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for the account associated with their address to be erased and for records covered by the request to be treated accordingly, which is a request for erasure of their own account and personal data. Requesting a confirmation afterward does not change this.",
+   "summary: Subject d.mehta76@gmail.com / user_313 has one attributable resource in the request window: backup_7421, which holds the subject's email and is still restorable (evidence_74), so restore must be blocked. The account_service profiles and analytics profiles were linked only through a shared deletion batch run with no identifiers tying them to this subject, so they were rejected. No live search, support, marketing, export or connector copies of the subject's identifiers were found in usable evidence. The workflow's PARTIALLY_COMPLETE claim is not relied on.",
+   "future verification added for audit_record_2407 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_315",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1054,
+    "output_tokens": 110,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_315",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 711,
+    "cache_creation_input_tokens": 3334,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_315",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 538,
+    "cache_creation_input_tokens": 8916,
+    "cache_read_input_tokens": 8205
+   },
+   {
+    "case_id": "case_315",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1184,
+    "cache_creation_input_tokens": 11062,
+    "cache_read_input_tokens": 17121
+   },
+   {
+    "case_id": "case_315",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 468,
+    "cache_creation_input_tokens": 3760,
+    "cache_read_input_tokens": 28183
+   },
+   {
+    "case_id": "case_315",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 228,
+    "cache_creation_input_tokens": 12938,
+    "cache_read_input_tokens": 31943
+   },
+   {
+    "case_id": "case_315",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 810,
+    "cache_creation_input_tokens": 6465,
+    "cache_read_input_tokens": 44881
+   },
+   {
+    "case_id": "case_315",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1918,
+    "cache_creation_input_tokens": 4137,
+    "cache_read_input_tokens": 51346
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d.mehta76@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 818
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_313",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Mehta",
+    "limit": 50
+   },
+   "output_chars": 804
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2583"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_591"
+   },
+   "output_chars": 2113
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6301"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_782"
+   },
+   "output_chars": 1481
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9523"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2022"
+   },
+   "output_chars": 3228
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5532"
+   },
+   "output_chars": 2270
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_7421"
+   },
+   "output_chars": 2241
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_72",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_31",
+    "offset": 0
+   },
+   "output_chars": 4642
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_33",
+    "offset": 0
+   },
+   "output_chars": 4551
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919004476816",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "53376243214095792127d837c5778740931be733fea0970e62f6d87b93ec3863",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6301",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2583",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_782",
+    "limit": 50
+   },
+   "output_chars": 656
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9523",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_2022",
+    "limit": 50
+   },
+   "output_chars": 2400
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-21T00:00:00Z",
+    "end": "2026-05-14T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30985
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-21T00:00:00Z",
+    "end": "2026-04-24T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 15552
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diya",
+    "limit": 50
+   },
+   "output_chars": 1344
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d.mehta",
+    "limit": 50
+   },
+   "output_chars": 806
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_591",
+    "limit": 50
+   },
+   "output_chars": 1289
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9523",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_5532",
+    "limit": 50
+   },
+   "output_chars": 1443
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "backup_7421",
+    "limit": 50
+   },
+   "output_chars": 1431
+  }
+ ]
+}

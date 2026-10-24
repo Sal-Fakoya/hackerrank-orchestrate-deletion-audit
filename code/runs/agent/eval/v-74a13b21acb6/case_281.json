@@ -1,0 +1,524 @@
+{
+ "case_id": "case_281",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3364",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_77"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6265",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_77"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_2757",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_77"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9008",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_77"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9008",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3364",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2757",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6265",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4985",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3364",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_111",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2757",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6265",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 14,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9008",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_281",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4985",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_75",
+    "reason": "Primary customer_profiles table in the 2026-05-24 account_service snapshot (after the request, before audit_at) has 0 rows, so the primary profile no longer exists. The workflow's activity_1750 'PARTIAL' / 'present' is a claim and is contradicted by this snapshot. No replica copy of the subject was found in the 2026-05-19 regional replica snapshot.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_6265",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_77",
+    "reason": "Analytics profile still carries the subject's email elena-nowak@gmail.com (observed 2026-06-03T08:17:51Z), with audience_cohort home_lifestyle, so it is still attributable to the subject. The activity_1752 'SUCCESS' anonymize claim is contradicted. Required action: ANONYMIZE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_9008",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_77",
+    "reason": "Connector support_profile_sync (data_flow_9008) is enabled=true with customer_email elena-nowak@gmail.com and last_delivery_status delivered at 2026-06-03T06:20:21Z. It can keep copying or recreating the subject's contact data, so it must be disabled. The activity_1756 'remains enabled' check is consistent with this.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_3364",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_77",
+    "reason": "Search index document search_3364 still exposes email elena-nowak@gmail.com. A query for that email returned it at 2026-06-03T07:20:08Z. The activity_1753 'absent' claim is contradicted. Required action: DELETE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_2757",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_77",
+    "reason": "Support ticket support_2757 still has requester_email elena-nowak@gmail.com (observed 2026-06-03T07:55:47Z). The ticket is a delivery-query conversation that may carry shared order/agent context, so it is a SUPPORT_MESSAGE to redact, not a delete. The activity_1755 'REDACT SUCCESS' claim is contradicted by the direct identifier that remains.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "audit_record_8323",
+    "reason": "Security audit record for user_274 (PRIVACY_REQUEST_ACCEPTED). Its subject_reference does not match this subject's user_279 and there is no link to this email. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_8689",
+    "reason": "Account lookup for h.mori78@yahoo.com, a different customer. Not this subject."
+   },
+   {
+    "resource_id": "support_3684",
+    "reason": "Support ticket for gabriel-carvalho87@proton.me, a different customer."
+   },
+   {
+    "resource_id": "analytics_5959",
+    "reason": "Analytics profile for amelia.parker@gmail.com, a different customer."
+   },
+   {
+    "resource_id": "data_flow_4629",
+    "reason": "Connector for amelia.parker@gmail.com, a different customer."
+   },
+   {
+    "resource_id": "data_flow_2439",
+    "reason": "Connector for user_275, a different customer."
+   },
+   {
+    "resource_id": "backup_8588",
+    "reason": "Backup entry for l.fournier92@gmail.com, a different customer."
+   },
+   {
+    "resource_id": "backup_9728",
+    "reason": "Backup entry for user_275, a different customer."
+   },
+   {
+    "resource_id": "support_2036",
+    "reason": "Ticket linked to user_275, a different customer."
+   },
+   {
+    "resource_id": "export_6623",
+    "reason": "Export for jpark4591@fastmail.com, a different customer. Not this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for permanent deletion of their account, plus verification of connected records and confirmation of the outcome, which are deletion follow-ups within the same erasure request.",
+   "summary: Subject elena-nowak@gmail.com (user_279). The account profile account_4985 is absent per the 2026-05-24 primary snapshot. Four resources still hold the subject's data as of 2026-06-03 (evidence_77): analytics_6265 (anonymize), search_3364 (delete), support_2757 (redact), and the enabled support_profile_sync connector data_flow_9008 (must be disabled, since it can recreate data). The workflow's SUCCESS and absent claims for search, analytics and support are contradicted by direct exports. No legal hold or retention record was found for this subject. No backup entries reference the subject.",
+   "future verification added for audit_record_111 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_281",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 95,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_281",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 565,
+    "cache_creation_input_tokens": 2910,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_281",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 767,
+    "cache_creation_input_tokens": 7877,
+    "cache_read_input_tokens": 7781
+   },
+   {
+    "case_id": "case_281",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 730,
+    "cache_creation_input_tokens": 18990,
+    "cache_read_input_tokens": 15658
+   },
+   {
+    "case_id": "case_281",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 826,
+    "cache_creation_input_tokens": 4064,
+    "cache_read_input_tokens": 34648
+   },
+   {
+    "case_id": "case_281",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 821,
+    "cache_creation_input_tokens": 2959,
+    "cache_read_input_tokens": 38712
+   },
+   {
+    "case_id": "case_281",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2451,
+    "cache_creation_input_tokens": 3865,
+    "cache_read_input_tokens": 41671
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "elena-nowak@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 4127
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_279",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "elena nowak",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4985"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6265"
+   },
+   "output_chars": 2327
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_9008"
+   },
+   "output_chars": 2285
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3364"
+   },
+   "output_chars": 3123
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2757"
+   },
+   "output_chars": 2361
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ada181ee5f3da51e55cd736fd342c60039d010ae183026758226b44615901b35",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48516987988",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "elena",
+    "limit": 50
+   },
+   "output_chars": 11800
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4985",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-05T00:00:00Z",
+    "end": "2026-06-03T09:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31013
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_77",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 3,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_76",
+    "trace_id": "all"
+   },
+   "output_chars": 640
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_77",
+    "offset": 4000
+   },
+   "output_chars": 4615
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_replica_ap_south WHERE record_json LIKE '%elena%' OR resource_id IN ('account_4985','analytics_6265','data_flow_9008','search_3364','support_2757') OR record_json LIKE '%user_279%'"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_replica_eu_west WHERE record_json LIKE '%elena%' OR resource_id IN ('account_4985','analytics_6265','data_flow_9008','search_3364','support_2757') OR record_json LIKE '%user_279%'"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%elena%' OR resource_id IN ('account_4985','analytics_6265','data_flow_9008','search_3364','support_2757') OR record_json LIKE '%user_279%'"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_77",
+    "offset": 8000
+   },
+   "output_chars": 1826
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 421
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_exports"
+   },
+   "output_chars": 238
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Nowak",
+    "limit": 50
+   },
+   "output_chars": 4111
+  }
+ ]
+}

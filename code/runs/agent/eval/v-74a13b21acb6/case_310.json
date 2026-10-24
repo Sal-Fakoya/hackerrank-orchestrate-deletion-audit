@@ -1,0 +1,650 @@
+{
+ "case_id": "case_310",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_6265",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_29"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_4263",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_29"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_743",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "activity_1911"
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_743",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_6265",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4263",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_6265",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_6432",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5640",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4263",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_743",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_310",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_6265",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_29",
+    "reason": "Search document in customer_directory_v3 for user_308 still exposes display name and email amponsah.akosua@icloud.com in the primary and in the ap_south and eu_west replicas as of 2026-05-19. Must be deleted from every copy.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_4263",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_29",
+    "reason": "Support email CS-8263 for user_308 still contains the subject's email address in primary and both replicas. The conversation also carries shared order context (delivery update, stainless steel water bottle order), so it must be redacted, not deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_5640",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_29",
+    "reason": "Security audit event account_deletion_reviewed for user_308, recorded by the privacy workflow during this episode (2026-05-19). It is within the retention period, so it is retained and verified as present.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_6432",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "ABSENT",
+    "evidence_id": "evidence_29",
+    "reason": "search_6432 was repopulated by active connector data_flow_743 (activity_1911, 2026-05-15) and was then targeted by a deletion attempt (activity_1914, reported FAILED). It is not present in the 2026-05-19 regional replica capture, so it is currently absent. It is linked to the subject through the connector repopulation.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_743",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "activity_1911",
+    "reason": "Connector data_flow_743 repopulated the subject's downstream search record search_6432 on 2026-05-15. No evidence shows it was disabled, so it can recreate the subject's search data and must be disabled.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1235",
+    "reason": "Linked only through shared deletion-worker batch activity_1716, which was shared with other requests (case_293-309). No identity-bearing evidence ties it to user_308, and no account_service snapshot mentions user_308 or the subject's email."
+   },
+   {
+    "resource_id": "account_4319",
+    "reason": "Linked only through shared batch activity_1714 (shared with other requests). No evidence ties it to this subject."
+   },
+   {
+    "resource_id": "account_6996",
+    "reason": "Linked only through shared batch activity_1723 (shared with other requests). No evidence ties it to this subject."
+   },
+   {
+    "resource_id": "account_8647",
+    "reason": "Linked only through shared batch activity_1715 (shared with other requests). No evidence ties it to this subject."
+   },
+   {
+    "resource_id": "account_9091",
+    "reason": "Linked only through shared batch activity_1720 (shared with other requests). No evidence ties it to this subject."
+   },
+   {
+    "resource_id": "analytics_096",
+    "reason": "Identity-free analytics profile (email, hash, phone, user_id all null) in a shared batch run (activity_1717). It cannot be attributed to the subject, so it is rejected."
+   },
+   {
+    "resource_id": "analytics_3678",
+    "reason": "Identity-free analytics profile (email, hash, phone, user_id all null) in a shared batch run (activity_1718). It cannot be attributed to the subject, so it is rejected."
+   },
+   {
+    "resource_id": "support_6046",
+    "reason": "Belongs to user_306 (subject_reference user_306 in evidence_29), a different customer. Only the 05-04 batch activity links it; no link to user_308."
+   },
+   {
+    "resource_id": "data_flow_8933",
+    "reason": "Connector scoped to subject_selector user_306, a different customer. Disabled already, but not this subject's flow."
+   },
+   {
+    "resource_id": "backup_4917",
+    "reason": "Backup scoped to user_306, a different customer. Not this subject's backup."
+   },
+   {
+    "resource_id": "data_flow_7594",
+    "reason": "Connector status check (activity_1903) has no link to user_308 or the subject's identifiers. It is not attributable to this subject."
+   },
+   {
+    "resource_id": "data_flow_6953",
+    "reason": "Connector status check (activity_1961) has no link to user_308 or the subject's identifiers. It is not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to erase the account linked to their email address and to apply appropriate treatment to covered records, which is a request for erasure of their own account and personal data. The vague wording about 'correct treatment' does not negate the deletion request, and the instruction to confirm completion is ordinary follow-up, not an instruction to the system to override rules.",
+   "summary: Subject user_308 (amponsah.akosua@icloud.com). Confirmed live records: search_6265 (search index, present in primary and both replicas), support_4263 (support email with order context, redact), audit_record_5640 (security audit, retained). Missed downstream record search_6432 was repopulated by active connector data_flow_743, which must be disabled; search_6432 is absent in the latest capture. The account_service batch candidates and the identity-free analytics profiles sit in shared runs with no tie to this subject and were rejected. No account, marketing, export, or backup record for the subject was found."
+  ],
+  "usage": [
+   {
+    "case_id": "case_310",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 145,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_310",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 456,
+    "cache_creation_input_tokens": 3566,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_310",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 624,
+    "cache_creation_input_tokens": 21937,
+    "cache_read_input_tokens": 8437
+   },
+   {
+    "case_id": "case_310",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 615,
+    "cache_creation_input_tokens": 13965,
+    "cache_read_input_tokens": 30374
+   },
+   {
+    "case_id": "case_310",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 531,
+    "cache_creation_input_tokens": 2928,
+    "cache_read_input_tokens": 44339
+   },
+   {
+    "case_id": "case_310",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 730,
+    "cache_creation_input_tokens": 2123,
+    "cache_read_input_tokens": 47267
+   },
+   {
+    "case_id": "case_310",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 898,
+    "cache_creation_input_tokens": 9146,
+    "cache_read_input_tokens": 49390
+   },
+   {
+    "case_id": "case_310",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1803,
+    "cache_creation_input_tokens": 8810,
+    "cache_read_input_tokens": 58536
+   },
+   {
+    "case_id": "case_310",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2445,
+    "cache_creation_input_tokens": 8241,
+    "cache_read_input_tokens": 67346
+   },
+   {
+    "case_id": "case_310",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2587,
+    "cache_creation_input_tokens": 24232,
+    "cache_read_input_tokens": 75587
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "amponsah.akosua@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 5298
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_308",
+    "limit": 100
+   },
+   "output_chars": 7969
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "akosua",
+    "limit": 100
+   },
+   "output_chars": 6773
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-01T00:00:00Z",
+    "end": "2026-05-19T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30939
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1235"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4319"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6996"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8647"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9091"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_096"
+   },
+   "output_chars": 4851
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3678"
+   },
+   "output_chars": 4829
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5640"
+   },
+   "output_chars": 3570
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_6265"
+   },
+   "output_chars": 4013
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_4263"
+   },
+   "output_chars": 4198
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 129
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-04T04:00:00Z",
+    "end": "2026-05-04T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 5389
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1235",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4319",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6996",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8647",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9091",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "9d6ef949642b78e8a8c4113626096716690f0ff5e1f57e63aeb8819203c36d65",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233249311701",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Amponsah",
+    "limit": 50
+   },
+   "output_chars": 13596
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT table_name FROM sqlite_master"
+   },
+   "output_chars": 39
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_6432"
+   },
+   "output_chars": 2039
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_743"
+   },
+   "output_chars": 1497
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-01T06:00:00Z",
+    "end": "2026-05-19T06:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 15457
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_6046"
+   },
+   "output_chars": 3855
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_8933"
+   },
+   "output_chars": 3964
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_4917"
+   },
+   "output_chars": 3746
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7575"
+   },
+   "output_chars": 1498
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_743",
+    "limit": 50
+   },
+   "output_chars": 668
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "icloud",
+    "limit": 100
+   },
+   "output_chars": 41142
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "CS-8263",
+    "limit": 50
+   },
+   "output_chars": 2749
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_6432",
+    "limit": 50
+   },
+   "output_chars": 1276
+  },
+  {
+   "turn": 8,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 8,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_7594"
+   },
+   "output_chars": 1508
+  }
+ ]
+}

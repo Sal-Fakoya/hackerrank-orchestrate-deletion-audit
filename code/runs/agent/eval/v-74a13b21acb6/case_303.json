@@ -1,0 +1,517 @@
+{
+ "case_id": "case_303",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_4935",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_29"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_4935",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7923",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_4935",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_303",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "backup_4935",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_29",
+    "reason": "Backup catalog row in the 2026-05-19 capture (primary, ap_south and eu_west replicas) has subject_reference=j.castillo4893@gmail.com and restore_allowed=true. Restore of the subject's data is still possible, so the archive must be blocked (rule RETAIN, restore access can be blocked). Workflow activity_1822 (CHECK_RESTORE_ACCESS SUCCESS) agrees but is only a claim.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_7923",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_29",
+    "reason": "Security audit event account_deletion_reviewed (automated_privacy_workflow) with subject_reference=user_301 is present in primary and both replicas at 2026-05-19T06:00:00Z. It is a record of this request's deletion review. No supplied retention end date contradicts retention, so it is retained and verified as PRESENT.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4771",
+    "reason": "Linked only through deletion-worker run activity_1820 (PARTIAL claim). That run is shared with case_304 (walker.charlotte@gmail.com). No usable evidence ties account_4771 to user_301 or any subject identifier; snapshots listed as covering account_service (evidence_29, evidence_74, evidence_31, evidence_72, evidence_71) do not contain it. Identity-free and unattributable, so rejected."
+   },
+   {
+    "resource_id": "account_7907",
+    "reason": "Linked only through deletion-worker run activity_1819 (PARTIAL claim), shared with case_304. No evidence ties it to user_301 or any subject identifier, and later snapshots do not contain it. Unattributable, so rejected."
+   },
+   {
+    "resource_id": "search_6505",
+    "reason": "Search document with email walker.charlotte.jr@gmail.com, which belongs to another customer (case_304). Not linked to the subject's identifiers (near-miss of walker, not the subject). Rejected."
+   },
+   {
+    "resource_id": "search_3582 / analytics_1981 / account_3378",
+    "reason": "Records tied to andres-castillo@gmail.com, a different person. Not the subject's identifiers. Rejected."
+   },
+   {
+    "resource_id": "account_5817 / data_flow_1283 / search_9100",
+    "reason": "Tied to javier.m7818@zoho.com, a different person with a similar first name. Not the subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Spanish): The customer requests permanent deletion of the account associated with their email, including current and previous identifiers, and asks for confirmation of the result. This is a direct erasure request for the person's own account and data.",
+   "summary: Subject user_301 / j.castillo4893@gmail.com. Only two resources are attributable to this subject in evidence in the request window: backup_4935 (RESTORABLE, restore not blocked, so the archive must be blocked) and audit_record_7923 (security audit record, PRESENT, retained). No USER_PROFILE, marketing, analytics, telemetry, support, email-log, search, or cache record for the subject's identifiers (j.castillo4893, j.castillo48, the two hashes, phone, user_301, name) was found in usable evidence. The two account candidates from the shared deletion run (account_4771, account_7907) are unattributable and rejected. No active data flow linked to the subject was found. Workflow PARTIALLY_COMPLETE is not contradicted for account records, but the backup remains restorable."
+  ],
+  "usage": [
+   {
+    "case_id": "case_303",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1081,
+    "output_tokens": 101,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_303",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 585,
+    "cache_creation_input_tokens": 2744,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_303",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 722,
+    "cache_creation_input_tokens": 7968,
+    "cache_read_input_tokens": 7615
+   },
+   {
+    "case_id": "case_303",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 799,
+    "cache_creation_input_tokens": 33801,
+    "cache_read_input_tokens": 15583
+   },
+   {
+    "case_id": "case_303",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 826,
+    "cache_creation_input_tokens": 14536,
+    "cache_read_input_tokens": 49384
+   },
+   {
+    "case_id": "case_303",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1660,
+    "cache_creation_input_tokens": 1396,
+    "cache_read_input_tokens": 63920
+   },
+   {
+    "case_id": "case_303",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 950,
+    "cache_creation_input_tokens": 28839,
+    "cache_read_input_tokens": 65316
+   },
+   {
+    "case_id": "case_303",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1552,
+    "cache_creation_input_tokens": 3531,
+    "cache_read_input_tokens": 94155
+   },
+   {
+    "case_id": "case_303",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1891,
+    "cache_creation_input_tokens": 2624,
+    "cache_read_input_tokens": 97686
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "j.castillo4893@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 2424
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_301",
+    "limit": 50
+   },
+   "output_chars": 2735
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "j.castillo48@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "javier castillo",
+    "limit": 50
+   },
+   "output_chars": 55
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4771"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7907"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_7923"
+   },
+   "output_chars": 3570
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_4935"
+   },
+   "output_chars": 3848
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "26f9a90e477109d93536cff216ed8334e37192092b0991bbd9090c2ae823635d",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2af7b8d5c134adcdf2efad944beab7a99f0704f1cc665b9a2c194df8464fdd83",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34680118916",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_",
+    "limit": 50
+   },
+   "output_chars": 39057
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "castillo",
+    "limit": 50
+   },
+   "output_chars": 6249
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-08T00:00:00Z",
+    "end": "2026-05-19T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30939
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-05-08T00:00:00Z",
+    "end": "2026-05-19T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 11087
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-08T00:00:00Z",
+    "end": "2026-05-10T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 12863
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_29",
+    "offset": 0
+   },
+   "output_chars": 4508
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT 'primary' AS t, resource_id, collection_name, origin_system, record_json FROM customer_data_primary WHERE resource_id IN ('account_4771','account_7907') OR record_json LIKE '%user_301%' OR record_json LIKE '%castillo%' OR record_json LIKE '%4893%' OR record_json LIKE '%26f9a90e%' OR record_json LIKE '%2af7b8d5%' OR record_json LIKE '%34680118916%' OR record_json LIKE '%walker%'"
+   },
+   "output_chars": 972
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 129
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT 'ap' AS t, resource_id, collection_name, record_json FROM customer_data_replica_ap_south WHERE resource_id IN ('account_4771','account_7907','backup_4935','audit_record_7923','search_6505') OR record_json LIKE '%user_301%' OR record_json LIKE '%castillo%' UNION ALL SELECT 'eu', resource_id, collection_name, record_json FROM customer_data_replica_eu_west WHERE resource_id IN ('account_4771','account_7907','backup_4935','audit_record_7923','search_6505') OR record_json LIKE '%user_301%' OR record_json LIKE '%castillo%'"
+   },
+   "output_chars": 1691
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4771",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7907",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "walker",
+    "limit": 50
+   },
+   "output_chars": 6367
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold",
+    "limit": 50
+   },
+   "output_chars": 11978
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 36791
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_162",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_163",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_7923",
+    "limit": 20
+   },
+   "output_chars": 2744
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "castillo4893",
+    "limit": 50
+   },
+   "output_chars": 2412
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_304",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "javier",
+    "limit": 50
+   },
+   "output_chars": 1533
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "680118916",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "26f9a90e",
+    "limit": 20
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2af7b8d5",
+    "limit": 20
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "BACKUP_ARCHIVE"
+   },
+   "output_chars": 132
+  }
+ ]
+}

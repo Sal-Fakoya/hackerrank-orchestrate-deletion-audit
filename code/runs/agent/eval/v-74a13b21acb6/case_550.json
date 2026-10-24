@@ -1,0 +1,448 @@
+{
+ "case_id": "case_550",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_7389",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_52"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_7389",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3831",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_7389",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_550",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "tombstone_7389",
+    "system_id": "identity_service",
+    "category": "ACCOUNT_TOMBSTONE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "Deleted-account reference for user_550 still holds direct identifiers (email cmoreau0179@fastmail.com, email hash 2a2f44..., name Camille Moreau) in both the primary and failover copies captured 2026-09-20T12:00:00Z. Account is DELETED, so ACCOUNT_TOMBSTONE rule applies: redact the direct identifiers. The workflow's FAILED result on activity_3609 is a claim; the stored row is the observation.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_3831",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_550 is present in the failover and primary copies at audit_at. It records the 2026-09 deletion review, so it is within the supplied retention period (no expiry shown; the retention extract shows a one-year period for comparable closure events). Retain, no identifiers beyond the internal user_550 reference.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3136",
+    "reason": "Only linked through the shared deletion-worker run activity_3597 (shared_with other customers' requests). The only observation (evidence_92) is a 404 profile lookup with no identity fields, so it cannot be attributed to user_550. Absent in any case; not counted for this subject."
+   },
+   {
+    "resource_id": "account_4842",
+    "reason": "Only linked through shared batch run activity_3598 (other customers' emails in shared_with). No usable evidence ties this profile to user_550; the absence rests on a workflow claim and snapshots lacking the record, with no identity content to attribute it."
+   },
+   {
+    "resource_id": "account_7225",
+    "reason": "Only linked through shared batch run activity_3601 (other customers in shared_with). No evidence ties it to user_550; absence rests on a workflow claim and snapshots, not on subject-attributable data."
+   },
+   {
+    "resource_id": "analytics_1895",
+    "reason": "Linked only through shared batch run activity_3602. The profile is identity-free (user_id, email, phone, hash all null in evidence_92 and evidence_02), so it cannot be attributed to user_550 in a run shared with other customers."
+   },
+   {
+    "resource_id": "analytics_4566",
+    "reason": "Linked only through shared batch run activity_3603. Identity-free profile (all identifiers null in evidence_92 and evidence_02); cannot be attributed to user_550 and is rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to begin the deletion process for the account tied to their email address, which is a request to erase/close their own account and data. Following retention requirements and confirming review does not negate the deletion request.",
+   "summary: Subject user_550 (cmoreau0179@fastmail.com). Two records of this subject remain as of audit_at 2026-09-20T12:00:00Z: tombstone_7389 (ACCOUNT_TOMBSTONE, still holding email, email hash and name in primary and failover copies, so it needs redaction) and audit_record_3831 (SECURITY_AUDIT_LOG, within retention, retain). The workflow's COMPLETE status is contradicted by tombstone_7389 still holding direct identifiers. No active data flow, backup, search, analytics, support, marketing or export record was found tied to this subject. Candidates from the shared 2026-09-02 deletion run that carry no identity link were rejected as unattributable."
+  ],
+  "usage": [
+   {
+    "case_id": "case_550",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 101,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_550",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 701,
+    "cache_creation_input_tokens": 11162,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_550",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 983,
+    "cache_creation_input_tokens": 12349,
+    "cache_read_input_tokens": 11162
+   },
+   {
+    "case_id": "case_550",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 876,
+    "cache_creation_input_tokens": 18781,
+    "cache_read_input_tokens": 23511
+   },
+   {
+    "case_id": "case_550",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1961,
+    "cache_creation_input_tokens": 9905,
+    "cache_read_input_tokens": 42292
+   },
+   {
+    "case_id": "case_550",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 785,
+    "cache_creation_input_tokens": 11053,
+    "cache_read_input_tokens": 52197
+   },
+   {
+    "case_id": "case_550",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2041,
+    "cache_creation_input_tokens": 2367,
+    "cache_read_input_tokens": 63250
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "cmoreau0179@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 1908
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_550",
+    "limit": 100
+   },
+   "output_chars": 3676
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "camille moreau",
+    "limit": 100
+   },
+   "output_chars": 1898
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3136"
+   },
+   "output_chars": 2124
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4842"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7225"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1895"
+   },
+   "output_chars": 3338
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4566"
+   },
+   "output_chars": 3346
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_3831"
+   },
+   "output_chars": 2661
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "tombstone_7389"
+   },
+   "output_chars": 2770
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2a2f4423e4c6bf31171176c97fc49139a90fbd3832c244fea3a92b50735bee2f",
+    "limit": 100
+   },
+   "output_chars": 1948
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33636390106",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33646286705",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "moreau",
+    "limit": 100
+   },
+   "output_chars": 9089
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-31T00:00:00Z",
+    "end": "2026-09-20T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-02T00:00:00Z",
+    "end": "2026-09-02T23:59:59Z",
+    "limit": 100
+   },
+   "output_chars": 6612
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_52",
+    "offset": 0
+   },
+   "output_chars": 4456
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_02",
+    "offset": 0
+   },
+   "output_chars": 4657
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_54",
+    "offset": 0
+   },
+   "output_chars": 2330
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "cmoreau",
+    "limit": 100
+   },
+   "output_chars": 1891
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "camille",
+    "limit": 100
+   },
+   "output_chars": 12929
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_3831",
+    "limit": 100
+   },
+   "output_chars": 1839
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3136",
+    "limit": 100
+   },
+   "output_chars": 1297
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4842",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7225",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "ACCOUNT_TOMBSTONE"
+   },
+   "output_chars": 212
+  }
+ ]
+}

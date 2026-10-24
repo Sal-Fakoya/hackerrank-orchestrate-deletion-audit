@@ -1,0 +1,483 @@
+{
+ "case_id": "case_207",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_6407",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_20"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_6407",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3578",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_6407",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_207",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "backup_6407",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_20",
+    "reason": "Backup catalog row in the 2026-07-08 read replica (identical on primary) carries subject_reference k.mthembu24@gmail.com with restore_allowed=true, so the subject's data can still be restored from this archive. Restore access can be blocked, so the BACKUP_ARCHIVE rule applies. Workflow claim activity_2517 agrees but is not relied on.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_3578",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_20",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_205 (the subject's user_id) is present in the 2026-07-08 replica and primary. It was created by the workflow during this request's window; no retention expiry is evidenced, so it is retained as within the retention period. Not a deletion target.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1065",
+    "reason": "Linked only through deletion-worker batch run activity_2513, which was shared with four other requests (case_193, case_206, case_208, case_222). No usable evidence ties this account to user_205 or k.mthembu24@gmail.com; it appears in no snapshot or export. Cannot attribute it to this subject, so rejected."
+   },
+   {
+    "resource_id": "account_3685",
+    "reason": "Linked only through shared batch run activity_2511 (other requests' emails listed). No identity evidence ties it to this subject; not present in any snapshot. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_4522",
+    "reason": "Linked only through shared batch run activity_2510 (other requests' emails listed). No identity evidence ties it to this subject; its absent-claim is a workflow claim and the account is not in any snapshot. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_5678",
+    "reason": "Linked only through shared batch run activity_2508 (other requests' emails listed). No identity evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "analytics_9580",
+    "reason": "Linked only through shared batch run activity_2512. The replica row (evidence_20) is an identity-free analytics profile with user_id, email, phone and email_hash all null, so it cannot be attributed to this subject in a shared run. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for the account associated with this address to be erased, including data linked through current or earlier account identifiers. This is a request for erasure of the person's own account and personal data, and the verification request does not change that.",
+   "summary: Subject footprint at audit_at is small. The only subject-linked resources are backup_6407 (restorable: restore_allowed=true with the subject's email, RETAIN-category risk) and audit_record_3578 (security audit event referencing user_205, retained). No USER_PROFILE, search, cache, support, export, marketing, or data-flow record for user_205, k.mthembu24@gmail.com, the phones, or the email hash was found in any usable evidence. The four account_service candidates and analytics_9580 came only from a deletion batch shared with other customers and have no identity link, so they were rejected. The workflow's PARTIAL claim is not contradicted for backup_6407, which still needs its restore blocked."
+  ],
+  "usage": [
+   {
+    "case_id": "case_207",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1054,
+    "output_tokens": 101,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_207",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 671,
+    "cache_creation_input_tokens": 4096,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_207",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 795,
+    "cache_creation_input_tokens": 13006,
+    "cache_read_input_tokens": 8967
+   },
+   {
+    "case_id": "case_207",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 622,
+    "cache_creation_input_tokens": 15776,
+    "cache_read_input_tokens": 21973
+   },
+   {
+    "case_id": "case_207",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 458,
+    "cache_creation_input_tokens": 8829,
+    "cache_read_input_tokens": 37749
+   },
+   {
+    "case_id": "case_207",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 757,
+    "cache_creation_input_tokens": 3373,
+    "cache_read_input_tokens": 46578
+   },
+   {
+    "case_id": "case_207",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1226,
+    "cache_creation_input_tokens": 2861,
+    "cache_read_input_tokens": 49951
+   },
+   {
+    "case_id": "case_207",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1624,
+    "cache_creation_input_tokens": 5355,
+    "cache_read_input_tokens": 52812
+   },
+   {
+    "case_id": "case_207",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1617,
+    "cache_creation_input_tokens": 2187,
+    "cache_read_input_tokens": 58167
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k.mthembu24@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1595
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_205",
+    "limit": 100
+   },
+   "output_chars": 1806
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mthembu",
+    "limit": 100
+   },
+   "output_chars": 7616
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1065"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3685"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4522"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5678"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9580"
+   },
+   "output_chars": 3607
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_3578"
+   },
+   "output_chars": 2630
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_6407"
+   },
+   "output_chars": 3024
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-20T00:00:00Z",
+    "end": "2026-07-08T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31149
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kabelo",
+    "limit": 100
+   },
+   "output_chars": 4625
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "b992186fb60aa0a0d51f7cb2c68c3622bac6a3ad62438b168c5564e133d882e9",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27722104279",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27726145136",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_40",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 0
+   },
+   "output_chars": 4505
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-23T00:00:00Z",
+    "end": "2026-06-26T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 10940
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k.mthembu",
+    "limit": 100
+   },
+   "output_chars": 1583
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_205",
+    "limit": 100
+   },
+   "output_chars": 1806
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT table_name_placeholder FROM sqlite_master"
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_primary WHERE origin_system IN ('account_service','search_service','cache_service','integration_service','backup_service','support_service','support_platform','export_service','marketing_service','email_delivery_service') OR record_json LIKE '%mthembu%' OR record_json LIKE '%user_205%' OR record_json LIKE '%24@gmail%'"
+   },
+   "output_chars": 5878
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1065",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3685",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5678",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4522",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mthembu24",
+    "limit": 50
+   },
+   "output_chars": 1583
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "BACKUP_ARCHIVE"
+   },
+   "output_chars": 132
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_5200"
+   },
+   "output_chars": 2921
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_79",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_read_replica WHERE record_json LIKE '%mthembu%' OR record_json LIKE '%user_205%' OR record_json LIKE '%kabelo%' OR record_json LIKE '%27722104279%' OR record_json LIKE '%27726145136%' OR record_json LIKE '%b992186%' OR resource_id IN ('account_1065','account_3685','account_4522','account_5678','analytics_9580')"
+   },
+   "output_chars": 1154
+  }
+ ]
+}

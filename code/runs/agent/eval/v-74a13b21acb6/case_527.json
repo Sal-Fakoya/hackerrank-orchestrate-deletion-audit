@@ -1,0 +1,427 @@
+{
+ "case_id": "case_527",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_1091",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_62"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_7468",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_62"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_3896",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_62"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_9832",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_62"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_1091",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3896",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9832",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_7468",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_1091",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2758",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3896",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9832",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_7468",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_527",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_1091",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_62",
+    "reason": "Search index document still exposes the subject's email jonas-lund@proton.me when queried at 2026-01-29T11:40:30Z (observed in the export captured 11:44:59Z, before audit_at). DELETE required; the deletion worker's FAILED claim (activity_144) does not prove absence.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_7468",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_62",
+    "reason": "Behavioral analytics profile still carries the subject's email jonas-lund@proton.me (observed 2026-01-29T09:23:27Z). Still attributable to the user, so ANONYMIZE is required.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_3896",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_62",
+    "reason": "Support ticket from the subject (requester_email jonas-lund@proton.me, observed 2026-01-29T10:39:21Z) is a customer support conversation that must be retained as shared customer context, so it is REDACT (remove direct email). Deletion worker FAILED claim (activity_142) is not proof of removal.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_9832",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_62",
+    "reason": "Second support ticket from the subject (requester_email jonas-lund@proton.me, observed 2026-01-29T09:39:11Z) still exposes the direct email; conversation context must be retained so REDACT applies.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1184",
+    "reason": "Linked only via deletion-worker batch run activity_132, which is shared with case_528 and case_529 (other customers). No usable evidence ties this account to user_525 or the subject's email, phone, or hash; the only record is an activity row. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_3693",
+    "reason": "Linked only via shared batch run activity_133 (shared with case_528 and case_529). No identifier in any usable evidence links it to this subject. Rejected as belonging to other requests' subjects."
+   },
+   {
+    "resource_id": "account_4063",
+    "reason": "Linked only via shared batch run activity_134 (shared with case_528 and case_529). No usable evidence ties it to this subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for permanent account deletion, to be applied across all systems covered by the deletion policy, and requests confirmation of the outcome. This is a clear request to erase the customer's own account and personal data.",
+   "summary: Subject jonas-lund@proton.me (user_525). Four subject-linked resources are still present in search, analytics, and support systems per evidence_62 (captured 2026-01-29T11:44:59Z, before audit_at), despite the workflow's deletion-worker claims. No subject-attributable account_service profile, backup, export, or active data flow was found; the three batch-run account candidates shared with other cases were rejected. No active connector references this subject; no legal hold or security audit log references this subject. Actions required: delete search_1091, anonymize analytics_7468, redact support_3896 and support_9832.",
+   "future verification added for audit_record_2758 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_527",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1061,
+    "output_tokens": 107,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_527",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 509,
+    "cache_creation_input_tokens": 968,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_527",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 856,
+    "cache_creation_input_tokens": 5742,
+    "cache_read_input_tokens": 5839
+   },
+   {
+    "case_id": "case_527",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 576,
+    "cache_creation_input_tokens": 17176,
+    "cache_read_input_tokens": 11581
+   },
+   {
+    "case_id": "case_527",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1448,
+    "cache_creation_input_tokens": 3454,
+    "cache_read_input_tokens": 28757
+   },
+   {
+    "case_id": "case_527",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1704,
+    "cache_creation_input_tokens": 3212,
+    "cache_read_input_tokens": 32211
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jonas-lund@proton.me",
+    "limit": 50
+   },
+   "output_chars": 4170
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_525",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Jonas Lund",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1184"
+   },
+   "output_chars": 904
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3693"
+   },
+   "output_chars": 903
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4063"
+   },
+   "output_chars": 903
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 4000
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46701440806",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46708087405",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "bf0907a94fa8c7edbccc82b18751ac35563c83d921b9a7932a7085f19af01a65",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jonas",
+    "limit": 50
+   },
+   "output_chars": 4155
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-14T00:00:00Z",
+    "end": "2026-01-29T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31076
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 8000
+   },
+   "output_chars": 2831
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-01-14T12:00:00Z",
+    "end": "2026-01-16T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 3925
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_03",
+    "limit": 20
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_525",
+    "limit": 20
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_132",
+    "limit": 20
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3896"
+   },
+   "output_chars": 1606
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7468"
+   },
+   "output_chars": 1580
+  }
+ ]
+}

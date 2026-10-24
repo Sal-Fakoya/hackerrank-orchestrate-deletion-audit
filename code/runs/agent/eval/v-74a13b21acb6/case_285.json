@@ -1,0 +1,490 @@
+{
+ "case_id": "case_285",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_285",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_76"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_036",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_76"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_285",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_036",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_285",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_036",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_285",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_285",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_76",
+    "reason": "Latest usable observation (service readback trace rb-045421-001, 2026-05-29T04:54:21Z, captured 2026-05-29T07:43:13Z) shows account_285 still returns HTTP 200 with the subject's email t.zulu0697@yahoo.com. Workflow activity_1956 (FAILED) and activity_1960 (PARTIAL) are claims only. Must be deleted; the replication cluster sync (activity_1960) also needs follow-up.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_036",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_76",
+    "reason": "Index query trace rb-063938-014 (2026-05-29T06:39:38Z) returned a hit in customer_directory_v3 for t.zulu0697@yahoo.com. The entry is still present at audit_at, despite the earlier deletion claim activity_1962 (FAILED). The 2026-05-24 inventory snapshot (evidence_75) lacked it, but the later direct observation overrides that.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_8322",
+    "reason": "Linked only through the deletion-worker batch run activity_1957, which is shared with case_284 and case_286. No usable evidence ties account_8322 to this subject's email, user_id, or name; the only 'absent' signal is a workflow claim. Attributed to another customer and not this subject."
+   },
+   {
+    "resource_id": "analytics_7283",
+    "reason": "Linked only through shared batch run activity_1958 (shared with case_284 and case_286). The only direct read (evidence_76, rb-060028-009, 2026-05-29) returned an identity-free profile (customer_reference, email, phone and email_hash all null, audience_cohort general_shopper). It cannot be attributed to the subject, so it is rejected."
+   },
+   {
+    "resource_id": "data_flow_6953",
+    "reason": "Connector analytics_identity_bridge is enabled, but its config read (evidence_76, rb-064609-015) names kofi.appiah96@outlook.com, another request's customer, not this subject. It is not tied to the subject's data, so it is not a recreation risk for this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to erase the account linked to their email address and to check related records before confirming completion; this is a deletion request authorizing erasure of their own account and data. The embedded instruction to confirm completion is customer text, not a directive to the system, and does not change the classification.",
+   "summary: Subject t.zulu0697@yahoo.com (user_283). Two in-scope resources are still PRESENT at audit_at, both shown by 2026-05-29 direct observations: account_285 (account_service, USER_PROFILE) and search_036 (search_service directory index, SEARCH_INDEX_ENTRY). The workflow's NOT_STARTED/FAILED/SUCCESS claims are not relied on. Identifier searches for the phone, email hashes, user_283, name and audit_167/168 returned no additional records. Candidates account_8322, analytics_7283 and data_flow_6953 were rejected for the reasons above. No legal hold or security-audit record for this subject was found in the retention register or the security audit records."
+  ],
+  "usage": [
+   {
+    "case_id": "case_285",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1048,
+    "output_tokens": 124,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_285",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 584,
+    "cache_creation_input_tokens": 3028,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_285",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 916,
+    "cache_creation_input_tokens": 5385,
+    "cache_read_input_tokens": 7899
+   },
+   {
+    "case_id": "case_285",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1166,
+    "cache_creation_input_tokens": 17224,
+    "cache_read_input_tokens": 13284
+   },
+   {
+    "case_id": "case_285",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 929,
+    "cache_creation_input_tokens": 3194,
+    "cache_read_input_tokens": 30508
+   },
+   {
+    "case_id": "case_285",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 583,
+    "cache_creation_input_tokens": 4818,
+    "cache_read_input_tokens": 33702
+   },
+   {
+    "case_id": "case_285",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 808,
+    "cache_creation_input_tokens": 807,
+    "cache_read_input_tokens": 38520
+   },
+   {
+    "case_id": "case_285",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1866,
+    "cache_creation_input_tokens": 3157,
+    "cache_read_input_tokens": 39327
+   },
+   {
+    "case_id": "case_285",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1857,
+    "cache_creation_input_tokens": 3489,
+    "cache_read_input_tokens": 42484
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "t.zulu0697@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_283",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thandiwe zulu",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "t.zulu06@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 58
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_285"
+   },
+   "output_chars": 2799
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8322"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7283"
+   },
+   "output_chars": 2134
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_036"
+   },
+   "output_chars": 2188
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-15T00:00:00Z",
+    "end": "2026-05-29T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31213
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 0
+   },
+   "output_chars": 4227
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 2406
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 129
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 4000
+   },
+   "output_chars": 4230
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE email LIKE '%zulu%' OR full_name LIKE '%zulu%' OR customer_reference LIKE '%283%' OR resource_id LIKE '%285%' OR resource_id LIKE '%8322%' UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE email LIKE '%zulu%' OR display_name LIKE '%zulu%' OR resource_id LIKE '%036%' OR customer_reference LIKE '%283%' UNION ALL SELECT 'analytics', resource_id, customer_reference, audience_cohort, email, phone, email_hash, updated_at FROM customer_analytics_profiles WHERE resource_id LIKE '%7283%' OR email LIKE '%zulu%' OR customer_reference LIKE '%283%'"
+   },
+   "output_chars": 130
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE email LIKE '%zulu%' OR full_name LIKE '%zulu%' OR customer_reference LIKE '%283%' OR resource_id LIKE '%285%' OR resource_id LIKE '%8322%' UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE email LIKE '%zulu%' OR display_name LIKE '%zulu%' OR resource_id LIKE '%036%' OR customer_reference LIKE '%283%' UNION ALL SELECT 'analytics', resource_id, customer_reference, audience_cohort, email, phone, email_hash, updated_at FROM customer_analytics_profiles WHERE resource_id LIKE '%7283%' OR email LIKE '%zulu%' OR customer_reference LIKE '%283%'"
+   },
+   "output_chars": 55
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 8000
+   },
+   "output_chars": 1847
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zulu",
+    "limit": 100
+   },
+   "output_chars": 2365
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_285",
+    "limit": 100
+   },
+   "output_chars": 1974
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_7283",
+    "limit": 100
+   },
+   "output_chars": 1312
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8322",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT * FROM customer_data_replica_eu_west WHERE 0"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM (SELECT * FROM (SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM snapshot_scope LIMIT 0)) LIMIT 0"
+   },
+   "output_chars": 42
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT name FROM sqlite_master"
+   },
+   "output_chars": 284
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT 'primary' src, resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary WHERE record_json LIKE '%zulu%' OR record_json LIKE '%285%' OR record_json LIKE '%283%' OR record_json LIKE '%8322%' OR record_json LIKE '%7283%' OR resource_id LIKE '%285%' OR resource_id LIKE '%8322%' OR resource_id LIKE '%7283%' OR resource_id LIKE '%036%' UNION ALL SELECT 'ap', resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_replica_ap_south WHERE record_json LIKE '%zulu%' OR record_json LIKE '%283%' OR resource_id LIKE '%285%' OR resource_id LIKE '%8322%' OR resource_id LIKE '%7283%' OR resource_id LIKE '%036%' UNION ALL SELECT 'eu', resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_replica_eu_west WHERE record_json LIKE '%zulu%' OR record_json LIKE '%283%' OR resource_id LIKE '%285%' OR resource_id LIKE '%8322%' OR resource_id LIKE '%7283%' OR resource_id LIKE '%036%'"
+   },
+   "output_chars": 1765
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT name FROM sqlite_master"
+   },
+   "output_chars": 841
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-18T07:00:00Z",
+    "end": "2026-05-18T09:30:00Z",
+    "limit": 100
+   },
+   "output_chars": 2282
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27728024326",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "bab02bc47849334c6327ccb83ade522c9156888bcb26650a51d0973d4bbb288f",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e6b2a10141173a7987071b2cc2183541e95463fc543b75a3b93421260a929818",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_167",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_6953",
+    "limit": 100
+   },
+   "output_chars": 1442
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zulu0697",
+    "limit": 100
+   },
+   "output_chars": 1472
+  }
+ ]
+}

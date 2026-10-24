@@ -1,0 +1,534 @@
+{
+ "case_id": "case_333",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_2475",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_72"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_5970",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_72"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_2475",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_5970",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_2475",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5970",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4647",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_333",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_2475",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_72",
+    "reason": "Primary customer profile for the subject's email a.ionescu1879@yahoo.com still exists in the customer_profiles inventory captured 2026-05-04T09:41:47Z (status DELETION_PENDING, not deleted). The deletion worker's DELETE_RECORD (activity_1445, PARTIAL) is only a claim. Rule is DELETE, so the record must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_5970",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_72",
+    "reason": "Customer directory_v3 search document still holds the subject's email a.ionescu1879@yahoo.com at audit_at (evidence_72, captured 2026-05-04T09:41:47Z). The deletion result (activity_1457, FAILED) is a claim and does not prove absence. Rule is DELETE.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "search_1928",
+    "reason": "Matches katarina-ionescu@proton.me in a search trace (evidence_48); a different person, not the subject's identifiers."
+   },
+   {
+    "resource_id": "account_3411",
+    "reason": "Profile lookup for katarina-ionescu@proton.me returned 404 (evidence_48); different person and no subject identity."
+   },
+   {
+    "resource_id": "support_4533",
+    "reason": "Attachment PII scan matched katarina-ionescu@proton.me (evidence_48); belongs to a different customer."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to remove their own account and the personal information linked to it, which is an erasure request for their own data. The request text contains no instructions to the classifier, and the ask for confirmation of the outcome is a follow-up within the same deletion request.",
+   "summary: Subject a.ionescu1879@yahoo.com (user_331). Two in-scope resources are still present at audit_at per the latest inventory capture (evidence_72, 2026-05-04): account_2475 (USER_PROFILE, DELETE) and search_5970 (SEARCH_INDEX_ENTRY, DELETE). No replica, export, support, analytics, connector, backup, or email-log record tied to the subject's email, hash, phone, or user_id was found in the other evidence; prior-snapshot checks show account_2475 absent from earlier replicas and exports. Workflow claims of SUCCESS/FAILED/PARTIAL were not relied on. Katarina Ionescu records were rejected as a different person.",
+   "future verification added for audit_record_4647 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_333",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1061,
+    "output_tokens": 114,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_333",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 282,
+    "cache_creation_input_tokens": 2280,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_333",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 553,
+    "cache_creation_input_tokens": 3228,
+    "cache_read_input_tokens": 7151
+   },
+   {
+    "case_id": "case_333",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 590,
+    "cache_creation_input_tokens": 3051,
+    "cache_read_input_tokens": 10379
+   },
+   {
+    "case_id": "case_333",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 474,
+    "cache_creation_input_tokens": 14689,
+    "cache_read_input_tokens": 13430
+   },
+   {
+    "case_id": "case_333",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 304,
+    "cache_creation_input_tokens": 5470,
+    "cache_read_input_tokens": 28119
+   },
+   {
+    "case_id": "case_333",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 867,
+    "cache_creation_input_tokens": 2681,
+    "cache_read_input_tokens": 33589
+   },
+   {
+    "case_id": "case_333",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2170,
+    "cache_creation_input_tokens": 4623,
+    "cache_read_input_tokens": 36270
+   },
+   {
+    "case_id": "case_333",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 558,
+    "cache_creation_input_tokens": 2619,
+    "cache_read_input_tokens": 40893
+   },
+   {
+    "case_id": "case_333",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2090,
+    "cache_creation_input_tokens": 32359,
+    "cache_read_input_tokens": 43512
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2475"
+   },
+   "output_chars": 2754
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5970"
+   },
+   "output_chars": 2146
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_331",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a.ionescu",
+    "limit": 50
+   },
+   "output_chars": 1369
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a.ionescu18@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 61
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "186b08e369c6d96e162919c9a2aa96c63d99c50d643d877db96650a9d970e457",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2ecba5f88a393d511875ff7af45c03818814b1d8887afb6d5c45f8116ad1be72",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48787668756",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ionescu",
+    "limit": 50
+   },
+   "output_chars": 3394
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "331",
+    "limit": 50
+   },
+   "output_chars": 1266
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-12T00:00:00Z",
+    "end": "2026-05-04T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31137
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Ana Ionescu",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2475",
+    "limit": 50
+   },
+   "output_chars": 1927
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_5970",
+    "limit": 50
+   },
+   "output_chars": 1328
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_144"
+   },
+   "output_chars": 138
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_72",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_72",
+    "offset": 2000
+   },
+   "output_chars": 4251
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM customer_profiles WHERE email LIKE '%ionescu%' OR customer_reference LIKE '%331%' OR email LIKE '%ana%'"
+   },
+   "output_chars": 250
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": "SELECT name, sql FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 1023
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT name, sql FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 1023
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT name, sql FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 692
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT name, sql FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 692
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT name, sql FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 2044
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT name, sql FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 2044
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT 'ap' t, resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_replica_ap_south WHERE record_json LIKE '%ionescu%' OR record_json LIKE '%331%' OR record_json LIKE '%186b08%' OR record_json LIKE '%2ecba5%' OR record_json LIKE '%4878766%' UNION ALL SELECT 'eu', resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_replica_eu_west WHERE record_json LIKE '%ionescu%' OR record_json LIKE '%331%' OR record_json LIKE '%186b08%' OR record_json LIKE '%2ecba5%' OR record_json LIKE '%4878766%' UNION ALL SELECT 'prim', resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary WHERE record_json LIKE '%ionescu%' OR record_json LIKE '%331%' OR record_json LIKE '%186b08%' OR record_json LIKE '%2ecba5%' OR record_json LIKE '%4878766%'"
+   },
+   "output_chars": 110
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": "SELECT 'ap' t, resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_replica_ap_south WHERE record_json LIKE '%ionescu%' OR record_json LIKE '%331%' OR record_json LIKE '%186b08%' OR record_json LIKE '%2ecba5%' OR record_json LIKE '%4878766%' UNION ALL SELECT 'eu', resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_replica_eu_west WHERE record_json LIKE '%ionescu%' OR record_json LIKE '%331%' OR record_json LIKE '%186b08%' OR record_json LIKE '%2ecba5%' OR record_json LIKE '%4878766%' UNION ALL SELECT 'prim', resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary WHERE record_json LIKE '%ionescu%' OR record_json LIKE '%331%' OR record_json LIKE '%186b08%' OR record_json LIKE '%2ecba5%' OR record_json LIKE '%4878766%'"
+   },
+   "output_chars": 110
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT 'prim' t, resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary WHERE record_json LIKE '%ionescu%' OR record_json LIKE '%331%' OR record_json LIKE '%186b08%' OR record_json LIKE '%2ecba5%' OR record_json LIKE '%4878766%' UNION ALL SELECT 'rep', resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_reporting_replica WHERE record_json LIKE '%ionescu%' OR record_json LIKE '%331%' OR record_json LIKE '%186b08%' OR record_json LIKE '%2ecba5%' OR record_json LIKE '%4878766%'"
+   },
+   "output_chars": 110
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT 'prim' t, resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary WHERE record_json LIKE '%ionescu%' OR record_json LIKE '%331%' OR record_json LIKE '%186b08%' OR record_json LIKE '%2ecba5%' OR record_json LIKE '%4878766%' UNION ALL SELECT 'rep', resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_reporting_replica WHERE record_json LIKE '%ionescu%' OR record_json LIKE '%331%' OR record_json LIKE '%186b08%' OR record_json LIKE '%2ecba5%' OR record_json LIKE '%4878766%'"
+   },
+   "output_chars": 110
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT 'ionescu' t, * FROM customer_profiles WHERE email LIKE '%ionescu%' UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE email LIKE '%ionescu%'"
+   },
+   "output_chars": 101
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT 'profile' t, resource_id, customer_reference, email, account_status, updated_at FROM customer_profiles WHERE email LIKE '%ionescu%' OR customer_reference='user_331' UNION ALL SELECT 'search', resource_id, customer_reference, email, index_name, updated_at FROM customer_search_documents WHERE email LIKE '%ionescu%' OR customer_reference='user_331'"
+   },
+   "output_chars": 108
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1879",
+    "limit": 50
+   },
+   "output_chars": 1364
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ana",
+    "limit": 50
+   },
+   "output_chars": 37879
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_145",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "deletion_worker",
+    "limit": 50
+   },
+   "output_chars": 30499
+  }
+ ]
+}

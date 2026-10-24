@@ -1,0 +1,525 @@
+{
+ "case_id": "case_289",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_6432",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_76"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_743",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_76"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_743",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_6432",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_6432",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_743",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_289",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_6432",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_76",
+    "reason": "Search lookup trace rb-063635-013 at 2026-05-29T06:36:35Z (after request, before audit_at) shows a hit in customer_directory_v3 for ananya.i7482@zoho.com, so the subject's search index entry still exists. The workflow's FAILED final result for activity_1914 does not prove absence. Its repopulation by active connector data_flow_743 (activity_1911) makes it a recreation risk. DELETE required.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_743",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_76",
+    "reason": "Connector config read trace rb-072653-019 at 2026-05-29T07:26:53Z shows connector search_profile_indexer enabled=true, last_delivery_status=delivered, customer_email=ananya.i7482@zoho.com. It can copy or recreate the subject's search data, so it must be disabled. The workflow's SYNC claim (activity_1911) is consistent with this.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4232",
+    "reason": "Linked only through deletion-worker run activity_1898, which is shared with cases case_273, case_274, case_287, case_288 and case_302. No usable evidence (no email, user_id, phone or hash match) ties this account to the subject. The only observation is the workflow's own 'present' claim, so it cannot be attributed and is rejected."
+   },
+   {
+    "resource_id": "account_4485",
+    "reason": "Linked only through the shared deletion-worker run activity_1901 (shared with other customers' cases). No identity-bearing evidence ties it to ananya.i7482@zoho.com or user_287. Its 'absent' SUCCESS is only a workflow claim and cannot be attributed; rejected."
+   },
+   {
+    "resource_id": "account_6575",
+    "reason": "Linked only through the shared deletion-worker run activity_1904 (shared with other customers' cases). No usable evidence ties it to the subject; rejected as unattributable."
+   },
+   {
+    "resource_id": "account_6988",
+    "reason": "Linked only through the shared deletion-worker run activity_1899 (shared with other customers' cases). No usable evidence ties it to the subject; rejected as unattributable."
+   },
+   {
+    "resource_id": "legal_hold_1745",
+    "reason": "Linked only through shared deletion-worker run activity_1902. The legal retention register (evidence_27) lists only disputed-order records for other users, with no hold tied to this subject. Not attributable to the subject; rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to begin the deletion process for the account tied to their email address and to apply the appropriate treatment to covered records, which is a request for erasure of their own account and personal data.",
+   "summary: Subject ananya.i7482@zoho.com (user_287) has two attributable resources in scope. search_6432 (customer_directory_v3 search entry) is still PRESENT per the 2026-05-29 readback trace, despite a FAILED deletion claim. Connector data_flow_743 (search_profile_indexer) is ACTIVE and can recreate the entry, so it must be disabled. The account, legal-hold and other candidates come only from shared deletion-worker runs with no tie to this subject and were rejected. Searches for the subject's phone, hash, user_id and name found no further records. The subject's remaining records were not found in the evidence; the search index entry and connector remain the open items."
+  ],
+  "usage": [
+   {
+    "case_id": "case_289",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1053,
+    "output_tokens": 97,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_289",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 452,
+    "cache_creation_input_tokens": 3482,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_289",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 418,
+    "cache_creation_input_tokens": 1399,
+    "cache_read_input_tokens": 8353
+   },
+   {
+    "case_id": "case_289",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 583,
+    "cache_creation_input_tokens": 6167,
+    "cache_read_input_tokens": 9752
+   },
+   {
+    "case_id": "case_289",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 462,
+    "cache_creation_input_tokens": 9563,
+    "cache_read_input_tokens": 15919
+   },
+   {
+    "case_id": "case_289",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 243,
+    "cache_creation_input_tokens": 13107,
+    "cache_read_input_tokens": 25482
+   },
+   {
+    "case_id": "case_289",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 604,
+    "cache_creation_input_tokens": 2817,
+    "cache_read_input_tokens": 38589
+   },
+   {
+    "case_id": "case_289",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 558,
+    "cache_creation_input_tokens": 6045,
+    "cache_read_input_tokens": 41406
+   },
+   {
+    "case_id": "case_289",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 500,
+    "cache_creation_input_tokens": 717,
+    "cache_read_input_tokens": 47451
+   },
+   {
+    "case_id": "case_289",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 600,
+    "cache_creation_input_tokens": 659,
+    "cache_read_input_tokens": 48168
+   },
+   {
+    "case_id": "case_289",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 443,
+    "cache_creation_input_tokens": 760,
+    "cache_read_input_tokens": 48827
+   },
+   {
+    "case_id": "case_289",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2699,
+    "cache_creation_input_tokens": 4088,
+    "cache_read_input_tokens": 49587
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ananya.i7482@zoho.com",
+    "limit": 100
+   },
+   "output_chars": 1529
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_287",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Ananya Iyer",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919741847493",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f4b9b090417e12b6a5f6e10abd46ddde90ab018cc847fcb8234787c70f0c3790",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4232"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4485"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6575"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6988"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_743"
+   },
+   "output_chars": 2239
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_1745"
+   },
+   "output_chars": 1465
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_6432"
+   },
+   "output_chars": 2755
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_29",
+    "offset": 0
+   },
+   "output_chars": 4508
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 0
+   },
+   "output_chars": 4227
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_4232",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-12T00:00:00Z",
+    "end": "2026-05-29T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31213
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-15T06:00:00Z",
+    "end": "2026-05-15T10:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 6468
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 2900
+   },
+   "output_chars": 4230
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_profiles WHERE resource_id IN ('account_4232','account_4485','account_6575','account_6988') OR email LIKE '%ananya%' OR full_name LIKE '%Iyer%' OR customer_reference='user_287' OR phone LIKE '%7493%'"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%ananya%' OR record_json LIKE '%user_287%' OR record_json LIKE '%7493%' OR record_json LIKE '%f4b9b09%' OR resource_id IN ('account_4232','account_4485','account_6575','account_6988','legal_hold_1745','search_6432','data_flow_743')"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT 'search' t, resource_id, email, customer_reference FROM customer_search_documents WHERE resource_id='search_6432' OR email LIKE '%ananya%' UNION ALL SELECT 'conn', resource_id, customer_email, enabled FROM connector_subscriptions WHERE resource_id='data_flow_743' OR customer_email LIKE '%ananya%' UNION ALL SELECT 'support', resource_id, requester_email, customer_reference FROM support_records WHERE requester_email LIKE '%ananya%' OR resource_id='support_7432'"
+   },
+   "output_chars": 76
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 129
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT 'ap' t, resource_id, origin_system, record_json FROM customer_data_replica_ap_south WHERE record_json LIKE '%ananya%' OR record_json LIKE '%user_287%' OR resource_id IN ('search_6432','data_flow_743','account_4232','account_4485','account_6575','account_6988','legal_hold_1745') UNION ALL SELECT 'eu', resource_id, origin_system, record_json FROM customer_data_replica_eu_west WHERE record_json LIKE '%ananya%' OR record_json LIKE '%user_287%' OR resource_id IN ('search_6432','data_flow_743','account_4232','account_4485','account_6575','account_6988','legal_hold_1745')"
+   },
+   "output_chars": 77
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 129
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ananya",
+    "limit": 100
+   },
+   "output_chars": 3699
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "i7482",
+    "limit": 100
+   },
+   "output_chars": 1513
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Iyer",
+    "limit": 100
+   },
+   "output_chars": 2361
+  }
+ ]
+}

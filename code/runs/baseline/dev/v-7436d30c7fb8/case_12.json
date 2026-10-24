@@ -1,0 +1,92 @@
+{
+ "case_id": "case_12",
+ "mode": "baseline",
+ "judge_version": "7436d30c7fb8",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_9914",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_01"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_9914",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_9797",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2945",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_9914",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_12",
+  "mode": "baseline",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_9797",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_01",
+    "reason": "2026-09-15T11:56:57Z level=INFO service=account_service instance=account-2 pod=account-898d region=eu-west-1 trace_id=tr-8001359 resource_id=account_9797 event=",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_9914",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_01",
+    "reason": "2026-09-15T11:58:26Z level=DEBUG service=analytics_platform instance=analytics-2 pod=analytics-9b40 region=ap-south-1 trace_id=tr-9137340 resource_id=analytics_",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_2945",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_01",
+    "reason": "2026-09-15T11:55:40Z level=DEBUG service=security_service instance=security-4 pod=security-ab9e region=us-east-2 trace_id=tr-3845100 resource_id=audit_record_29",
+    "condition_met": true
+   }
+  ],
+  "rejected": [],
+  "notes": [],
+  "usage": []
+ },
+ "transcript": []
+}

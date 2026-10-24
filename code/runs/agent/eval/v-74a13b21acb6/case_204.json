@@ -1,0 +1,402 @@
+{
+ "case_id": "case_204",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2736",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_20"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9505",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": "evidence_20"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5877",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": "evidence_20"
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_9519",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": "evidence_20"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_204",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "support_9505",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "TREATED",
+    "evidence_id": "evidence_20",
+    "reason": "Support conversation CS-8505 linked to subject_reference user_202 (stable internal id only). message_text is already [REDACTED] in both primary and read-replica tables at 2026-07-08T09:00:00Z; no direct identifiers remain. Conversation carries shared order/agent context, so REDACT applies and it is already treated.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_5877",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "DISABLED",
+    "evidence_id": "evidence_20",
+    "reason": "connector customer-events-to-warehouse-6 (continuous_sync to customer_analytics_warehouse, subject_selector user_202) is enabled=false in primary and replica at audit_at. Flow was disabled, so it can no longer copy the subject's data. Workflow claim activity_2567 is consistent.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_9519",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "BLOCKED",
+    "evidence_id": "evidence_20",
+    "reason": "backup_catalog entry s3://customer-backups/weekly/segment-15.tar.zst with subject_reference user_202 has restore_allowed=false in primary and replica at audit_at. Restore of the subject's data is blocked, so the archive is retained as BLOCKED.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_2736",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_20",
+    "reason": "security_audit_events record account_deletion_reviewed for subject_reference user_202 exists in primary and replica at audit_at. It is a recent record from this deletion review and no supplied retention expiry shows it has lapsed, so it is retained and reported as PRESENT.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_9268",
+    "reason": "Linked only through shared batch run activity_2562 (shared with case_203 and case_205). No usable evidence ties this account to user_202 or the subject email. The latest account_service capture (evidence_20, 2026-07-08) does not contain it, so it is absent, but it is not attributable to this subject."
+   },
+   {
+    "resource_id": "account_2399",
+    "reason": "Linked only through shared batch run activity_2563 (shared with case_203 and case_205). No evidence ties it to this subject; it is not in the latest account_service capture (evidence_20). Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_6726",
+    "reason": "Linked only through shared batch run activity_2564 (shared with case_203 and case_205). No evidence ties it to this subject; not in the latest account_service capture (evidence_20). Not attributable to this subject."
+   },
+   {
+    "resource_id": "analytics_2463",
+    "reason": "Identity-free analytics profile (email, phone, email_hash, user_id all null) linked only through shared batch run activity_2565. Cannot be attributed to user_202 or the subject email, so rejected per shared-run rule."
+   },
+   {
+    "resource_id": "support_8903",
+    "reason": "Ticket attachment delivery_confirmation_76.pdf uploaded_by ana-varga@proton.me (ticket CS-7903, another customer's case). Belongs to a different person, not to this subject, so out of scope."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests permanent deletion of their account for the given email address and asks that it be applied across covered systems; asking to be contacted for verification does not change the deletion request.",
+   "summary: Subject user_202 (sdarwish4367@fastmail.com). Only user_202-linked records found in usable evidence: support_9505 (already redacted, TREATED), data_flow_5877 (connector disabled), backup_9519 (restore blocked), audit_record_2736 (security audit log retained). No user_202 account profile, email-hash, phone, or name-matched record appears in any usable evidence, so no further DELETE targets were found. Account and analytics candidates from the shared run were rejected for lack of attribution. The workflow's PARTIALLY_COMPLETE claim is not needed for these states; the replica evidence at 2026-07-08 is the latest observation."
+  ],
+  "usage": [
+   {
+    "case_id": "case_204",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 94,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_204",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 462,
+    "cache_creation_input_tokens": 4034,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_204",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 550,
+    "cache_creation_input_tokens": 12486,
+    "cache_read_input_tokens": 8905
+   },
+   {
+    "case_id": "case_204",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 669,
+    "cache_creation_input_tokens": 15898,
+    "cache_read_input_tokens": 21391
+   },
+   {
+    "case_id": "case_204",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 437,
+    "cache_creation_input_tokens": 13656,
+    "cache_read_input_tokens": 37289
+   },
+   {
+    "case_id": "case_204",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 218,
+    "cache_creation_input_tokens": 4729,
+    "cache_read_input_tokens": 50945
+   },
+   {
+    "case_id": "case_204",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2258,
+    "cache_creation_input_tokens": 4413,
+    "cache_read_input_tokens": 55674
+   },
+   {
+    "case_id": "case_204",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3412,
+    "cache_creation_input_tokens": 5650,
+    "cache_read_input_tokens": 60087
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sdarwish4367@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 65
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_202",
+    "limit": 100
+   },
+   "output_chars": 6488
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "darwish",
+    "limit": 100
+   },
+   "output_chars": 11014
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9268"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2463"
+   },
+   "output_chars": 3713
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_9505"
+   },
+   "output_chars": 3020
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "salma",
+    "limit": 100
+   },
+   "output_chars": 5623
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8c1feb5f664f3ed7d14f31441a8f0c2e19b6cd131963452f0b1a3580d37e86fe",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971500707476",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-26T00:00:00Z",
+    "end": "2026-07-08T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31149
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-26T00:00:00Z",
+    "end": "2026-06-29T00:00:00Z",
+    "limit": 60
+   },
+   "output_chars": 16448
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 0
+   },
+   "output_chars": 4505
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2399"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6726"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_9519"
+   },
+   "output_chars": 2946
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_5877"
+   },
+   "output_chars": 3091
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 5000
+   },
+   "output_chars": 4514
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 15000
+   },
+   "output_chars": 4483
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 10000
+   },
+   "output_chars": 4538
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 20000
+   },
+   "output_chars": 4042
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_2736"
+   },
+   "output_chars": 2630
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_8903"
+   },
+   "output_chars": 3053
+  }
+ ]
+}

@@ -1,0 +1,490 @@
+{
+ "case_id": "case_258",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_5296",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_3834",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_5296",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3834",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5296",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9890",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3834",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_258",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_5296",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Customer search document in customer_directory_v3 for Adwoa Osei with email aosei1993@gmail.com and customer_reference user_256. Observed in primary and read replica at audit_at (2026-06-13T11:00:00Z). The deletion worker's FAILED claim (activity_1988) is consistent with it still being present. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_3834",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Support conversation CS-7834 (subject_reference user_256) still shows the direct identifier aosei1993@gmail.com. It also holds shared order context (delivery update for the Ceramic coffee set order), so it must be redacted, not deleted. Deletion worker REDACT claim was FAILED (activity_1986).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_9890",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Security audit event account_deletion_reviewed for subject_reference user_256 is present at audit_at. No retention end date is recorded in the evidence, so it is treated as within the retention period and retained. Verify retention only.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3601",
+    "reason": "Linked only through deletion-worker batch run activity_1980, which is shared with other requests (case_257, case_259, case_272). No usable evidence ties this account to user_256. Its ABSENT state rests only on the workflow claim. Not attributed to this subject."
+   },
+   {
+    "resource_id": "account_7942",
+    "reason": "Linked only through deletion-worker batch run activity_1978, which is shared with other requests (case_257, case_259, case_272). No usable evidence ties this account to user_256. Its ABSENT state rests only on the workflow claim. Not attributed to this subject."
+   },
+   {
+    "resource_id": "analytics_2977",
+    "reason": "Linked only through shared batch run activity_1982. Its profile in evidence_24 is identity-free (user_id, email, phone, email_hash all null), so it cannot be attributed to user_256 and is rejected."
+   },
+   {
+    "resource_id": "legal_hold_8017",
+    "reason": "Legal hold for subject user_259, a different customer. Not this subject's record."
+   },
+   {
+    "resource_id": "backup_2427",
+    "reason": "Backup catalog entry for a different subject (K.KOWALSKI36@GMAIL.COM). Not this subject's record."
+   },
+   {
+    "resource_id": "data_flow_6233",
+    "reason": "Connector selector is linnea.johansson@gmail.com, a different subject. Not this subject's data flow; no active flow for this subject was found."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their email address and asks the shop to follow applicable retention and deletion requirements, which is an erasure request for their own account and data.",
+   "summary: Subject user_256 (aosei1993@gmail.com). Confirmed in-scope records at audit_at: search_5296 (PRESENT, delete), support_3834 (PRESENT, redact, carries order context), audit_record_9890 (PRESENT, retained security audit log). The account_service candidates account_3601 and account_7942 and analytics_2977 were rejected as belonging to shared batch runs with no tie to this subject. No USER_PROFILE, marketing, export, backup, or active data flow for this subject was found in usable evidence. The workflow's COMPLETE claim is not supported: search and support deletions remain present per evidence_24."
+  ],
+  "usage": [
+   {
+    "case_id": "case_258",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 95,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_258",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 600,
+    "cache_creation_input_tokens": 3353,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_258",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 853,
+    "cache_creation_input_tokens": 11814,
+    "cache_read_input_tokens": 8224
+   },
+   {
+    "case_id": "case_258",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 672,
+    "cache_creation_input_tokens": 14194,
+    "cache_read_input_tokens": 20038
+   },
+   {
+    "case_id": "case_258",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 411,
+    "cache_creation_input_tokens": 1047,
+    "cache_read_input_tokens": 34232
+   },
+   {
+    "case_id": "case_258",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 603,
+    "cache_creation_input_tokens": 5033,
+    "cache_read_input_tokens": 35279
+   },
+   {
+    "case_id": "case_258",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1515,
+    "cache_creation_input_tokens": 6277,
+    "cache_read_input_tokens": 40312
+   },
+   {
+    "case_id": "case_258",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 943,
+    "cache_creation_input_tokens": 12942,
+    "cache_read_input_tokens": 46589
+   },
+   {
+    "case_id": "case_258",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1612,
+    "cache_creation_input_tokens": 4430,
+    "cache_read_input_tokens": 59531
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aosei1993@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 3423
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_256",
+    "limit": 50
+   },
+   "output_chars": 5172
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_258",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3601"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7942"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2977"
+   },
+   "output_chars": 3797
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_9890"
+   },
+   "output_chars": 2641
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5296"
+   },
+   "output_chars": 3113
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3834"
+   },
+   "output_chars": 3230
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "adwoa osei",
+    "limit": 50
+   },
+   "output_chars": 1678
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233247016955",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e008e5b7fa69c04640391157187d35fe92711997bb9ab91ac63fbb7f71c0cfd8",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-18T00:00:00Z",
+    "end": "2026-06-13T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30902
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "activity_1978",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 5
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_24",
+    "sql": null
+   },
+   "output_chars": 608
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "BATCH_RUN",
+    "start": "2026-05-18T00:00:00Z",
+    "end": "2026-06-13T11:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_7942",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-20T09:45:00Z",
+    "end": "2026-05-20T10:35:00Z",
+    "limit": 50
+   },
+   "output_chars": 1599
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_24",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary"
+   },
+   "output_chars": 8061
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT * FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 1184
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_26",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_25",
+    "offset": 0
+   },
+   "output_chars": 4671
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_9890",
+    "limit": 20
+   },
+   "output_chars": 1815
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 30
+   },
+   "output_chars": 21947
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3601",
+    "limit": 30
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aosei",
+    "limit": 30
+   },
+   "output_chars": 3409
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Osei",
+    "limit": 30
+   },
+   "output_chars": 4189
+  }
+ ]
+}

@@ -1,0 +1,419 @@
+{
+ "case_id": "case_429",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_4204",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_68"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_1449",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_68"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_4204",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_1449",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4204",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_1449",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9805",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_429",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4204",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_68",
+    "reason": "Account profile for the subject still exposes the request email y.nakamura42@yahoo.com (lookup returned HTTP 200 at 2026-03-20T07:23:49Z, before audit_at). The deletion worker's DELETE (activity_848) reported only PARTIAL and the replication checkpoint (activity_854) was PARTIAL, so the profile is still present and must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_1449",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_68",
+    "reason": "Search index query for the request email returned search_1449 with the email still visible (observed 2026-03-20T07:22:51Z). The deletion result for search_1449 was FAILED (activity_856), so the index entry remains and must be deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_563",
+    "reason": "Linked only through deletion-worker batch run activity_850, which is shared with case_428 and case_430. No usable evidence ties account_563 to this subject (y.nakamura42@yahoo.com, user_427, phone, hash or name); rejected as belonging to another customer's run."
+   },
+   {
+    "resource_id": "account_9975",
+    "reason": "Linked only through deletion-worker batch run activity_851/activity_861, which is shared with case_428 and case_430. No usable evidence ties account_9975 to this subject; rejected as belonging to another customer's run."
+   },
+   {
+    "resource_id": "data_flow_2107",
+    "reason": "Connector in evidence_68 is for customer sipho.mthembu@outlook.com, a different subject; not this subject's data flow."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Japanese): The customer asks for complete deletion of the account linked to their email address and asks the shop to verify current and past identifiers as part of the privacy procedure, which is an erasure request for the person's own account and data.",
+   "summary: Subject y.nakamura42@yahoo.com (user_427). Two in-scope resources still hold the subject's direct identifier as of audit_at: account_4204 (account profile, PRESENT) and search_1449 (search index entry, PRESENT), both proven by evidence_68 captured 2026-03-20. The workflow's PARTIAL/FAILED results are not proof of deletion. Batch-shared account_563 and account_9975 were rejected because nothing ties them to this subject. No hash, phone, user_427 or other identifier matches were found in usable evidence, and no active connector, backup, or export linked to this subject was found.",
+   "future verification added for audit_record_9805 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_429",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1079,
+    "output_tokens": 104,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_429",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 371,
+    "cache_creation_input_tokens": 1697,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_429",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 595,
+    "cache_creation_input_tokens": 5486,
+    "cache_read_input_tokens": 6568
+   },
+   {
+    "case_id": "case_429",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 586,
+    "cache_creation_input_tokens": 14917,
+    "cache_read_input_tokens": 12054
+   },
+   {
+    "case_id": "case_429",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 662,
+    "cache_creation_input_tokens": 11257,
+    "cache_read_input_tokens": 26971
+   },
+   {
+    "case_id": "case_429",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 536,
+    "cache_creation_input_tokens": 8686,
+    "cache_read_input_tokens": 38228
+   },
+   {
+    "case_id": "case_429",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2288,
+    "cache_creation_input_tokens": 4577,
+    "cache_read_input_tokens": 46914
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "y.nakamura42@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 2522
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_427",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Nakamura",
+    "limit": 100
+   },
+   "output_chars": 2508
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4204"
+   },
+   "output_chars": 2908
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_1449"
+   },
+   "output_chars": 3123
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_563"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9975"
+   },
+   "output_chars": 2092
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "13e0f92cb85e81a6e4fde3bac5810134a6d308291b0de45fdbb8a5a6e9152d04",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819004128140",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yuki",
+    "limit": 100
+   },
+   "output_chars": 44
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-03T00:00:00Z",
+    "end": "2026-03-20T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31307
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-03T00:00:00Z",
+    "end": "2026-03-06T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 15213
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 9000
+   },
+   "output_chars": 219
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 6000
+   },
+   "output_chars": 774
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_44",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_563",
+    "limit": 50
+   },
+   "output_chars": 652
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9975",
+    "limit": 50
+   },
+   "output_chars": 1267
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nakamura42",
+    "limit": 50
+   },
+   "output_chars": 2510
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4204",
+    "limit": 50
+   },
+   "output_chars": 2081
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_1449",
+    "limit": 50
+   },
+   "output_chars": 2305
+  }
+ ]
+}

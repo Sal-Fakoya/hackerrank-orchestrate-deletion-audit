@@ -1,0 +1,30 @@
+{
+ "case_id": "case_538",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_538",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: marketing_opt_out (English): The customer asks only to be removed from marketing lists and explicitly wants to keep receipts and service messages, so the account and its data are not to be erased."
+  ],
+  "usage": [
+   {
+    "case_id": "case_538",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1033,
+    "output_tokens": 90,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

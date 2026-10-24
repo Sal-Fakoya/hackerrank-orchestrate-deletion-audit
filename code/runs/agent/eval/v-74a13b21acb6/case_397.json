@@ -1,0 +1,485 @@
+{
+ "case_id": "case_397",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3232",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_69"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_626",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_69"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_626",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3232",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3232",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_626",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_397",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_3232",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_69",
+    "reason": "customer_directory_v3 document search_3232 still holds the subject's exact email jonas.s2734@zoho.com (captured 2026-04-04, before audit_at). The deletion worker's DELETE result (activity_977, FAILED) is a claim and is contradicted by the stored row. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_626",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_69",
+    "reason": "search_profile_indexer connector subscription for jonas.s2734@zoho.com has enabled=1 and last_delivery_status=delivered at 2026-04-04T07:48:30Z. It can repopulate search_3232 (activity_975) and must be disabled.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_163",
+    "reason": "Linked only through the deletion-worker batch run activity_965, which was shared with other requests (case_395, 396, 410, 411, 412). No identifier in any usable evidence ties this profile to the subject. The latest inventory (evidence_69) has no account_service profile rows. Unattributable, so rejected."
+   },
+   {
+    "resource_id": "account_2464",
+    "reason": "Batch run activity_971 shared with other requests; no evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_2775",
+    "reason": "Batch run activity_966 shared with other requests; no evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_3492",
+    "reason": "Batch run activity_969 shared with other requests; no evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_6443",
+    "reason": "Batch run activity_970 shared with other requests; no evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_8985",
+    "reason": "Batch run activity_967 shared with other requests; no evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "analytics_298",
+    "reason": "Shared batch run (activity_968). Every identifier is null in evidence_38 (user_id, email, phone, hash), so the record cannot be attributed to anyone. Rejected."
+   },
+   {
+    "resource_id": "analytics_4651",
+    "reason": "Shared batch run (activity_972). The row in evidence_69 is all-null (no email, phone, hash, or customer_reference), so it cannot be attributed. Rejected."
+   },
+   {
+    "resource_id": "export_4664",
+    "reason": "Owner email HLEFEVRE4815@FASTMAIL.COM belongs to another customer (case_396), not the subject. Rejected."
+   },
+   {
+    "resource_id": "search_7293",
+    "reason": "Indexed email HLEFEVRE4815@FASTMAIL.COM belongs to another customer, not the subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their email address, including data linked through current or earlier identifiers, and asks for confirmation of the result. This is a clear request for erasure of the person's own account and personal data.",
+   "summary: Subject jonas.s2734@zoho.com (user_395). Two resources are attributable to the subject through their exact email in the 2026-04-04 inventory snapshot (evidence_69): search_3232 is still PRESENT with the email, and the connector data_flow_626 is still ACTIVE and can recreate it. The workflow's COMPLETE claim is contradicted by these. No user_395 account_service profile, support, backup or security record was found. The six account candidates and the two analytics candidates came from shared batch runs with no identity linkage, so I rejected them."
+  ],
+  "usage": [
+   {
+    "case_id": "case_397",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 108,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_397",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 635,
+    "cache_creation_input_tokens": 2981,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_397",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 909,
+    "cache_creation_input_tokens": 7631,
+    "cache_read_input_tokens": 7852
+   },
+   {
+    "case_id": "case_397",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 713,
+    "cache_creation_input_tokens": 4594,
+    "cache_read_input_tokens": 15483
+   },
+   {
+    "case_id": "case_397",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 502,
+    "cache_creation_input_tokens": 6468,
+    "cache_read_input_tokens": 20077
+   },
+   {
+    "case_id": "case_397",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1558,
+    "cache_creation_input_tokens": 8707,
+    "cache_read_input_tokens": 26545
+   },
+   {
+    "case_id": "case_397",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1143,
+    "cache_creation_input_tokens": 15738,
+    "cache_read_input_tokens": 35252
+   },
+   {
+    "case_id": "case_397",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1610,
+    "cache_creation_input_tokens": 1426,
+    "cache_read_input_tokens": 50990
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jonas.s2734@zoho.com",
+    "limit": 100
+   },
+   "output_chars": 1351
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_395",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jonas svensson",
+    "limit": 100
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_626"
+   },
+   "output_chars": 2123
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3232"
+   },
+   "output_chars": 2701
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4651"
+   },
+   "output_chars": 2135
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_298"
+   },
+   "output_chars": 4940
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_163"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1200b472587923ee4f0daa762c3d926d9ced87bbc9975c8036eb759ab063ec6b",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46703730392",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46704323939",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_17",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2464"
+   },
+   "output_chars": 1490
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2775"
+   },
+   "output_chars": 1490
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3492"
+   },
+   "output_chars": 1490
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6443"
+   },
+   "output_chars": 1490
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8985"
+   },
+   "output_chars": 1490
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_38",
+    "offset": 0
+   },
+   "output_chars": 4579
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 2300
+   },
+   "output_chars": 3669
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_40",
+    "offset": 0
+   },
+   "output_chars": 4660
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "s2734",
+    "limit": 100
+   },
+   "output_chars": 1336
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Svensson",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_3232",
+    "limit": 100
+   },
+   "output_chars": 1936
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-10T11:00:00Z",
+    "end": "2026-04-04T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31632
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT 'profiles', COUNT(*) FROM customer_profiles UNION ALL SELECT 'search_docs_subject', COUNT(*) FROM customer_search_documents WHERE email='jonas.s2734@zoho.com' UNION ALL SELECT 'connectors_subject', COUNT(*) FROM connector_subscriptions WHERE customer_email='jonas.s2734@zoho.com' UNION ALL SELECT 'exports', COUNT(*) FROM customer_exports UNION ALL SELECT 'analytics_all_null', COUNT(*) FROM customer_analytics_profiles WHERE email IS NULL AND phone IS NULL AND email_hash IS NULL AND customer_reference IS NULL"
+   },
+   "output_chars": 164
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "data_flow_626",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 335
+  }
+ ]
+}

@@ -1,0 +1,481 @@
+{
+ "case_id": "case_520",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_9251",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_48"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9251",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4979",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9504",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9251",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_520",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4979",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_48",
+    "reason": "Primary profile for the subject (lookup by suzuki.daichi90@gmail.com in trace tr-2361113 returned account_4979 with HTTP 404, rows=0 at 2026-02-03T05:52:39Z). Records-assurance snapshots evidence_49 and evidence_62 for account_service also do not contain account_4979. The earlier deletion attempt activity_45 reported FAILED, which is a claim and does not prove presence. Record no longer exists, so compliant; verify no restore path.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_9251",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_48",
+    "reason": "Support message scan (trace tr-6400539, 2026-02-03T05:58:08Z) matched the subject's direct identifier suzuki.daichi90@gmail.com in support_9251, so the message still exposes direct identifiers. The conversation is a support message that must keep shared customer/agent context, so the action is REDACT, not delete. The deletion worker's REDACT attempt activity_50 reported FAILED, which is only a claim.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_9504",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_48",
+    "reason": "Security audit record for subject_ref user_518 was read successfully at 2026-02-03T05:56:38Z (integrity check passed). No evidence shows its retention period has ended, so it is retained and verified as PRESENT. Caveat: the retention_until value for this record was not visible in any usable evidence.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "search_6401",
+    "reason": "Search hit in customer_directory_v3 correlated to adwoa.boateng@gmail.com (another request, case_518), not to this subject. Not attributable to suzuki."
+   },
+   {
+    "resource_id": "data_flow_3518",
+    "reason": "Connector heartbeat correlated to subject_key adwoa.boateng@gmail.com (another customer). Not this subject's data flow."
+   },
+   {
+    "resource_id": "backup_8264",
+    "reason": "Restore policy check for subject_key s.dlamini52@gmail.com (case_519), not this subject. Not attributable to suzuki."
+   },
+   {
+    "resource_id": "data_flow_8165",
+    "reason": "Connector heartbeat correlated to yetunde.a3014@zoho.com in an unrelated trace; no link to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for a permanent account deletion for their email address, including data linked through current or earlier identifiers, which is erasure of the person's own account and personal data.",
+   "summary: Subject suzuki.daichi90@gmail.com (user_518). account_4979 is the primary profile and is ABSENT as of audit_at (404 lookup evidence_48, absent from snapshots evidence_49/evidence_62). support_9251 is a support message that still holds the subject's email, so it is PRESENT and needs REDACT. audit_record_9504 is a security audit record that is PRESENT and retained. No active data flow or restorable backup linked to this subject was found; the candidates shown with other customers' identifiers were rejected. Note: the retention_until for audit_record_9504 was not visible in the evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_520",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 92,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_520",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 449,
+    "cache_creation_input_tokens": 904,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_520",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 601,
+    "cache_creation_input_tokens": 8995,
+    "cache_read_input_tokens": 5775
+   },
+   {
+    "case_id": "case_520",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 464,
+    "cache_creation_input_tokens": 2623,
+    "cache_read_input_tokens": 14770
+   },
+   {
+    "case_id": "case_520",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 567,
+    "cache_creation_input_tokens": 19041,
+    "cache_read_input_tokens": 17393
+   },
+   {
+    "case_id": "case_520",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 655,
+    "cache_creation_input_tokens": 9328,
+    "cache_read_input_tokens": 36434
+   },
+   {
+    "case_id": "case_520",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 737,
+    "cache_creation_input_tokens": 6806,
+    "cache_read_input_tokens": 45762
+   },
+   {
+    "case_id": "case_520",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 806,
+    "cache_creation_input_tokens": 4702,
+    "cache_read_input_tokens": 52568
+   },
+   {
+    "case_id": "case_520",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2638,
+    "cache_creation_input_tokens": 3311,
+    "cache_read_input_tokens": 57270
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4979"
+   },
+   "output_chars": 1962
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "suzuki",
+    "limit": 50
+   },
+   "output_chars": 1718
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_518",
+    "limit": 50
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "suzuki.daichi90@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 1737
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "suzuki.daichi@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819027733305",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "437adbd76c9c1cc0bcec823a9e44e48c817f64c43488cf740a069ed98fc1eb48",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ed01c805bb0eebb48ea9a195a3816c768e5aa94a8e650ffe4469b34bee746d60",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "daichi",
+    "limit": 50
+   },
+   "output_chars": 1718
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 2000
+   },
+   "output_chars": 4631
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 2000
+   },
+   "output_chars": 4621
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 2000
+   },
+   "output_chars": 4463
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-01T00:00:00Z",
+    "end": "2026-02-03T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31052
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-06T00:00:00Z",
+    "end": "2026-01-12T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 17729
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_65",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_520",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_9251"
+   },
+   "output_chars": 1811
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_9504"
+   },
+   "output_chars": 1364
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 4000
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 4000
+   },
+   "output_chars": 4646
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 4000
+   },
+   "output_chars": 4471
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_8264"
+   },
+   "output_chars": 1768
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_3518"
+   },
+   "output_chars": 1830
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_6401"
+   },
+   "output_chars": 1608
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_518",
+    "limit": 50
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_8165"
+   },
+   "output_chars": 2089
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_9504",
+    "limit": 50
+   },
+   "output_chars": 972
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 6000
+   },
+   "output_chars": 4607
+  }
+ ]
+}

@@ -1,0 +1,417 @@
+{
+ "case_id": "case_214",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_7351",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_81"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_1146",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_81"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_7351",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1146",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_7351",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1666",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1146",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_214",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_7351",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_81",
+    "reason": "Customer directory search document (index customer_directory_v3) still exposes the subject's email bernard.chloe@icloud.com as of the 2026-07-03 inventory capture, which is before audit_at. The workflow's DELETE_RECORD (activity_2366) reported FAILED and does not prove absence. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_1146",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_81",
+    "reason": "Support conversation record whose requester_email is bernard.chloe@icloud.com, still present in the 2026-07-03 inventory capture. It is a delivery-query conversation that carries shared order/agent context, so it must be redacted, not deleted. The workflow's REDACT_RECORD (activity_2367) reported FAILED and does not prove treatment.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4752",
+    "reason": "Linked only via deletion-worker batch_run activity_2355. That run is shared with case_213, case_227, case_228 and case_229. No usable evidence ties this account to user_212 or the subject's email, hash, phone or name, so it cannot be attributed to this subject. The snapshots that lack it do not change this."
+   },
+   {
+    "resource_id": "account_6674",
+    "reason": "Linked only via the shared deletion-worker batch_run activity_2353 (shared with case_213, case_227, case_228, case_229). No evidence ties it to this subject's identifiers, so it is rejected as belonging to another customer or unattributable."
+   },
+   {
+    "resource_id": "analytics_4460",
+    "reason": "Linked only via shared batch_run activity_2356. Its only inventory row (evidence_81) is identity-free: email, email_hash, phone and customer_reference are all null, with just an audience_cohort. It cannot be attributed to the subject in a shared run, so it is rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to erase the account linked to their email address and process it under the personal-data deletion procedure, which is an erasure request for their own account and data. Asking for confirmation of the outcome is a follow-up within the same deletion request.",
+   "summary: Subject bernard.chloe@icloud.com (user_212). Two subject-linked resources remain PRESENT in the 2026-07-03 inventory (evidence_81): search_7351 (search index entry, must delete) and support_1146 (support conversation with delivery context, must redact). Both workflow DELETE/REDACT results were FAILED and do not prove treatment. The account, analytics candidates came from shared deletion-worker runs with no subject tie and were rejected. No subject backups, connectors, exports or legal holds were found tied to this subject.",
+   "future verification added for audit_record_1666 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_214",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 114,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_214",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 563,
+    "cache_creation_input_tokens": 3692,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_214",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 769,
+    "cache_creation_input_tokens": 5672,
+    "cache_read_input_tokens": 8563
+   },
+   {
+    "case_id": "case_214",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 538,
+    "cache_creation_input_tokens": 14427,
+    "cache_read_input_tokens": 14235
+   },
+   {
+    "case_id": "case_214",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 794,
+    "cache_creation_input_tokens": 4878,
+    "cache_read_input_tokens": 28662
+   },
+   {
+    "case_id": "case_214",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1228,
+    "cache_creation_input_tokens": 2567,
+    "cache_read_input_tokens": 33540
+   },
+   {
+    "case_id": "case_214",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1404,
+    "cache_creation_input_tokens": 30054,
+    "cache_read_input_tokens": 36107
+   },
+   {
+    "case_id": "case_214",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1634,
+    "cache_creation_input_tokens": 3744,
+    "cache_read_input_tokens": 66161
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "bernard.chloe@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 1425
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_212",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chloé bernard",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4752"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6674"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4460"
+   },
+   "output_chars": 2129
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_7351"
+   },
+   "output_chars": 2147
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_1146"
+   },
+   "output_chars": 2181
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33692533062",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "15761af170361d84639fa7aba8f973aa9021b022e71cf530584f1ff0058cdddd",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "bernard",
+    "limit": 100
+   },
+   "output_chars": 2399
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-11T00:00:00Z",
+    "end": "2026-07-03T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31068
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_22",
+    "offset": 0
+   },
+   "output_chars": 4650
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-14T06:00:00Z",
+    "end": "2026-06-14T08:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 4148
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT 'backup' t, resource_id, customer_reference, customer_email AS e, archive_key AS k, restore_allowed AS r, updated_at FROM backup_restore_entries UNION ALL SELECT 'conn', resource_id, customer_reference, customer_email, connector_name, enabled, updated_at FROM connector_subscriptions UNION ALL SELECT 'anal', resource_id, customer_reference, email, audience_cohort, phone, updated_at FROM customer_analytics_profiles UNION ALL SELECT 'export', resource_id, customer_reference, owner_email, object_key, owner_phone, updated_at FROM customer_exports UNION ALL SELECT 'audit', resource_id, subject_reference, event_code, retention_until, NULL, updated_at FROM security_audit_records UNION ALL SELECT 'scope', origin_system, captured_at, NULL, NULL, NULL, NULL FROM snapshot_scope"
+   },
+   "output_chars": 2284
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt FROM support_records"
+   },
+   "output_chars": 708
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents"
+   },
+   "output_chars": 584
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chloe",
+    "limit": 100
+   },
+   "output_chars": 3859
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "212",
+    "limit": 100
+   },
+   "output_chars": 15989
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "icloud",
+    "limit": 100
+   },
+   "output_chars": 40805
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4460"
+   },
+   "output_chars": 2129
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  }
+ ]
+}

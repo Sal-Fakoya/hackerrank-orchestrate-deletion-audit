@@ -1,0 +1,359 @@
+{
+ "case_id": "case_39",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_1121",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_14"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_1121",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7301",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_1121",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_39",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "data_flow_1121",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_14",
+    "reason": "Connector data_flow_1121 (customer_analytics_warehouse) has selector jain.aditi@gmail.com, mode Continuous, 1,284 events/hour, last contact 07:59:42 in the 2026-08-07 08:00 console capture, so it is an enabled flow that can copy the subject's data. Data catalog activity_4002 (2026-08-07) links it to jain.aditi@gmail.com and user_14. No disable is observed before audit_at. Must be disabled.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_1103",
+    "reason": "Only linked through deletion-worker batch run activity_3120, which shows no identity content and is a shared run with unrelated records (no usable evidence ties it to this subject). Its FAILED result is a claim; the latest analytics_platform snapshot (evidence_86, 2026-08-07) does not contain it. Rejected as not attributable to this subject."
+   },
+   {
+    "resource_id": "search_9752",
+    "reason": "Only linked through deletion-worker batch run activity_3121, a shared run with no identity content; no usable evidence ties this record to jain.aditi@gmail.com or user_14. Latest search_service export (evidence_86) does not contain it. Rejected as not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to erase the account linked to their email address and to confirm completion after checking connected records; this is a deletion request, and the follow-up verification request is part of the same erasure.",
+   "summary: Subject identifiers (jain.aditi@gmail.com, user_14, hash, phone, name) were searched across all usable evidence. Only data_flow_1121 is tied to the subject: an enabled Continuous connector on the customer_analytics_warehouse destination selected by jain.aditi@gmail.com (evidence_14), still ACTIVE at audit_at, requiring DISABLE. No account profile, search, analytics, support, export or backup record for user_14 or the email/hash/phone was found. Two batch-run candidates (analytics_1103, search_9752) were rejected as unattributable to the subject. Note that the workflow COMPLETE claim is not supported: the connector is still active.",
+   "future verification added for audit_record_7301 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_39",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1048,
+    "output_tokens": 97,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_39",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 424,
+    "cache_creation_input_tokens": 4109,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_39",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 334,
+    "cache_creation_input_tokens": 2008,
+    "cache_read_input_tokens": 8980
+   },
+   {
+    "case_id": "case_39",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 473,
+    "cache_creation_input_tokens": 12699,
+    "cache_read_input_tokens": 10988
+   },
+   {
+    "case_id": "case_39",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 696,
+    "cache_creation_input_tokens": 3427,
+    "cache_read_input_tokens": 23687
+   },
+   {
+    "case_id": "case_39",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 645,
+    "cache_creation_input_tokens": 7183,
+    "cache_read_input_tokens": 27114
+   },
+   {
+    "case_id": "case_39",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 985,
+    "cache_creation_input_tokens": 8203,
+    "cache_read_input_tokens": 34297
+   },
+   {
+    "case_id": "case_39",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1697,
+    "cache_creation_input_tokens": 1531,
+    "cache_read_input_tokens": 42500
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jain.aditi@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2204
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_14",
+    "limit": 100
+   },
+   "output_chars": 624
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aditi jain",
+    "limit": 100
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919394758446",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ea61073600454d4cb320cd63802b6e63ceb0a1398a7b4dd10049a71729471d00",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-04T00:00:00Z",
+    "end": "2026-08-08T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 23684
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_1121"
+   },
+   "output_chars": 3022
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1103"
+   },
+   "output_chars": 1508
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_9752"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_1103",
+    "limit": 50
+   },
+   "output_chars": 685
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_9752",
+    "limit": 50
+   },
+   "output_chars": 659
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_15",
+    "sql": null
+   },
+   "output_chars": 608
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_15",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_read_replica"
+   },
+   "output_chars": 8288
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 2500
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jain",
+    "limit": 100
+   },
+   "output_chars": 6343
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aditi",
+    "limit": 100
+   },
+   "output_chars": 9843
+  },
+  {
+   "turn": 5,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_48",
+    "trace_id": "activity_3120"
+   },
+   "output_chars": 68
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "analytics_1103",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 365
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "search_9752",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 348
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "data_flow_1121",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 373
+  }
+ ]
+}

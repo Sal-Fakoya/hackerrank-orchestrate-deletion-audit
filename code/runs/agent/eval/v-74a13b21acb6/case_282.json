@@ -1,0 +1,512 @@
+{
+ "case_id": "case_282",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_8370",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_77"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_8370",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_8370",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3198",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_282",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "support_8370",
+    "system_id": "support_platform",
+    "category": "SECONDARY_IDENTIFIER",
+    "state": "PRESENT",
+    "evidence_id": "evidence_77",
+    "reason": "Support platform ticket 5 (support_8370) still holds the subject's exact requester_email ohamdan2049@gmail.com in the 2026-06-03T08:34:57Z export, after the workflow's REDACT_RECORD (activity_2071) reported FAILED. The record holds only the requester's contact details (no customer_reference, no agent or order context), so it is treated as a secondary copy of contact details and must be deleted. It is in scope because evidence_77 was captured inside the request window.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1057",
+    "reason": "Linked only through the batch deletion run activity_2066, which is shared with case_266, case_267 and case_268. No usable evidence ties account_1057 to user_280, ohamdan2049@gmail.com, the hash, the phones or the name. Rejected as belonging to another subject; its workflow PARTIAL claim is not evidence of this subject's data."
+   },
+   {
+    "resource_id": "account_9179",
+    "reason": "Linked only through the batch deletion run activity_2067, which is shared with case_266, case_267 and case_268. No usable evidence ties account_9179 to this subject's identifiers, and the workflow ABSENT claim is not proof. Rejected as not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for the account tied to their email address to be permanently deleted, and the request also asks for review of eligible data and confirmation; this is a deletion request for the person's own account and data.",
+   "summary: Only one record in this subject's episode is attributable to ohamdan2049@gmail.com: support_8370 (support ticket 5). Its direct email is still present at audit_at (evidence_77), so the workflow's REDACT result (FAILED) is contradicted and it still needs deletion. Searches for user_280, the email hash, both phone numbers, the name and audit_118 returned no usable records. The two account candidates come from a batch run shared with other requests and have no tie to this subject, so they were rejected. No subject-linked replicas, connectors, backups, exports, analytics or search documents were found in the snapshots checked.",
+   "future verification added for audit_record_3198 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_282",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 100,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_282",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 457,
+    "cache_creation_input_tokens": 2967,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_282",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 573,
+    "cache_creation_input_tokens": 3427,
+    "cache_read_input_tokens": 7838
+   },
+   {
+    "case_id": "case_282",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 760,
+    "cache_creation_input_tokens": 14527,
+    "cache_read_input_tokens": 11265
+   },
+   {
+    "case_id": "case_282",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 479,
+    "cache_creation_input_tokens": 8349,
+    "cache_read_input_tokens": 25792
+   },
+   {
+    "case_id": "case_282",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1101,
+    "cache_creation_input_tokens": 5165,
+    "cache_read_input_tokens": 34141
+   },
+   {
+    "case_id": "case_282",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 831,
+    "cache_creation_input_tokens": 2495,
+    "cache_read_input_tokens": 39306
+   },
+   {
+    "case_id": "case_282",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 572,
+    "cache_creation_input_tokens": 3348,
+    "cache_read_input_tokens": 41801
+   },
+   {
+    "case_id": "case_282",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 591,
+    "cache_creation_input_tokens": 5115,
+    "cache_read_input_tokens": 45149
+   },
+   {
+    "case_id": "case_282",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 632,
+    "cache_creation_input_tokens": 4868,
+    "cache_read_input_tokens": 50264
+   },
+   {
+    "case_id": "case_282",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 757,
+    "cache_creation_input_tokens": 1438,
+    "cache_read_input_tokens": 55132
+   },
+   {
+    "case_id": "case_282",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2281,
+    "cache_creation_input_tokens": 4669,
+    "cache_read_input_tokens": 56570
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1057"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9179"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_8370"
+   },
+   "output_chars": 2334
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ohamdan2049@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 905
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_280",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Omar Hamdan",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a568fad099489a0a75fb70a216fe45fa1b25eb8a114b349cf818db6397229906",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971524547774",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971529730092",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hamdan",
+    "limit": 100
+   },
+   "output_chars": 2700
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-24T00:00:00Z",
+    "end": "2026-06-03T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31013
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1057",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9179",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_118",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_8370",
+    "limit": 100
+   },
+   "output_chars": 1514
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-24T00:00:00Z",
+    "end": "2026-05-27T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 15483
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_77",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT 'support' t, resource_id, customer_reference, requester_email, requester_phone, message_excerpt FROM support_records WHERE customer_reference='user_280' OR requester_email LIKE '%hamdan%' OR requester_phone LIKE '%5245%' OR requester_name LIKE '%Hamdan%' UNION ALL SELECT 'search', resource_id, customer_reference, email, phone, email_hash FROM customer_search_documents WHERE customer_reference='user_280' OR email LIKE '%hamdan%' OR display_name LIKE '%Hamdan%' OR email_hash LIKE 'a568%' UNION ALL SELECT 'analytics', resource_id, customer_reference, email, phone, email_hash FROM customer_analytics_profiles WHERE customer_reference='user_280' OR email LIKE '%hamdan%' OR email_hash LIKE 'a568%' UNION ALL SELECT 'conn', resource_id, customer_reference, customer_email, connector_name, enabled FROM connector_subscriptions WHERE customer_reference='user_280' OR customer_email LIKE '%hamdan%' UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email, archive_key, restore_allowed FROM backup_restore_entries WHERE customer_reference='user_280' OR customer_email LIKE '%hamdan%' UNION ALL SELECT 'export', resource_id, customer_reference, owner_email, owner_phone, object_key FROM customer_exports WHERE customer_reference='user_280' OR owner_email LIKE '%hamdan%' UNION ALL SELECT 'audit', resource_id, subject_reference, event_code, retention_until, updated_at FROM security_audit_records"
+   },
+   "output_chars": 600
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT 'primary' src, resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%hamdan%' OR record_json LIKE '%user_280%' OR record_json LIKE '%ohamdan%' OR record_json LIKE '%a568fad%' OR record_json LIKE '%5245477%' OR record_json LIKE '%7299300%' OR record_json LIKE '%account_1057%' OR record_json LIKE '%account_9179%' OR resource_id IN ('account_1057','account_9179','support_8370') UNION ALL SELECT 'ap', resource_id, origin_system, collection_name, record_json FROM customer_data_replica_ap_south WHERE record_json LIKE '%hamdan%' OR record_json LIKE '%user_280%' OR record_json LIKE '%ohamdan%' OR record_json LIKE '%a568fad%' OR record_json LIKE '%account_1057%' OR record_json LIKE '%account_9179%' OR resource_id IN ('account_1057','account_9179','support_8370') UNION ALL SELECT 'eu', resource_id, origin_system, collection_name, record_json FROM customer_data_replica_eu_west WHERE record_json LIKE '%hamdan%' OR record_json LIKE '%user_280%' OR record_json LIKE '%ohamdan%' OR record_json LIKE '%a568fad%' OR record_json LIKE '%account_1057%' OR record_json LIKE '%account_9179%' OR resource_id IN ('account_1057','account_9179','support_8370')"
+   },
+   "output_chars": 98
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 0
+   },
+   "output_chars": 4227
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT 'primary' src, resource_id, origin_system, collection_name, substr(record_json,1,300) FROM customer_data_primary ORDER BY resource_id"
+   },
+   "output_chars": 9085
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_280",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ohamdan",
+    "limit": 100
+   },
+   "output_chars": 891
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "omar",
+    "limit": 100
+   },
+   "output_chars": 44
+  },
+  {
+   "turn": 9,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_9179",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 9,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_1057",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 10,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_77",
+    "offset": 2000
+   },
+   "output_chars": 4619
+  },
+  {
+   "turn": 10,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_30",
+    "offset": 0
+   },
+   "output_chars": 4242
+  }
+ ]
+}

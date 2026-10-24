@@ -1,0 +1,355 @@
+{
+ "case_id": "case_130",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2364",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_87"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_187",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_87"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2364",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_187",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2364",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7634",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_187",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_130",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_2364",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_87",
+    "reason": "Search document in customer_directory_v3 still holds the subject's exact email kobayashi.daichi@icloud.com (evidence_87 snapshot captured 2026-08-17T09:42:50Z, before audit_at). The deletion-worker final-result activity (activity_3066) reported FAILED and is not proof of absence. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_187",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_87",
+    "reason": "Support record support_187 still carries requester_email kobayashi.daichi@icloud.com (evidence_87, captured 2026-08-17T09:42:50Z). It is a support conversation of the subject with no shared agent/order context evident, and the redaction action applies while direct identifiers remain. The activity_3068 REDACT FAILED claim does not prove redaction.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4833",
+    "reason": "Linked only through batch_run activity_3060, a deletion-worker run shared with case_113, case_114, case_115, case_128 and case_129. No usable evidence ties this account to the subject's identifiers (user_128, email, hash, phone, name). Cannot be attributed to kobayashi.daichi, so rejected."
+   },
+   {
+    "resource_id": "account_6697",
+    "reason": "Linked only through batch_run activity_3061, a deletion-worker run shared with other requests (case_113, case_114, case_115, case_128, case_129). No usable evidence ties this account to the subject's identifiers. Cannot be attributed, so rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete their own account and personal data; the request is a direct erasure request, and the request to confirm results is a standard follow-up that does not change the classification.",
+   "summary: Subject footprint found: search_2364 (search index, PRESENT with direct email) and support_187 (support record with requester email, PRESENT). Both are in evidence_87, the latest snapshot before audit_at. The two account candidates come from a shared deletion-worker run and have no identity link to this subject, so they are rejected. No hash, phone, user_id or name matches exist elsewhere in usable evidence. Workflow claims that the deletion results were FAILED or PARTIAL are not relied on. Both remaining records still expose direct identifiers and need action.",
+   "future verification added for audit_record_7634 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_130",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 93,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_130",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 440,
+    "cache_creation_input_tokens": 4471,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_130",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 523,
+    "cache_creation_input_tokens": 2613,
+    "cache_read_input_tokens": 9342
+   },
+   {
+    "case_id": "case_130",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 328,
+    "cache_creation_input_tokens": 16060,
+    "cache_read_input_tokens": 11955
+   },
+   {
+    "case_id": "case_130",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 822,
+    "cache_creation_input_tokens": 3414,
+    "cache_read_input_tokens": 28015
+   },
+   {
+    "case_id": "case_130",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 367,
+    "cache_creation_input_tokens": 2144,
+    "cache_read_input_tokens": 31429
+   },
+   {
+    "case_id": "case_130",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1890,
+    "cache_creation_input_tokens": 9925,
+    "cache_read_input_tokens": 33573
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kobayashi.daichi@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 1423
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_128",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "daichi kobayashi",
+    "limit": 100
+   },
+   "output_chars": 56
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819049468233",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4833"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6697"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d47747823484551711b93333b1999919edbf056cb3d4e0dba7e8e7ada4e314fb",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kobayashi",
+    "limit": 100
+   },
+   "output_chars": 1405
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-30T00:00:00Z",
+    "end": "2026-08-17T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31315
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_87",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_87",
+    "offset": 4000
+   },
+   "output_chars": 2159
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "activity_3060",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_187"
+   },
+   "output_chars": 2163
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2364"
+   },
+   "output_chars": 2145
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4833",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6697",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-08-02T09:00:00Z",
+    "end": "2026-08-02T10:30:00Z",
+    "limit": 50
+   },
+   "output_chars": 1646
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "daichi",
+    "limit": 50
+   },
+   "output_chars": 3076
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "128",
+    "limit": 50
+   },
+   "output_chars": 17635
+  }
+ ]
+}

@@ -1,0 +1,92 @@
+{
+ "case_id": "case_520",
+ "mode": "baseline",
+ "judge_version": "7436d30c7fb8",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_9251",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_48"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9251",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4979",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9504",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9251",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_520",
+  "mode": "baseline",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4979",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_48",
+    "reason": "2026-02-03T05:52:39Z | INFO | account_service | tr-2361113 | profile_lookup_completed | instance=\"account-3\" pod=\"account-daab\" region=\"eu-central-1\" resource_i",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_9504",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_48",
+    "reason": "2026-02-03T05:56:38Z | DEBUG | security_service | tr-8299317 | audit_record_read_completed | instance=\"security-7\" pod=\"security-6911\" region=\"eu-west-1\" resour",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_9251",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_48",
+    "reason": "2026-02-03T05:58:08Z | WARN | support_platform | tr-6400539 | message_pii_scan | instance=\"support-7\" pod=\"support-44e5\" region=\"eu-west-1\" resource_id=\"support",
+    "condition_met": true
+   }
+  ],
+  "rejected": [],
+  "notes": [],
+  "usage": []
+ },
+ "transcript": []
+}

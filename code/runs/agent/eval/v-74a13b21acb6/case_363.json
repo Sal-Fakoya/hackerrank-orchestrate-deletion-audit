@@ -1,0 +1,489 @@
+{
+ "case_id": "case_363",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_7253",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_34"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_7253",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_9205",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9777",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_7253",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_363",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_9777",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_34",
+    "reason": "Security audit record linked to the subject's user_361 reference (trace tr-7633521, audit_record_query subject_ref=user_361, read completed with integrity_check passed on 2026-04-19). Record is available and within its retention period (created during this request episode), so it is retained and verified as PRESENT per rule SECURITY_AUDIT_LOG. No explicit retention_until was visible in the evidence; retention is treated as in force.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_7253",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_34",
+    "reason": "Backup restore policy check for the subject's email key m.khumalo88@gmail.com (trace tr-7750694, 2026-04-19T06:51:41Z) evaluated backup_7253 as eligible=true with deletion_block=false, so restore of the subject's data is still allowed. The workflow's activity_1371 'restorable' claim is consistent with this direct observation. Restore access must be blocked (retain/block action).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_9205",
+    "reason": "Candidate linked only through deletion-worker run activity_1368, which is shared with case_364 (another customer, watanabe.kenta@gmail.com). The only tie to this subject is evidence_34 trace tr-2999124, a profile lookup by the subject's email that returned 0 rows and HTTP 404, i.e. an identity-free result that cannot be attributed to this subject. Rejected from this subject's facts."
+   },
+   {
+    "resource_id": "analytics_5811",
+    "reason": "Matches 'khumalo' only via tkhumalo2329@gmail.com in evidence_69; a different email with no link to m.khumalo88@gmail.com or user_361. Not this subject."
+   },
+   {
+    "resource_id": "search_1338",
+    "reason": "Matches 'khumalo' only via tkhumalo2329@gmail.com (evidence_69); different person, no subject identifier match."
+   },
+   {
+    "resource_id": "support_4290",
+    "reason": "Matches 'khumalo' only via tkhumalo2329@gmail.com (evidence_69); different person, no subject identifier match."
+   },
+   {
+    "resource_id": "data_flow_9411",
+    "reason": "Active connector for customer_email tkhumalo2329@gmail.com (evidence_69); different person, not linked to this subject's identifiers, so not treated as a recreation risk for this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to delete this account and its personal data, which is erasure of their own data and account, not a negated, third-party, or partial-edit request.",
+   "summary: Subject m.khumalo88@gmail.com / user_361. Searches of all usable evidence for the email, hash, phone, user_id and name found only two subject-linked resources in the request window: audit_record_9777 (security audit, PRESENT and retained) and backup_7253 (backup, still RESTORABLE per the 2026-04-19 restore policy check, deletion_block=false). account_9205 was rejected because it sits in a shared deletion run with case_364 and the only tie is an identity-free 404 lookup. No user-level profile, search, analytics, support, export, marketing or connector record for this subject was found. The workflow's COMPLETE claim is not supported because the backup remains restorable.",
+   "attribution rule B: restored account_9205 as USER_PROFILE/ABSENT per activity_1368"
+  ],
+  "usage": [
+   {
+    "case_id": "case_363",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 87,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_363",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 426,
+    "cache_creation_input_tokens": 2061,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_363",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 369,
+    "cache_creation_input_tokens": 4321,
+    "cache_read_input_tokens": 6932
+   },
+   {
+    "case_id": "case_363",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 989,
+    "cache_creation_input_tokens": 16150,
+    "cache_read_input_tokens": 11253
+   },
+   {
+    "case_id": "case_363",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 684,
+    "cache_creation_input_tokens": 8794,
+    "cache_read_input_tokens": 27403
+   },
+   {
+    "case_id": "case_363",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 542,
+    "cache_creation_input_tokens": 8775,
+    "cache_read_input_tokens": 36197
+   },
+   {
+    "case_id": "case_363",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1170,
+    "cache_creation_input_tokens": 2074,
+    "cache_read_input_tokens": 44972
+   },
+   {
+    "case_id": "case_363",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 775,
+    "cache_creation_input_tokens": 13697,
+    "cache_read_input_tokens": 47046
+   },
+   {
+    "case_id": "case_363",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2593,
+    "cache_creation_input_tokens": 11253,
+    "cache_read_input_tokens": 60743
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "m.khumalo88@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1845
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_361",
+    "limit": 100
+   },
+   "output_chars": 1109
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "khumalo",
+    "limit": 100
+   },
+   "output_chars": 4484
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27728375827",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fb4260a08815b2bb0fd9e4202dbac355f272c58c815da0aed1b81b0ad4384931",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9205"
+   },
+   "output_chars": 2381
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_9777"
+   },
+   "output_chars": 1937
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_7253"
+   },
+   "output_chars": 2372
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-08T00:00:00Z",
+    "end": "2026-04-19T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31240
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_34",
+    "offset": 0
+   },
+   "output_chars": 4829
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-08T00:00:00Z",
+    "end": "2026-04-11T00:00:00Z",
+    "limit": 30
+   },
+   "output_chars": 9342
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mandla",
+    "limit": 100
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9205",
+    "limit": 100
+   },
+   "output_chars": 1557
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_9777",
+    "limit": 100
+   },
+   "output_chars": 1118
+  },
+  {
+   "turn": 4,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_34",
+    "trace_id": "tr-7633521"
+   },
+   "output_chars": 1704
+  },
+  {
+   "turn": 4,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_34",
+    "trace_id": "tr-7750694"
+   },
+   "output_chars": 719
+  },
+  {
+   "turn": 4,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_34",
+    "trace_id": "tr-2999124"
+   },
+   "output_chars": 726
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_35",
+    "offset": 0
+   },
+   "output_chars": 4659
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "khumalo88",
+    "limit": 100
+   },
+   "output_chars": 1833
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_1368",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "BACKUP_ARCHIVE"
+   },
+   "output_chars": 132
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 100
+   },
+   "output_chars": 24946
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 100
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "backup_7253",
+    "limit": 100
+   },
+   "output_chars": 1559
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_364",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_34",
+    "offset": 2400
+   },
+   "output_chars": 4831
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_34",
+    "offset": 4800
+   },
+   "output_chars": 4852
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_34",
+    "offset": 7200
+   },
+   "output_chars": 4841
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_34",
+    "offset": 9600
+   },
+   "output_chars": 4847
+  }
+ ]
+}

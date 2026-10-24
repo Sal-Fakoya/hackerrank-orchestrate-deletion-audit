@@ -1,0 +1,385 @@
+{
+ "case_id": "case_459",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_1140",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_43"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_1140",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6171",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_1140",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_459",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_6171",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_457 (this subject's user_id) is still stored in the primary and reporting replica at audit_at. No supplied retention expiry is evidenced, so it stays within retention and must be RETAINED and verified as available.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_1140",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_43",
+    "reason": "Backup catalog row in the primary and reporting replica at 2026-03-05 carries subject_reference d.romero12@gmail.com (subject's current email) with restore_allowed=true on archive s3://customer-backups/weekly/segment-20.tar.zst. Subject's data can still be restored, so restore access must be blocked/verified (the workflow's restore check activity_479 is only a claim).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_077",
+    "reason": "Linked only via deletion-worker batch run activity_474, which is shared with case_458 and case_460; no usable evidence ties this account to d.romero12@gmail.com, user_457, or the phone/hash. Not attributable to this subject. Workflow PARTIAL claim not relied upon."
+   },
+   {
+    "resource_id": "account_5167",
+    "reason": "Linked only via shared batch run activity_475 (case_458, case_460); no evidence ties it to this subject's identifiers. Rejected as belonging to another customer."
+   },
+   {
+    "resource_id": "account_5892",
+    "reason": "Linked only via shared batch run activity_476 (case_458, case_460); no evidence ties it to this subject. Its SUCCESS/absent claim is irrelevant to this subject's deletion."
+   },
+   {
+    "resource_id": "analytics_5221",
+    "reason": "Linked only via shared batch run activity_477 (case_458, case_460). Its records in evidence_43 have user_id, email, phone and email_hash all null and no subject_reference, so it is an identity-free analytics profile that cannot be attributed to this subject. Rejected."
+   },
+   {
+    "resource_id": "data_flow_2107",
+    "reason": "Connector status check activity_853 (shared deletion-worker run, no subject link) shows an enabled connector, but no evidence shows it copies or recreates this subject's data. Not attributed to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Spanish): The customer requests permanent deletion of the account tied to their email, including current and previous identifiers, and asks for confirmation of the result. This is an erasure request for the person's own account and data.",
+   "summary: Subject d.romero12@gmail.com / user_457. Only two resources are tied to the subject by usable evidence in the request window: audit_record_6171 (security audit event referencing user_457, RETAIN, present) and backup_1140 (backup catalog row with the subject's email, restore allowed, RESTORABLE). No subject-linked user profile, search, cache, analytics, marketing, export or email record was found in any usable evidence. The three account candidates and analytics_5221 came from a shared deletion-worker run with other customers and have no identifiers linking them to this subject, so they were rejected. The workflow's COMPLETE claim is not supported: the backup remains restorable."
+  ],
+  "usage": [
+   {
+    "case_id": "case_459",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1081,
+    "output_tokens": 99,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_459",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 587,
+    "cache_creation_input_tokens": 1579,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_459",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 673,
+    "cache_creation_input_tokens": 9563,
+    "cache_read_input_tokens": 6450
+   },
+   {
+    "case_id": "case_459",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 778,
+    "cache_creation_input_tokens": 19361,
+    "cache_read_input_tokens": 16013
+   },
+   {
+    "case_id": "case_459",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1273,
+    "cache_creation_input_tokens": 3313,
+    "cache_read_input_tokens": 35374
+   },
+   {
+    "case_id": "case_459",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2103,
+    "cache_creation_input_tokens": 3050,
+    "cache_read_input_tokens": 38687
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d.romero12@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 1622
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_457",
+    "limit": 50
+   },
+   "output_chars": 1836
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Romero",
+    "limit": 50
+   },
+   "output_chars": 1608
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_077"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5167"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5892"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5221"
+   },
+   "output_chars": 3806
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6171"
+   },
+   "output_chars": 2670
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_1140"
+   },
+   "output_chars": 3054
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-01T00:00:00Z",
+    "end": "2026-03-05T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31158
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 0
+   },
+   "output_chars": 4669
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-08T10:00:00Z",
+    "end": "2026-02-08T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 1587
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_077",
+    "limit": 50
+   },
+   "output_chars": 653
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5167",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5892",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "romero",
+    "limit": 50
+   },
+   "output_chars": 1608
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4f8518decae8ebd159f8e3f17de156053d86d0cf3370423ffd1ace98006ffab7",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34704603971",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diego",
+    "limit": 50
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d.romero",
+    "limit": 50
+   },
+   "output_chars": 1610
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "704603971",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "BACKUP_ARCHIVE"
+   },
+   "output_chars": 132
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_2107"
+   },
+   "output_chars": 1507
+  }
+ ]
+}

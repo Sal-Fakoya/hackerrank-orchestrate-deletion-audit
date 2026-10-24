@@ -1,0 +1,425 @@
+{
+ "case_id": "case_521",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_1482",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_48"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3567",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_48"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_7277",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": "evidence_48"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_521",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_1482",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_48",
+    "reason": "Deletion-worker run activity_18 reported SUCCESS, but the workflow claim is not proof. Direct observation in evidence_48 (trace tr-4982557, 2026-02-03T05:54-05:54Z, account-2 on account_service_primary pool) shows a lookup on yuna-lee@gmail.com returning rows=0, HTTP 404 for account_1482. The primary profile is gone at audit_at, so the USER_PROFILE DELETE requirement is satisfied.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_7277",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "TREATED",
+    "evidence_id": "evidence_48",
+    "reason": "Linked to the subject via deletion-worker run activity_19 (ANONYMIZE_RECORD). Direct read in evidence_48 (trace tr-1082620, 2026-02-03T05:56:53Z) shows the profile still exists but with direct_identifiers=0, email=null, phone=null. It can no longer be linked to the person, so it is already anonymized and the ANONYMIZE condition (still attributable) is not met.",
+    "condition_met": false
+   },
+   {
+    "resource_id": "audit_record_3567",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_48",
+    "reason": "Security audit record tied to subject_ref user_519 (the subject's user_id). Trace tr-1598401 in evidence_48 (2026-02-03T05:58:14Z) shows the record was read successfully from the store, so it is present and available at audit_at. No retention_until expiry evidence was found in usable evidence, so it stays within the retention period and must be RETAINED, not deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "email/hash/phone search",
+    "reason": "Searches for the subject's email hash 2d41d393..., phone 821087332776 and the bare 'user_519' only matched the records above. No other linked records, connectors, exports, backups, support tickets or search documents were found for this subject, so no additional candidates were added."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete this account and its personal data, which is a clear erasure request about their own account; the request for an identity review and confirmation does not change that.",
+   "summary: Subject user_519 / yuna-lee@gmail.com. The account profile account_1482 is confirmed absent at audit_at by a primary-pool 404 lookup (evidence_48). The analytics profile analytics_7277 is present but already anonymized, with no direct identifiers (treated). The security audit record audit_record_3567 is present and retained within its retention period. No active connectors, backups, exports, tombstones, search entries, or support records were found tied to this subject. The workflow's COMPLETE claim is consistent with what was observed."
+  ],
+  "usage": [
+   {
+    "case_id": "case_521",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 89,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_521",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 437,
+    "cache_creation_input_tokens": 783,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_521",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 468,
+    "cache_creation_input_tokens": 4393,
+    "cache_read_input_tokens": 5654
+   },
+   {
+    "case_id": "case_521",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 613,
+    "cache_creation_input_tokens": 19143,
+    "cache_read_input_tokens": 10047
+   },
+   {
+    "case_id": "case_521",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 584,
+    "cache_creation_input_tokens": 4888,
+    "cache_read_input_tokens": 29190
+   },
+   {
+    "case_id": "case_521",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 513,
+    "cache_creation_input_tokens": 5283,
+    "cache_read_input_tokens": 34078
+   },
+   {
+    "case_id": "case_521",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 737,
+    "cache_creation_input_tokens": 2503,
+    "cache_read_input_tokens": 39361
+   },
+   {
+    "case_id": "case_521",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1027,
+    "cache_creation_input_tokens": 2101,
+    "cache_read_input_tokens": 41864
+   },
+   {
+    "case_id": "case_521",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1316,
+    "cache_creation_input_tokens": 1053,
+    "cache_read_input_tokens": 43965
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yuna-lee@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 960
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_519",
+    "limit": 50
+   },
+   "output_chars": 1081
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yuna",
+    "limit": 50
+   },
+   "output_chars": 946
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1482"
+   },
+   "output_chars": 1949
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7277"
+   },
+   "output_chars": 1606
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_3567"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-05T00:00:00Z",
+    "end": "2026-02-03T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31052
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-05T00:00:00Z",
+    "end": "2026-01-08T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 8868
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2d41d39395e47d36e28151ecc055965ded8cb92465feaf2d0a00ec1cec6a6ec7",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821087332776",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lee",
+    "limit": 50
+   },
+   "output_chars": 945
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_48",
+    "trace_id": "tr-1598401"
+   },
+   "output_chars": 1152
+  },
+  {
+   "turn": 4,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_48",
+    "trace_id": "tr-1082620"
+   },
+   "output_chars": 310
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 6000
+   },
+   "output_chars": 4655
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 6000
+   },
+   "output_chars": 4607
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_3567",
+    "limit": 50
+   },
+   "output_chars": 1090
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1482",
+    "limit": 50
+   },
+   "output_chars": 1558
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_7277",
+    "limit": 50
+   },
+   "output_chars": 1212
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 2339
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_3567",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "analytics_7277",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 322
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tombstone",
+    "limit": 50
+   },
+   "output_chars": 49
+  }
+ ]
+}

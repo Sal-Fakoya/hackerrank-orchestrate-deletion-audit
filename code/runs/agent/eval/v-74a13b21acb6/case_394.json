@@ -1,0 +1,376 @@
+{
+ "case_id": "case_394",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_195",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_69"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_195",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_195",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_394",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_195",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_69",
+    "reason": "Search document in customer_directory_v3 still exposes the subject's email rodriguez.mateo@icloud.com as of the 2026-04-04 inventory capture (inside the request window and before audit_at). The deletion worker's DELETE for search_195 reported FAILED (activity_1013), so the index entry was not removed. SEARCH_INDEX_ENTRY is always DELETE.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1093",
+    "reason": "Only linked through deletion-worker run activity_1004, which was shared with other customers (case_393, case_407, case_408, case_409, case_422). No usable evidence (snapshot, lookup or export) ties this account to user_392 or the subject's email. Identity-free in a shared run, so it cannot be attributed; not counted as the subject's record."
+   },
+   {
+    "resource_id": "account_2191",
+    "reason": "Linked only via shared batch run activity_1006 (other customers' cases). No usable evidence links it to the subject's identifiers; the absent claim is a workflow claim, not used. Cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_5754",
+    "reason": "Linked only via shared batch run activity_1000 (other customers' cases). No evidence ties it to the subject; cannot be attributed."
+   },
+   {
+    "resource_id": "account_7174",
+    "reason": "Linked only via shared batch run activity_1001 (other customers' cases). No evidence ties it to the subject; cannot be attributed."
+   },
+   {
+    "resource_id": "account_9087",
+    "reason": "Linked only via shared batch run activity_999 (other customers' cases). No evidence ties it to the subject; the present claim is a workflow claim only. Cannot be attributed."
+   },
+   {
+    "resource_id": "analytics_542",
+    "reason": "Linked only via shared batch run activity_1003. Its only snapshot record in evidence_38 (2026-03-30) has user_id, email, email_hash and phone all null, so it is identity-free and cannot be attributed to the subject."
+   },
+   {
+    "resource_id": "analytics_8973",
+    "reason": "Linked only via shared batch run activity_1002. Its record in evidence_38 has user_id, email, email_hash and phone all null; identity-free in a shared run, so it cannot be attributed to the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for a permanent account deletion for their email address, which is erasure of the person's own account and data. The additional request to confirm completion does not change this.",
+   "summary: Only one resource ties to the subject in the request window: search_195 (customer_directory_v3 search document, email rodriguez.mateo@icloud.com, present in evidence_69 captured 2026-04-04). Its deletion reported FAILED, so it remains and must be deleted. No hits for the subject's phone, email hash, user_id user_392, or name variants other than the search document. Account and analytics candidates came only from a shared deletion run with other customers and carry no subject identifiers, so they were rejected as unattributable. No active connector, export, backup, support or legal-hold record references the subject's email in usable evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_394",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 90,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_394",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 744,
+    "cache_creation_input_tokens": 2704,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_394",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1096,
+    "cache_creation_input_tokens": 10265,
+    "cache_read_input_tokens": 7575
+   },
+   {
+    "case_id": "case_394",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 599,
+    "cache_creation_input_tokens": 6185,
+    "cache_read_input_tokens": 17840
+   },
+   {
+    "case_id": "case_394",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 766,
+    "cache_creation_input_tokens": 18277,
+    "cache_read_input_tokens": 24025
+   },
+   {
+    "case_id": "case_394",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1681,
+    "cache_creation_input_tokens": 11059,
+    "cache_read_input_tokens": 42302
+   },
+   {
+    "case_id": "case_394",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1100,
+    "cache_creation_input_tokens": 2004,
+    "cache_read_input_tokens": 53361
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rodriguez.mateo@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 732
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_392",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Mateo Rodríguez",
+    "limit": 100
+   },
+   "output_chars": 55
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1093"
+   },
+   "output_chars": 1494
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2191"
+   },
+   "output_chars": 1493
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5754"
+   },
+   "output_chars": 1493
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7174"
+   },
+   "output_chars": 1493
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9087"
+   },
+   "output_chars": 1490
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_542"
+   },
+   "output_chars": 4941
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_8973"
+   },
+   "output_chars": 4802
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_195"
+   },
+   "output_chars": 2148
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34643453336",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f2952afb7d9b9c54f8a743e1dffc01e55d7538a111d2fe5e0a0ca51cef80e34a",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rodriguez.mateo",
+    "limit": 100
+   },
+   "output_chars": 721
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mateo",
+    "limit": 100
+   },
+   "output_chars": 711
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 5000
+   },
+   "output_chars": 951
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-13T00:00:00Z",
+    "end": "2026-04-04T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31632
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_38",
+    "offset": 0
+   },
+   "output_chars": 4579
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-13T00:00:00Z",
+    "end": "2026-03-17T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 19436
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rodriguez",
+    "limit": 100
+   },
+   "output_chars": 715
+  }
+ ]
+}

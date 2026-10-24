@@ -1,0 +1,459 @@
+{
+ "case_id": "case_141",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_923",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_13"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_460",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_13"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_923",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_460",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_923",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_460",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5497",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_141",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_923",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_13",
+    "reason": "Primary user profile for k.addo7085@yahoo.com (the request email). evidence_13 (integration_management_service, captured 2026-08-12T09:00:00Z, the latest observation at audit_at) shows account_923 FOUND with subject_reference k.addo7085@yahoo.com. The deletion-worker run activity_2834 reported PARTIAL and the replication checkpoint activity_2836 reported PARTIAL; these are claims, and the stored record is still present. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_460",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_13",
+    "reason": "Search index entry carrying the subject's email k.addo7085@yahoo.com. evidence_13 (captured 2026-08-12T09:00:00Z) shows search_460 FOUND with that subject_reference. The deletion activity activity_2838 reported FAILED, which does not prove absence. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_5497",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_13",
+    "reason": "Security audit record whose subject_reference is user_139, the subject's user_id. evidence_13 (captured 2026-08-12T09:00:00Z) shows it FOUND and available. No supplied retention period shows it has expired, so the retention condition is treated as holding and the record is retained, not deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_6372",
+    "reason": "Profile for chidi.eze@outlook.com, a different subject (case_140). It was processed only in the deletion run activity_2833 that was shared with case_140, and evidence_13 ties it to chidi.eze, not to this subject."
+   },
+   {
+    "resource_id": "analytics_3006",
+    "reason": "Analytics profile for chidi.eze@outlook.com, from the shared run activity_2841. It belongs to another subject."
+   },
+   {
+    "resource_id": "data_flow_9030",
+    "reason": "Active connector tied to chidi.eze@outlook.com (evidence_13), from the shared run. It belongs to another subject and is not this subject's data flow."
+   },
+   {
+    "resource_id": "search_7363",
+    "reason": "Search index entry for chidi.eze@outlook.com (evidence_13), from the shared run activity_2837. It belongs to another subject."
+   },
+   {
+    "resource_id": "support_5323",
+    "reason": "Support message for chidi.eze@outlook.com (evidence_13), from the shared run activity_2840. It belongs to another subject."
+   },
+   {
+    "resource_id": "account_2917",
+    "reason": "Matched only the substring 'addo' (kojo-addo@proton.me, 404 lookup). It has no link to this subject's identifiers and is an identity-free match."
+   },
+   {
+    "resource_id": "search_2591",
+    "reason": "Matched only the substring 'addo' (Nana Addo, nana.a7986@zoho.com, user_503). It is a different person."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to remove their own account and the personal information linked to it, which is erasure of their own account and personal data. The vague 'correct treatment' wording does not negate this, and requesting confirmation of the outcome is a deletion follow-up.",
+   "summary: Three resources belong to this subject, all still present at audit_at 2026-08-12T09:00:00Z per evidence_13: account_923 (USER_PROFILE, DELETE), search_460 (SEARCH_INDEX_ENTRY, DELETE), and audit_record_5497 (SECURITY_AUDIT_LOG tied to user_139, RETAIN since no expiry is shown). Searches on the subject's historical email k.addo70@yahoo.com, the phone, the two email hashes and the name \"kwame addo\" found no further records. No replica, backup, data flow, support, analytics or email-log record linked to this subject turned up. The shared batch run activity_2834 also processed records of case_140 (chidi.eze), which were rejected. The workflow's PARTIAL/FAILED claims were not treated as proof of state."
+  ],
+  "usage": [
+   {
+    "case_id": "case_141",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1061,
+    "output_tokens": 118,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_141",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 461,
+    "cache_creation_input_tokens": 4264,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_141",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 616,
+    "cache_creation_input_tokens": 4466,
+    "cache_read_input_tokens": 9135
+   },
+   {
+    "case_id": "case_141",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 626,
+    "cache_creation_input_tokens": 13439,
+    "cache_read_input_tokens": 13601
+   },
+   {
+    "case_id": "case_141",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1249,
+    "cache_creation_input_tokens": 7708,
+    "cache_read_input_tokens": 27040
+   },
+   {
+    "case_id": "case_141",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 575,
+    "cache_creation_input_tokens": 4884,
+    "cache_read_input_tokens": 34748
+   },
+   {
+    "case_id": "case_141",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 829,
+    "cache_creation_input_tokens": 4077,
+    "cache_read_input_tokens": 39632
+   },
+   {
+    "case_id": "case_141",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 390,
+    "cache_creation_input_tokens": 1082,
+    "cache_read_input_tokens": 43709
+   },
+   {
+    "case_id": "case_141",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1906,
+    "cache_creation_input_tokens": 2694,
+    "cache_read_input_tokens": 44791
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_923"
+   },
+   "output_chars": 2714
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5497"
+   },
+   "output_chars": 1520
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_460"
+   },
+   "output_chars": 2106
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k.addo7085@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 1320
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_139",
+    "limit": 100
+   },
+   "output_chars": 690
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k.addo70@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 58
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kwame addo",
+    "limit": 100
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233247781431",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8928d9d2f8eeac3fc108e2ac99d2131ff735f96a04ee63a183ba7f1ab4cddefe",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "c59eb888fe5cb10e9294a11ed488fd8f2d4058728c655b47dd63a34b470eb88f",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-14T00:00:00Z",
+    "end": "2026-08-12T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31150
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_2834",
+    "limit": 50
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_140",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chidi.eze@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 3326
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-14T00:00:00Z",
+    "end": "2026-07-17T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 12813
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_5497",
+    "limit": 50
+   },
+   "output_chars": 699
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_923",
+    "limit": 50
+   },
+   "output_chars": 1894
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_460",
+    "limit": 50
+   },
+   "output_chars": 1287
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "addo",
+    "limit": 100
+   },
+   "output_chars": 3562
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "USER_PROFILE"
+   },
+   "output_chars": 107
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SEARCH_INDEX_ENTRY"
+   },
+   "output_chars": 113
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 6000
+   },
+   "output_chars": 4503
+  }
+ ]
+}

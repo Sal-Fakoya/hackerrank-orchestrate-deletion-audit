@@ -1,0 +1,182 @@
+{
+ "case_id": "case_442",
+ "mode": "baseline",
+ "judge_version": "7436d30c7fb8",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_1576",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "activity_901"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_1194",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_41"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_4123",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_41"
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_1576",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_1194",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4123",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_1576",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_1897",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8461",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_1194",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4839",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4123",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_442",
+  "mode": "baseline",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_1576",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "activity_901",
+    "reason": "DELETE_RECORD PARTIAL",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_1897",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_41",
+    "reason": "result=NOT_FOUND",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_8461",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "activity_900",
+    "reason": "DELETE_RECORD SUCCESS",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_4839",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_41",
+    "reason": "result=FOUND",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_1194",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_41",
+    "reason": "result=FOUND",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_4123",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_41",
+    "reason": "result=IDENTIFIABLE",
+    "condition_met": true
+   }
+  ],
+  "rejected": [],
+  "notes": [],
+  "usage": []
+ },
+ "transcript": []
+}

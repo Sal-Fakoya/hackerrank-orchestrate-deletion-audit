@@ -1,0 +1,667 @@
+{
+ "case_id": "case_434",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_5626",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_41"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_2354",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_41"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_3364",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_41"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9854",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_41"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9854",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_5626",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3364",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_2354",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4813",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5626",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4043",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3364",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_2354",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 14,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9854",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_434",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4813",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_41",
+    "reason": "Subject's primary profile (email charlotte.foster@gmail.com) returned NOT_FOUND on the 2026-03-15 lookup at audit_at; the 2026-03-10 inventory snapshot (evidence_66) also has no account_4813 row. Linked to the subject by the direct email match in evidence_41 despite being in the shared batch run activity_683. The workflow's FAILED claim in activity_683 is superseded by the direct observation. Compliant (ABSENT).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_2354",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_41",
+    "reason": "Analytics profile still resolves to charlotte.foster@gmail.com with direct identifiers (IDENTIFIABLE) at audit_at; still attributable to the subject, so it must be anonymized. Workflow ANONYMIZE was reported FAILED in activity_700.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_5626",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_41",
+    "reason": "Customer search index entry for charlotte.foster@gmail.com is still FOUND at audit_at (evidence_41 line 23). Index entries must be deleted; the workflow DELETE was reported FAILED in activity_697.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_3364",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_41",
+    "reason": "Support conversation record still exposes the subject's direct identifiers (requester email, IDENTIFIABLE) at audit_at. It is a support conversation (not a contact copy), so it should be redacted and retained for the shared order/agent context rather than deleted. Workflow REDACT was reported FAILED in activity_698.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_9854",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_41",
+    "reason": "Integration data flow for charlotte.foster@gmail.com is ACTIVE at audit_at (evidence_41 line 18), so it can copy or recreate the subject's data and must be disabled. The activity_694 SUCCESS check only confirmed it was enabled earlier.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_4043",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_41",
+    "reason": "Security audit record referencing user_432 is FOUND at audit_at (evidence_41 line 29). No retention_until value is visible for this record in any usable evidence, so retention cannot be shown to have expired; retain as PRESENT, but the retention end date should be confirmed.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "user_432",
+    "reason": "Identifier, not a stored resource; no separate record found in usable evidence beyond audit_record_4043 subject_reference."
+   },
+   {
+    "resource_id": "legal_hold_*",
+    "reason": "Legal hold records in snapshots belong to other users (user_503, user_509, user_471, user_458); no legal hold tied to user_432 or charlotte.foster was found."
+   },
+   {
+    "resource_id": "backup/export/tombstone records",
+    "reason": "No backup, export, or tombstone record linked to charlotte.foster, user_432, or the email/phone/hash was found in any usable evidence."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to delete this account and its personal data, applying to the relevant account records, and requests confirmation of the outcome. This is a deletion request for the person's own account and data.",
+   "summary: Subject charlotte.foster (user_432) has 6 governed resources in the 2026-03-15 downstream lookup (evidence_41): account_4813 is ABSENT (compliant); analytics_2354 PRESENT (anonymize); search_5626 PRESENT (delete); support_3364 PRESENT (redact); data_flow_9854 ACTIVE (disable); audit_record_4043 PRESENT and retained. Workflow DELETE/ANONYMIZE/REDACT results were FAILED claims and are not relied on. No other copies, backups, exports or legal holds for the subject were found in usable evidence. The shared batch run (activity_683) was not used to attribute other records to other requests."
+  ],
+  "usage": [
+   {
+    "case_id": "case_434",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 97,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_434",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 596,
+    "cache_creation_input_tokens": 1704,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_434",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 710,
+    "cache_creation_input_tokens": 7508,
+    "cache_read_input_tokens": 6575
+   },
+   {
+    "case_id": "case_434",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 578,
+    "cache_creation_input_tokens": 20980,
+    "cache_read_input_tokens": 14083
+   },
+   {
+    "case_id": "case_434",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 694,
+    "cache_creation_input_tokens": 3481,
+    "cache_read_input_tokens": 35063
+   },
+   {
+    "case_id": "case_434",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1474,
+    "cache_creation_input_tokens": 13567,
+    "cache_read_input_tokens": 38544
+   },
+   {
+    "case_id": "case_434",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1661,
+    "cache_creation_input_tokens": 1782,
+    "cache_read_input_tokens": 52111
+   },
+   {
+    "case_id": "case_434",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1026,
+    "cache_creation_input_tokens": 4541,
+    "cache_read_input_tokens": 53893
+   },
+   {
+    "case_id": "case_434",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2442,
+    "cache_creation_input_tokens": 9656,
+    "cache_read_input_tokens": 58434
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "charlotte.foster@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2646
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_432",
+    "limit": 100
+   },
+   "output_chars": 548
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "charlotte foster",
+    "limit": 100
+   },
+   "output_chars": 56
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4813"
+   },
+   "output_chars": 1983
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2354"
+   },
+   "output_chars": 2048
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4043"
+   },
+   "output_chars": 1377
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_9854"
+   },
+   "output_chars": 2004
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5626"
+   },
+   "output_chars": 1974
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3364"
+   },
+   "output_chars": 2019
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-21T07:00:00Z",
+    "end": "2026-03-15T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31141
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "7fd87ff776daf30c724c09923dc88974e8d1966035e66e0d103b6db9e9a12163",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "447700900432",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "foster",
+    "limit": 100
+   },
+   "output_chars": 2626
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_432",
+    "limit": 100
+   },
+   "output_chars": 548
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "charlotte",
+    "limit": 100
+   },
+   "output_chars": 2629
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 2000
+   },
+   "output_chars": 4400
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 2000
+   },
+   "output_chars": 4249
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM customer_profiles WHERE resource_id IN ('account_4813') OR email LIKE '%foster%' OR customer_reference LIKE '%432%' OR full_name LIKE '%foster%'"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_primary WHERE record_json LIKE '%432%' OR record_json LIKE '%foster%' OR record_json LIKE '%4813%' OR record_json LIKE '%2354%' OR record_json LIKE '%5626%' OR record_json LIKE '%3364%' OR record_json LIKE '%9854%' OR record_json LIKE '%4043%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "support_3364",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 353
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_4043",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "data_flow_9854",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 359
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "activity_683",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_44",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_4043",
+    "limit": 50
+   },
+   "output_chars": 557
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_3364",
+    "limit": 50
+   },
+   "output_chars": 1199
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 16342
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  }
+ ]
+}

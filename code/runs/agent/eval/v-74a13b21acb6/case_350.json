@@ -1,0 +1,492 @@
+{
+ "case_id": "case_350",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9775",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_71"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9775",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9775",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_350",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "data_flow_9775",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_71",
+    "reason": "search_profile_indexer connector is enabled (enabled=true, last_delivery_status=delivered as of 2026-04-29T05:58:22Z) and its customer_email is zanele.tshabalala@gmail.com, the subject's email. It can copy or recreate the subject's data into the search index, so it must be disabled. The 2026-04-12 CHECK_DATA_FLOW activity (activity_1414) reported it enabled and the 2026-04-29 export confirms it is still active; no later DISABLE action exists for it.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2282",
+    "reason": "Linked only through deletion-worker run activity_1405 shared with other requests (case_335, 336, 337, 351, 352). No usable evidence ties this account to the subject's email, hash, phone, or user_id; activity_1405 is only a claim (FAILED) with no identity-bearing observation. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_5059",
+    "reason": "Linked only through shared batch run activity_1397. evidence_71 shows only a 404 identity-free lookup (profile null), which cannot be attributed to the subject in a shared run."
+   },
+   {
+    "resource_id": "account_5202",
+    "reason": "Linked only through shared batch run activity_1398; no evidence ties it to the subject. Activity claim only (PARTIAL)."
+   },
+   {
+    "resource_id": "account_6215",
+    "reason": "Linked only through shared batch run activity_1399; no evidence ties it to the subject. Workflow claim only (SUCCESS)."
+   },
+   {
+    "resource_id": "account_767",
+    "reason": "Linked only through shared batch run activity_1403; no evidence ties it to the subject. Activity claim only (FAILED)."
+   },
+   {
+    "resource_id": "analytics_1072",
+    "reason": "Linked through shared batch run activity_1400. The only observation (evidence_71) is an all-null analytics profile (no email, hash, phone, customer_reference), so it cannot be attributed to the subject in a shared run."
+   },
+   {
+    "resource_id": "backup_024",
+    "reason": "Restore entry references user_349 (a different subject), not the requested subject. Not attributable to zanele.tshabalala."
+   },
+   {
+    "resource_id": "data_flow_4323",
+    "reason": "Connector references user_349, a different subject, with no link to this subject's identifiers."
+   },
+   {
+    "resource_id": "support_7137",
+    "reason": "Support ticket references user_349, a different subject; no link to this subject's identifiers."
+   },
+   {
+    "resource_id": "audit_record_8787",
+    "reason": "Security audit record for user_349, a different subject."
+   },
+   {
+    "resource_id": "search_5685",
+    "reason": "Search document for jang.doyun@gmail.com, a different customer; appears in the shared run context only."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests permanent account deletion and asks that copies within scope be handled, which is erasure of their own account and personal data.",
+   "summary: Subject zanele.tshabalala (user_348) has one attributable in-scope resource: data_flow_9775, a search_profile_indexer connector that is still enabled and carries the subject's email (evidence_71, captured 2026-04-29 before audit_at). It is ACTIVE and must be disabled. No subject-attributable search index entries, profiles, support records, exports, or backups were found. The account and analytics candidates came only from a shared deletion-worker run and carry no identity link to this subject, so they were rejected. Searches on the email, phone, hash, name, and user_id found no other subject records."
+  ],
+  "usage": [
+   {
+    "case_id": "case_350",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 81,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_350",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 587,
+    "cache_creation_input_tokens": 3006,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_350",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 610,
+    "cache_creation_input_tokens": 6926,
+    "cache_read_input_tokens": 7877
+   },
+   {
+    "case_id": "case_350",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 241,
+    "cache_creation_input_tokens": 4082,
+    "cache_read_input_tokens": 14803
+   },
+   {
+    "case_id": "case_350",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 323,
+    "cache_creation_input_tokens": 14634,
+    "cache_read_input_tokens": 18885
+   },
+   {
+    "case_id": "case_350",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 954,
+    "cache_creation_input_tokens": 6870,
+    "cache_read_input_tokens": 33519
+   },
+   {
+    "case_id": "case_350",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 499,
+    "cache_creation_input_tokens": 3257,
+    "cache_read_input_tokens": 40389
+   },
+   {
+    "case_id": "case_350",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 587,
+    "cache_creation_input_tokens": 4971,
+    "cache_read_input_tokens": 43646
+   },
+   {
+    "case_id": "case_350",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1754,
+    "cache_creation_input_tokens": 5579,
+    "cache_read_input_tokens": 48617
+   },
+   {
+    "case_id": "case_350",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1451,
+    "cache_creation_input_tokens": 3293,
+    "cache_read_input_tokens": 54196
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zanele.tshabalala@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 856
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_348",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2282"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5059"
+   },
+   "output_chars": 2123
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5202"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6215"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_767"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1072"
+   },
+   "output_chars": 2267
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_9775"
+   },
+   "output_chars": 2295
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hash:ff438045157577fabcb25bcd921fdf3da273e5b96f09851ed074d717506cca15",
+    "limit": 100
+   },
+   "output_chars": 109
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Tshabalala",
+    "limit": 100
+   },
+   "output_chars": 839
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27722915260",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 3500
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-11T00:00:00Z",
+    "end": "2026-04-29T09:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31082
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 7000
+   },
+   "output_chars": 3175
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-11T00:00:00Z",
+    "end": "2026-04-12T23:59:59Z",
+    "limit": 100
+   },
+   "output_chars": 12681
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2282",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5202",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6215",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_767",
+    "limit": 50
+   },
+   "output_chars": 655
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_1072",
+    "limit": 50
+   },
+   "output_chars": 1443
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": "SELECT resource_id, origin_system, collection_name, substr(record_json,1,300) FROM customer_data_primary"
+   },
+   "output_chars": 9427
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT resource_id, origin_system, collection_name, substr(record_json,1,300) FROM customer_data_primary"
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zanele",
+    "limit": 50
+   },
+   "output_chars": 835
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_9775",
+    "limit": 50
+   },
+   "output_chars": 1470
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_35",
+    "offset": 0
+   },
+   "output_chars": 4659
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "722915260",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+27",
+    "limit": 50
+   },
+   "output_chars": 43
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_349",
+    "limit": 50
+   },
+   "output_chars": 3153
+  }
+ ]
+}

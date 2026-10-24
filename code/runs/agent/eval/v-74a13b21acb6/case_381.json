@@ -1,0 +1,273 @@
+{
+ "case_id": "case_381",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_6784",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_70"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_6784",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_6784",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6833",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_381",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_6784",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_70",
+    "reason": "Readback trace rb-034814-008 at 2026-04-14T03:48:14Z (inside request window, before audit_at) returned account_6784 (HTTP 200, rows=1) for the subject's exact email n.torres30@yahoo.com, so the profile still exposes a direct identifier. The workflow DELETE (activity_1031) reported FAILED and the replication checkpoint (activity_1034) reported PARTIAL, so the profile was not removed. Although the record was also submitted in batch run activity_1031 shared with case_380, the direct email match ties it to this subject. Must be DELETED.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_9326",
+    "reason": "Linked only through shared deletion-worker run activity_1033 (shared with case_380, rohan.jain@outlook.com). The only observation, evidence_70 trace rb-045402-016 at 2026-04-14T04:54:02Z, is an identity-free profile (customer_reference, email, phone, email_hash all null, audience_cohort only). Nothing ties it to this subject, so it cannot be attributed and is rejected."
+   },
+   {
+    "resource_id": "user_379",
+    "reason": "Subject user_id is not present as a record in any usable evidence; no resource carries it, so it yields no fact."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Spanish): The customer asks for permanent deletion of the account associated with their email, including current and previous identifiers, and requests confirmation of the outcome. This is a direct erasure request for the person's own account and data.",
+   "summary: Subject n.torres30@yahoo.com (user_379). Only one resource tied to the subject appears in the request window: account_6784 (account_service), still present with the subject's email at 2026-04-14 readback (evidence_70), despite the reported FAILED primary delete and PARTIAL replication checkpoint. The batch-run candidate analytics_9326 was rejected because its shared-run observation is identity-free. Searches for the hash, phone, name and user_id found no further usable records. The account_6784 profile still needs deletion, and replication/derived copies should be verified.",
+   "future verification added for audit_record_6833 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_381",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1081,
+    "output_tokens": 103,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_381",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 452,
+    "cache_creation_input_tokens": 1942,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_381",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 329,
+    "cache_creation_input_tokens": 2429,
+    "cache_read_input_tokens": 6813
+   },
+   {
+    "case_id": "case_381",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 581,
+    "cache_creation_input_tokens": 15046,
+    "cache_read_input_tokens": 9242
+   },
+   {
+    "case_id": "case_381",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 794,
+    "cache_creation_input_tokens": 3349,
+    "cache_read_input_tokens": 24288
+   },
+   {
+    "case_id": "case_381",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1223,
+    "cache_creation_input_tokens": 15688,
+    "cache_read_input_tokens": 27637
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_379",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "n.torres30@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 772
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2f7718cb4eeb903e1f2d0daaa8df47091a0a4247dbbdde6483c08b3879d1d7bf",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "torres",
+    "limit": 100
+   },
+   "output_chars": 2898
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34788985692",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6784"
+   },
+   "output_chars": 2814
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9326"
+   },
+   "output_chars": 2133
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-16T00:00:00Z",
+    "end": "2026-04-14T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30947
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "n.torres",
+    "limit": 100
+   },
+   "output_chars": 760
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nicol",
+    "limit": 100
+   },
+   "output_chars": 935
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6784",
+    "limit": 100
+   },
+   "output_chars": 1987
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_9326",
+    "limit": 100
+   },
+   "output_chars": 1311
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-18T05:00:00Z",
+    "end": "2026-03-18T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 973
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 27745
+  }
+ ]
+}

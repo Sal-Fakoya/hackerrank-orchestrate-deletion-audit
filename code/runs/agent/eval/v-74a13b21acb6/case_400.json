@@ -1,0 +1,531 @@
+{
+ "case_id": "case_400",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_4649",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_69"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_4521",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_69"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_4649",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4521",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_4649",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4521",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_400",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_4649",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_69",
+    "reason": "customer_directory_v3 search document row still carries the subject's exact email balogun.chidi@gmail.com (captured 2026-04-04T10:04:19Z, before audit_at). Search index entries must be deleted; the workflow's FAILED/present readback is consistent with this.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_4521",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_69",
+    "reason": "Support record with requester_email balogun.chidi@gmail.com still present at 2026-04-04T09:15:50Z (before audit_at). The message concerns delivery details (order context), so the conversation must be retained and redacted rather than deleted; direct identifier remains visible.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1140",
+    "reason": "Linked only via deletion-worker batch run activity_939, which is shared with case_398 and case_399. No usable evidence (no snapshot row, no identifier, no user_398 reference) ties this account to balogun.chidi@gmail.com or user_398; the workflow 'present' claim is not attributable. Rejected."
+   },
+   {
+    "resource_id": "account_2138",
+    "reason": "Linked only via shared batch run activity_937 (case_398, case_399). No usable evidence ties it to this subject; the 'present' hint is a workflow claim only. Rejected."
+   },
+   {
+    "resource_id": "account_928",
+    "reason": "Linked only via shared batch run activity_940 (case_398, case_399). No usable evidence ties it to this subject; 'absent' is a workflow claim. Rejected as not attributable to this subject."
+   },
+   {
+    "resource_id": "analytics_4455",
+    "reason": "Shared batch run activity_941 (case_398, case_399). The only snapshot row (evidence_69) is an identity-free all-null general_shopper profile with no email, hash, phone, or user reference, so it cannot be attributed to this subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks for the account associated with the address to be erased, following applicable retention and deletion requirements, and requests a confirmation afterward. This is a clear request for erasure of the person's own account and data.",
+   "summary: Subject balogun.chidi@gmail.com / user_398. Two in-episode records are attributable to the subject and still hold direct identifiers at audit_at: search_4649 (search index, DELETE, present) and support_4521 (support message with delivery/order context, REDACT, present), both per evidence_69 captured 2026-04-04 before audit_at. No subject-linked DATA_FLOW, backup, export, email log, analytics, or account profile was found by email, phone, hash, name, or user_id searches. Shared-batch candidates (account_1140, account_2138, account_928, analytics_4455) were rejected for lack of attribution. The workflow COMPLETE claim is not supported: the search index and support record remain present."
+  ],
+  "usage": [
+   {
+    "case_id": "case_400",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 105,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_400",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 453,
+    "cache_creation_input_tokens": 2084,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_400",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 495,
+    "cache_creation_input_tokens": 1347,
+    "cache_read_input_tokens": 6955
+   },
+   {
+    "case_id": "case_400",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 675,
+    "cache_creation_input_tokens": 18137,
+    "cache_read_input_tokens": 8302
+   },
+   {
+    "case_id": "case_400",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1158,
+    "cache_creation_input_tokens": 9721,
+    "cache_read_input_tokens": 26439
+   },
+   {
+    "case_id": "case_400",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 890,
+    "cache_creation_input_tokens": 1767,
+    "cache_read_input_tokens": 36160
+   },
+   {
+    "case_id": "case_400",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 788,
+    "cache_creation_input_tokens": 2347,
+    "cache_read_input_tokens": 37927
+   },
+   {
+    "case_id": "case_400",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1092,
+    "cache_creation_input_tokens": 4145,
+    "cache_read_input_tokens": 40274
+   },
+   {
+    "case_id": "case_400",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2348,
+    "cache_creation_input_tokens": 3051,
+    "cache_read_input_tokens": 44419
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "balogun.chidi@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1418
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_398",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Chidi Balogun",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348039547099",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5ef4834d9b1cb203fe974f5a02227849b6a01e42e7f7ec2b3d646a053d707234",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1140"
+   },
+   "output_chars": 1491
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2138"
+   },
+   "output_chars": 1491
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_928"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4455"
+   },
+   "output_chars": 2135
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4649"
+   },
+   "output_chars": 2151
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_4521"
+   },
+   "output_chars": 2181
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-07T00:00:00Z",
+    "end": "2026-04-04T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31632
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM customer_profiles WHERE email LIKE '%balogun%' OR phone LIKE '%2348039547099%' OR customer_reference LIKE '%398%' OR full_name LIKE '%balogun%' OR resource_id IN ('account_1140','account_2138','account_928')"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT 'exp' t, * FROM customer_exports WHERE owner_email LIKE '%balogun%' UNION ALL SELECT 'conn', resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status, updated_at FROM connector_subscriptions WHERE customer_email LIKE '%balogun%' OR customer_reference IS NOT NULL UNION ALL SELECT 'bkp', resource_id, customer_reference, customer_email, archive_key, restore_allowed, updated_at, NULL FROM backup_restore_entries WHERE customer_email LIKE '%balogun%' OR customer_reference IS NOT NULL"
+   },
+   "output_chars": 101
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM security_audit_records WHERE subject_reference LIKE '%398%' OR subject_reference LIKE '%balogun%' OR resource_id LIKE '%balogun%'"
+   },
+   "output_chars": 108
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM support_records WHERE requester_email LIKE '%balogun%' OR requester_name LIKE '%balogun%' OR customer_reference LIKE '%398%'"
+   },
+   "output_chars": 291
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM customer_search_documents WHERE email LIKE '%balogun%' OR display_name LIKE '%balogun%' OR customer_reference LIKE '%398%'"
+   },
+   "output_chars": 253
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM customer_analytics_profiles WHERE email LIKE '%balogun%' OR customer_reference LIKE '%398%'"
+   },
+   "output_chars": 127
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_1140",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 346
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-10T09:00:00Z",
+    "end": "2026-03-10T11:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 2217
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_400",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1140",
+    "limit": 100
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM customer_profiles WHERE email LIKE '%balogun%' OR full_name LIKE '%balogun%' OR phone LIKE '%8039547099%' OR resource_id IN ('account_1140','account_2138','account_928','account_4455')"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 129
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_44",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "balogun",
+    "limit": 100
+   },
+   "output_chars": 1402
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chidi",
+    "limit": 100
+   },
+   "output_chars": 1400
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2138",
+    "limit": 100
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_928",
+    "limit": 100
+   },
+   "output_chars": 652
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_398",
+    "limit": 100
+   },
+   "output_chars": 48
+  }
+ ]
+}

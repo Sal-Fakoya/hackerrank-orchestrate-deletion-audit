@@ -1,0 +1,54 @@
+Search Console
+email:g.silva76@gmail.com
+Production
+Help
+SC
+
+Northstar Shop
+Customer Search
+Product Search
+Order Search
+Indexes
+Cluster health
+Slow queries
+
+Northstar Shop / Search Console / Customer Search
+Customer Search
+2 hits
+customer_directory_v3 / prod-eu
+Results (2)
+Query details
+Shard timing
+Filter
+Export
+Actions
+
+Executed: 01 Sep 2026 06:00:14 UTC
+Latency: 184 ms
+Index: customer_directory_v3
+Environment: prod-eu
+Shard total: 184 ms
+
+Results (2)
+Updated moments ago · 2 records
+
+_id | Display name | Email | Customer reference | Score | Last indexed
+1 search_428 | Gabriel Silva | g.silva76@gmail.com | user_13 | 9.84 | 05:58:21 UTC
+2 search_1874 | — | g.silva76.jr@gmail.com | — | 4.12 | 05:55:03 UTC
+
+Raw document · search_428
+_index: customer_directory_v3
+_id: search_428
+display_name: Gabriel Silva
+email: g.silva76@gmail.com
+customer_reference: user_13
+indexed_at: 2026-09-01T05:58:21Z
+
+Activity
+06:00:14 email:g.silva76@gmail.com · 2 hits
+05:42:03 customer_reference:user_9842 · 1 hit
+05:31:18 display_name:"Aditi Jain" · 1 hit
+
+Search Console
+Production workspace
+build 2026.10.4

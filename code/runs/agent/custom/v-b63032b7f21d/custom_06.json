@@ -1,0 +1,371 @@
+{
+ "case_id": "custom_06",
+ "mode": "agent",
+ "judge_version": "b63032b7f21d",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1491",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_52"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_3963",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": "evidence_52"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "custom_06",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "tombstone_3963",
+    "system_id": "identity_service",
+    "category": "ACCOUNT_TOMBSTONE",
+    "state": "TREATED",
+    "evidence_id": "evidence_52",
+    "reason": "Deleted-account reference for user_549 in the failover replica and primary. name, email, email_hash and phone are all null; only the stable internal subject_reference user_549 remains, so the tombstone is already redacted to the required level.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1491",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "Security audit event account_deletion_reviewed for subject_reference user_549, recorded in the 2026-09 deletion workflow. No retention_until expiry is visible and nothing shows the period has ended, so it is within retention and must be retained. Being a retained record, it is reported as PRESENT.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3136",
+    "reason": "Linked only through batch_run activity_3597, which is shared with other requests (case_24, case_25, case_26, case_550). The only usable observation (evidence_92) is an identity-free 404 profile lookup, so it cannot be attributed to this subject. Activity_3597 reported FAILED but that is a claim."
+   },
+   {
+    "resource_id": "account_4842",
+    "reason": "Linked only through shared batch_run activity_3598. Only evidence is a workflow activity claim with no identity-bearing record tying it to user_549. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_7225",
+    "reason": "Linked only through shared batch_run activity_3601. Only evidence is a workflow activity claim with no identity-bearing record tying it to user_549. Not attributable to this subject."
+   },
+   {
+    "resource_id": "analytics_1895",
+    "reason": "Linked only through shared batch_run activity_3602. Profile in evidence_92 and evidence_02 has customer_reference, user_id, email and phone all null, so it cannot be tied to user_549 in a shared run. Not attributable."
+   },
+   {
+    "resource_id": "analytics_4566",
+    "reason": "Linked only through shared batch_run activity_3603. Profile in evidence_92 and evidence_02 has customer_reference, user_id, email and phone all null, so it cannot be tied to user_549 in a shared run. Not attributable."
+   },
+   {
+    "resource_id": "data_flow_3827",
+    "reason": "Connector analytics_identity_bridge / customer-events-to-warehouse-4 has subject_selector noah.f438085@outlook.com, which belongs to a different customer (user_29, Noah Foster). Not this subject's email, so not in scope for this subject."
+   },
+   {
+    "resource_id": "custom_ev_01 records (audit_record_99001, audit_record_1596)",
+    "reason": "Evidence file custom_ev_01 is labelled synthetic for another case and concerns user_15. Not usable and not this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to confirm that their personal details are no longer stored after the account was closed, which is a follow-up verifying erasure of their own data, so it is a deletion request.",
+   "summary: Subject user_549 (noah-carter@proton.me). The only records tied to this subject are a deleted-account tombstone (already redacted to user_id only, TREATED) and a retained security audit event (PRESENT, retained). The account_service profiles and analytics profiles are not attributable to this subject: they appear only in shared batch runs with identity-free or null observations. No search index, cache, support, marketing, export, or email records mention user_549, the email, the hash, or the phone. No legal hold was found for this subject. Remaining residual risk: the failover replica (evidence_52) already reflects the retained state, and no active data flow was found that is tied to this subject's identifiers."
+  ],
+  "usage": [
+   {
+    "case_id": "custom_06",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 983,
+    "output_tokens": 95,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "custom_06",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 708,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 11328
+   },
+   {
+    "case_id": "custom_06",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 994,
+    "cache_creation_input_tokens": 10355,
+    "cache_read_input_tokens": 11328
+   },
+   {
+    "case_id": "custom_06",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1463,
+    "cache_creation_input_tokens": 13410,
+    "cache_read_input_tokens": 21683
+   },
+   {
+    "case_id": "custom_06",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1278,
+    "cache_creation_input_tokens": 16833,
+    "cache_read_input_tokens": 35093
+   },
+   {
+    "case_id": "custom_06",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1725,
+    "cache_creation_input_tokens": 17838,
+    "cache_read_input_tokens": 51926
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_549",
+    "limit": 100
+   },
+   "output_chars": 3474
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "noah-carter@proton.me",
+    "limit": 100
+   },
+   "output_chars": 61
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "noah carter",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3136"
+   },
+   "output_chars": 2124
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4842"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7225"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1895"
+   },
+   "output_chars": 3338
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4566"
+   },
+   "output_chars": 3346
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1491"
+   },
+   "output_chars": 2740
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "tombstone_3963"
+   },
+   "output_chars": 2555
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a1056a9f9a1b524bbdbfff550a4815659da1a0171ada38434d5d93d03e29d9e5",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "12025550149",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "noah",
+    "limit": 100
+   },
+   "output_chars": 12170
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "carter",
+    "limit": 100
+   },
+   "output_chars": 8898
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "custom_ev_01",
+    "offset": 0
+   },
+   "output_chars": 1086
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-01T00:00:00Z",
+    "end": "2026-09-20T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_52",
+    "offset": 0
+   },
+   "output_chars": 4456
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_1491",
+    "limit": 50
+   },
+   "output_chars": 1839
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_1491",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "activity_3604",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention_until",
+    "limit": 50
+   },
+   "output_chars": 35572
+  }
+ ]
+}

@@ -1,0 +1,586 @@
+{
+ "case_id": "case_426",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2635",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_68"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_9212",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_68"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2635",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9212",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2635",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5472",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9212",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_426",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_2635",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_68",
+    "reason": "Direct match: search index document search_2635 exposes email aokeke238584@gmail.com (a subject identifier) in an index query observed 2026-03-20T06:47:25Z, before audit_at. Deletion workflow result (activity_909) was FAILED. Index entry must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_9212",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_68",
+    "reason": "Support ticket support_9212 has requester_email aokeke238584@gmail.com still visible (requester_name and phone null), observed 2026-03-20T06:07:32Z. The ticket is a customer conversation about delivery details (order context that must be retained), so the policy action is REDACT of direct identifiers, not deletion. Workflow redaction (activity_907) reported FAILED.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1576",
+    "reason": "Linked only via deletion-worker run activity_901, whose shared_with lists other requests (case_425, case_427, case_442, case_46). No usable evidence ties this account to user_424 or the subject email/hash/phone. Not attributable; rejected."
+   },
+   {
+    "resource_id": "account_9633",
+    "reason": "Linked only via shared deletion-worker run activity_902 (shared with other requests). No evidence ties it to this subject; the only observation is the workflow claim. Rejected as belonging to another subject or unattributable."
+   },
+   {
+    "resource_id": "account_8461",
+    "reason": "Linked only via shared deletion-worker run activity_900 (shared with other requests). Its only observation is evidence_68 profile lookup returning 404 with null profile, which is identity-free and cannot be attributed to this subject. Rejected."
+   },
+   {
+    "resource_id": "analytics_8091",
+    "reason": "Linked only via shared deletion-worker run activity_903. evidence_68 shows an all-null analytics profile (general_shopper, no email, hash, phone or customer reference), which is identity-free and cannot be attributed to this subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks the shop to erase the account linked to the email address, which is a request for account and personal data erasure. Requests to follow retention requirements and to contact for verification do not negate the deletion request.",
+   "summary: Subject user_424 (aokeke238584@gmail.com). Two in-scope records found with direct identifiers still present at audit_at per evidence_68 (captured 2026-03-20, before audit cutoff): search_2635 (SEARCH_INDEX_ENTRY, delete) and support_9212 (SUPPORT_MESSAGE, redact). The four candidates from shared deletion run activity_900-903 were rejected: no evidence ties them to this subject, and the only observations are an identity-free 404 and an all-null analytics profile. No primary account profile, replica, export, connector, backup, or hold records matching the subject's emails, hashes, phone, or user_id were found in any usable snapshot. Workflow claims of FAILED/PARTIAL were not relied on.",
+   "future verification added for audit_record_5472 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_426",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 104,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_426",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 497,
+    "cache_creation_input_tokens": 2089,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_426",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 814,
+    "cache_creation_input_tokens": 7573,
+    "cache_read_input_tokens": 6960
+   },
+   {
+    "case_id": "case_426",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 460,
+    "cache_creation_input_tokens": 15648,
+    "cache_read_input_tokens": 14533
+   },
+   {
+    "case_id": "case_426",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1751,
+    "cache_creation_input_tokens": 9668,
+    "cache_read_input_tokens": 30181
+   },
+   {
+    "case_id": "case_426",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 553,
+    "cache_creation_input_tokens": 5958,
+    "cache_read_input_tokens": 39849
+   },
+   {
+    "case_id": "case_426",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1009,
+    "cache_creation_input_tokens": 3905,
+    "cache_read_input_tokens": 45807
+   },
+   {
+    "case_id": "case_426",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 365,
+    "cache_creation_input_tokens": 1350,
+    "cache_read_input_tokens": 49712
+   },
+   {
+    "case_id": "case_426",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 439,
+    "cache_creation_input_tokens": 517,
+    "cache_read_input_tokens": 51062
+   },
+   {
+    "case_id": "case_426",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 963,
+    "cache_creation_input_tokens": 1710,
+    "cache_read_input_tokens": 51579
+   },
+   {
+    "case_id": "case_426",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2238,
+    "cache_creation_input_tokens": 1766,
+    "cache_read_input_tokens": 53289
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1576"
+   },
+   "output_chars": 1483
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8461"
+   },
+   "output_chars": 2121
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9633"
+   },
+   "output_chars": 1483
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_8091"
+   },
+   "output_chars": 2263
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2635"
+   },
+   "output_chars": 3123
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_9212"
+   },
+   "output_chars": 2328
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_424",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aokeke",
+    "limit": 50
+   },
+   "output_chars": 2536
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aokeke2385@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 60
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348035950808",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Adaeze Okeke",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "286c38e2fe28390bdd803ea9aa57f4dc39cfbd0ee7a3d335f1bc382437e5a9d4",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "dc99cec09918f8604ea25c8896e66ac562912a198f9a4e90e0f9eed6c08ec88b",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-06T00:00:00Z",
+    "end": "2026-03-20T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31307
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-06T00:00:00Z",
+    "end": "2026-03-09T00:00:00Z",
+    "limit": 60
+   },
+   "output_chars": 17084
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 9000
+   },
+   "output_chars": 219
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1576",
+    "limit": 50
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9633",
+    "limit": 50
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8461",
+    "limit": 50
+   },
+   "output_chars": 1294
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_8091",
+    "limit": 50
+   },
+   "output_chars": 1441
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "okeke",
+    "limit": 50
+   },
+   "output_chars": 2535
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "238584",
+    "limit": 50
+   },
+   "output_chars": 2536
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "user_424",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM customer_profiles WHERE email LIKE '%okeke%' OR phone LIKE '%5950808%' OR customer_reference LIKE '%424%' OR resource_id LIKE '%1576%' OR resource_id LIKE '%9633%'"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM support_records WHERE requester_email LIKE '%okeke%' OR customer_reference LIKE '%424%'"
+   },
+   "output_chars": 151
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM customer_search_documents WHERE email LIKE '%okeke%' OR display_name LIKE '%okeke%' OR customer_reference LIKE '%424%'"
+   },
+   "output_chars": 138
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT * FROM customer_data_reporting_replica WHERE 0"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT * FROM customer_data_reporting_replica LIMIT 0"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_reporting_replica WHERE record_json LIKE '%okeke%' OR record_json LIKE '%424%' OR record_json LIKE '%1576%' OR record_json LIKE '%9633%' OR record_json LIKE '%8461%' OR record_json LIKE '%8091%' OR record_json LIKE '%2635%' OR record_json LIKE '%9212%'"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT name, sql FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 2044
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT 'an' AS t, resource_id, email FROM customer_analytics_profiles WHERE email LIKE '%okeke%' OR email_hash LIKE '286c%' OR email_hash LIKE 'dc99%' UNION ALL SELECT 'ex', resource_id, owner_email FROM customer_exports WHERE owner_email LIKE '%okeke%' UNION ALL SELECT 'cn', resource_id, customer_email FROM connector_subscriptions WHERE customer_email LIKE '%okeke%' UNION ALL SELECT 'bk', resource_id, customer_email FROM backup_restore_entries WHERE customer_email LIKE '%okeke%' UNION ALL SELECT 'sa', resource_id, subject_reference FROM security_audit_records WHERE subject_reference LIKE '%424%' OR subject_reference LIKE '%okeke%'"
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT 'p' AS t, resource_id, email FROM customer_profiles WHERE email LIKE '%okeke%' OR phone LIKE '%5950808%' UNION ALL SELECT 's', resource_id, email FROM customer_search_documents WHERE email LIKE '%okeke%' UNION ALL SELECT 'sp', resource_id, requester_email FROM support_records WHERE requester_email LIKE '%okeke%' UNION ALL SELECT 'an', resource_id, email FROM customer_analytics_profiles WHERE email LIKE '%okeke%' UNION ALL SELECT 'sa', resource_id, subject_reference FROM security_audit_records WHERE subject_reference LIKE '%424%'"
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name FROM customer_data_reporting_replica LIMIT 50"
+   },
+   "output_chars": 1791
+  }
+ ]
+}

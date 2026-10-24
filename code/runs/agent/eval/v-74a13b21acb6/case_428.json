@@ -1,0 +1,385 @@
+{
+ "case_id": "case_428",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2625",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_68"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_2107",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_68"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_2107",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2625",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2625",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7557",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_2107",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_428",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_2625",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_68",
+    "reason": "Search index query at 2026-03-20T04:48:41Z for the subject's exact email sipho.mthembu@outlook.com returned search_2625 with the email still exposed (customer_directory-style document, display_name and phone null). Direct identifier still visible, so the index entry must be deleted. Captured 2026-03-20 before audit_at and inside the request window.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_2107",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_68",
+    "reason": "Connector data_flow_2107 (search_profile_indexer) is enabled=true, last_delivery_status=delivered, and its customer_email is sipho.mthembu@outlook.com as observed 2026-03-20T07:23:11Z. An enabled connector can keep copying or recreating the subject's data into the search index, so it must be disabled. The workflow's CHECK_DATA_FLOW claim is superseded by this direct observation.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_563",
+    "reason": "Linked only through deletion-worker batch run activity_850, which was shared with case_429 and case_430 (other customers). No usable evidence ties account_563 to sipho.mthembu (no email, phone, hash or user_426 match). Not attributable to this subject; not included. Its only reported result (FAILED) is a claim and the latest account_service export (evidence_68) does not contain it."
+   },
+   {
+    "resource_id": "account_9975",
+    "reason": "Linked only through deletion-worker batch run activity_851, shared with case_429 and case_430. No usable evidence ties account_9975 to this subject; the replication checkpoint activity_861 is also only a workflow claim. Not attributable to sipho.mthembu, so rejected as belonging to another episode's shared run."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer clearly asks to delete this account and its personal data, including reviewing connected identifiers and confirming the result, which is an erasure request on their own account.",
+   "summary: Subject sipho.mthembu@outlook.com (user_426). Direct observations at 2026-03-20 (evidence_68) show two in-scope resources still present: search_2625 (search index entry still exposing the email; must be deleted) and data_flow_2107 (search_profile_indexer connector still enabled and delivering the subject's email; must be disabled). The workflow's COMPLETE status is not supported. Account_563 and account_9975 were shared with other requests' runs and have no identity link to this subject, so they were rejected. No USER_PROFILE, marketing, analytics, support, export or backup record tied to this subject was found in usable evidence; the email, hash and phone searches returned no other hits.",
+   "future verification added for audit_record_7557 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_428",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 87,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_428",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 387,
+    "cache_creation_input_tokens": 1674,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_428",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 504,
+    "cache_creation_input_tokens": 5708,
+    "cache_read_input_tokens": 6545
+   },
+   {
+    "case_id": "case_428",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 566,
+    "cache_creation_input_tokens": 4941,
+    "cache_read_input_tokens": 12253
+   },
+   {
+    "case_id": "case_428",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1198,
+    "cache_creation_input_tokens": 15736,
+    "cache_read_input_tokens": 17194
+   },
+   {
+    "case_id": "case_428",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 759,
+    "cache_creation_input_tokens": 6802,
+    "cache_read_input_tokens": 32930
+   },
+   {
+    "case_id": "case_428",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1628,
+    "cache_creation_input_tokens": 18581,
+    "cache_read_input_tokens": 39732
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_563"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9975"
+   },
+   "output_chars": 2092
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_2107"
+   },
+   "output_chars": 2288
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2625"
+   },
+   "output_chars": 3132
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sipho",
+    "limit": 50
+   },
+   "output_chars": 2490
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_426",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sipho.mthembu@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 2510
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "29224ffa8a44a9edd0be450ade6bfb12afdbe67493dc7dd4dfcd63d1549a60cd",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27727715266",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Mthembu",
+    "limit": 50
+   },
+   "output_chars": 2492
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 9000
+   },
+   "output_chars": 219
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-04T00:00:00Z",
+    "end": "2026-03-20T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31307
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch",
+    "limit": 50
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_9975",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 672
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_563",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 343
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-04T00:00:00Z",
+    "end": "2026-03-06T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 12822
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "426",
+    "limit": 50
+   },
+   "output_chars": 6786
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "outlook.com",
+    "limit": 50
+   },
+   "output_chars": 31502
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_428",
+    "limit": 50
+   },
+   "output_chars": 48
+  }
+ ]
+}

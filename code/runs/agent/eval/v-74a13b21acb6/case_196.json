@@ -1,0 +1,384 @@
+{
+ "case_id": "case_196",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_5599",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_82"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6389",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_82"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_196",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_5599",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_82",
+    "reason": "Primary profile for the subject's account. Lookup by the subject's email at 2026-07-13T07:20:27Z (trace rb-072027-006) returned rows=0, HTTP 404, so the profile no longer exists at audit_at. Replica snapshots evidence_20 (2026-07-08) and evidence_24 also lack it. The deletion_worker SUCCESS in activity_2472 is only a claim; the direct lookup is the observation. Resource was in a batch run shared with other cases, but it is directly linked to this subject's email.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6389",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_82",
+    "reason": "Security audit record with subject_reference=user_194 (the subject's user_id), event IDENTITY_CHANGE_RECORDED, retention_until 2034-09-30, which is after audit_at. Within retention, so it is retained and reported as PRESENT. Read at 2026-07-13T08:28:57Z, inside the request window.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_660",
+    "reason": "Linked only through the deletion-worker run activity_2474. That run is shared with other requests (case_194, 195, 209, 210, 211), and no usable evidence ties account_660 to this subject. Its only evidence is a workflow activity claim."
+   },
+   {
+    "resource_id": "analytics_3454",
+    "reason": "Shared batch run (activity_2476). The only observation (evidence_82, rb-082715-017) is an identity-free profile with customer_reference, email, phone and email_hash all null and audience_cohort=home_lifestyle. Nothing ties it to this subject, so it cannot be attributed."
+   },
+   {
+    "resource_id": "analytics_5166",
+    "reason": "Shared batch run (activity_2475). The only observation (evidence_82, rb-071406-005) is an identity-free profile with all identifiers null and audience_cohort=mobile_browser. Nothing ties it to this subject, so it cannot be attributed."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to close their account and process the associated personal-data deletion, which is erasure of their own account and data. The remaining instruction about confirmation does not change that.",
+   "summary: Subject user_194 / kim.hyunwoo@gmail.com. Confirmed: account_5599 is absent (404 lookup by subject email at audit_at, and replica snapshots lack it). The security audit record audit_record_6389 references user_194 and is within its 2034 retention, so it is retained. Rejected: account_660, analytics_3454 and analytics_5166 are from a shared batch run with no evidence tying them to this subject. No usable evidence found for backups, data flows, support, email, or exports linked to this subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_196",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 89,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_196",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 472,
+    "cache_creation_input_tokens": 4126,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_196",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 445,
+    "cache_creation_input_tokens": 1378,
+    "cache_read_input_tokens": 8997
+   },
+   {
+    "case_id": "case_196",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 509,
+    "cache_creation_input_tokens": 17280,
+    "cache_read_input_tokens": 10375
+   },
+   {
+    "case_id": "case_196",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 580,
+    "cache_creation_input_tokens": 12324,
+    "cache_read_input_tokens": 27655
+   },
+   {
+    "case_id": "case_196",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 861,
+    "cache_creation_input_tokens": 3445,
+    "cache_read_input_tokens": 39979
+   },
+   {
+    "case_id": "case_196",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1673,
+    "cache_creation_input_tokens": 2501,
+    "cache_read_input_tokens": 43424
+   },
+   {
+    "case_id": "case_196",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1617,
+    "cache_creation_input_tokens": 14338,
+    "cache_read_input_tokens": 45925
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kim.hyunwoo@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_194",
+    "limit": 50
+   },
+   "output_chars": 772
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hyun-woo kim",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821077375984",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e309b34b240a416dead8071e4c34b64f675d3171bf11cf1a0f6fe80e01130a45",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5599"
+   },
+   "output_chars": 2079
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_660"
+   },
+   "output_chars": 1472
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3454"
+   },
+   "output_chars": 2128
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5166"
+   },
+   "output_chars": 2128
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6389"
+   },
+   "output_chars": 1596
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-19T00:00:00Z",
+    "end": "2026-07-13T10:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31095
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hyunwoo",
+    "limit": 50
+   },
+   "output_chars": 2107
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kim",
+    "limit": 50
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_196",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-19T00:00:00Z",
+    "end": "2026-06-23T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 21209
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_19",
+    "offset": 0
+   },
+   "output_chars": 1517
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_22",
+    "offset": 0
+   },
+   "output_chars": 4650
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+82 10 7737 5984",
+    "limit": 50
+   },
+   "output_chars": 56
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Hyun-woo Kim",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_660",
+    "limit": 50
+   },
+   "output_chars": 655
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_3454",
+    "limit": 50
+   },
+   "output_chars": 1311
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5599",
+    "limit": 50
+   },
+   "output_chars": 1262
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kim.hyunwoo",
+    "limit": 50
+   },
+   "output_chars": 651
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "194",
+    "limit": 50
+   },
+   "output_chars": 25139
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-19T00:00:00Z",
+    "end": "2026-07-13T10:00:00Z",
+    "limit": 5
+   },
+   "output_chars": 1562
+  }
+ ]
+}

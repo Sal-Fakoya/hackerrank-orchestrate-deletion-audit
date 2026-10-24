@@ -1,0 +1,439 @@
+{
+ "case_id": "case_166",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_5261",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_85"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_3155",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_85"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_5261",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3155",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5261",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7082",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3155",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_166",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_5261",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_85",
+    "reason": "Latest direct readback at 2026-07-28T02:49:32Z (trace rb-024932-001) shows search_5261 in customer_directory_v3 is a hit on the subject's email OBI.ADAEZE@ICLOUD.COM with direct identifier exposed. Policy requires deletion; the deletion worker's FAILED result is only a claim.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_3155",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_85",
+    "reason": "Latest direct ticket readback at 2026-07-28T05:03:37Z (trace rb-050337-017) shows support_3155 still holds requester_email=OBI.ADAEZE@ICLOUD.COM. It is a support conversation, so the rule is REDACT rather than DELETE. The 2026-07-23 inventory snapshot lacks it, but the later direct readback takes precedence.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1837",
+    "reason": "Linked only through deletion batch run activity_2847, which is shared with case_164 and case_165. No usable evidence ties account_1837 to this subject's identifiers (user_164, email, hash, phone, name). Not attributable to this subject, so rejected."
+   },
+   {
+    "resource_id": "analytics_6402",
+    "reason": "Linked only through shared batch run activity_2849. Its only direct observation (evidence_85, rb-033654-006) is identity-free (customer_reference, email, phone, email_hash all null), so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "search_2635",
+    "reason": "Matched 'adaeze' substring but belongs to a different customer (Adaeze Okeke, user_424, aokeke238584@gmail.com)."
+   },
+   {
+    "resource_id": "search_9631",
+    "reason": "Matched 'adaeze' substring but is the different address adaeze.nwosu@outlook.com; not an exact match to the subject's email."
+   },
+   {
+    "resource_id": "data_flow_085",
+    "reason": "Connector for adaeze.nwosu@outlook.com, a different person's address; not the subject's data flow. No subject identifier present."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for the account associated with their address to be erased across systems, which is a deletion request for their own account and data.",
+   "summary: Subject OBI.ADAEZE@ICLOUD.COM (user_164). Two resources are tied to the subject by direct identifier in 2026-07-28 readback evidence_85 and are still present: search_5261 (search index, DELETE required) and support_3155 (support ticket, REDACT required). Both workflow results (FAILED/SUCCESS claims) are contradicted or unverified. Candidates account_1837 and analytics_6402 came from a batch run shared with other requests and have no identity linking them to this subject, so they were rejected. No DATA_FLOW, backup, export, legal hold, or retained audit record was found for this subject. The workflow's COMPLETE status is not supported: the search entry and support record remain.",
+   "future verification added for audit_record_7082 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_166",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1053,
+    "output_tokens": 77,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_166",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 434,
+    "cache_creation_input_tokens": 4034,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_166",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 654,
+    "cache_creation_input_tokens": 4875,
+    "cache_read_input_tokens": 8905
+   },
+   {
+    "case_id": "case_166",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 632,
+    "cache_creation_input_tokens": 7024,
+    "cache_read_input_tokens": 13780
+   },
+   {
+    "case_id": "case_166",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 565,
+    "cache_creation_input_tokens": 20225,
+    "cache_read_input_tokens": 20804
+   },
+   {
+    "case_id": "case_166",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 461,
+    "cache_creation_input_tokens": 13028,
+    "cache_read_input_tokens": 41029
+   },
+   {
+    "case_id": "case_166",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1259,
+    "cache_creation_input_tokens": 2362,
+    "cache_read_input_tokens": 54057
+   },
+   {
+    "case_id": "case_166",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2650,
+    "cache_creation_input_tokens": 3793,
+    "cache_read_input_tokens": 56419
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1837"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6402"
+   },
+   "output_chars": 2128
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5261"
+   },
+   "output_chars": 2194
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3155"
+   },
+   "output_chars": 2135
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "obi.adaeze@icloud.com",
+    "limit": 50
+   },
+   "output_chars": 1433
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_164",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "adaeze",
+    "limit": 50
+   },
+   "output_chars": 3539
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "526cadf55e07128a350ae7b7f397a3a7b286e64e9294f2891450b73dbcd20798",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348032833695",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1837",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_17",
+    "offset": 0
+   },
+   "output_chars": 4642
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_85",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Obi",
+    "limit": 50
+   },
+   "output_chars": 31362
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-14T00:00:00Z",
+    "end": "2026-07-28T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31279
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_166",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-17T00:00:00Z",
+    "end": "2026-07-17T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 4487
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "user_164",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 6000
+   },
+   "output_chars": 1226
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_3155",
+    "limit": 50
+   },
+   "output_chars": 1320
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_5261",
+    "limit": 50
+   },
+   "output_chars": 1381
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Adaeze Obi",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_6402",
+    "limit": 50
+   },
+   "output_chars": 1311
+  }
+ ]
+}

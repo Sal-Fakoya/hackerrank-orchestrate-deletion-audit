@@ -1,0 +1,500 @@
+{
+ "case_id": "case_443",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_4925",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_66"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_8341",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_66"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_4925",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_8341",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_4925",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_8341",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_443",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_4925",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_66",
+    "reason": "Customer search document in customer_directory_v3 (customer_search_documents row, captured 2026-03-10T05:38:48Z before audit_at) still holds email seoyeon-choi@proton.me, the request email. Deletion worker reported FAILED (activity_774) and the record remains, so it must be deleted. No replica copy found in evidence_43.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_8341",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_66",
+    "reason": "Support record (support_records row, captured 2026-03-10T05:38:48Z) with requester_email seoyeon-choi@proton.me still present. It is a support conversation record, not an attachment, and the direct identifier is visible, so it must be redacted while retaining the conversation. Deletion worker reported FAILED (activity_771), which is a claim and not proof of removal.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1736",
+    "reason": "Linked only through deletion-worker batch run activity_770, which is shared with case_444 (bsouza4927@fastmail.com) and case_445 (diya.s284681@zoho.com). No usable evidence ties this account to the subject's email, hash, phone or user_441. Not attributable to this subject; not in scope."
+   },
+   {
+    "resource_id": "account_1776",
+    "reason": "Linked only through shared batch run activity_769 (shared with case_444 and case_445). No usable evidence ties it to seoyeon-choi@proton.me, the hash, phone or user_441. Not attributable; the absent claim is not relied on."
+   },
+   {
+    "resource_id": "account_4042",
+    "reason": "Linked only through shared batch run activity_768 (shared with case_444 and case_445). No evidence ties it to this subject. Not attributable; the absent claim is not relied on."
+   },
+   {
+    "resource_id": "export_4293",
+    "reason": "Export owned by bsouza4927@fastmail.com per evidence_66, which belongs to case_444, not this subject. Not attributable to this subject."
+   },
+   {
+    "resource_id": "data_flow_7584",
+    "reason": "analytics_identity_bridge connector for diya.s284681@zoho.com (evidence_66), belonging to case_445. Not this subject's data flow, so not in scope. Its recreation of search_2886 concerns another subject's record."
+   },
+   {
+    "resource_id": "search_2886",
+    "reason": "Search document for diya.s284681@zoho.com (evidence_66), linked to case_445 via data_flow_7584. Not this subject's record."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to delete this account and its personal data, and to have the request applied to the account records, which is erasure of their own data. Asking for a confirmation afterward does not change that.",
+   "summary: Subject seoyeon-choi@proton.me (user_441). Only two subject-specific records are visible in usable evidence captured in the request window: search_4925 (search index, still PRESENT with email) and support_8341 (support record with requester email, still PRESENT). Both are supported by evidence_66, the 2026-03-10 inventory snapshot taken before audit_at. Every other candidate is either linked only to shared deletion-worker runs with other customers' emails or belongs to another subject. The workflow's COMPLETE claim is contradicted: both subject records remain and the worker reported FAILED for each. No replica copies, backups, active connectors, legal holds or exports were found for this subject. The user_441 identifier, hash and phone yielded no records."
+  ],
+  "usage": [
+   {
+    "case_id": "case_443",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 97,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_443",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 455,
+    "cache_creation_input_tokens": 1575,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_443",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 573,
+    "cache_creation_input_tokens": 5196,
+    "cache_read_input_tokens": 6446
+   },
+   {
+    "case_id": "case_443",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 638,
+    "cache_creation_input_tokens": 12063,
+    "cache_read_input_tokens": 11642
+   },
+   {
+    "case_id": "case_443",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 308,
+    "cache_creation_input_tokens": 14487,
+    "cache_read_input_tokens": 23705
+   },
+   {
+    "case_id": "case_443",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 751,
+    "cache_creation_input_tokens": 4267,
+    "cache_read_input_tokens": 38192
+   },
+   {
+    "case_id": "case_443",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1332,
+    "cache_creation_input_tokens": 6005,
+    "cache_read_input_tokens": 42459
+   },
+   {
+    "case_id": "case_443",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1134,
+    "cache_creation_input_tokens": 8243,
+    "cache_read_input_tokens": 48464
+   },
+   {
+    "case_id": "case_443",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1936,
+    "cache_creation_input_tokens": 12568,
+    "cache_read_input_tokens": 56707
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1736"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1776"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4042"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4925"
+   },
+   "output_chars": 2150
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_8341"
+   },
+   "output_chars": 2177
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "seoyeon-choi@proton.me",
+    "limit": 50
+   },
+   "output_chars": 1412
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_441",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_44",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "seo-yeon choi",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "183bc88e181ca90d740b1528934cee457c652d184d28ab23cb162218078cd735",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821086423308",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "seoyeon",
+    "limit": 50
+   },
+   "output_chars": 1397
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "choi",
+    "limit": 50
+   },
+   "output_chars": 1394
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-27T06:00:00Z",
+    "end": "2026-03-10T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31127
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-27T06:00:00Z",
+    "end": "2026-02-28T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 10107
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 3000
+   },
+   "output_chars": 3793
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_7584"
+   },
+   "output_chars": 2135
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_4293"
+   },
+   "output_chars": 2119
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2886"
+   },
+   "output_chars": 2704
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "user_441"
+   },
+   "output_chars": 137
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1736",
+    "limit": 50
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1776",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4042",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-02-27T06:00:00Z",
+    "end": "2026-03-10T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 15292
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "proton.me",
+    "limit": 50
+   },
+   "output_chars": 20662
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_8341",
+    "limit": 50
+   },
+   "output_chars": 1349
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_4925",
+    "limit": 50
+   },
+   "output_chars": 1324
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "export_4293",
+    "limit": 50
+   },
+   "output_chars": 1290
+  }
+ ]
+}

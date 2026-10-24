@@ -1,0 +1,520 @@
+{
+ "case_id": "case_71",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_684",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_93"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_1370",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_93"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_684",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1370",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_684",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1096",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1370",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_71",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_684",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_93",
+    "reason": "Search index document customer_directory_v3 row holds the subject's current email JULES-LAURENT@PROTON.ME (case-insensitive match to jules-laurent@proton.me) as of the 2026-09-16 inventory snapshot, captured before audit_at. Policy is DELETE for search index entries, so the entry must be deleted. The deletion worker's FAILED result (activity_3510) is consistent with it still being present.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_1370",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_93",
+    "reason": "Support record support_1370 (support_records table) still exposes the subject's requester_email JULES-LAURENT@PROTON.ME in the 2026-09-16 inventory snapshot, before audit_at. It is a support conversation about delivery details. The direct identifier must be redacted under the SUPPORT_MESSAGE REDACT rule, and the message content retained. The deletion worker's FAILED result (activity_3505) is consistent with it still being present.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1298",
+    "reason": "Linked only through the deletion-worker batch run activity_3501, which is shared with other requests (case_56, case_57, case_58, case_72). No usable evidence ties this account to user_69, the subject email, the hash or the phone. It is absent from the latest account-service snapshots (evidence_93, evidence_92), so it cannot be attributed to this subject and is rejected."
+   },
+   {
+    "resource_id": "account_5715",
+    "reason": "Linked only through the shared batch run activity_3500 (shared with case_56, case_57, case_58, case_72). No usable evidence ties this account to the subject's identifiers. The workflow's present claim is not proof, and the latest account-service snapshots do not contain it. Rejected as not belonging to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their email address and asks the shop to verify the linked records and confirm the outcome, which is a follow-up on the erasure request and therefore still deletion.",
+   "summary: Subject user_69 / JULES-LAURENT@PROTON.ME. Two in-scope records remain present at audit_at: search_684 (search index entry holding the subject email, to be deleted) and support_1370 (support record with the subject requester_email, to be redacted). Both are evidenced by the 2026-09-16 inventory snapshot (evidence_93). Both account candidates were rejected as belonging to a batch run shared with other requests, with no identity linkage. No analytics, marketing, export, connector, backup, security or email-log records were found tied to this subject. The reported COMPLETE status is not supported, because the search and support records remain present.",
+   "future verification added for audit_record_1096 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_71",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 103,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_71",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 447,
+    "cache_creation_input_tokens": 5667,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_71",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 591,
+    "cache_creation_input_tokens": 8194,
+    "cache_read_input_tokens": 10538
+   },
+   {
+    "case_id": "case_71",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 349,
+    "cache_creation_input_tokens": 3105,
+    "cache_read_input_tokens": 18732
+   },
+   {
+    "case_id": "case_71",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 553,
+    "cache_creation_input_tokens": 15052,
+    "cache_read_input_tokens": 21837
+   },
+   {
+    "case_id": "case_71",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1171,
+    "cache_creation_input_tokens": 4543,
+    "cache_read_input_tokens": 36889
+   },
+   {
+    "case_id": "case_71",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 645,
+    "cache_creation_input_tokens": 2273,
+    "cache_read_input_tokens": 41432
+   },
+   {
+    "case_id": "case_71",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 473,
+    "cache_creation_input_tokens": 798,
+    "cache_read_input_tokens": 43705
+   },
+   {
+    "case_id": "case_71",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 828,
+    "cache_creation_input_tokens": 2654,
+    "cache_read_input_tokens": 44503
+   },
+   {
+    "case_id": "case_71",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2775,
+    "cache_creation_input_tokens": 21405,
+    "cache_read_input_tokens": 47157
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1298"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5715"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_684"
+   },
+   "output_chars": 2138
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_1370"
+   },
+   "output_chars": 2182
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_69",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jules",
+    "limit": 50
+   },
+   "output_chars": 9424
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jules-laurent@proton.me",
+    "limit": 50
+   },
+   "output_chars": 1414
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ec6df3a5b50e8599e0e7159eae5772385c94d2d808816fb0cac0657775cac5db",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33621000156",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "laurent",
+    "limit": 50
+   },
+   "output_chars": 3685
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "user_69",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-28T00:00:00Z",
+    "end": "2026-09-16T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30930
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_93",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_93",
+    "offset": 2400
+   },
+   "output_chars": 3396
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_93",
+    "sql": "SELECT * FROM customer_profiles"
+   },
+   "output_chars": 251
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles WHERE resource_id IN ('account_1298','account_5715') OR email LIKE '%laurent%' OR customer_reference='user_69'"
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_92",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_5715",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 346
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_1298",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT name FROM sqlite_master"
+   },
+   "output_chars": 211
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5715",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1298",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles_failover_replica WHERE lower(email) LIKE '%laurent%' OR customer_reference='user_69' OR resource_id IN ('account_1298','account_5715')"
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles_primary WHERE lower(email) LIKE '%laurent%' OR customer_reference='user_69' OR resource_id IN ('account_1298','account_5715')"
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_93",
+    "trace_id": "x"
+   },
+   "output_chars": 61
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles_failover_replica WHERE lower(email) LIKE '%laurent%' OR resource_id IN ('account_1298','account_5715')"
+   },
+   "output_chars": 114
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles_primary WHERE lower(email) LIKE '%laurent%' OR resource_id IN ('account_1298','account_5715')"
+   },
+   "output_chars": 114
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_57",
+    "sql": "SELECT * FROM customer_search_documents WHERE lower(email) LIKE '%laurent%' OR resource_id='search_684'"
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "proton.me",
+    "limit": 100
+   },
+   "output_chars": 39176
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_1370",
+    "limit": 50
+   },
+   "output_chars": 1356
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_58",
+    "offset": 0
+   },
+   "output_chars": 1085
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_60",
+    "offset": 0
+   },
+   "output_chars": 1451
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_59",
+    "offset": 0
+   },
+   "output_chars": 1114
+  }
+ ]
+}

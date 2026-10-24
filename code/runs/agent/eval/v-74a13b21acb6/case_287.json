@@ -1,0 +1,669 @@
+{
+ "case_id": "case_287",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_5705",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_76"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_7432",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_76"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_5705",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_7432",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5705",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_7432",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_287",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_5705",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_76",
+    "reason": "Customer_directory_v3 search index still returns a hit on soojin-cho@proton.me at 2026-05-29T06:50:34Z (trace rb-065034-017), after the deletion worker reported FAILED (activity_1915). Direct identifier still exposed; must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_7432",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_76",
+    "reason": "Support ticket still exposes requester_email soojin-cho@proton.me at 2026-05-29T05:22:37Z (trace rb-052237-002); deletion worker reported FAILED (activity_1912). Support conversation with direct identifier must be redacted, not deleted, to retain shared customer/agent context.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4232",
+    "reason": "Linked only via deletion-worker batch run activity_1898, whose shared_with list includes other requests' customers (case_273, case_274, case_288, case_289, case_302). No usable evidence ties this account profile to soojin-cho, user_285 or the request email; the only record is the activity row, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_4485",
+    "reason": "Same as account_4232: only linked via shared batch run activity_1901 with other customers' requests; no identity-bearing evidence ties it to this subject."
+   },
+   {
+    "resource_id": "account_6575",
+    "reason": "Same as account_4232: only linked via shared batch run activity_1904 with other customers' requests; no evidence ties it to this subject."
+   },
+   {
+    "resource_id": "account_6988",
+    "reason": "Same as account_4232: only linked via shared batch run activity_1899 with other customers' requests; no evidence ties it to this subject."
+   },
+   {
+    "resource_id": "legal_hold_1745",
+    "reason": "Linked only via shared batch run activity_1902 (other requests listed). The May 2026 legal retention register (evidence_27) lists only other users' disputed orders (user_08, user_12, user_17, user_21, user_24, user_29); nothing ties legal_hold_1745 to this subject, so it is not a subject record."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks for the account associated with their address to be erased and for records covered by the request to be treated accordingly, which is a request for erasure of their own account and personal data. The request is written in English and contains no negation or third-party element.",
+   "summary: Subject soojin-cho@proton.me (user_285). Two subject-attributable resources remain present after the workflow's FAILED deletions: search index entry search_5705 (DELETE) and support ticket support_7432 (REDACT), both confirmed by 2026-05-29 readback evidence_76. Four account_service profiles and legal_hold_1745 were only linked through a deletion-worker batch run shared with other customers and have no evidence tying them to this subject, so they were rejected. No replica, backup, connector or export copy mentioning this subject was found in usable evidence; the workflow COMPLETE claim is not supported because the search index entry and support record remain."
+  ],
+  "usage": [
+   {
+    "case_id": "case_287",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1054,
+    "output_tokens": 111,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_287",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 640,
+    "cache_creation_input_tokens": 3480,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_287",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 618,
+    "cache_creation_input_tokens": 6841,
+    "cache_read_input_tokens": 8351
+   },
+   {
+    "case_id": "case_287",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1261,
+    "cache_creation_input_tokens": 16776,
+    "cache_read_input_tokens": 15192
+   },
+   {
+    "case_id": "case_287",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 760,
+    "cache_creation_input_tokens": 6197,
+    "cache_read_input_tokens": 31968
+   },
+   {
+    "case_id": "case_287",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 850,
+    "cache_creation_input_tokens": 2803,
+    "cache_read_input_tokens": 38165
+   },
+   {
+    "case_id": "case_287",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1504,
+    "cache_creation_input_tokens": 24214,
+    "cache_read_input_tokens": 40968
+   },
+   {
+    "case_id": "case_287",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 318,
+    "cache_creation_input_tokens": 8807,
+    "cache_read_input_tokens": 65182
+   },
+   {
+    "case_id": "case_287",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2137,
+    "cache_creation_input_tokens": 6028,
+    "cache_read_input_tokens": 73989
+   },
+   {
+    "case_id": "case_287",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2908,
+    "cache_creation_input_tokens": 6030,
+    "cache_read_input_tokens": 80017
+   },
+   {
+    "case_id": "case_287",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1293,
+    "cache_creation_input_tokens": 4465,
+    "cache_read_input_tokens": 86047
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "soojin-cho@proton.me",
+    "limit": 100
+   },
+   "output_chars": 1428
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_285",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "soo-jin cho",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4232"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4485"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6575"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6988"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_1745"
+   },
+   "output_chars": 1465
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5705"
+   },
+   "output_chars": 2197
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_7432"
+   },
+   "output_chars": 2138
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-14T00:00:00Z",
+    "end": "2026-05-29T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31213
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary"
+   },
+   "output_chars": 9758
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_replica_ap_south WHERE record_json LIKE '%cho%' OR record_json LIKE '%soojin%' OR record_json LIKE '%user_285%' OR record_json LIKE '%21d9ce%' OR record_json LIKE '%8210%' OR record_json LIKE '%soo%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_replica_eu_west WHERE record_json LIKE '%cho%' OR record_json LIKE '%soojin%' OR record_json LIKE '%user_285%' OR record_json LIKE '%21d9ce%' OR record_json LIKE '%8210%' OR record_json LIKE '%soo%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT 'backup' t, resource_id, customer_reference, customer_email, archive_key, restore_allowed, updated_at FROM backup_restore_entries UNION ALL SELECT 'conn', resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status||' '||updated_at FROM connector_subscriptions UNION ALL SELECT 'analytics', resource_id, customer_reference, email, phone, email_hash||' '||audience_cohort, updated_at FROM customer_analytics_profiles UNION ALL SELECT 'export', resource_id, customer_reference, owner_email, owner_phone, object_key, updated_at FROM customer_exports UNION ALL SELECT 'search', resource_id, customer_reference, email, phone, display_name||' '||index_name, updated_at FROM customer_search_documents UNION ALL SELECT 'audit', resource_id, subject_reference, event_code, retention_until, updated_at FROM security_audit_records UNION ALL SELECT 'support', resource_id, customer_reference, requester_email, requester_phone, requester_name||' | '||message_excerpt, updated_at FROM support_records UNION ALL SELECT 'scope', origin_system, captured_at, NULL, NULL, NULL, NULL FROM snapshot_scope"
+   },
+   "output_chars": 101
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_search_documents"
+   },
+   "output_chars": 715
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_analytics_profiles"
+   },
+   "output_chars": 692
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM support_records"
+   },
+   "output_chars": 564
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM backup_restore_entries"
+   },
+   "output_chars": 233
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM connector_subscriptions"
+   },
+   "output_chars": 603
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_exports"
+   },
+   "output_chars": 238
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM security_audit_records"
+   },
+   "output_chars": 548
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_profiles"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-14T00:00:00Z",
+    "end": "2026-05-29T08:00:00Z",
+    "limit": 30
+   },
+   "output_chars": 9195
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4232",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "21d9ce7594b983c6ce1f797d20254e63396e7e0ef3df11f6189c4a9e3e7736d8",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821046320833",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_48",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "proton.me",
+    "limit": 50
+   },
+   "output_chars": 41090
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-14T08:00:00Z",
+    "end": "2026-05-15T12:00:00Z",
+    "limit": 60
+   },
+   "output_chars": 10409
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_76",
+    "trace_id": "rb-052237-002"
+   },
+   "output_chars": 487
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_76",
+    "trace_id": "rb-065034-017"
+   },
+   "output_chars": 466
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 0
+   },
+   "output_chars": 4227
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 3000
+   },
+   "output_chars": 4230
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 4000
+   },
+   "output_chars": 4617
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "soojin",
+    "limit": 50
+   },
+   "output_chars": 1414
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Cho",
+    "limit": 50
+   },
+   "output_chars": 2763
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold_1745",
+    "limit": 50
+   },
+   "output_chars": 641
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6988",
+    "limit": 20
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6575",
+    "limit": 20
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4485",
+    "limit": 20
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_7432",
+    "limit": 20
+   },
+   "output_chars": 1318
+  }
+ ]
+}

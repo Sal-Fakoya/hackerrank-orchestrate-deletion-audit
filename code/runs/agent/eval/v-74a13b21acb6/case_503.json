@@ -1,0 +1,424 @@
+{
+ "case_id": "case_503",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_2295",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_47"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2295",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2295",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5454",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_503",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "support_2295",
+    "system_id": "support_platform",
+    "category": "SUPPORT_ATTACHMENT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_47",
+    "reason": "Ticket attachment delivery_confirmation_64.pdf (ticket CS-6295) is uploaded_by sami-nasser@proton.me and no other uploader or owner is shown, so it belongs only to the subject. Primary and reporting replica both still hold the row at 2026-02-08T07:00:00Z. The workflow's FAILED deletion claim (activity_339) does not prove absence. Action: DELETE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_5454",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_47",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_501 is present in primary and replica at audit_at. It was created by this request's deletion review, and no expired retention period is shown for it, so it stays within retention. Action: RETAIN.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_5394",
+    "reason": "Linked only via batch_run activity_333, which is shared with case_504 and case_505 (other customers). No usable evidence ties this account to sami-nasser@proton.me, user_501 or the phone/hash. Not attributable to this subject, so rejected."
+   },
+   {
+    "resource_id": "account_7244",
+    "reason": "Linked only via batch_run activity_335, which is shared with case_504 and case_505. No evidence ties it to this subject's identifiers. Rejected as belonging to another customer."
+   },
+   {
+    "resource_id": "account_8136",
+    "reason": "Linked only via batch_run activity_334, which is shared with case_504 and case_505. No evidence ties it to this subject's identifiers. Rejected as belonging to another customer."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete this account and its personal data across the systems covered by the deletion policy, and requests a confirmation afterward. This is a deletion request for the person's own account and data.",
+   "summary: Subject sami-nasser (user_501) has two in-scope records. support_2295 is a subject-only ticket attachment still PRESENT in primary and replica, so it must be deleted. audit_record_5454 is a security audit event still PRESENT and within retention, so it is retained. The three account_service candidates were linked only to a batch run shared with other customer requests, with no evidence tying them to this subject, so they were rejected. No analytics, search, cache, export, backup, connector, marketing or legal-hold records for this subject were found in usable evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_503",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 99,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_503",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 374,
+    "cache_creation_input_tokens": 1060,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_503",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 292,
+    "cache_creation_input_tokens": 3696,
+    "cache_read_input_tokens": 5931
+   },
+   {
+    "case_id": "case_503",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 490,
+    "cache_creation_input_tokens": 6555,
+    "cache_read_input_tokens": 9627
+   },
+   {
+    "case_id": "case_503",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 608,
+    "cache_creation_input_tokens": 5302,
+    "cache_read_input_tokens": 16182
+   },
+   {
+    "case_id": "case_503",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 542,
+    "cache_creation_input_tokens": 16054,
+    "cache_read_input_tokens": 21484
+   },
+   {
+    "case_id": "case_503",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 546,
+    "cache_creation_input_tokens": 1575,
+    "cache_read_input_tokens": 37538
+   },
+   {
+    "case_id": "case_503",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 541,
+    "cache_creation_input_tokens": 1023,
+    "cache_read_input_tokens": 39113
+   },
+   {
+    "case_id": "case_503",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 519,
+    "cache_creation_input_tokens": 3785,
+    "cache_read_input_tokens": 40136
+   },
+   {
+    "case_id": "case_503",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1634,
+    "cache_creation_input_tokens": 3682,
+    "cache_read_input_tokens": 43921
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sami-nasser@proton.me",
+    "limit": 50
+   },
+   "output_chars": 1663
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_501",
+    "limit": 50
+   },
+   "output_chars": 1836
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7244"
+   },
+   "output_chars": 1197
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8136"
+   },
+   "output_chars": 1197
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5394"
+   },
+   "output_chars": 1196
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 4000
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 4000
+   },
+   "output_chars": 4646
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nasser",
+    "limit": 50
+   },
+   "output_chars": 1648
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971552894844",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "b91f7b7c24a828d13e7776f9b94f98dc456c2a1b7dd2e1ab33ae764d924d05c7",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_47",
+    "offset": 0
+   },
+   "output_chars": 4507
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-28T00:00:00Z",
+    "end": "2026-02-08T07:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31485
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sami",
+    "limit": 50
+   },
+   "output_chars": 1646
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT 'primary' t, resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE resource_id IN ('account_5394','account_7244','account_8136','audit_record_5454','support_2295') OR record_json LIKE '%sami%' OR record_json LIKE '%user_501%' OR record_json LIKE '%nasser%' UNION ALL SELECT 'replica', resource_id, origin_system, collection_name, record_json FROM customer_data_reporting_replica WHERE resource_id IN ('account_5394','account_7244','account_8136','audit_record_5454','support_2295') OR record_json LIKE '%sami%' OR record_json LIKE '%user_501%' OR record_json LIKE '%nasser%'"
+   },
+   "output_chars": 1308
+  },
+  {
+   "turn": 5,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_48",
+    "trace_id": "tr-2361113"
+   },
+   "output_chars": 714
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-29T05:40:00Z",
+    "end": "2026-01-29T06:30:00Z",
+    "limit": 50
+   },
+   "output_chars": 994
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5454"
+   },
+   "output_chars": 2237
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2295"
+   },
+   "output_chars": 2661
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "CS-6295",
+    "limit": 50
+   },
+   "output_chars": 1649
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SUPPORT_ATTACHMENT"
+   },
+   "output_chars": 154
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 8000
+   },
+   "output_chars": 2831
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 8000
+   },
+   "output_chars": 4605
+  }
+ ]
+}

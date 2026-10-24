@@ -1,0 +1,394 @@
+{
+ "case_id": "case_295",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1269",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_75"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_295",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_1269",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_75",
+    "reason": "Security audit record whose subject_reference is user_293 (this subject's user_id), captured 2026-05-24 inside the request window. retention_until is 2033-12-31, after audit_at, so the retention condition holds and the record must be retained and verified as present.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1235",
+    "reason": "Linked only via deletion-worker batch_run activity_1716, which is shared with other requests (case_293/294/308/309/310). No usable evidence ties this account to user_293 or the request email, hash, or phone. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_4319",
+    "reason": "Linked only via shared batch_run activity_1714 (shared with other cases). No subject-identifying evidence. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_6996",
+    "reason": "Linked only via shared batch_run activity_1723 (shared with other cases). No subject-identifying evidence. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_8353",
+    "reason": "Linked only via shared batch_run activity_1724 (shared with other cases). No subject-identifying evidence. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_8647",
+    "reason": "Linked only via shared batch_run activity_1715 (shared with other cases). No subject-identifying evidence. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_9091",
+    "reason": "Linked only via shared batch_run activity_1720 (shared with other cases). No subject-identifying evidence. Not attributable to this subject."
+   },
+   {
+    "resource_id": "analytics_061",
+    "reason": "Shared batch_run activity_1725; evidence_75 shows an all-null analytics profile (no email, hash, phone, customer_reference). Identity-free record in a shared run cannot be attributed to the subject."
+   },
+   {
+    "resource_id": "analytics_096",
+    "reason": "Shared batch_run activity_1717; evidence_29 shows user_id, email and hash all null. Identity-free record in a shared run cannot be attributed to the subject."
+   },
+   {
+    "resource_id": "analytics_3678",
+    "reason": "Shared batch_run activity_1718; evidence_29 shows user_id, email and hash all null. Identity-free record in a shared run cannot be attributed to the subject."
+   },
+   {
+    "resource_id": "analytics_7575",
+    "reason": "Shared batch_run activity_1726; evidence_75 shows an all-null analytics profile. Identity-free record in a shared run cannot be attributed to the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer states they no longer use the account and asks for it to be permanently deleted under the personal-data deletion procedure, which is an erasure request for their own account and data. The request for a review notification does not change that.",
+   "summary: Subject noor.m4996@outlook.com / user_293. Searches for the email, hash, phone, name variants and user_293 found no subject-tied customer profile, search document, support, export, connector or backup records in the request window. The only subject-linked resource is audit_record_1269 (security audit, user_293, retention to 2033), which must be retained. All eight deletion-worker batch candidates are shared with other requests and have no evidence tying them to this subject, so they were rejected. The workflow COMPLETE claim is not supported by any evidence for this subject. Limitation: user_293 has no customer_profiles row in the latest inventory, so no USER_PROFILE fact was submitted."
+  ],
+  "usage": [
+   {
+    "case_id": "case_295",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 101,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_295",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 955,
+    "cache_creation_input_tokens": 4032,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_295",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1484,
+    "cache_creation_input_tokens": 12790,
+    "cache_read_input_tokens": 8903
+   },
+   {
+    "case_id": "case_295",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 742,
+    "cache_creation_input_tokens": 15070,
+    "cache_read_input_tokens": 21693
+   },
+   {
+    "case_id": "case_295",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 649,
+    "cache_creation_input_tokens": 8982,
+    "cache_read_input_tokens": 36763
+   },
+   {
+    "case_id": "case_295",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 453,
+    "cache_creation_input_tokens": 12323,
+    "cache_read_input_tokens": 45745
+   },
+   {
+    "case_id": "case_295",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1805,
+    "cache_creation_input_tokens": 4075,
+    "cache_read_input_tokens": 58068
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "noor.m4996@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_293",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "noor mansour",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1235"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4319"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6996"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8353"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8647"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9091"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_061"
+   },
+   "output_chars": 2126
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_096"
+   },
+   "output_chars": 4843
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3678"
+   },
+   "output_chars": 4821
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7575"
+   },
+   "output_chars": 2135
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1269"
+   },
+   "output_chars": 1495
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "61bb9ecfa9e0aee816e6339a6155def5af25974406300583088b9cba161675f7",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971549870677",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "m4996",
+    "limit": 50
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Mansour",
+    "limit": 50
+   },
+   "output_chars": 1713
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-01T00:00:00Z",
+    "end": "2026-05-24T07:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31412
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 2000
+   },
+   "output_chars": 4250
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-01T00:00:00Z",
+    "end": "2026-05-05T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 23323
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "noor",
+    "limit": 50
+   },
+   "output_chars": 7759
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  }
+ ]
+}

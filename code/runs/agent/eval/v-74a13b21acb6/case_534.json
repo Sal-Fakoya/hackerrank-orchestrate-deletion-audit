@@ -1,0 +1,30 @@
+{
+ "case_id": "case_534",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_534",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: marketing_opt_out (en): The customer asks to stop promotional emails and explicitly says they still need the account and order history and are not requesting deletion, so this is a marketing opt-out, not erasure."
+  ],
+  "usage": [
+   {
+    "case_id": "case_534",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1038,
+    "output_tokens": 97,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

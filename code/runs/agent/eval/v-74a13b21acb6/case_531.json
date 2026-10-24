@@ -1,0 +1,326 @@
+{
+ "case_id": "case_531",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_3382",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_62"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_3382",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_8556",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_3382",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_531",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "backup_3382",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_62",
+    "reason": "Backup archive archive/customer-data/backup_3382.tar.zst is directly tied to the subject by customer_email k.amponsah80@gmail.com (exact match to the request email), observed 2026-01-29T11:39:19Z within the request window. restore_allowed=true at audit_at, so the subject's data can still be restored and restore access must be blocked.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3146",
+    "reason": "Linked only through batch_run activity_89, a run shared with case_530 and case_532. No usable evidence ties account_3146 to user_529 or the request email; the only observation is the workflow's FAILED deletion claim. Cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_470",
+    "reason": "Linked only through shared batch_run activity_91. The evidence_62 observation is an identity-free 404 lookup (profile null), so it cannot be attributed to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_6169",
+    "reason": "Linked only through shared batch_run activity_90. The evidence_62 observation is an identity-free 404 lookup (profile null), so it cannot be attributed to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "analytics_3744",
+    "reason": "Linked only through shared batch_run activity_92. The evidence_62 profile has all-null identifiers and no subject reference (audience_cohort only), so it is not attributable to this subject in a shared run."
+   },
+   {
+    "resource_id": "analytics_893",
+    "reason": "Linked only through shared batch_run activity_93. The evidence_62 profile has all-null identifiers and no subject reference, so it is not attributable to this subject in a shared run."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for the account associated with their address to be erased, plus verification of linked records and confirmation of the result; these are follow-ups to the erasure request and the account is the customer's own.",
+   "summary: Subject k.amponsah80@gmail.com (user_529). Only one resource is provably tied to the subject in the request window: backup_3382 (customer_email match in evidence_62), still restorable (restore_allowed=true), so restore access must be blocked. The shared-batch candidates (account_3146, account_470, account_6169, analytics_3744, analytics_893) have no identifiers tying them to this subject and were rejected. No email, phone, hash, user_id or name matches exist in other usable evidence beyond evidence_62. The workflow's NOT_STARTED status and the candidates' face-value hints are not relied on.",
+   "future verification added for audit_record_8556 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_531",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1053,
+    "output_tokens": 100,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_531",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 366,
+    "cache_creation_input_tokens": 1014,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_531",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 215,
+    "cache_creation_input_tokens": 3237,
+    "cache_read_input_tokens": 5885
+   },
+   {
+    "case_id": "case_531",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 465,
+    "cache_creation_input_tokens": 14532,
+    "cache_read_input_tokens": 9122
+   },
+   {
+    "case_id": "case_531",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 693,
+    "cache_creation_input_tokens": 6204,
+    "cache_read_input_tokens": 23654
+   },
+   {
+    "case_id": "case_531",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 925,
+    "cache_creation_input_tokens": 3614,
+    "cache_read_input_tokens": 29858
+   },
+   {
+    "case_id": "case_531",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1067,
+    "cache_creation_input_tokens": 1025,
+    "cache_read_input_tokens": 33472
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k.amponsah80@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 824
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_529",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "amponsah",
+    "limit": 50
+   },
+   "output_chars": 810
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 2500
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 31076
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 5000
+   },
+   "output_chars": 4615
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3146"
+   },
+   "output_chars": 900
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_470"
+   },
+   "output_chars": 1385
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6169"
+   },
+   "output_chars": 1394
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3744"
+   },
+   "output_chars": 1542
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_893"
+   },
+   "output_chars": 1535
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_3382"
+   },
+   "output_chars": 1529
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 7500
+   },
+   "output_chars": 3385
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233248788141",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ed33bcca100aa25ed83bc0559970881058792df5865fde8121d4656db4d77348",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-12T10:00:00Z",
+    "end": "2026-01-12T13:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 3106
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kwame",
+    "limit": 50
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_529",
+    "limit": 50
+   },
+   "output_chars": 48
+  }
+ ]
+}

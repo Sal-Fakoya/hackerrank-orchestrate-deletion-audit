@@ -1,0 +1,30 @@
+{
+ "case_id": "case_535",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_535",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: export (en): The customer asks to download their account information in a portable format, which is a data export/portability request, and explicitly asks to keep the account as it is. No erasure is requested."
+  ],
+  "usage": [
+   {
+    "case_id": "case_535",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1031,
+    "output_tokens": 86,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

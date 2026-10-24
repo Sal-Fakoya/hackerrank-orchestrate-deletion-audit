@@ -1,0 +1,506 @@
+{
+ "case_id": "case_455",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_887",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_43"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_2055",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_43"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_887",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2055",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_887",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2055",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2788",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_455",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_887",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Search document in customer_directory_v3 still holds display name 'Aoi Mori', email aoi-mori@proton.me and customer_reference user_453 in both primary and reporting replica rows captured 2026-03-05. Workflow reported FAILED (activity_531), which is not proof of absence. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_2055",
+    "system_id": "support_platform",
+    "category": "SUPPORT_ATTACHMENT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Ticket attachment delivery_confirmation_18.pdf on ticket CS-6055 is uploaded_by aoi-mori@proton.me and no other customer is linked to it, so it belongs only to the subject. Still present in primary and replica at 2026-03-05. Workflow reported FAILED (activity_529), which is not proof of absence. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_2788",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_453 is present at 2026-03-05. It is a recent record from this deletion review and no retention expiry before audit_at is shown, so it is retained as within the retention period and must not be deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2761",
+    "reason": "Linked only via deletion-worker batch run activity_520, which is shared with five other requests (case_456, 457, 470, 471, 472). No usable evidence ties this account to user_453 or aoi-mori@proton.me, so it cannot be attributed to this subject. Activity claim of absence is not used."
+   },
+   {
+    "resource_id": "account_3584",
+    "reason": "Linked only via shared batch run activity_521 (other requests listed). No identity evidence ties it to this subject. The PARTIAL/present claim is unverified and not attributed."
+   },
+   {
+    "resource_id": "account_6373",
+    "reason": "Linked only via shared batch run activity_519 (other requests listed). No identity evidence ties it to this subject."
+   },
+   {
+    "resource_id": "analytics_1126",
+    "reason": "Shared batch run activity_524 with other requests. Its only usable records (evidence_43) are identity-free: user_id, email, phone and email_hash are all null. Cannot be attributed to the subject."
+   },
+   {
+    "resource_id": "analytics_4066",
+    "reason": "Shared batch run activity_518. Usable records (evidence_65, evidence_44) show an all-null profile with no user reference. Identity-free record in a shared run, cannot be attributed."
+   },
+   {
+    "resource_id": "analytics_6750",
+    "reason": "Shared batch run activity_523. Usable records (evidence_43) show an all-null profile with no user reference. Identity-free record in a shared run, cannot be attributed."
+   },
+   {
+    "resource_id": "data_flow_4612",
+    "reason": "Connector customer-events-to-warehouse-5 is enabled, but its subject_selector is jules-fournier@gmail.com, a different customer. It does not copy this subject's data."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their email address, including data linked through current or earlier identifiers, and asks for confirmation on completion. This is a request to erase the person's own account and personal data.",
+   "summary: Subject aoi-mori@proton.me / user_453. Confirmed subject records still present at audit_at: search_887 (search index, delete), support_2055 (subject-only ticket attachment, delete), audit_record_2788 (recent security audit record, retain). Account and analytics candidates came only from shared deletion-worker batch runs with no identity evidence tying them to this subject, so they were rejected. The workflow COMPLETE claim is not supported: search_887 and support_2055 remain present in the 2026-03-05 replica capture."
+  ],
+  "usage": [
+   {
+    "case_id": "case_455",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1054,
+    "output_tokens": 104,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_455",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 540,
+    "cache_creation_input_tokens": 2110,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_455",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 517,
+    "cache_creation_input_tokens": 11502,
+    "cache_read_input_tokens": 6981
+   },
+   {
+    "case_id": "case_455",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 352,
+    "cache_creation_input_tokens": 4587,
+    "cache_read_input_tokens": 18483
+   },
+   {
+    "case_id": "case_455",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 239,
+    "cache_creation_input_tokens": 6942,
+    "cache_read_input_tokens": 23070
+   },
+   {
+    "case_id": "case_455",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 445,
+    "cache_creation_input_tokens": 4314,
+    "cache_read_input_tokens": 30012
+   },
+   {
+    "case_id": "case_455",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1826,
+    "cache_creation_input_tokens": 11375,
+    "cache_read_input_tokens": 34326
+   },
+   {
+    "case_id": "case_455",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 556,
+    "cache_creation_input_tokens": 5919,
+    "cache_read_input_tokens": 45701
+   },
+   {
+    "case_id": "case_455",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2582,
+    "cache_creation_input_tokens": 14892,
+    "cache_read_input_tokens": 51620
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2761"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3584"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6373"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1126"
+   },
+   "output_chars": 3802
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4066"
+   },
+   "output_chars": 2813
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6750"
+   },
+   "output_chars": 3522
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_2788"
+   },
+   "output_chars": 2670
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_887"
+   },
+   "output_chars": 3118
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2055"
+   },
+   "output_chars": 3088
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_453",
+    "limit": 50
+   },
+   "output_chars": 3480
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aoi-mori@proton.me",
+    "limit": 50
+   },
+   "output_chars": 3298
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Aoi Mori",
+    "limit": 50
+   },
+   "output_chars": 1690
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819006760102",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1b281589fd4791fe7aabf50c0cd7dfa6da4d7c709328692f0d1ec4905e692def",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_44",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 4000
+   },
+   "output_chars": 4507
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 4000
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mori",
+    "limit": 50
+   },
+   "output_chars": 3284
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "proton.me",
+    "limit": 50
+   },
+   "output_chars": 19310
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6760102",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2761",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aoi",
+    "limit": 50
+   },
+   "output_chars": 3283
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "CS-6055",
+    "limit": 50
+   },
+   "output_chars": 1643
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "delivery_confirmation_18",
+    "limit": 50
+   },
+   "output_chars": 1660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0676",
+    "limit": 50
+   },
+   "output_chars": 44
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1b281589",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_2788",
+    "limit": 50
+   },
+   "output_chars": 1845
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-10T00:00:00Z",
+    "end": "2026-03-05T12:00:00Z",
+    "limit": 80
+   },
+   "output_chars": 24939
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention_until",
+    "limit": 50
+   },
+   "output_chars": 9311
+  }
+ ]
+}

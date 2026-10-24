@@ -1,0 +1,30 @@
+{
+ "case_id": "case_541",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_541",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: correction (English): The customer asks to change the email address on the account and says they want to continue using the service, so it is an account edit, not erasure of personal data."
+  ],
+  "usage": [
+   {
+    "case_id": "case_541",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1026,
+    "output_tokens": 78,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

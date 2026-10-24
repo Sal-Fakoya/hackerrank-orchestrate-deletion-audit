@@ -1,0 +1,442 @@
+{
+ "case_id": "case_448",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_753",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_66"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_448",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_753",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_66",
+    "reason": "Security audit record with subject_reference user_446 (the subject's user_id) and event SUBJECT_REQUEST_AUDITED. retention_until 2033-12-31 is after audit_at, so the retention condition holds and the record is retained and verified as present.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3827",
+    "reason": "Linked only through deletion-worker batch run activity_721, which is shared with case_446 and case_447. No usable evidence ties account_3827 to fontaine.manon@gmail.com, user_446, the phone, the email hash or the name; no snapshot shows its profile data. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_5817",
+    "reason": "Linked only through shared batch run activity_725 (shared with case_446 and case_447). No evidence ties it to this subject's identifiers or user_446."
+   },
+   {
+    "resource_id": "account_6635",
+    "reason": "Linked only through shared batch run activity_722 (shared with case_446 and case_447). Its absent hint is a workflow claim and it has no identity link to this subject."
+   },
+   {
+    "resource_id": "account_7340",
+    "reason": "Linked only through shared batch run activity_720 (shared with case_446 and case_447). Its absent hint is a workflow claim and it has no identity link to this subject."
+   },
+   {
+    "resource_id": "analytics_7270",
+    "reason": "Linked only through shared batch run activity_724. Its evidence_66 profile is identity-free (all identifiers null, no customer_reference, no user reference), so it cannot be attributed to this subject in a shared run."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their email address and asks that the relevant account records be processed, which is erasure of their own account and personal data. The request contains no negation or withdrawal and no third-party element.",
+   "summary: Searched all subject identifiers (email, email hash, phone, name, user_446) across usable evidence. The only record tied to the subject is audit_record_753 (security audit, user_446 reference, retained until 2033), which is PRESENT and retained. No primary profile, search, support, export, connector, backup or analytics record for this subject was found. The four account candidates and analytics_7270 come from a deletion-worker run shared with other requests and have no identity link to this subject, so they were rejected. The workflow COMPLETE claim is not supported by the evidence for the subject's own profile, which was never observed, and this should be investigated further before confirming completion."
+  ],
+  "usage": [
+   {
+    "case_id": "case_448",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 107,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_448",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 666,
+    "cache_creation_input_tokens": 1710,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_448",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 588,
+    "cache_creation_input_tokens": 5633,
+    "cache_read_input_tokens": 6581
+   },
+   {
+    "case_id": "case_448",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 499,
+    "cache_creation_input_tokens": 10193,
+    "cache_read_input_tokens": 12214
+   },
+   {
+    "case_id": "case_448",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 390,
+    "cache_creation_input_tokens": 14138,
+    "cache_read_input_tokens": 22407
+   },
+   {
+    "case_id": "case_448",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 935,
+    "cache_creation_input_tokens": 9841,
+    "cache_read_input_tokens": 36545
+   },
+   {
+    "case_id": "case_448",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 632,
+    "cache_creation_input_tokens": 5241,
+    "cache_read_input_tokens": 46386
+   },
+   {
+    "case_id": "case_448",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 680,
+    "cache_creation_input_tokens": 4948,
+    "cache_read_input_tokens": 51627
+   },
+   {
+    "case_id": "case_448",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1310,
+    "cache_creation_input_tokens": 1040,
+    "cache_read_input_tokens": 56575
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fontaine.manon@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 64
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_446",
+    "limit": 50
+   },
+   "output_chars": 656
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "manon fontaine",
+    "limit": 50
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33608733779",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3827"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5817"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6635"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7340"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7270"
+   },
+   "output_chars": 2138
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_753"
+   },
+   "output_chars": 1492
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_44",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-21T00:00:00Z",
+    "end": "2026-03-10T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31127
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3827",
+    "limit": 50
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5817",
+    "limit": 50
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_7270",
+    "limit": 50
+   },
+   "output_chars": 1308
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 2500
+   },
+   "output_chars": 4250
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-22T06:00:00Z",
+    "end": "2026-02-26T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 18184
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aeb0c4ffb46a6aecfbdddf46725b037ed2d6508f00b02e900892028bbc7d1828",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fontaine",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run activity_72",
+    "limit": 50
+   },
+   "output_chars": 61
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 0
+   },
+   "output_chars": 4669
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_profiles WHERE resource_id IN ('account_3827','account_5817','account_6635','account_7340') OR customer_reference='user_446' OR email LIKE '%fontaine%' OR full_name LIKE '%fontaine%' OR phone LIKE '%608733779%'"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, record_json FROM customer_data_primary WHERE record_json LIKE '%user_446%' OR record_json LIKE '%fontaine%' OR resource_id IN ('account_3827','account_5817','account_6635','account_7340','analytics_7270')"
+   },
+   "output_chars": 72
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_profiles LIMIT 50"
+   },
+   "output_chars": 362
+  }
+ ]
+}

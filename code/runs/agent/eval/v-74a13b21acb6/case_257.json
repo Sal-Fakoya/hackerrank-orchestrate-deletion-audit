@@ -1,0 +1,421 @@
+{
+ "case_id": "case_257",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7193",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_257",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_7193",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_255 (the subject's user_id), captured at audit_at in the read replica and primary. It was created in this request's episode and no retention end is shown that has passed, so the retention condition holds and it is retained (reported as PRESENT, not deleted).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3601",
+    "reason": "Linked only through deletion-worker batch run activity_1980, which is shared with case_258, case_259 and case_272. No usable evidence captured in the episode ties this account to user_255 or the request email, hash, phone or name. The only evidence is the workflow's DELETE claim, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_7942",
+    "reason": "Linked only through shared batch run activity_1978 (shared with case_258, case_259, case_272). No usable evidence ties it to this subject; only the workflow DELETE claim exists. Rejected as not attributable."
+   },
+   {
+    "resource_id": "analytics_2977",
+    "reason": "Linked only through shared batch run activity_1982. The observed record in evidence_24 is identity-free (user_id, email, phone and email_hash all null), so it cannot be attributed to this subject in a shared run."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete this account and its personal data and asks to be notified when completed, which is an erasure request about their own account and data.",
+   "summary: Searched all subject identifiers (email, email hash, both phones, user_255, name, audit_176). Only audit_record_7193 (security audit event referencing user_255, retained) is tied to the subject in usable evidence. The candidate account_3601, account_7942 and analytics_2977 are from a shared deletion batch with no subject-linked evidence and were rejected. No USER_PROFILE, search, cache, export, marketing, support, email, backup or data-flow records for the subject were found in any usable snapshot. The workflow's COMPLETE claim is not contradicted by any subject-linked record, but the subject's own account profile was not found in any snapshot either."
+  ],
+  "usage": [
+   {
+    "case_id": "case_257",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 82,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_257",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 521,
+    "cache_creation_input_tokens": 3273,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_257",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 925,
+    "cache_creation_input_tokens": 5853,
+    "cache_read_input_tokens": 8144
+   },
+   {
+    "case_id": "case_257",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 828,
+    "cache_creation_input_tokens": 1994,
+    "cache_read_input_tokens": 13997
+   },
+   {
+    "case_id": "case_257",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1034,
+    "cache_creation_input_tokens": 18673,
+    "cache_read_input_tokens": 15991
+   },
+   {
+    "case_id": "case_257",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1178,
+    "cache_creation_input_tokens": 4930,
+    "cache_read_input_tokens": 34664
+   },
+   {
+    "case_id": "case_257",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1072,
+    "cache_creation_input_tokens": 5963,
+    "cache_read_input_tokens": 39594
+   },
+   {
+    "case_id": "case_257",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1311,
+    "cache_creation_input_tokens": 3257,
+    "cache_read_input_tokens": 45557
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yetunde-nwosu@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_255",
+    "limit": 100
+   },
+   "output_chars": 1806
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yetunde nwosu",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3601"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7942"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2977"
+   },
+   "output_chars": 3797
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_7193"
+   },
+   "output_chars": 2641
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "47dbc43341eae9626b2c4e3ed47b216bf368cd5a32eefa432b3fd71bb266420c",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348038366074",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348039661847",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_176",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_3601",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_24",
+    "sql": "SELECT * FROM sqlite_master"
+   },
+   "output_chars": 981
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_26",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_77",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-18T00:00:00Z",
+    "end": "2026-06-13T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30902
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-19T00:00:00Z",
+    "end": "2026-05-21T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 8835
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_24",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_read_replica WHERE record_json LIKE '%user_255%' OR record_json LIKE '%nwosu%' OR record_json LIKE '%account_3601%' OR record_json LIKE '%account_7942%' OR record_json LIKE '%47dbc%' OR record_json LIKE '%2348038%' OR record_json LIKE '%2348039%'"
+   },
+   "output_chars": 421
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT 'primary' t, resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%user_255%' OR record_json LIKE '%nwosu%' OR record_json LIKE '%account_3601%' OR record_json LIKE '%account_7942%'"
+   },
+   "output_chars": 96
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT 'profiles' t, * FROM customer_analytics_profiles UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents"
+   },
+   "output_chars": 101
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM security_audit_records"
+   },
+   "output_chars": 548
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_30",
+    "offset": 0
+   },
+   "output_chars": 4242
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3601",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7942",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Yetunde",
+    "limit": 50
+   },
+   "output_chars": 3011
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_257",
+    "limit": 50
+   },
+   "output_chars": 48
+  }
+ ]
+}

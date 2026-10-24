@@ -1,0 +1,49 @@
+Nimbus Object Storage
+Search objects by name or prefix...
+Production | Help | NO
+
+Northstar Shop / Nimbus Object Storage / northstar-customer-data
+northstar-customer-data
+8 objects
+eu-west-1 / support-attachments / 2026 / 02
+Filter | Export | Actions
+
+Objects | Versions | Access
+
+Account: Northstar Production
+Region: eu-west-1
+Captured: 13 Feb 2026 08:00 UTC
+Storage class: All
+
+Objects
+Updated moments ago · 8 records
+
+Name | Size | Modified (UTC) | Storage class | Version
+delivery_confirmation_19.pdf | 684 KB | 12 Feb 18:42 | Standard | v3
+delivery_confirmation_20.pdf | 712 KB | 11 Feb 14:17 | Standard | v1
+return_label_4821.pdf | 203 KB | 10 Feb 09:33 | Standard | v1
+return_label_4876.pdf | 198 KB | 11 Feb 16:05 | Standard | v2
+invoice_NS-10493.pdf | 318 KB | 10 Feb 11:21 | Standard | v1
+parcel_damage_7713.jpg | 2.4 MB | 12 Feb 10:08 | Standard | v1
+customer_export_2026-02-10.zip | 128 MB | 10 Feb 23:14 | Standard | v1
+customer_export_2026-02-12.zip | 131 MB | 12 Feb 21:56 | Standard | v1
+
+delivery_confirmation_19.pdf
+Size: 684 KB
+Version: v3
+Content type: application/pdf
+Encryption: AES-256
+Checksum: e71b6d...
+Uploader: support-service
+Modified: 12 Feb 2026 18:42 UTC
+
+Activity
+v3
+12 Feb 18:42 · metadata update
+v2
+12 Feb 18:39 · upload complete
+v1
+12 Feb 18:38 · object created
+
+Sidebar: Buckets | Access policies | Monitoring | Settings | northstar-assets | northstar-customer-data | northstar-logs
+Footer: Nimbus Object Storage / Production workspace / build 2026.10.4

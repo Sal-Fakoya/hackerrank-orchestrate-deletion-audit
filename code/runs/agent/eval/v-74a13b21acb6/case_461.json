@@ -1,0 +1,534 @@
+{
+ "case_id": "case_461",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_9014",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_43"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_8403",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_43"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_3901",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_43"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4612",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_43"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4612",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_9014",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3901",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_8403",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4490",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_9014",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3883",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3901",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_8403",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 14,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4612",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_461",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4490",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_43",
+    "reason": "Primary profile for user_459 (DELETE category). Latest usable snapshot of account_service (reporting replica, 2026-03-05) contains no account_4490 row. Workflow activity_434 reported PARTIAL, but that is a claim and is superseded by the snapshot.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_8403",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Behavioral analytics profile still linked to user_459 and jules-fournier@gmail.com, email_hash and phone visible in both primary and replica at 2026-03-05. activity_435 reported FAILED. Must be anonymized.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_3883",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Security audit event account_deletion_reviewed for user_459, created by the privacy workflow during this request window. No retention_until expiry is recorded for it and no expiry is supplied, so it is treated as within retention and retained (RETAIN).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_4612",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_43",
+    "reason": "Connector customer-events-to-warehouse-5 is enabled in continuous_sync mode with subject_selector jules-fournier@gmail.com at 2026-03-05 (primary and replica). It can keep copying or recreating the subject's data and must be disabled. activity_438 claim of enabled is consistent.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_9014",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "customer_directory_v3 document still holds display name Jules Fournier, email and customer_reference user_459 at 2026-03-05. activity_436 reported FAILED. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_3901",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Support conversation CS-7901 (user_459) still contains the customer email address and shared order context (delivery update, Smart desk lamp). Must be redacted rather than deleted. activity_437 reported FAILED.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "search_9014",
+    "reason": "Not rejected; listed for completeness only."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to permanently delete the account associated with their email address and requests confirmation after processing, which is an erasure request for their own account and personal data.",
+   "summary: Subject user_459 (jules-fournier@gmail.com). Found six in-scope resources in the 2026-03-05 reporting replica/primary snapshot (evidence_43): the analytics profile (still attributable, anonymize), the search index document (still has email/name, delete), the support conversation with order context (redact), the active warehouse connector selecting the subject's email (still enabled, must be disabled), the security audit event (retained within retention), and the account profile account_4490 (absent in latest snapshot). Searches for the subject's user_id, email, email hash, phone and name found no backup, export, marketing, email-delivery-log or legal-hold records for this subject. The workflow's PARTIAL and FAILED claims were not relied on for state."
+  ],
+  "usage": [
+   {
+    "case_id": "case_461",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 88,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_461",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 501,
+    "cache_creation_input_tokens": 1388,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_461",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 696,
+    "cache_creation_input_tokens": 15635,
+    "cache_read_input_tokens": 6259
+   },
+   {
+    "case_id": "case_461",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 439,
+    "cache_creation_input_tokens": 9118,
+    "cache_read_input_tokens": 21894
+   },
+   {
+    "case_id": "case_461",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 924,
+    "cache_creation_input_tokens": 1415,
+    "cache_read_input_tokens": 31012
+   },
+   {
+    "case_id": "case_461",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2527,
+    "cache_creation_input_tokens": 14916,
+    "cache_read_input_tokens": 32427
+   },
+   {
+    "case_id": "case_461",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2603,
+    "cache_creation_input_tokens": 12509,
+    "cache_read_input_tokens": 47343
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4490"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_8403"
+   },
+   "output_chars": 3803
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_3883"
+   },
+   "output_chars": 2670
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_4612"
+   },
+   "output_chars": 3186
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_9014"
+   },
+   "output_chars": 3157
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3901"
+   },
+   "output_chars": 3260
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_459",
+    "limit": 50
+   },
+   "output_chars": 7578
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jules",
+    "limit": 50
+   },
+   "output_chars": 7467
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fournier",
+    "limit": 50
+   },
+   "output_chars": 7470
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6a28eb21f3a3a957af65459ddb79309c7848ded41685dfe783d6de83b153faa3",
+    "limit": 50
+   },
+   "output_chars": 2396
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33638735267",
+    "limit": 50
+   },
+   "output_chars": 2343
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4490",
+    "limit": 50
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%user_459%' OR record_json LIKE '%fournier%' OR record_json LIKE '%6a28eb%' OR record_json LIKE '%638735267%' OR record_json LIKE '%38 73 52 67%' OR origin_system IN ('account_service','marketing','email','integration_service') "
+   },
+   "output_chars": 1831
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_reporting_replica WHERE record_json LIKE '%user_459%' OR record_json LIKE '%fournier%' OR record_json LIKE '%6a28eb%' OR record_json LIKE '%638735267%' OR record_json LIKE '%38 73 52 67%' OR origin_system = 'account_service'"
+   },
+   "output_chars": 2122
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 0
+   },
+   "output_chars": 4669
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_44",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "38 73 52 67",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_3883",
+    "limit": 50
+   },
+   "output_chars": 1845
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 15117
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_4490",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 346
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-04T00:00:00Z",
+    "end": "2026-02-06T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 4432
+  }
+ ]
+}

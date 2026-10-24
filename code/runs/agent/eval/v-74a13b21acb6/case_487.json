@@ -1,0 +1,612 @@
+{
+ "case_id": "case_487",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_5293",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_64"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_901",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_64"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_7818",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_64"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_5361",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_64"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_5293",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_901",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_5361",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_7818",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_5293",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_901",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1039",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_5361",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_7818",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_487",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_5293",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_64",
+    "reason": "Account profile for the subject's email arthur.c5444@outlook.com still returns HTTP 200 with the email on 2026-02-18 (trace rb-062643-005). The deletion_worker SUCCESS claim in activity_445 is contradicted by this live readback. Replication checkpoint activity_448 also names it.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_901",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_64",
+    "reason": "customer_directory_v3 index query on 2026-02-18 returned a hit with email arthur.c5444@outlook.com (trace rb-062253-004). The activity_450 DELETE SUCCESS claim is contradicted by this observation.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_7818",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_64",
+    "reason": "Analytics profile read on 2026-02-18 still exposes email arthur.c5444@outlook.com, so the record is still attributable to the subject and anonymization is not complete (trace rb-064522-007). The activity_452 ANONYMIZE SUCCESS claim is contradicted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_5361",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_64",
+    "reason": "Support ticket read on 2026-02-18 still exposes requester_email arthur.c5444@outlook.com (trace rb-082631-021). The activity_451 REDACT SUCCESS claim is contradicted. Treated as a support conversation; the readback shows no order or agent context, so the ticket must be checked before redaction.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3378",
+    "reason": "Linked only through deletion-worker batch activity_444 (shared with case_485, case_486, case_502). No identifier, user_id, or other evidence ties it to arthur.c5444 or user_485. Its only observation is a FAILED workflow claim, and it is absent from the 2026-02-13 inventory snapshot. Not attributable to this subject."
+   },
+   {
+    "resource_id": "analytics_5948",
+    "reason": "Linked only through shared batch run activity_446. The 2026-02-18 readback (rb-071130-014) has lookup_key=null and all identifiers null (general_shopper cohort). It is identity-free in a shared run, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "analytics_131",
+    "reason": "Belongs to a different customer (chevalier.hugo@icloud.com, user_524). The name match on 'chevalier' is not this subject's identity."
+   },
+   {
+    "resource_id": "search_3879",
+    "reason": "Belongs to chevalier.hugo@icloud.com (user_524). Not this subject. Name match only."
+   },
+   {
+    "resource_id": "support_1191",
+    "reason": "Belongs to chevalier.hugo@icloud.com (user_524) and CS-5191. Not this subject."
+   },
+   {
+    "resource_id": "data_flow_2263",
+    "reason": "Connector subscribed to chevalier.hugo@icloud.com (user_524), not to arthur.c5444. Not this subject; no active flow was found for this subject's email."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to begin the deletion process for the account tied to their email address and to review connected identifiers as part of that erasure, which is a request to erase their own account and personal data. The request to confirm when the review is complete is a follow-up within the same deletion request, not an instruction to me to change any outcome.",
+   "summary: Subject arthur.c5444@outlook.com (user_485, name arthur chevalier). Four governed resources are still PRESENT at audit_at on 2026-02-18 from live readbacks in evidence_64: account_5293 (USER_PROFILE), search_901 (SEARCH_INDEX_ENTRY), analytics_7818 (ANALYTICS_PROFILE), support_5361 (SUPPORT_MESSAGE). Workflow SUCCESS claims for these are contradicted. Rejected account_3378 and analytics_5948 (shared-run, no subject identity) and the user_524 Hugo Chevalier records. No active data flow, backup, export, or legal hold was found tied to this subject. Note: support_5361 still needs a check for shared order or agent context before redaction.",
+   "future verification added for audit_record_1039 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_487",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1054,
+    "output_tokens": 135,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_487",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 624,
+    "cache_creation_input_tokens": 1354,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_487",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 875,
+    "cache_creation_input_tokens": 7581,
+    "cache_read_input_tokens": 6225
+   },
+   {
+    "case_id": "case_487",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1562,
+    "cache_creation_input_tokens": 24127,
+    "cache_read_input_tokens": 13806
+   },
+   {
+    "case_id": "case_487",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 680,
+    "cache_creation_input_tokens": 1847,
+    "cache_read_input_tokens": 37933
+   },
+   {
+    "case_id": "case_487",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1275,
+    "cache_creation_input_tokens": 1506,
+    "cache_read_input_tokens": 39780
+   },
+   {
+    "case_id": "case_487",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 718,
+    "cache_creation_input_tokens": 9974,
+    "cache_read_input_tokens": 41286
+   },
+   {
+    "case_id": "case_487",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1289,
+    "cache_creation_input_tokens": 8753,
+    "cache_read_input_tokens": 51260
+   },
+   {
+    "case_id": "case_487",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3090,
+    "cache_creation_input_tokens": 3813,
+    "cache_read_input_tokens": 60013
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "arthur.c5444@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 2847
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_485",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "arthur chevalier",
+    "limit": 50
+   },
+   "output_chars": 56
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3378"
+   },
+   "output_chars": 1336
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5293"
+   },
+   "output_chars": 2668
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5948"
+   },
+   "output_chars": 1991
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7818"
+   },
+   "output_chars": 2072
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_901"
+   },
+   "output_chars": 2053
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_5361"
+   },
+   "output_chars": 2030
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_47",
+    "offset": 0
+   },
+   "output_chars": 4507
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-03T00:00:00Z",
+    "end": "2026-02-18T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31183
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT 'profile' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE lower(email) LIKE '%c5444%' OR resource_id IN ('account_5293','account_3378') OR lower(full_name) LIKE '%chevalier%' OR phone LIKE '%348016%' OR phone LIKE '%663296828%' OR email_hash LIKE '7d18%' UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE lower(email) LIKE '%c5444%' OR resource_id IN ('search_901') OR lower(display_name) LIKE '%chevalier%' UNION ALL SELECT 'analytics', resource_id, customer_reference, audience_cohort, email, phone, email_hash, updated_at FROM customer_analytics_profiles WHERE lower(email) LIKE '%c5444%' OR resource_id IN ('analytics_5948','analytics_7818') OR email_hash LIKE '7d18%' UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE lower(requester_email) LIKE '%c5444%' OR resource_id='support_5361' OR lower(requester_name) LIKE '%chevalier%' UNION ALL SELECT 'export', resource_id, customer_reference, owner_email, owner_phone, object_key, updated_at, '' FROM customer_exports WHERE lower(owner_email) LIKE '%c5444%' OR customer_reference='user_485' UNION ALL SELECT 'connector', resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status, updated_at FROM connector_subscriptions WHERE lower(customer_email) LIKE '%c5444%' OR customer_reference='user_485' UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email, archive_key, restore_allowed, updated_at, '' FROM backup_restore_entries WHERE lower(customer_email) LIKE '%c5444%' OR customer_reference='user_485' UNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, updated_at, '', '' FROM security_audit_records WHERE subject_reference='user_485'"
+   },
+   "output_chars": 130
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary WHERE record_json LIKE '%c5444%' OR record_json LIKE '%user_485%' OR record_json LIKE '%7d18fdd4%' OR record_json LIKE '%348016%' OR record_json LIKE '%663296828%' OR record_json LIKE '%Chevalier%' OR resource_id IN ('account_5293','account_3378','analytics_5948','analytics_7818','search_901','support_5361')"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT name FROM sqlite_master"
+   },
+   "output_chars": 197
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_reporting_replica WHERE record_json LIKE '%c5444%' OR record_json LIKE '%user_485%' OR record_json LIKE '%7d18fdd4%' OR record_json LIKE '%348016%' OR record_json LIKE '%663296828%' OR record_json LIKE '%Chevalier%' OR resource_id IN ('account_5293','account_3378','analytics_5948','analytics_7818','search_901','support_5361')"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT name FROM sqlite_master"
+   },
+   "output_chars": 841
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_search_documents UNION ALL SELECT resource_id, customer_reference, NULL, NULL, email, phone, email_hash, NULL FROM customer_profiles WHERE 0"
+   },
+   "output_chars": 604
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "7d18fdd481e7dba73d5f15b3a0450b2dbbf5ac996d299cc7f1382b7da2c20704",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33624348016",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33663296828",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5293",
+    "limit": 50
+   },
+   "output_chars": 1989
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_444",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-03T00:00:00Z",
+    "end": "2026-02-07T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 18424
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "c5444",
+    "limit": 50
+   },
+   "output_chars": 2828
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "arthur",
+    "limit": 50
+   },
+   "output_chars": 2829
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chevalier",
+    "limit": 50
+   },
+   "output_chars": 7780
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_5361",
+    "limit": 50
+   },
+   "output_chars": 1350
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_7818",
+    "limit": 50
+   },
+   "output_chars": 1390
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_901",
+    "limit": 50
+   },
+   "output_chars": 1375
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-03T09:00:00Z",
+    "end": "2026-02-18T09:00:00Z",
+    "limit": 5
+   },
+   "output_chars": 1528
+  }
+ ]
+}

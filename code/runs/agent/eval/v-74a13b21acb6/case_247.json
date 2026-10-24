@@ -1,0 +1,386 @@
+{
+ "case_id": "case_247",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_2981",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_78"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_9473",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_78"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_2981",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_9473",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_2981",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_9473",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_247",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_2981",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_78",
+    "reason": "Latest direct observation (customer_data_inventory capture, 2026-06-18T11:44:03Z, before audit_at) shows customer_profiles row account_2981 still holds the subject's email rina.y488481@outlook.com with status DELETION_PENDING. The deletion worker's DELETE claim (activity_2236, SUCCESS) and the replication checkpoint (activity_2242) are workflow claims contradicted by this stored-row observation. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_9473",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_78",
+    "reason": "Latest direct observation (customer_data_inventory capture, 2026-06-18T11:44:03Z) shows customer_search_documents row search_9473 in index customer_directory_v3 still holding rina.y488481@outlook.com. The DELETE SUCCESS claim (activity_2245) is contradicted by this stored-row observation. Must be deleted from the index.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "audit_187",
+    "reason": "Identity audit reference listed on the subject; no retrievable record in the evidence set, not a deletable subject resource."
+   },
+   {
+    "resource_id": "user_245",
+    "reason": "Subject user_id; not a stored resource in evidence (no matching records). Not counted as a separate resource."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for the account associated with their address to be erased and for the request to be applied to the relevant account records, which is a deletion request for the person's own account and data.",
+   "summary: Subject rina.y488481@outlook.com (user_245) has two in-scope resources, both still PRESENT at audit_at per the 2026-06-18 inventory capture (evidence_78): account_2981 (USER_PROFILE) and search_9473 (SEARCH_INDEX_ENTRY). The workflow's DELETE SUCCESS claims (activity_2236, activity_2245) are contradicted by direct stored-row observations. Searches for the historical email rina.y4884@outlook.com, the two subject hashes, the phone number and the name found no further linked records. No DATA_FLOW, backup, support, analytics, export or marketing records were tied to this subject in the usable evidence. The account_2981 replication checkpoint (activity_2242) is a claim only and no replica observation of the record exists after the request, so replica copies remain a verification item."
+  ],
+  "usage": [
+   {
+    "case_id": "case_247",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1054,
+    "output_tokens": 91,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_247",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 324,
+    "cache_creation_input_tokens": 3124,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_247",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 539,
+    "cache_creation_input_tokens": 1137,
+    "cache_read_input_tokens": 7995
+   },
+   {
+    "case_id": "case_247",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 489,
+    "cache_creation_input_tokens": 14693,
+    "cache_read_input_tokens": 9132
+   },
+   {
+    "case_id": "case_247",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 661,
+    "cache_creation_input_tokens": 5380,
+    "cache_read_input_tokens": 23825
+   },
+   {
+    "case_id": "case_247",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 335,
+    "cache_creation_input_tokens": 10102,
+    "cache_read_input_tokens": 29205
+   },
+   {
+    "case_id": "case_247",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 863,
+    "cache_creation_input_tokens": 2743,
+    "cache_read_input_tokens": 39307
+   },
+   {
+    "case_id": "case_247",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1188,
+    "cache_creation_input_tokens": 13241,
+    "cache_read_input_tokens": 42050
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rina.y488481@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 1386
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_245",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rina.y4884@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Rina Yamamoto",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "003d21e360feed836331c853166c32211837d855c66eed79752ea1705b3a84a1",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d6b84ad059ecee85f145aab531352165555ee75b07d761951c9566ea3d2739b5",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819036778075",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rina",
+    "limit": 100
+   },
+   "output_chars": 7094
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yamamoto",
+    "limit": 100
+   },
+   "output_chars": 6008
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "245",
+    "limit": 100
+   },
+   "output_chars": 16523
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2981"
+   },
+   "output_chars": 2755
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_9473"
+   },
+   "output_chars": 2150
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_187",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2981",
+    "limit": 50
+   },
+   "output_chars": 1919
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "9473",
+    "limit": 50
+   },
+   "output_chars": 3606
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_77",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_26",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 0
+   },
+   "output_chars": 4519
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_23",
+    "offset": 0
+   },
+   "output_chars": 1517
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_25",
+    "offset": 0
+   },
+   "output_chars": 4671
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_78",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-03T00:00:00Z",
+    "end": "2026-06-18T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31032
+  }
+ ]
+}

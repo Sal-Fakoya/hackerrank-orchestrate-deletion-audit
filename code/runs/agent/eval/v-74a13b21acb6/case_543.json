@@ -1,0 +1,479 @@
+{
+ "case_id": "case_543",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6244",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_52"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_205",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": "evidence_52"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_543",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "tombstone_205",
+    "system_id": "identity_service",
+    "category": "ACCOUNT_TOMBSTONE",
+    "state": "TREATED",
+    "evidence_id": "evidence_52",
+    "reason": "Deleted-customer reference linked to subject_reference user_543 (the subject's stable internal user_id). In both the primary and failover replica tables at audit_at, name, email, phone and email_hash are all null, so only the stable user_id remains. Matches TREATED for ACCOUNT_TOMBSTONE. The workflow's REDACT claim (activity_3721) is consistent with this.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6244",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_543, present in primary and replica at audit_at. It is a record of this deletion review and has no expiry shown, so it is treated as within the retention period and retained. The record carries no recorded-at timestamp, so the retention end could not be independently confirmed.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2577",
+    "reason": "Linked only through the shared batch run activity_3718 (shared with case_544 and case_545). No stored record or usable observation ties it to user_543; the account_service snapshots that cover the system (e.g. evidence_02, evidence_92) do not contain it. Identity-free and not attributable to this subject."
+   },
+   {
+    "resource_id": "account_7320",
+    "reason": "Linked only through the shared batch run activity_3720 (shared with case_544 and case_545). No stored record ties it to user_543; absent from account_service snapshots. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_8931",
+    "reason": "Linked only through the shared batch run activity_3717 (shared with case_544 and case_545). No stored record ties it to user_543; absent from account_service snapshots. Not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for a permanent account deletion for their email address and for the covered records to be treated accordingly, which authorizes erasure of their own account and personal data; the request for confirmation of outcome is an additional ask that does not negate it.",
+   "summary: Subject user_543 (thandiwe-molefe@gmail.com) has no direct identifier hits in any usable evidence (email, hash, phone and name searches return nothing relevant). Only two records reference user_543: tombstone_205 (TREATED, user_id only remains) and audit_record_6244 (security audit event, retained). The three account_service candidates come from a batch run shared with other customers and have no evidence tying them to this subject, so they were rejected. No other linked data-flow, backup, export, search, analytics or support records were found for this subject. Remaining caveat: the audit record has no recorded-at timestamp, so its retention window was not independently verified."
+  ],
+  "usage": [
+   {
+    "case_id": "case_543",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 116,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_543",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 629,
+    "cache_creation_input_tokens": 5965,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_543",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 563,
+    "cache_creation_input_tokens": 14876,
+    "cache_read_input_tokens": 10836
+   },
+   {
+    "case_id": "case_543",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 777,
+    "cache_creation_input_tokens": 7586,
+    "cache_read_input_tokens": 25712
+   },
+   {
+    "case_id": "case_543",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1512,
+    "cache_creation_input_tokens": 6113,
+    "cache_read_input_tokens": 33298
+   },
+   {
+    "case_id": "case_543",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 872,
+    "cache_creation_input_tokens": 6146,
+    "cache_read_input_tokens": 39411
+   },
+   {
+    "case_id": "case_543",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1339,
+    "cache_creation_input_tokens": 2061,
+    "cache_read_input_tokens": 45557
+   },
+   {
+    "case_id": "case_543",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 821,
+    "cache_creation_input_tokens": 18442,
+    "cache_read_input_tokens": 47618
+   },
+   {
+    "case_id": "case_543",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1272,
+    "cache_creation_input_tokens": 3124,
+    "cache_read_input_tokens": 66060
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thandiwe-molefe@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 65
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_543",
+    "limit": 100
+   },
+   "output_chars": 3464
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thandiwe molefe",
+    "limit": 100
+   },
+   "output_chars": 55
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "b8e7c4d26790075403789731bdca425630809e6407d8dbca3ccb23c50208b8c1",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27725081740",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-07T00:00:00Z",
+    "end": "2026-09-20T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2577"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7320"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8931"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6244"
+   },
+   "output_chars": 2661
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "tombstone_205"
+   },
+   "output_chars": 2540
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-07T12:00:00Z",
+    "end": "2026-09-08T23:59:59Z",
+    "limit": 50
+   },
+   "output_chars": 6288
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_52",
+    "sql": null
+   },
+   "output_chars": 616
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_92",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_02",
+    "offset": 0
+   },
+   "output_chars": 4657
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_51",
+    "offset": 0
+   },
+   "output_chars": 2266
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_52",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_primary"
+   },
+   "output_chars": 5472
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_6244",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "tombstone_205",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 317
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_6244",
+    "limit": 50
+   },
+   "output_chars": 1839
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2026-09-07",
+    "limit": 100
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "molefe",
+    "limit": 100
+   },
+   "output_chars": 2596
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thandiwe",
+    "limit": 100
+   },
+   "output_chars": 6999
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "725081740",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_543",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-07T12:00:00Z",
+    "end": "2026-09-20T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2577",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8931",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7320",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tombstone_205",
+    "limit": 50
+   },
+   "output_chars": 2294
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_52",
+    "sql": "SELECT resource_id, record_json FROM customer_data_failover_replica WHERE resource_id='tombstone_205' OR record_json LIKE '%user_543%'"
+   },
+   "output_chars": 528
+  }
+ ]
+}

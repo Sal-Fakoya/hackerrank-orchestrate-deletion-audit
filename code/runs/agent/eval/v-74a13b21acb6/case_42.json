@@ -1,0 +1,539 @@
+{
+ "case_id": "case_42",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_7078",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_03"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6760",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_03"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_7769",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_03"
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_7078",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6760",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_7769",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4337",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_7078",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6760",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_7769",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_42",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4337",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_03",
+    "reason": "Direct account_service lookup at 2026-10-01T12:00:00Z returned NOT_FOUND for asingh1489@gmail.com on account_4337. Deletion-worker activity_3932 (SUCCESS) is only a workflow claim; the lookup confirms absence at audit_at. No replica, backup or data flow was found holding this profile.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_7078",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_03",
+    "reason": "Handover lookup at 2026-10-01T12:00:00Z shows search_7078 FOUND with the subject's email asingh1489@gmail.com. The deletion worker reported PARTIAL in activity_3934, which does not prove removal. The index entry still exists and must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_7769",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_03",
+    "reason": "Handover at 2026-10-01T12:00:00Z shows support_7769 as an IDENTIFIABLE SUPPORT_MESSAGE carrying asingh1489@gmail.com. The deletion worker reported PARTIAL redaction (activity_3933), which is only a claim. The message still exposes direct identifiers, so it must be redacted, keeping shared order/agent context.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6760",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_03",
+    "reason": "Handover at 2026-10-01T12:00:00Z shows audit_record_6760 FOUND, linked to user_40. However, no supplied retention period covering this record is in the evidence. The only retention extract (evidence_55) covers audit_record_003 for user_03, and the security ledger (evidence_50) does not list audit_record_6760. The retention condition is therefore not demonstrated at audit_at, and the record is reported as present for review.",
+    "condition_met": false
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_2034",
+    "reason": "Linked to a different subject (novak.tomasz@icloud.com), not this request's identifiers."
+   },
+   {
+    "resource_id": "support_4218",
+    "reason": "Attachment identified with noor-khalil@proton.me, another subject."
+   },
+   {
+    "resource_id": "data_flow_9522",
+    "reason": "Active connector tied to novak.tomasz@icloud.com, another subject; no link to asingh1489 or user_40 found."
+   },
+   {
+    "resource_id": "backup_706",
+    "reason": "Blocked backup linked to user_39, a different subject."
+   },
+   {
+    "resource_id": "account_5675",
+    "reason": "Lookup for menon.arjun@gmail.com, a different person's email (404); not this subject's identifier."
+   },
+   {
+    "resource_id": "account_68216",
+    "reason": "Matched only on asingh2945@gmail.com, a different email from the subject's asingh1489@gmail.com; not an exact identifier match."
+   },
+   {
+    "resource_id": "search_3844",
+    "reason": "Matched on 'Arjun' only; belongs to Arjun Nair (anair9899@fastmail.com), a different person."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to delete their account and its personal data and to have the request applied to the account records; this is a clear erasure request with no negation or third-party element.",
+   "summary: Subject user_40 (asingh1489@gmail.com, phones and hash listed in request). Four in-scope resources confirmed by the 2026-10-01 handover (evidence_03): account_4337 is ABSENT (compliant), search_7078 is PRESENT and must be deleted, support_7769 is PRESENT and must be redacted, and audit_record_6760 is PRESENT, but its retention condition is not demonstrated in the evidence. No replica, backup, connector or export copy linked to this subject was found in the evidence. The workflow's COMPLETE claim is not supported: two downstream deletions reported PARTIAL and remain unresolved."
+  ],
+  "usage": [
+   {
+    "case_id": "case_42",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 88,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_42",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 818,
+    "cache_creation_input_tokens": 6085,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_42",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 389,
+    "cache_creation_input_tokens": 8361,
+    "cache_read_input_tokens": 10956
+   },
+   {
+    "case_id": "case_42",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1029,
+    "cache_creation_input_tokens": 13425,
+    "cache_read_input_tokens": 19317
+   },
+   {
+    "case_id": "case_42",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2033,
+    "cache_creation_input_tokens": 22231,
+    "cache_read_input_tokens": 32742
+   },
+   {
+    "case_id": "case_42",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 486,
+    "cache_creation_input_tokens": 6799,
+    "cache_read_input_tokens": 54973
+   },
+   {
+    "case_id": "case_42",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 480,
+    "cache_creation_input_tokens": 4582,
+    "cache_read_input_tokens": 61772
+   },
+   {
+    "case_id": "case_42",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 666,
+    "cache_creation_input_tokens": 3101,
+    "cache_read_input_tokens": 66354
+   },
+   {
+    "case_id": "case_42",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2746,
+    "cache_creation_input_tokens": 1246,
+    "cache_read_input_tokens": 69455
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "asingh1489@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2262
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_40",
+    "limit": 100
+   },
+   "output_chars": 1481
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aa5ecc7ea9e148d86f95e25ab0aaa968f1104d84db232a06106a0f901d3f38a0",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "arjun singh",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919500352326",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919570717770",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4337"
+   },
+   "output_chars": 2901
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6760"
+   },
+   "output_chars": 2304
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_7078"
+   },
+   "output_chars": 2907
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_7769"
+   },
+   "output_chars": 2952
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_03",
+    "offset": 0
+   },
+   "output_chars": 4252
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-21T00:00:00Z",
+    "end": "2026-10-01T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 26526
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_03",
+    "offset": 3000
+   },
+   "output_chars": 1717
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Arjun",
+    "limit": 100
+   },
+   "output_chars": 8802
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "asingh",
+    "limit": 100
+   },
+   "output_chars": 2837
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4337",
+    "limit": 100
+   },
+   "output_chars": 2090
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "deletion_worker",
+    "limit": 100
+   },
+   "output_chars": 30644
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_50",
+    "offset": 0
+   },
+   "output_chars": 4732
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SUPPORT_MESSAGE"
+   },
+   "output_chars": 188
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_7769",
+    "limit": 50
+   },
+   "output_chars": 2132
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_50",
+    "offset": 3900
+   },
+   "output_chars": 1440
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "7769",
+    "limit": 50
+   },
+   "output_chars": 2124
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_9522"
+   },
+   "output_chars": 2939
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_6760",
+    "limit": 50
+   },
+   "output_chars": 1491
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_50",
+    "offset": 2000
+   },
+   "output_chars": 3588
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_6760",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  }
+ ]
+}

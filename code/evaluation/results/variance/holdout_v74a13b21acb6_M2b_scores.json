@@ -1,0 +1,56 @@
+{
+ "baseline": {
+  "cases": 12,
+  "status_accuracy": 0.9166666666666666,
+  "step_precision": 0.55,
+  "step_recall": 0.88,
+  "step_f1": 0.676923076923077,
+  "step_f1_no_evidence": 0.7384615384615384,
+  "field_accuracy": {
+   "phase": 0.4049586776859504,
+   "system_id": 0.2809917355371901,
+   "resource_id": 0.2396694214876033,
+   "operation": 0.2727272727272727,
+   "state": 0.34710743801652894,
+   "evidence_id": 0.4380165289256198
+  },
+  "sequence_accuracy": 0.16666666666666666,
+  "resource_precision": 0.5757575757575758,
+  "resource_recall": 0.926829268292683
+ },
+ "agent": {
+  "cases": 12,
+  "status_accuracy": 1.0,
+  "step_precision": 1.0,
+  "step_recall": 0.8533333333333334,
+  "step_f1": 0.9208633093525179,
+  "step_f1_no_evidence": 0.9208633093525179,
+  "field_accuracy": {
+   "phase": 0.8533333333333334,
+   "system_id": 0.6933333333333334,
+   "resource_id": 0.6933333333333334,
+   "operation": 0.7333333333333333,
+   "state": 0.7333333333333333,
+   "evidence_id": 0.8533333333333334
+  },
+  "sequence_accuracy": 0.3333333333333333,
+  "resource_precision": 1.0,
+  "resource_recall": 0.7317073170731707
+ },
+ "usage": {
+  "baseline": {
+   "calls": 0,
+   "input_tokens": 0,
+   "output_tokens": 0,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 0
+  },
+  "agent": {
+   "calls": 112,
+   "input_tokens": 12947,
+   "output_tokens": 96515,
+   "cache_creation_input_tokens": 764128,
+   "cache_read_input_tokens": 3358189
+  }
+ }
+}

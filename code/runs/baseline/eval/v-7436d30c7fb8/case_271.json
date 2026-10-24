@@ -1,0 +1,164 @@
+{
+ "case_id": "case_271",
+ "mode": "baseline",
+ "judge_version": "7436d30c7fb8",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_5047",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "activity_2014"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_7107",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_25"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_1390",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_25"
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_5047",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_7107",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_1390",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_5047",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_5091",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_7107",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_1390",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2546",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_271",
+  "mode": "baseline",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_5047",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "activity_2014",
+    "reason": "DELETE_RECORD PARTIAL",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_5091",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "activity_2013",
+    "reason": "DELETE_RECORD SUCCESS",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_7107",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_25",
+    "reason": "2026-06-08T09:51:49Z requestId=tr-0155306 level=DEBUG function=account_service message=\"instance=\"account-5\" pod=\"account-11c8\" region=\"ap-south-1\" resource_id=",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_2546",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_25",
+    "reason": "2026-06-08T09:57:40Z requestId=tr-4141476 level=DEBUG function=security_service message=\"instance=\"security-2\" pod=\"security-7ef8\" region=\"ap-south-1\" resource_",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_1390",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_25",
+    "reason": "2026-06-08T09:52:31Z requestId=tr-5091841 level=INFO function=search_service message=\"instance=\"search-2\" pod=\"search-d849\" region=\"eu-west-1\" resource_id=\"sear",
+    "condition_met": true
+   }
+  ],
+  "rejected": [],
+  "notes": [],
+  "usage": []
+ },
+ "transcript": []
+}

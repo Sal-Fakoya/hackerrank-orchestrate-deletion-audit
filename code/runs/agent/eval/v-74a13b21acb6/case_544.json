@@ -1,0 +1,418 @@
+{
+ "case_id": "case_544",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_8648",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_52"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_8648",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1037",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_8648",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_544",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "tombstone_8648",
+    "system_id": "identity_service",
+    "category": "ACCOUNT_TOMBSTONE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "Account is deleted (account_status DELETED, subject_reference user_544) and the row still carries direct identifiers at audit_at: name 'Keiko Ito', email kito2665@gmail.com and the email hash. Seen in both primary and failover replica in the 2026-09-20 capture. The deletion worker's REDACT result (activity_3724) is FAILED, so redaction is not done.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1037",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_544, present in the 2026-09-20 capture. No retention expiry for this record appears in usable evidence (the retention extract evidence_55 covers only audit_record_003 for user_03), so it is treated as within retention and retained.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2577",
+    "reason": "Linked only through deletion-worker run activity_3718, a batch shared with case_543 and case_545. No usable evidence ties this account to user_544 or kito2665@gmail.com; its only other mention is the workflow's own PARTIAL claim. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_7320",
+    "reason": "Linked only through shared batch run activity_3720 (case_543, case_545). No identifier, user_id or name evidence ties it to this subject. Not attributable; the workflow SUCCESS claim is not relied on."
+   },
+   {
+    "resource_id": "account_8931",
+    "reason": "Linked only through shared batch run activity_3717 (case_543, case_545). No identifier, user_id or name evidence ties it to this subject. Not attributable; the workflow SUCCESS claim is not relied on."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to begin the deletion process for the account tied to their email address and apply it to the relevant account records, which is a request to erase/close the account and personal data. The request contains no negation or third-party element.",
+   "summary: Subject user_544 (Keiko Ito, kito2665@gmail.com) has two in-scope records in usable evidence, both from the 2026-09-20 failover replica capture (evidence_52). tombstone_8648 is PRESENT with direct identifiers (name, email, email hash) still visible, so it needs redaction; the deletion worker's redact result was FAILED. audit_record_1037 is a security audit event tied to user_544; no retention expiry is evidenced, so it is retained. The three account_service candidates (account_2577, account_7320, account_8931) are linked only through a batch run shared with other requests and have no evidence tying them to this subject, so they are rejected. No search, support, analytics, marketing, export or connector records for user_544 were found in any usable evidence; the phone number search returned nothing. The workflow's COMPLETE claim is not supported: the tombstone still exposes direct identifiers."
+  ],
+  "usage": [
+   {
+    "case_id": "case_544",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 104,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_544",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 458,
+    "cache_creation_input_tokens": 5929,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_544",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 515,
+    "cache_creation_input_tokens": 5027,
+    "cache_read_input_tokens": 10800
+   },
+   {
+    "case_id": "case_544",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1532,
+    "cache_creation_input_tokens": 17558,
+    "cache_read_input_tokens": 15827
+   },
+   {
+    "case_id": "case_544",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 575,
+    "cache_creation_input_tokens": 16666,
+    "cache_read_input_tokens": 33385
+   },
+   {
+    "case_id": "case_544",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 710,
+    "cache_creation_input_tokens": 3669,
+    "cache_read_input_tokens": 50051
+   },
+   {
+    "case_id": "case_544",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 914,
+    "cache_creation_input_tokens": 2549,
+    "cache_read_input_tokens": 53720
+   },
+   {
+    "case_id": "case_544",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1305,
+    "cache_creation_input_tokens": 8049,
+    "cache_read_input_tokens": 56269
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kito2665@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1880
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_544",
+    "limit": 100
+   },
+   "output_chars": 3654
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "keiko ito",
+    "limit": 100
+   },
+   "output_chars": 1871
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "12f0c41e4faf4f4d18810fd065ef28922c6f12332472f88d1854725bad3ea76b",
+    "limit": 100
+   },
+   "output_chars": 1926
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819011179536",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2577"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7320"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8931"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1037"
+   },
+   "output_chars": 2661
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "tombstone_8648"
+   },
+   "output_chars": 2748
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-06T00:00:00Z",
+    "end": "2026-09-20T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-06T00:00:00Z",
+    "end": "2026-09-08T23:59:59Z",
+    "limit": 200
+   },
+   "output_chars": 16299
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kito",
+    "limit": 100
+   },
+   "output_chars": 1866
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Ito",
+    "limit": 100
+   },
+   "output_chars": 14016
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_52",
+    "offset": 0
+   },
+   "output_chars": 4456
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "ACCOUNT_TOMBSTONE"
+   },
+   "output_chars": 212
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2577",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8931",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7320",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_1037",
+    "limit": 50
+   },
+   "output_chars": 1839
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_1037",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Keiko",
+    "limit": 100
+   },
+   "output_chars": 11296
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2665",
+    "limit": 100
+   },
+   "output_chars": 3488
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_54",
+    "limit": 100
+   },
+   "output_chars": 47
+  }
+ ]
+}

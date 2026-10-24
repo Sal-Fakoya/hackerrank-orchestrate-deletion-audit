@@ -1,0 +1,436 @@
+{
+ "case_id": "case_401",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6872",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_69"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6872",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_9820",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6872",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_401",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_9820",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_38",
+    "reason": "Primary profile account_9820 was linked to the subject via deletion-worker run activity_888 (reported PARTIAL, a claim). The latest usable snapshot of account_service (customer_data_regional_replicas_20260330, captured 2026-03-30) contains other account_service profiles but no account_9820 row, so the profile is absent at audit_at. Compliant for DELETE; re-verify if any DATA_FLOW can recreate it.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_6872",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_69",
+    "reason": "Customer analytics profile analytics_6872 still stores the subject's direct identifier email kwame-asante@gmail.com (row updated 2026-04-04T09:55:56Z, captured 2026-04-04). The workflow's ANONYMIZE_RECORD (activity_889) reported FAILED and is only a claim. Still attributable to the user, so it must be anonymized.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "user_399",
+    "reason": "Subject user_id; not a stored resource in any usable evidence (no matches)."
+   },
+   {
+    "resource_id": "search_1338, search_195, search_3232, search_4649, search_7293",
+    "reason": "Search-index documents carrying other customers' emails (tkhumalo2329, rodriguez.mateo, jonas.s2734, balogun.chidi, HLEFEVRE4815); no match to subject identifiers."
+   },
+   {
+    "resource_id": "support_4290, support_4521",
+    "reason": "Support records for other customers' emails; no subject identifier match."
+   },
+   {
+    "resource_id": "export_4664, export_9399, export_9343",
+    "reason": "Export records owned by other customers (HLEFEVRE4815, syamamoto4983, anair9899); not attributable to subject."
+   },
+   {
+    "resource_id": "data_flow_626, data_flow_9411, data_flow_2107, data_flow_7718",
+    "reason": "Connectors tied to other customers' emails; none carries the subject's identifiers."
+   },
+   {
+    "resource_id": "backup_2642",
+    "reason": "Backup entry for f.rahman72@gmail.com; not the subject."
+   },
+   {
+    "resource_id": "analytics_891, account_4204, account_4087",
+    "reason": "Records for other individuals (noor-darwish, y.nakamura42, camille.girard80); not the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer states they no longer use the account and asks for it to be permanently deleted, which is a clear request for account and personal data erasure. The request to follow retention requirements and confirm review does not negate the deletion.",
+   "summary: Subject kwame-asante@gmail.com (user_399) has two governed resources in this episode: account_9820 (primary profile, ABSENT in the 2026-03-30 account_service snapshot) and analytics_6872 (analytics profile still holding the subject's email, PRESENT, must be anonymized because the deletion worker's ANONYMIZE reported FAILED). No support, search, export, connector, backup, or marketing records matching the subject's identifiers were found in usable evidence through audit_at. No active DATA_FLOW tied to the subject was found."
+  ],
+  "usage": [
+   {
+    "case_id": "case_401",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 103,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_401",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 425,
+    "cache_creation_input_tokens": 1751,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_401",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 250,
+    "cache_creation_input_tokens": 1021,
+    "cache_read_input_tokens": 6622
+   },
+   {
+    "case_id": "case_401",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 359,
+    "cache_creation_input_tokens": 14565,
+    "cache_read_input_tokens": 7643
+   },
+   {
+    "case_id": "case_401",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 887,
+    "cache_creation_input_tokens": 7316,
+    "cache_read_input_tokens": 22208
+   },
+   {
+    "case_id": "case_401",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 385,
+    "cache_creation_input_tokens": 2237,
+    "cache_read_input_tokens": 29524
+   },
+   {
+    "case_id": "case_401",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 382,
+    "cache_creation_input_tokens": 2937,
+    "cache_read_input_tokens": 31761
+   },
+   {
+    "case_id": "case_401",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 416,
+    "cache_creation_input_tokens": 636,
+    "cache_read_input_tokens": 34698
+   },
+   {
+    "case_id": "case_401",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 551,
+    "cache_creation_input_tokens": 509,
+    "cache_read_input_tokens": 35334
+   },
+   {
+    "case_id": "case_401",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1678,
+    "cache_creation_input_tokens": 1908,
+    "cache_read_input_tokens": 35843
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kwame-asante@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 718
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_399",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kwame asante",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a7e46c52df6c4eebaff410d77dd66813153bac69be158211fb7e1a830f9a59b7",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233243830646",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9820"
+   },
+   "output_chars": 1491
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6872"
+   },
+   "output_chars": 2170
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 200
+   },
+   "output_chars": 31633
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-06T00:00:00Z",
+    "end": "2026-03-08T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 8284
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "399",
+    "limit": 100
+   },
+   "output_chars": 6965
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "asante",
+    "limit": 100
+   },
+   "output_chars": 702
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kwame",
+    "limit": 100
+   },
+   "output_chars": 701
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "243830646",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9820",
+    "limit": 50
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_6872",
+    "limit": 50
+   },
+   "output_chars": 1340
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT * FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 1184
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at FROM customer_data_replica_ap_south WHERE origin_system LIKE '%account%' LIMIT 50"
+   },
+   "output_chars": 170
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT 'profiles' t, COUNT(*) FROM customer_profiles UNION ALL SELECT 'search', COUNT(*) FROM customer_search_documents UNION ALL SELECT 'support', COUNT(*) FROM support_records UNION ALL SELECT 'exports', COUNT(*) FROM customer_exports UNION ALL SELECT 'connectors', COUNT(*) FROM connector_subscriptions UNION ALL SELECT 'backups', COUNT(*) FROM backup_restore_entries UNION ALL SELECT 'security', COUNT(*) FROM security_audit_records UNION ALL SELECT 'scope', COUNT(*) FROM snapshot_scope"
+   },
+   "output_chars": 170
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 421
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM customer_search_documents"
+   },
+   "output_chars": 721
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM support_records"
+   },
+   "output_chars": 436
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM customer_exports"
+   },
+   "output_chars": 241
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM connector_subscriptions"
+   },
+   "output_chars": 381
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM backup_restore_entries"
+   },
+   "output_chars": 245
+  }
+ ]
+}

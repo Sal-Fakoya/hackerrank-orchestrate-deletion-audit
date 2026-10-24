@@ -1,0 +1,530 @@
+{
+ "case_id": "case_209",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_7288",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_20"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_3156",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_20"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_8999",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_20"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5196",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_20"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5196",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_7288",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_8999",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_3156",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_7288",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_8189",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_8999",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_3156",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5196",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_209",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "analytics_3156",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_20",
+    "reason": "Analytics reporting row carries user_id user_207, email jieun-yoon@gmail.com, email hash and phone +82 10 0843 4211 in both primary and read-replica tables at 2026-07-08T09:00:00Z. Still attributable to the subject, so ANONYMIZE is required. The deletion-worker ANONYMIZE was reported FAILED (activity_2477).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_7288",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_20",
+    "reason": "customer_directory_v3 search document still holds customer_reference user_207, display name Ji-eun Yoon and email jieun-yoon@gmail.com in primary and replica at 2026-07-08T09:00:00Z. Deletion was reported FAILED (activity_2480), so the index entry must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_8999",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_20",
+    "reason": "Support conversation CS-7999 (subject_reference user_207) still shows the email address in the message body. It also carries shared order context (affected order: stainless steel water bottle) that must be retained, so REDACT applies rather than delete. Redaction was reported FAILED (activity_2483).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_5196",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_20",
+    "reason": "Connector customer-events-to-warehouse-5 is enabled, in continuous_sync mode, with subject_selector jieun-yoon@gmail.com, at 2026-07-08T09:00:00Z. It can keep copying the subject's data into customer_analytics_warehouse and must be disabled.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_8189",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_20",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_207 is present at 2026-07-08T09:00:00Z. No retention expiry is recorded for it and the event is part of the current deletion review, so it is treated as within retention and retained.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4320",
+    "reason": "Linked only through the deletion-worker batch run activity_2473. That run is shared with cases 194, 195, 196, 210 and 211, and no usable evidence ties this account to user_207. Its absent claim is not used and it is not attributed to this subject."
+   },
+   {
+    "resource_id": "account_5599",
+    "reason": "Linked only through the shared batch run activity_2472 (shared with cases 194, 195, 196, 210 and 211). No usable evidence ties it to user_207, so it is rejected as belonging to another subject or unattributable."
+   },
+   {
+    "resource_id": "backup_1214",
+    "reason": "Only an activity row (activity_2715) reports that it is restorable. No evidence links this backup to user_207 or to the subject's identifiers, so it is not attributed to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to close their own account and process the associated personal-data deletion, which is erasure of their own data. The additional requests for an identity review and a completion notice do not negate this.",
+   "summary: Subject user_207 (jieun-yoon@gmail.com). Five subject-bearing resources were verified in the 2026-07-08 replica (evidence_20), all still present: analytics_3156 (ANONYMIZE, still attributable), search_7288 (search index DELETE), support_8999 (REDACT, shared order context), data_flow_5196 (ACTIVE connector that can recreate the subject's data, so DISABLE), and audit_record_8189 (security audit, retained). The workflow's \"deleted\" claims for the account and the \"FAILED\" results for the search, analytics and support actions are contradicted by the stored data. The account_4320 and account_5599 records and backup_1214 are not tied to this subject and were rejected. No legal hold applies to this subject (legal_hold_8017 belongs to user_259). No subject-linked export, email-log, marketing, cache or tombstone record was found."
+  ],
+  "usage": [
+   {
+    "case_id": "case_209",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1052,
+    "output_tokens": 93,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_209",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 674,
+    "cache_creation_input_tokens": 3867,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_209",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 977,
+    "cache_creation_input_tokens": 20273,
+    "cache_read_input_tokens": 8738
+   },
+   {
+    "case_id": "case_209",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 640,
+    "cache_creation_input_tokens": 17023,
+    "cache_read_input_tokens": 29011
+   },
+   {
+    "case_id": "case_209",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1294,
+    "cache_creation_input_tokens": 6368,
+    "cache_read_input_tokens": 46034
+   },
+   {
+    "case_id": "case_209",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1135,
+    "cache_creation_input_tokens": 28340,
+    "cache_read_input_tokens": 52402
+   },
+   {
+    "case_id": "case_209",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2389,
+    "cache_creation_input_tokens": 10716,
+    "cache_read_input_tokens": 80742
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jieun-yoon@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 7379
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_207",
+    "limit": 100
+   },
+   "output_chars": 7483
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Yoon",
+    "limit": 100
+   },
+   "output_chars": 8213
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4320"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5599"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3156"
+   },
+   "output_chars": 3787
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_8189"
+   },
+   "output_chars": 2630
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_5196"
+   },
+   "output_chars": 3141
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_7288"
+   },
+   "output_chars": 3106
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_8999"
+   },
+   "output_chars": 3241
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ji-eun yoon",
+    "limit": 100
+   },
+   "output_chars": 1683
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e24e535d67319ebf622dae26911f820e86e5be709717b7afd21930c8549c9ee0",
+    "limit": 100
+   },
+   "output_chars": 2387
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821008434211",
+    "limit": 100
+   },
+   "output_chars": 2335
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4320",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-21T00:00:00Z",
+    "end": "2026-07-08T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31149
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-22T08:00:00Z",
+    "end": "2026-06-22T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 5235
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 0
+   },
+   "output_chars": 4505
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "CS-7999",
+    "limit": 100
+   },
+   "output_chars": 1803
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jieun",
+    "limit": 100
+   },
+   "output_chars": 12269
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "backup_1214",
+    "limit": 100
+   },
+   "output_chars": 670
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 100
+   },
+   "output_chars": 35471
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_207",
+    "limit": 100
+   },
+   "output_chars": 7483
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SUPPORT_MESSAGE"
+   },
+   "output_chars": 188
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 3000
+   },
+   "output_chars": 4482
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0843 4211",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "customer-events-to-warehouse-5",
+    "limit": 50
+   },
+   "output_chars": 15873
+  }
+ ]
+}

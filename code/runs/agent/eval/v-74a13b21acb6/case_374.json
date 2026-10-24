@@ -1,0 +1,456 @@
+{
+ "case_id": "case_374",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8598",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_70"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5137",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_70"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_374",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_8598",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_70",
+    "reason": "Direct identifier match: the account_service lookup trace rb-033708-006 (2026-04-14T03:37:08Z, before audit_at) searched account_8598 by the subject's exact email obinna.okafor@gmail.com and returned rows=0, http_status=404. The profile no longer exists, so the DELETE rule is satisfied. The workflow's deletion activity_1112 SUCCESS was only a claim, but the direct lookup confirms absence.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_5137",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_70",
+    "reason": "Audit record trace rb-051959-020 (2026-04-14T05:19:59Z) shows subject_reference=user_372, event_code=PRIVACY_REQUEST_ACCEPTED and retention_until=2032-06-30, which is after audit_at. The record is within its retention period and is retained (PRESENT for retained-record verification).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_5454",
+    "reason": "Linked only through batch_run activity_1110 (a DELETE_RECORD on the shared deletion run, which lists case_375 and case_376 as sharing the run). No usable evidence ties account_5454 to user_372 or obinna.okafor@gmail.com; the only evidence is a FAILED workflow claim with no identity observation. Not attributable to this subject, so rejected."
+   },
+   {
+    "resource_id": "analytics_5779",
+    "reason": "Linked only through shared batch_run activity_1113. The only stored-state observation (evidence_70, trace rb-045443-017) is an analytics profile with customer_reference=null, email=null, phone=null, email_hash=null, so it has no identity link to this subject. Identity-free record in a shared run cannot be attributed, so rejected."
+   },
+   {
+    "resource_id": "analytics_9394",
+    "reason": "Linked only through shared batch_run activity_1114. The only stored-state observation (evidence_70, trace rb-035939-011) is an all-null analytics profile (no customer_reference, email, phone or email_hash). Identity-free record in a shared run cannot be attributed to this subject, so rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to close the account and have its associated personal data deleted, which is erasure of their own account and data. The request for a confirmation afterward does not change that.",
+   "summary: Subject obinna.okafor (user_372). Confirmed in-scope: account_8598 is ABSENT (404 on the subject's exact email lookup, evidence_70), so its DELETE is compliant. audit_record_5137 is a security audit record referencing user_372 that is within its 2032 retention and is retained. Rejected the shared-run batch candidates account_5454, analytics_5779 and analytics_9394: no usable evidence ties them to this subject (the account record has only a FAILED claim, and the analytics profiles are all-null). Searches for the subject's hash, phone, name and user_id found no other live copies in snapshots, connectors, exports, support, backups or replicas captured between the request and audit_at."
+  ],
+  "usage": [
+   {
+    "case_id": "case_374",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 87,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_374",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 556,
+    "cache_creation_input_tokens": 2195,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_374",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 852,
+    "cache_creation_input_tokens": 5987,
+    "cache_read_input_tokens": 7066
+   },
+   {
+    "case_id": "case_374",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 923,
+    "cache_creation_input_tokens": 15459,
+    "cache_read_input_tokens": 13053
+   },
+   {
+    "case_id": "case_374",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 891,
+    "cache_creation_input_tokens": 4385,
+    "cache_read_input_tokens": 28512
+   },
+   {
+    "case_id": "case_374",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 999,
+    "cache_creation_input_tokens": 2612,
+    "cache_read_input_tokens": 32897
+   },
+   {
+    "case_id": "case_374",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1155,
+    "cache_creation_input_tokens": 4178,
+    "cache_read_input_tokens": 35509
+   },
+   {
+    "case_id": "case_374",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2756,
+    "cache_creation_input_tokens": 7239,
+    "cache_read_input_tokens": 39687
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5454"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8598"
+   },
+   "output_chars": 2091
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5779"
+   },
+   "output_chars": 2137
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9394"
+   },
+   "output_chars": 2137
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5137"
+   },
+   "output_chars": 1601
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "obinna",
+    "limit": 50
+   },
+   "output_chars": 648
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_372",
+    "limit": 50
+   },
+   "output_chars": 772
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "obinna.okafor@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 665
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5454",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "7142239cb25b411d755e3630e65e1635fd2c78f58446cdcc7bd16510565ed0e1",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348038888709",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "okafor",
+    "limit": 50
+   },
+   "output_chars": 3294
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-23T00:00:00Z",
+    "end": "2026-04-14T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30947
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "select * from customer_analytics_profiles union all select resource_id,customer_reference,email,phone,email_hash,audience_cohort,updated_at from customer_analytics_profiles limit 0"
+   },
+   "output_chars": 127
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "select * from connector_subscriptions"
+   },
+   "output_chars": 381
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "select * from customer_search_documents"
+   },
+   "output_chars": 721
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "select * from security_audit_records"
+   },
+   "output_chars": 439
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "select * from backup_restore_entries"
+   },
+   "output_chars": 245
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "select * from customer_exports"
+   },
+   "output_chars": 241
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "select * from support_records"
+   },
+   "output_chars": 436
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "select * from snapshot_scope"
+   },
+   "output_chars": 421
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "select resource_id, origin_system, collection_name, updated_at from customer_data_primary where record_json like '%obinna%' or record_json like '%user_372%' or resource_id in ('account_5454','account_8598','analytics_5779','analytics_9394','audit_record_5137') or record_json like '%2348038888709%' or record_json like '%7142239c%'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "select resource_id, origin_system, collection_name, updated_at from customer_data_replica_ap_south where record_json like '%obinna%' or record_json like '%user_372%' or resource_id in ('account_5454','account_8598','analytics_5779','analytics_9394','audit_record_5137') or record_json like '%2348038888709%' or record_json like '%7142239c%'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "select resource_id, origin_system, collection_name, updated_at from customer_data_replica_eu_west where record_json like '%obinna%' or record_json like '%user_372%' or resource_id in ('account_5454','account_8598','analytics_5779','analytics_9394','audit_record_5137') or record_json like '%2348038888709%' or record_json like '%7142239c%'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": null
+   },
+   "output_chars": 618
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_40",
+    "offset": 0
+   },
+   "output_chars": 4660
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-23T06:00:00Z",
+    "end": "2026-03-25T00:00:00Z",
+    "limit": 60
+   },
+   "output_chars": 9959
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_5454",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 346
+  }
+ ]
+}

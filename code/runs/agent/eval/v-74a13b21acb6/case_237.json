@@ -1,0 +1,447 @@
+{
+ "case_id": "case_237",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_2788",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_79"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2433",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_79"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_2788",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2433",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_2788",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2433",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2859",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_237",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_2788",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_79",
+    "reason": "Direct lookup by the subject's email p.kapoor94@yahoo.com at 2026-06-23T03:44:28Z (trace rb-034428-011) returned the profile with email still exposed (HTTP 200, rows=1). This is a direct identifier match, so the record is attributable to this subject despite being in a run shared with case_236/case_238. The workflow's DELETE SUCCESS (activity_2143) is contradicted by this later direct observation. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_2433",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_79",
+    "reason": "Index query at 2026-06-23T03:15:07Z (trace rb-031507-008) hit customer_directory_v3 on email p.kapoor94@yahoo.com (total_hits=1). The index entry still exposes the subject's email; the workflow's FAILED deletion result (activity_2152) is not relied on. Must be deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_629",
+    "reason": "Only evidence is the deletion-worker activity_2144 (reported FAILED, a workflow claim). It is linked only through the batch run shared with case_236 and case_238, and no usable evidence ties it to this subject's email, phone, hash, user_id or name. Searches for user_235, the email, the hash, both phones and the name returned nothing for it. Cannot be attributed to this subject, so rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their email address and asks for a confirmation once the identity and data review is complete. This is a direct request to erase their own account and personal data.",
+   "summary: Two subject records are confirmed present at audit_at: account_2788 (USER_PROFILE) and search_2433 (SEARCH_INDEX_ENTRY), both by the 2026-06-23 direct lookup in evidence_79 that still exposes p.kapoor94@yahoo.com. The workflow's COMPLETE claim and its SUCCESS/FAILED activity rows are contradicted. account_629 was rejected for lack of any attribution to the subject. Searches on the subject's historical identifiers (hash, phones, name, user_id, audit_166) found no further records. Replica, inventory and bundle snapshots contain no subject rows.",
+   "future verification added for audit_record_2859 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_237",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 96,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_237",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 452,
+    "cache_creation_input_tokens": 3287,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_237",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 766,
+    "cache_creation_input_tokens": 4871,
+    "cache_read_input_tokens": 8158
+   },
+   {
+    "case_id": "case_237",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 585,
+    "cache_creation_input_tokens": 14230,
+    "cache_read_input_tokens": 13029
+   },
+   {
+    "case_id": "case_237",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 234,
+    "cache_creation_input_tokens": 2892,
+    "cache_read_input_tokens": 27259
+   },
+   {
+    "case_id": "case_237",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 790,
+    "cache_creation_input_tokens": 2776,
+    "cache_read_input_tokens": 30151
+   },
+   {
+    "case_id": "case_237",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 787,
+    "cache_creation_input_tokens": 2405,
+    "cache_read_input_tokens": 32927
+   },
+   {
+    "case_id": "case_237",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 618,
+    "cache_creation_input_tokens": 1881,
+    "cache_read_input_tokens": 35332
+   },
+   {
+    "case_id": "case_237",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1273,
+    "cache_creation_input_tokens": 2718,
+    "cache_read_input_tokens": 37213
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2788"
+   },
+   "output_chars": 2809
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_629"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2433"
+   },
+   "output_chars": 2192
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "p.kapoor94@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 1492
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_235",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Kapoor",
+    "limit": 50
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_629"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "priya kapoor",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4e655dd934d91ec613a2b673b16806622e471cf24d153f0d686ed9fcb666e8d6",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919141886576",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919591632548",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-29T00:00:00Z",
+    "end": "2026-06-23T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31390
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_166",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_2143",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "user_235",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_79",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_79",
+    "offset": 6000
+   },
+   "output_chars": 4231
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT 'profile' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status, updated_at FROM customer_profiles UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents UNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles UNION ALL SELECT 'export', resource_id, customer_reference, NULL, owner_email, owner_phone, NULL, object_key, updated_at FROM customer_exports UNION ALL SELECT 'connector', resource_id, customer_reference, connector_name, customer_email, NULL, NULL, enabled, updated_at FROM connector_subscriptions UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, NULL, updated_at FROM support_records UNION ALL SELECT 'audit', resource_id, subject_reference, event_code, NULL, NULL, NULL, retention_until, updated_at FROM security_audit_records"
+   },
+   "output_chars": 2629
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_24",
+    "sql": null
+   },
+   "output_chars": 608
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_235",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_24",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_read_replica WHERE record_json LIKE '%kapoor%' OR record_json LIKE '%account_2788%' OR record_json LIKE '%account_629%' OR record_json LIKE '%search_2433%' OR record_json LIKE '%user_235%' OR record_json LIKE '%919141886576%' OR record_json LIKE '%919591632548%' OR record_json LIKE '%p.kapoor94%' OR resource_id IN ('account_2788','account_629','search_2433')"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_629",
+    "limit": 50
+   },
+   "output_chars": 655
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2788",
+    "limit": 50
+   },
+   "output_chars": 1987
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_2433",
+    "limit": 50
+   },
+   "output_chars": 1379
+  },
+  {
+   "turn": 7,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_79",
+    "trace_id": "rb-034428-011"
+   },
+   "output_chars": 458
+  }
+ ]
+}

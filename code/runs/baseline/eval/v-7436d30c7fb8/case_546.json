@@ -1,0 +1,290 @@
+{
+ "case_id": "case_546",
+ "mode": "baseline",
+ "judge_version": "7436d30c7fb8",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_294",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "activity_3657"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_410",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "activity_3662"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_7015",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "activity_3660"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_8832",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "activity_3658"
+  },
+  {
+   "step_no": 5,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_9155",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "activity_3663"
+  },
+  {
+   "step_no": 6,
+   "phase": "FINDING",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_8095",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_52"
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_294",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_410",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_7015",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_8832",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_9155",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "REMEDIATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_8095",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_294",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 14,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_410",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 15,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_6440",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 16,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_7015",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 17,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8832",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 18,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_9155",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 19,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_518",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 20,
+   "phase": "VERIFICATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_8095",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 21,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_5335",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_546",
+  "mode": "baseline",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_294",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "activity_3657",
+    "reason": "DELETE_RECORD PARTIAL",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_410",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "activity_3662",
+    "reason": "DELETE_RECORD FAILED",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_6440",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_92",
+    "reason": "status_code=404",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_7015",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "activity_3660",
+    "reason": "DELETE_RECORD FAILED",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_8832",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "activity_3658",
+    "reason": "DELETE_RECORD PARTIAL",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_9155",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "activity_3663",
+    "reason": "DELETE_RECORD FAILED",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_5335",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "TREATED",
+    "evidence_id": "evidence_02",
+    "reason": "record present",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_518",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "record present",
+    "condition_met": true
+   },
+   {
+    "resource_id": "tombstone_8095",
+    "system_id": "identity_service",
+    "category": "ACCOUNT_TOMBSTONE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "record present",
+    "condition_met": true
+   }
+  ],
+  "rejected": [],
+  "notes": [],
+  "usage": []
+ },
+ "transcript": []
+}

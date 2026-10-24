@@ -1,0 +1,18 @@
+{
+ "case_id": "custom_05b",
+ "mode": "baseline",
+ "judge_version": "7436d30c7fb8",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "custom_05b",
+  "mode": "baseline",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [],
+  "usage": []
+ },
+ "transcript": []
+}

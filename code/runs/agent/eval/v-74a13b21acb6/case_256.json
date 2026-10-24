@@ -1,0 +1,381 @@
+{
+ "case_id": "case_256",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_4027",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2453",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_3772",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_4027",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2453",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3772",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_4027",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2453",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3772",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_256",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_4027",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Customer search document in customer_directory_v3 still shows display_name 'Yasmine Mansour', email mansour.yasmine@gmail.com and customer_reference user_254 in both the primary table and the read replica at audit_at (evidence_24, captured 2026-06-13T11:00:00Z). The deletion worker's DELETE_RECORD (activity_2028) reported FAILED, so the record was not removed. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_3772",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Support conversation CS-7772 (email channel) still holds the subject's email address mansour.yasmine@gmail.com and subject_reference user_254 in the primary table and read replica (evidence_24). It also carries order context ('affected order includes: Travel backpack') that must be retained, so the policy is REDACT rather than delete. The REDACT_RECORD run (activity_2026) reported FAILED. Direct identifiers are still visible.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_2453",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Security audit event account_deletion_reviewed linked to subject_reference user_254 is present (evidence_24). The record carries no retention_until value, and no usable evidence supplies a retention period for it. The retention condition ('within the supplied retention period') therefore cannot be shown to hold at audit_at. The legal_retention_register (evidence_27) covers only disputed order/tax records and does not reference this subject or record. Flagged for reviewer decision on retention.",
+    "condition_met": false
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3119",
+    "reason": "Belongs to a different customer (user_475, Zayd Mansour); surname match only, no identifier match to this subject."
+   },
+   {
+    "resource_id": "search_5052",
+    "reason": "Belongs to user_475 (z.mansour54@yahoo.com); surname match only."
+   },
+   {
+    "resource_id": "legal_hold_8017",
+    "reason": "Retained order record for user_259, a different subject; no link to user_254 or this email."
+   },
+   {
+    "resource_id": "legal_hold_4743",
+    "reason": "Retained order record for user_471, a different subject."
+   },
+   {
+    "resource_id": "activity_2028 / activity_2026 related data_flow_8612, data_flow_6233, backup_2427",
+    "reason": "Connector and backup checks ran in the workflow window, but no usable evidence ties these data flows or backups to user_254, so they were not included as subject resources."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to erase the account linked to their email address and to review data eligible for deletion or de-identification, which is a request for erasure of their own account and personal data.",
+   "summary: Subject user_254 (mansour.yasmine@gmail.com) has three linked resources in the audit window, all found only in evidence_24 (captured at audit_at): search_4027 (search index entry, PRESENT, delete), support_3772 (support message with order context, PRESENT, redact), and audit_record_2453 (security audit event, PRESENT, retention condition unverifiable because no retention_until is supplied, flagged for reviewer). Workflow claims of FAILED for the search and support deletions are consistent with the stored state. No user profile, secondary identifier, analytics, telemetry, marketing, export, email log, tombstone, or attachment record for this subject was found by email, user_id, name, email hash, or phone. Search-by-hash and by-phone returned nothing. Other \"Mansour\" matches belong to a different customer."
+  ],
+  "usage": [
+   {
+    "case_id": "case_256",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 88,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_256",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 431,
+    "cache_creation_input_tokens": 3016,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_256",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 544,
+    "cache_creation_input_tokens": 5292,
+    "cache_read_input_tokens": 7887
+   },
+   {
+    "case_id": "case_256",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 420,
+    "cache_creation_input_tokens": 19396,
+    "cache_read_input_tokens": 13179
+   },
+   {
+    "case_id": "case_256",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 339,
+    "cache_creation_input_tokens": 9302,
+    "cache_read_input_tokens": 32575
+   },
+   {
+    "case_id": "case_256",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 774,
+    "cache_creation_input_tokens": 3522,
+    "cache_read_input_tokens": 41877
+   },
+   {
+    "case_id": "case_256",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2730,
+    "cache_creation_input_tokens": 19349,
+    "cache_read_input_tokens": 45399
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mansour.yasmine@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 3457
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_254",
+    "limit": 100
+   },
+   "output_chars": 5200
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yasmine mansour",
+    "limit": 100
+   },
+   "output_chars": 1705
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "9c0e9c0848296c88f659ccd0871e47fd034bfeceb9416b843c4cd371579fb0c6",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971562155606",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mansour",
+    "limit": 100
+   },
+   "output_chars": 5107
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-20T00:00:00Z",
+    "end": "2026-06-13T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30902
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4027"
+   },
+   "output_chars": 3135
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3772"
+   },
+   "output_chars": 3236
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_2453"
+   },
+   "output_chars": 2641
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 0
+   },
+   "output_chars": 4519
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-20T11:00:00Z",
+    "end": "2026-05-24T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 16769
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 9000
+   },
+   "output_chars": 4547
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 18000
+   },
+   "output_chars": 1961
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_2453",
+    "limit": 50
+   },
+   "output_chars": 1815
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 36583
+  }
+ ]
+}

@@ -1,0 +1,385 @@
+{
+ "case_id": "case_179",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_2283",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_84"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2283",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_919",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2283",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_179",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "support_2283",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_84",
+    "reason": "Support record support_2283 in the 2026-07-23 support_records snapshot still exposes the subject's direct identifier (requester_email tunde-balogun@proton.me). It has no customer_reference, and the message is a generic account-access note with no shared agent, order or customer context to retain, so the REDACT condition does not hold and the record should be deleted. Activity_2549 (deletion worker FAILED claim) is not proof of removal.",
+    "condition_met": false
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3482",
+    "reason": "Linked only through batch_run activity_2543, which is shared with case_180 and case_181. No usable evidence ties this account to the subject (no match on email, phone, hash, user_177 or name). Latest account_service snapshot evidence_84 does not contain it. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_5309",
+    "reason": "Linked only through shared batch_run activity_2544 (case_180, case_181). No usable evidence ties it to the subject; absent from latest account_service snapshot evidence_84. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_9876",
+    "reason": "Linked only through shared batch_run activity_2545 (case_180, case_181). No usable evidence ties it to the subject; absent from latest account_service snapshot evidence_84. Not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for a permanent account deletion for their email address and for review and confirmation of the erasure or de-identification of eligible data, which is erasure of the person's own account and data.",
+   "summary: Subject tunde-balogun@proton.me (user_177). Only in-episode subject record found is support_2283 (support_platform), still holding the subject's requester_email at audit_at per evidence_84; no shared context so it must be deleted. The three account candidates came from a batch run shared with two other customers and have no evidence tying them to this subject, so they were rejected. Searches on the subject's email, phone, hash, user_id and name found no other records in the request window, and the latest snapshots show no other subject-owned accounts, analytics, search, export, connector, backup or audit records. No active data flow or restorable backup linked to this subject was found.",
+   "future verification added for audit_record_919 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_179",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 98,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_179",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 451,
+    "cache_creation_input_tokens": 3941,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_179",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 384,
+    "cache_creation_input_tokens": 1039,
+    "cache_read_input_tokens": 8812
+   },
+   {
+    "case_id": "case_179",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 732,
+    "cache_creation_input_tokens": 16023,
+    "cache_read_input_tokens": 9851
+   },
+   {
+    "case_id": "case_179",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 903,
+    "cache_creation_input_tokens": 5970,
+    "cache_read_input_tokens": 25874
+   },
+   {
+    "case_id": "case_179",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 747,
+    "cache_creation_input_tokens": 6249,
+    "cache_read_input_tokens": 31844
+   },
+   {
+    "case_id": "case_179",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 490,
+    "cache_creation_input_tokens": 792,
+    "cache_read_input_tokens": 38093
+   },
+   {
+    "case_id": "case_179",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1413,
+    "cache_creation_input_tokens": 1502,
+    "cache_read_input_tokens": 38885
+   },
+   {
+    "case_id": "case_179",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1266,
+    "cache_creation_input_tokens": 20664,
+    "cache_read_input_tokens": 40387
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tunde-balogun@proton.me",
+    "limit": 100
+   },
+   "output_chars": 746
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_177",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tunde balogun",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348039468870",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "08c1d01aa47174fdd0da52a9d6c2f63856a36a365d86e602f32fb389668bfef4",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3482"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5309"
+   },
+   "output_chars": 1481
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9876"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2283"
+   },
+   "output_chars": 2174
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-26T00:00:00Z",
+    "end": "2026-07-23T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31515
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_3482",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 346
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-26T00:00:00Z",
+    "end": "2026-06-28T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 10301
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3482",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5309",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9876",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "balogun",
+    "limit": 100
+   },
+   "output_chars": 4584
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tunde",
+    "limit": 100
+   },
+   "output_chars": 4189
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_2283",
+    "limit": 100
+   },
+   "output_chars": 1353
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT 'profiles' t, * FROM customer_profiles UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents UNION ALL SELECT 'analytics', resource_id, customer_reference, email, phone, email_hash, audience_cohort, updated_at, NULL FROM customer_analytics_profiles UNION ALL SELECT 'exports', resource_id, customer_reference, owner_email, owner_phone, object_key, updated_at, NULL FROM customer_exports UNION ALL SELECT 'connectors', resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status, updated_at, NULL FROM connector_subscriptions UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email, archive_key, restore_allowed, updated_at, NULL, NULL FROM backup_restore_entries UNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, updated_at, NULL, NULL, NULL FROM security_audit_records"
+   },
+   "output_chars": 101
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name AS a, email AS b, phone AS c, email_hash AS d, account_status AS e FROM customer_profiles UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents UNION ALL SELECT 'analytics', resource_id, customer_reference, email, phone, email_hash, audience_cohort, NULL FROM customer_analytics_profiles UNION ALL SELECT 'exports', resource_id, customer_reference, owner_email, owner_phone, object_key, NULL, NULL FROM customer_exports UNION ALL SELECT 'connectors', resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status, NULL FROM connector_subscriptions UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email, archive_key, restore_allowed, NULL, NULL FROM backup_restore_entries UNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, NULL, NULL, NULL FROM security_audit_records"
+   },
+   "output_chars": 2284
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "proton.me",
+    "limit": 100
+   },
+   "output_chars": 41003
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8039468870",
+    "limit": 100
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SUPPORT_MESSAGE"
+   },
+   "output_chars": 188
+  }
+ ]
+}

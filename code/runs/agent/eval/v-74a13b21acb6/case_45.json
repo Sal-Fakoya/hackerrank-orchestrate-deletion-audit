@@ -1,0 +1,604 @@
+{
+ "case_id": "case_45",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_001",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_37"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_002",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_37"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_003",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_55"
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_004",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_37"
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_005",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_37"
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_006",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_37"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_45",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_003",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_55",
+    "reason": "Account-closure audit event for subject user_03 (linked to oliver-bennett@gmail.com via activity_4010). Compliance extract shows retain-until 25 Aug 2027, which is after audit_at, so the retention condition holds: retain and verify it is available.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_001",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_37",
+    "reason": "Security audit event (recovery challenge, 24 Aug 2026) for subject user_03 shown in the Sentinel explorer at audit_at. Within retention period; retain and verify.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_002",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_37",
+    "reason": "Security audit event (session revoked, 25 Aug 2026) for subject user_03 shown in the Sentinel explorer at audit_at. Within retention period; retain and verify.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_004",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_37",
+    "reason": "Security audit event (password changed, 18 Aug 2026) for subject user_03 shown in the Sentinel explorer at audit_at. Within retention period; retain and verify.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_005",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_37",
+    "reason": "Security audit event (login from new device, 20 Aug 2026) for subject user_03 shown in the Sentinel explorer at audit_at. Within retention period; retain and verify.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_006",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_37",
+    "reason": "Security audit event (email change confirmed, 22 Aug 2026) for subject user_03 shown in the Sentinel explorer at audit_at. Within retention period; retain and verify.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_9246",
+    "reason": "Linked only through the shared deletion batch run activity_3644 (shared_with case_537, another customer). No usable evidence ties it to user_03 or oliver-bennett@gmail.com; the only observation is a FAILED workflow claim. Rejected as unattributable."
+   },
+   {
+    "resource_id": "search_689",
+    "reason": "Linked only through shared batch run activity_3647 (shared_with case_537). No evidence ties it to this subject; only a FAILED workflow claim. Rejected."
+   },
+   {
+    "resource_id": "support_4249",
+    "reason": "Linked only through shared batch run activity_3645 (shared_with case_537). No evidence ties it to this subject; only a FAILED workflow claim. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for the account to be permanently deleted and for the standard personal-data deletion procedure to be applied, with a confirmation afterward. This is a direct request for erasure of their own account and data.",
+   "summary: Subject user_03 (oliver-bennett@gmail.com). Identifiable in-episode evidence covers only six Sentinel security audit records (audit_record_001-006) for user_03; audit_record_003 has retention to Aug 2027, so they are retained (PRESENT, condition met). The three batch-run candidates (analytics_9246, search_689, support_4249) are shared with case_537 and have no tie to this subject, so they were rejected. No subject USER_PROFILE, search, support, analytics, export, connector, backup, or hash/phone matches were found in any usable snapshot at or before audit_at (searches by email, user_03, name, phone and hash returned nothing else). The workflow's COMPLETE claim is not supported as a full deletion for the security records, which must be retained, and the candidate deletion results could not be attributed to this subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_45",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 101,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_45",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 648,
+    "cache_creation_input_tokens": 5167,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_45",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 478,
+    "cache_creation_input_tokens": 11758,
+    "cache_read_input_tokens": 10038
+   },
+   {
+    "case_id": "case_45",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 804,
+    "cache_creation_input_tokens": 6637,
+    "cache_read_input_tokens": 21796
+   },
+   {
+    "case_id": "case_45",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1012,
+    "cache_creation_input_tokens": 6780,
+    "cache_read_input_tokens": 28433
+   },
+   {
+    "case_id": "case_45",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 697,
+    "cache_creation_input_tokens": 3576,
+    "cache_read_input_tokens": 35213
+   },
+   {
+    "case_id": "case_45",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 632,
+    "cache_creation_input_tokens": 6306,
+    "cache_read_input_tokens": 38789
+   },
+   {
+    "case_id": "case_45",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1116,
+    "cache_creation_input_tokens": 2864,
+    "cache_read_input_tokens": 45095
+   },
+   {
+    "case_id": "case_45",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 778,
+    "cache_creation_input_tokens": 4459,
+    "cache_read_input_tokens": 47959
+   },
+   {
+    "case_id": "case_45",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 205,
+    "cache_creation_input_tokens": 891,
+    "cache_read_input_tokens": 52418
+   },
+   {
+    "case_id": "case_45",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 324,
+    "cache_creation_input_tokens": 598,
+    "cache_read_input_tokens": 53309
+   },
+   {
+    "case_id": "case_45",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2910,
+    "cache_creation_input_tokens": 810,
+    "cache_read_input_tokens": 53907
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "oliver-bennett@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 650
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_03",
+    "limit": 100
+   },
+   "output_chars": 5281
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "oliver bennett",
+    "limit": 100
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "12025550103",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1fa7764c96e40e8570cbb7569f707f6d84c593cecbe5c1ed2b0a07a624dba039",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-03T00:00:00Z",
+    "end": "2026-09-06T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 20321
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9246"
+   },
+   "output_chars": 1502
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_689"
+   },
+   "output_chars": 1467
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_4249"
+   },
+   "output_chars": 1483
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_003"
+   },
+   "output_chars": 4252
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_001"
+   },
+   "output_chars": 2279
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_002"
+   },
+   "output_chars": 2274
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 0
+   },
+   "output_chars": 4397
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_90",
+    "offset": 0
+   },
+   "output_chars": 2551
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_90",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, email, account_status FROM customer_profiles WHERE customer_reference LIKE '%user_03%' OR email LIKE '%oliver%' OR email_hash LIKE '1fa7%' UNION ALL SELECT 'search', resource_id, customer_reference, email, index_name FROM customer_search_documents WHERE customer_reference LIKE '%user_03%' OR email LIKE '%oliver%' UNION ALL SELECT 'analytics', resource_id, customer_reference, email, audience_cohort FROM customer_analytics_profiles WHERE customer_reference LIKE '%user_03%' OR email LIKE '%oliver%' UNION ALL SELECT 'support', resource_id, customer_reference, requester_email, requester_name FROM support_records WHERE customer_reference LIKE '%user_03%' OR requester_email LIKE '%oliver%' UNION ALL SELECT 'exports', resource_id, customer_reference, owner_email, object_key FROM customer_exports WHERE customer_reference LIKE '%user_03%' OR owner_email LIKE '%oliver%' UNION ALL SELECT 'connectors', resource_id, customer_reference, customer_email, enabled || ' ' || last_delivery_status FROM connector_subscriptions WHERE customer_reference LIKE '%user_03%' OR customer_email LIKE '%oliver%' UNION ALL SELECT 'backups', resource_id, customer_reference, customer_email, restore_allowed FROM backup_restore_entries WHERE customer_reference LIKE '%user_03%' OR customer_email LIKE '%oliver%' UNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until FROM security_audit_records WHERE subject_reference LIKE '%user_03%'"
+   },
+   "output_chars": 94
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 102
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_03",
+    "limit": 100
+   },
+   "output_chars": 5281
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles_failover_replica WHERE customer_reference LIKE '%user_03%' OR email LIKE '%oliver%' OR full_name LIKE '%Bennett%'"
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 6000
+   },
+   "output_chars": 2320
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_9246",
+    "limit": 50
+   },
+   "output_chars": 685
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_689",
+    "limit": 50
+   },
+   "output_chars": 654
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_4249",
+    "limit": 50
+   },
+   "output_chars": 668
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-03T00:00:00Z",
+    "end": "2026-09-06T09:00:00Z",
+    "limit": 10
+   },
+   "output_chars": 3127
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "oliver",
+    "limit": 100
+   },
+   "output_chars": 2517
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Bennett",
+    "limit": 100
+   },
+   "output_chars": 4161
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_537",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles_failover_replica WHERE resource_id IN (SELECT resource_id FROM customer_profiles_failover_replica) AND (email LIKE '%bennett%' OR full_name LIKE '%Bennett%' OR email_hash LIKE '1fa7%' OR phone LIKE '%0103%')"
+   },
+   "output_chars": 39
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_90",
+    "sql": "SELECT 'p' t, resource_id, email, full_name FROM customer_profiles WHERE full_name LIKE '%Bennett%' OR email LIKE '%bennett%' OR phone LIKE '%0103' UNION ALL SELECT 's', resource_id, email, display_name FROM customer_search_documents WHERE email LIKE '%bennett%' OR display_name LIKE '%Bennett%' UNION ALL SELECT 'a', resource_id, email, audience_cohort FROM customer_analytics_profiles WHERE email LIKE '%bennett%' UNION ALL SELECT 'sup', resource_id, requester_email, requester_name FROM support_records WHERE requester_email LIKE '%bennett%' OR requester_name LIKE '%Bennett%'"
+   },
+   "output_chars": 67
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles_failover_replica LIMIT 3"
+   },
+   "output_chars": 496
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_90",
+    "sql": "SELECT * FROM customer_profiles LIMIT 3"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 10,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles_failover_replica WHERE user_id='user_03' OR email LIKE '%oliver%' OR full_name LIKE '%Bennett%' OR phone LIKE '%0103%' OR resource_id='account_03'"
+   },
+   "output_chars": 114
+  },
+  {
+   "turn": 10,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT name, sql FROM sqlite_master"
+   },
+   "output_chars": 809
+  }
+ ]
+}

@@ -1,0 +1,389 @@
+{
+ "case_id": "case_299",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5194",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_75"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_299",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_5194",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_75",
+    "reason": "Security audit record references subject_reference user_297 (the subject's user_id) with event SUBJECT_REQUEST_AUDITED and retention_until 2033-12-31, which is after audit_at, so the retention condition holds. Record is retained and verified as present; it is not a deletion target.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1618",
+    "reason": "Linked only through deletion-worker batch run activity_1625, which is shared with case_300 and case_301. No usable evidence ties this account to yuki-takahashi@proton.me or user_297; the only observation is the workflow's own DELETE claim. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_7249",
+    "reason": "Linked only through shared batch run activity_1624 (shared with case_300 and case_301). No usable evidence ties it to this subject; the absent state is a workflow claim only. Not attributable."
+   },
+   {
+    "resource_id": "account_9993",
+    "reason": "Linked only through shared batch run activity_1626 (shared with case_300 and case_301). No usable evidence ties it to this subject; the absent state is a workflow claim only. Not attributable."
+   },
+   {
+    "resource_id": "analytics_1733",
+    "reason": "Linked through shared batch run activity_1627 (shared with case_300 and case_301). Its only profile row in evidence_75 is identity-free (all identifiers and customer_reference null, cohort returning_customer), so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "search_8587",
+    "reason": "Record for Mei Takahashi (user_479, mei.t7930@zoho.com) in evidence_45, a different person, and captured before this request window. Not this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for their own account to be permanently deleted under the personal-data deletion procedure and wants confirmation of the outcome, which is an erasure request.",
+   "summary: Subject user_297 / yuki-takahashi@proton.me has no direct customer-data records in usable evidence within the request window. The only linked resource is audit_record_5194 (SECURITY_AUDIT_LOG, retention to 2033, retained). Account, analytics candidates came from a batch run shared with other cases and no evidence attributes them to this subject, so they were rejected. Email, phone and email hash searches returned no matches. No support, export, search, connector or backup records for this subject were found in usable evidence. The workflow's COMPLETE claim is not independently supported by any absence observation for this subject's own records, but no residual subject-attributable customer data was found."
+  ],
+  "usage": [
+   {
+    "case_id": "case_299",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 88,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_299",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 435,
+    "cache_creation_input_tokens": 2935,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_299",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 464,
+    "cache_creation_input_tokens": 1024,
+    "cache_read_input_tokens": 7806
+   },
+   {
+    "case_id": "case_299",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 558,
+    "cache_creation_input_tokens": 16822,
+    "cache_read_input_tokens": 8830
+   },
+   {
+    "case_id": "case_299",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 331,
+    "cache_creation_input_tokens": 8498,
+    "cache_read_input_tokens": 25652
+   },
+   {
+    "case_id": "case_299",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 412,
+    "cache_creation_input_tokens": 1227,
+    "cache_read_input_tokens": 34150
+   },
+   {
+    "case_id": "case_299",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 944,
+    "cache_creation_input_tokens": 2581,
+    "cache_read_input_tokens": 35377
+   },
+   {
+    "case_id": "case_299",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 813,
+    "cache_creation_input_tokens": 21612,
+    "cache_read_input_tokens": 37958
+   },
+   {
+    "case_id": "case_299",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1120,
+    "cache_creation_input_tokens": 1293,
+    "cache_read_input_tokens": 59570
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yuki-takahashi@proton.me",
+    "limit": 100
+   },
+   "output_chars": 64
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_297",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yuki takahashi",
+    "limit": 100
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819070841570",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d55b19046b9d2a1aaf29881dbe22e51c7a20f83ba2f57363319d1fa6735ff347",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1618"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7249"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9993"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1733"
+   },
+   "output_chars": 2139
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5194"
+   },
+   "output_chars": 1495
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-27T00:00:00Z",
+    "end": "2026-05-24T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31412
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-27T00:00:00Z",
+    "end": "2026-04-29T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 7171
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 5500
+   },
+   "output_chars": 1333
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_profiles"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM customer_profiles"
+   },
+   "output_chars": 250
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 2900
+   },
+   "output_chars": 3950
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM connector_subscriptions WHERE customer_email LIKE '%takahashi%' OR customer_email LIKE '%proton%' OR customer_reference='user_297' OR customer_email LIKE '%yuki%'"
+   },
+   "output_chars": 147
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1618",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7249",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9993",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_297",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "proton",
+    "limit": 50
+   },
+   "output_chars": 41426
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "takahashi",
+    "limit": 50
+   },
+   "output_chars": 861
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 20
+   },
+   "output_chars": 50
+  }
+ ]
+}

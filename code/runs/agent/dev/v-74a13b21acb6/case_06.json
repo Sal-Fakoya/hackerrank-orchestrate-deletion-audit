@@ -1,0 +1,269 @@
+{
+ "case_id": "case_06",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_001",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_57"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_001",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_006",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_001",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_06",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_001",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_57",
+    "reason": "Search index document for 'Jonas Berg' with email jonas.berg@outlook.com and source_resource_id account_006 is still in search_documents_primary as of 2026-09-09T22:12Z (captured 2026-09-10T08:45Z, before audit_at). Primary-only topology. The deletion worker's DELETE_RECORD (activity_3546) reported FAILED, so the search entry survives and must be deleted. This is the search result the customer asked to remove.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_006",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_54",
+    "reason": "Linked to subject via source_resource_id of search_001 (evidence_57) and the deletion-worker run activity_3545 (claimed SUCCESS, a claim only). Direct observation: the account_service primary table and the failover replica snapshot captured 2026-09-02T23:00Z contain no account_006 row. Record is absent at audit_at, so the DELETE requirement is met.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "search_8814",
+    "reason": "Different person: display name 'Jonas Berglund' with email jonas.berglund@outlook.com, source account_8814. Does not exactly match the subject's email, hash, phone or user_id; no evidence ties it to this subject."
+   },
+   {
+    "resource_id": "account_8814",
+    "reason": "Different person (Jonas Berglund, jonas.berglund@outlook.com). Not linked to subject identifiers; surfaced only by name substring match."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer says their account page is already gone and asks the shop to remove leftover copies of their own profile data (an old search result). Per the rules, removing leftover copies of the person's own data as a follow-up to a deletion counts as a deletion request.",
+   "summary: Subject jonas.berg@outlook.com (user_06). Two in-scope resources: search_001 is still PRESENT in the primary search index with direct identifiers (deletion failed, activity_3546), so it must be deleted. account_006 is ABSENT in the account_service primary and failover replica as of 2026-09-02, so the profile is compliant, though the workflow's SUCCESS claim was not what proved it. No other identifiers (hash, phone, user_06) appear in any evidence. No replicas, exports, support, analytics, or connector copies of this subject were found. The only other Jonas Berg match (Jonas Berglund) is a different person and was rejected."
+  ],
+  "usage": [
+   {
+    "case_id": "case_06",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1037,
+    "output_tokens": 114,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_06",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 360,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 9808
+   },
+   {
+    "case_id": "case_06",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 580,
+    "cache_creation_input_tokens": 3253,
+    "cache_read_input_tokens": 9808
+   },
+   {
+    "case_id": "case_06",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 821,
+    "cache_creation_input_tokens": 14458,
+    "cache_read_input_tokens": 13061
+   },
+   {
+    "case_id": "case_06",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2224,
+    "cache_creation_input_tokens": 13979,
+    "cache_read_input_tokens": 27519
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jonas.berg@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 663
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_06",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Jonas Berg",
+    "limit": 100
+   },
+   "output_chars": 1268
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_001"
+   },
+   "output_chars": 2088
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_006"
+   },
+   "output_chars": 2036
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4cd3f3cfee997d1ba25313c60209776e30d4038199421b7382ac737d86002666",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46704829137",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_006",
+    "limit": 100
+   },
+   "output_chars": 1277
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_001",
+    "limit": 100
+   },
+   "output_chars": 1275
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-29T00:00:00Z",
+    "end": "2026-09-10T09:15:00Z",
+    "limit": 200
+   },
+   "output_chars": 31298
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jonas",
+    "limit": 100
+   },
+   "output_chars": 11714
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_54",
+    "offset": 0
+   },
+   "output_chars": 2330
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 0
+   },
+   "output_chars": 4397
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  }
+ ]
+}

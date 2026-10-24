@@ -1,0 +1,403 @@
+{
+ "case_id": "case_475",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_3205",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_45"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_3205",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_3205",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5667",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_475",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_3205",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_45",
+    "reason": "Latest usable observation (records assurance snapshot captured 2026-02-23T10:00:00Z, audit_at) shows account_3205 still ACTIVE for customer_reference user_473 with email nils.j416@outlook.com, full name Nils Johansson and phone +46 70 314 10 65. The workflow DELETE_RECORD SUCCESS (activity_407) is only a claim and is contradicted by this direct observation. A replication checkpoint (activity_420) also reports a copy to account_replication_cluster. Profile must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_5667",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_45",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_473 is present at audit_at. No supplied retention expiry shows it is outside the retention period, so it is retained and verified as PRESENT. It records the privacy workflow review, not subject profile data.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_6474",
+    "reason": "Linked only through the reported deletion-worker run activity_409, which was a shared batch run (shared_with other requests case_473-case_490). No usable evidence ties account_6474 to nils.j416@outlook.com, user_473, or the subject's phone/name, and it does not appear in the 2026-02-23 account_service snapshot. Belongs to another subject or is unattributable."
+   },
+   {
+    "resource_id": "account_9904",
+    "reason": "Linked only through the shared batch run activity_408 (other requests' emails in shared_with). No evidence ties it to this subject; it does not appear in the 2026-02-23 account_service snapshot, which lists only the subject's account_3205 among subject identifiers. Not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks the shop to erase the account linked to their email address under the personal-data deletion procedure and asks for a confirmation afterward, which is a clear deletion request for their own account and data.",
+   "summary: Subject nils.j416@outlook.com / user_473 has one live account profile (account_3205) still ACTIVE with direct identifiers at audit_at (evidence_45), despite the workflow's DELETE SUCCESS claim, and a replication copy was reported (activity_420) that is not directly verified. One security audit record (audit_record_5667) references user_473 and is retained. No secondary identifiers, search entries, analytics, support, export, backup, or data-flow records tied to this subject were found by email, hash, phone, name, or user_id searches. Two batch-run candidates (account_6474, account_9904) were rejected as unattributable."
+  ],
+  "usage": [
+   {
+    "case_id": "case_475",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1053,
+    "output_tokens": 102,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_475",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 322,
+    "cache_creation_input_tokens": 1412,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_475",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 309,
+    "cache_creation_input_tokens": 4993,
+    "cache_read_input_tokens": 6283
+   },
+   {
+    "case_id": "case_475",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 552,
+    "cache_creation_input_tokens": 19560,
+    "cache_read_input_tokens": 11276
+   },
+   {
+    "case_id": "case_475",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 577,
+    "cache_creation_input_tokens": 3368,
+    "cache_read_input_tokens": 30836
+   },
+   {
+    "case_id": "case_475",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 882,
+    "cache_creation_input_tokens": 4449,
+    "cache_read_input_tokens": 34204
+   },
+   {
+    "case_id": "case_475",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 346,
+    "cache_creation_input_tokens": 1398,
+    "cache_read_input_tokens": 38653
+   },
+   {
+    "case_id": "case_475",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 886,
+    "cache_creation_input_tokens": 1487,
+    "cache_read_input_tokens": 40051
+   },
+   {
+    "case_id": "case_475",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1581,
+    "cache_creation_input_tokens": 1841,
+    "cache_read_input_tokens": 41538
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3205"
+   },
+   "output_chars": 2799
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nils.j416@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 912
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_473",
+    "limit": 50
+   },
+   "output_chars": 1764
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 0
+   },
+   "output_chars": 4669
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 6000
+   },
+   "output_chars": 4690
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-31T00:00:00Z",
+    "end": "2026-02-23T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31204
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "473",
+    "limit": 50
+   },
+   "output_chars": 9702
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "839f75e7615d1c781bc69434c49414f86237a66a5b723f6332787df34b529bdf",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46703141065",
+    "limit": 50
+   },
+   "output_chars": 902
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Johansson",
+    "limit": 50
+   },
+   "output_chars": 900
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nils",
+    "limit": 50
+   },
+   "output_chars": 895
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6474"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9904"
+   },
+   "output_chars": 1481
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+46 70 314 10 65",
+    "limit": 50
+   },
+   "output_chars": 907
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nils.j416",
+    "limit": 50
+   },
+   "output_chars": 900
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5667"
+   },
+   "output_chars": 1600
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 12000
+   },
+   "output_chars": 4685
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_3205",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 672
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 377
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_profiles WHERE email LIKE '%nils%' OR customer_reference='user_473' OR full_name LIKE '%Johansson%' OR phone LIKE '%314%'"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT * FROM customer_data_reporting_replica LIMIT 3"
+   },
+   "output_chars": 1525
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4738"
+   },
+   "output_chars": 1533
+  }
+ ]
+}

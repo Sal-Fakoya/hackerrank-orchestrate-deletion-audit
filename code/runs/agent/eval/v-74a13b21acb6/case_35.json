@@ -1,0 +1,398 @@
+{
+ "case_id": "case_35",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_428",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_09"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_428",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_428",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_8925",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_35",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_428",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_09",
+    "reason": "Customer search index document in customer_directory_v3 (prod-eu) shows display_name Gabriel Silva, email g.silva76@gmail.com and customer_reference user_13, all matching the subject. Captured 2026-09-01T06:00:00Z, before audit_at, and after the request, so the record still exists. The workflow's DELETE_RECORD FAILED claim (activity_3436) is consistent with this. Always DELETE.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_008",
+    "reason": "Linked only through deletion batch run activity_3554, which is shared with case_08 (gabriel.costa@proton.me). No usable evidence ties account_008 to g.silva76@gmail.com or user_13; no account_service snapshot or lookup mentions it. The reported SUCCESS and absent claim are not verified and it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "export_001",
+    "reason": "Linked only through deletion batch run activity_3555, which is shared with case_08. No evidence ties export_001 to this subject's identifiers; the only mention is the activity row with a FAILED/present claim."
+   },
+   {
+    "resource_id": "search_1874",
+    "reason": "Indexed email is g.silva76.jr@gmail.com, which is not an exact match to the subject's email g.silva76@gmail.com. It has no customer_reference or display name and no evidence links it to user_13 or the subject, so it belongs to a different identity."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer asks to close their own account and process the associated personal-data deletion, which is erasure of their own data; the request to check records before confirming and to contact for verification are part of the same deletion request.",
+   "summary: Only search_428 (search index, customer_directory_v3) is confidently tied to the subject (g.silva76@gmail.com / user_13 / Gabriel Silva) and is still PRESENT at audit_at per evidence_09. Candidates account_008 and export_001 sit in a deletion run shared with case_08 and have no evidence tying them to this subject, so they were rejected. search_1874 uses a different email (g.silva76.jr@gmail.com) and was rejected. Searches for the subject's phone, email hash and other identifiers found no other records, and no active connector, backup, legal hold or analytics record was tied to this subject. The subject's account record (account_008) remains unverified and should be checked by a human before closure is confirmed.",
+   "future verification added for audit_record_8925 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_35",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 97,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_35",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 538,
+    "cache_creation_input_tokens": 4699,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_35",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 714,
+    "cache_creation_input_tokens": 7751,
+    "cache_read_input_tokens": 9570
+   },
+   {
+    "case_id": "case_35",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 630,
+    "cache_creation_input_tokens": 6386,
+    "cache_read_input_tokens": 17321
+   },
+   {
+    "case_id": "case_35",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 886,
+    "cache_creation_input_tokens": 8634,
+    "cache_read_input_tokens": 23707
+   },
+   {
+    "case_id": "case_35",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1466,
+    "cache_creation_input_tokens": 17046,
+    "cache_read_input_tokens": 32341
+   },
+   {
+    "case_id": "case_35",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2872,
+    "cache_creation_input_tokens": 7172,
+    "cache_read_input_tokens": 49387
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "g.silva76@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2613
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_13",
+    "limit": 100
+   },
+   "output_chars": 2121
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "gabriel silva",
+    "limit": 100
+   },
+   "output_chars": 1336
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_008"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_001"
+   },
+   "output_chars": 1491
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_428"
+   },
+   "output_chars": 3787
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_1874"
+   },
+   "output_chars": 2134
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "g.silva76.jr@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1332
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "7afbbca4e0e4d5228a422ca39f5453505d365849ba5e20a288a203f0ba505c3d",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5511969542024",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_008",
+    "limit": 100
+   },
+   "output_chars": 674
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "export_001",
+    "limit": 100
+   },
+   "output_chars": 672
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Silva",
+    "limit": 100
+   },
+   "output_chars": 8761
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_09",
+    "offset": 0
+   },
+   "output_chars": 1354
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_14",
+    "offset": 0
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_12",
+    "offset": 0
+   },
+   "output_chars": 4651
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "g.silva76",
+    "limit": 100
+   },
+   "output_chars": 2891
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_1874",
+    "limit": 100
+   },
+   "output_chars": 1321
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_428",
+    "limit": 100
+   },
+   "output_chars": 2974
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "gabriel.costa",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-29T00:00:00Z",
+    "end": "2026-09-02T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31423
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT name, sql FROM sqlite_master"
+   },
+   "output_chars": 791
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_08",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Gabriel",
+    "limit": 100
+   },
+   "output_chars": 11300
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  }
+ ]
+}

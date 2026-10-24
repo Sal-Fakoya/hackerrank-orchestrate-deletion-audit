@@ -1,0 +1,30 @@
+{
+ "case_id": "case_533",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_533",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: correction (en): The customer asks to replace an outdated mobile number on their profile and keep the account active. This is a correction to account details, not an erasure request, and it explicitly wants the account kept."
+  ],
+  "usage": [
+   {
+    "case_id": "case_533",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1036,
+    "output_tokens": 93,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

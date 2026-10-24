@@ -1,0 +1,603 @@
+{
+ "case_id": "case_298",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_6282",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_75"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_643",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_75"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_6282",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_643",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_6282",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_643",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_298",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_6282",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_75",
+    "reason": "Search index document in customer_directory_v3 still holds the subject's current email nkosi.sipho88@icloud.com (latest inventory capture 2026-05-24T06:39:55Z, before audit_at). The deletion worker's DELETE_RECORD result (activity_1679) was FAILED, so the workflow's completion claim is contradicted. Always DELETE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_643",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_75",
+    "reason": "Support record still holds the subject's requester_email nkosi.sipho88@icloud.com (captured 2026-05-24T06:39:55Z). The message is a delivery-query conversation with no shared customer/agent/order context that must be retained, but the direct identifier is still visible, so it must be redacted. The REDACT_RECORD result (activity_1681) was FAILED, so the workflow claim is contradicted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4267",
+    "reason": "Linked only through batch_run activity_1668, which is shared with case_296, case_297, case_311 and case_312. No usable stored-state evidence ties account_4267 to user_296 or to either subject email, so it cannot be attributed to this subject. Its PARTIAL deletion claim is unverified."
+   },
+   {
+    "resource_id": "account_4880",
+    "reason": "Linked only through shared batch run activity_1670 (shared with four other requests). No stored-state evidence ties it to this subject. The SUCCESS/absent claim is unverified and is not used."
+   },
+   {
+    "resource_id": "account_6023",
+    "reason": "Linked only through shared batch run activity_1666 (shared with four other requests). No stored-state evidence ties it to this subject. The SUCCESS/absent claim is unverified and is not used."
+   },
+   {
+    "resource_id": "analytics_7164",
+    "reason": "Linked only through shared batch run activity_1671. In the latest inventory (evidence_75) all identifiers and the customer reference are null, so the record is identity-free and cannot be attributed to this subject in a run shared with other customers."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for the account associated with their address to be erased, including data linked through current or earlier identifiers, which is erasure of their own personal data and account.",
+   "summary: Subject nkosi.sipho88@icloud.com (user_296). Two resources are attributable to the subject via direct identifier matches in the 2026-05-24 inventory (evidence_75): search_6282 (SEARCH_INDEX_ENTRY, PRESENT) and support_643 (SUPPORT_MESSAGE, PRESENT). Both still expose the subject email, and both deletion/redaction activities reported FAILED, so the workflow COMPLETE claim is not supported. Four account/analytics candidates from the shared batch run were rejected for lack of attributable evidence. No backup, connector, export, or legal-hold record for this subject was found in usable evidence. The subject's historical email, hashes, phone and user_296 returned no matches in usable evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_298",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1051,
+    "output_tokens": 85,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_298",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 550,
+    "cache_creation_input_tokens": 3204,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_298",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 727,
+    "cache_creation_input_tokens": 6282,
+    "cache_read_input_tokens": 8075
+   },
+   {
+    "case_id": "case_298",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 585,
+    "cache_creation_input_tokens": 1808,
+    "cache_read_input_tokens": 14357
+   },
+   {
+    "case_id": "case_298",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 712,
+    "cache_creation_input_tokens": 25734,
+    "cache_read_input_tokens": 16165
+   },
+   {
+    "case_id": "case_298",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1151,
+    "cache_creation_input_tokens": 11795,
+    "cache_read_input_tokens": 41899
+   },
+   {
+    "case_id": "case_298",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 698,
+    "cache_creation_input_tokens": 1531,
+    "cache_read_input_tokens": 53694
+   },
+   {
+    "case_id": "case_298",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 458,
+    "cache_creation_input_tokens": 7058,
+    "cache_read_input_tokens": 55225
+   },
+   {
+    "case_id": "case_298",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2383,
+    "cache_creation_input_tokens": 2086,
+    "cache_read_input_tokens": 62283
+   },
+   {
+    "case_id": "case_298",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 515,
+    "cache_creation_input_tokens": 2867,
+    "cache_read_input_tokens": 64369
+   },
+   {
+    "case_id": "case_298",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1987,
+    "cache_creation_input_tokens": 644,
+    "cache_read_input_tokens": 67236
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4267"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4880"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6023"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7164"
+   },
+   "output_chars": 2136
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_6282"
+   },
+   "output_chars": 2153
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_643"
+   },
+   "output_chars": 2178
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nkosi.sipho",
+    "limit": 50
+   },
+   "output_chars": 1408
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_296",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nkosi.sipho@icloud.com",
+    "limit": 50
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6eac6ff1cad6eaefb8a28d29d1e86161ddc524312481da46657fdcc0ecd7c4b7",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8c75ef02f3a009405ff56543dd300b9590db7736dbe2df1eed0f7467e1345ca9",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27722498493",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sipho nkosi",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_296",
+    "limit": 50
+   },
+   "output_chars": 1443
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-28T00:00:00Z",
+    "end": "2026-05-24T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31412
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-01T00:00:00Z",
+    "end": "2026-04-28T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31037
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_164",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_296",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-01T05:00:00Z",
+    "end": "2026-05-01T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 5441
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_29",
+    "offset": 0
+   },
+   "output_chars": 4508
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT 'profile' t, resource_id, full_name, email, phone, email_hash, account_status, updated_at FROM customer_profiles WHERE email LIKE '%nkosi%' OR phone LIKE '%2772249%' OR email_hash LIKE '6eac6%' OR email_hash LIKE '8c75%' OR resource_id IN ('account_4267','account_4880','account_6023') OR full_name LIKE '%nkosi%' OR customer_reference LIKE '%296%'"
+   },
+   "output_chars": 122
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT 'export' t, resource_id, customer_reference, owner_email, owner_phone, object_key, updated_at FROM customer_exports WHERE owner_email LIKE '%nkosi%' OR customer_reference LIKE '%296%' OR resource_id LIKE 'export_%' AND 0 UNION ALL SELECT 'conn', resource_id, customer_reference, customer_email, connector_name, enabled||' '||last_delivery_status, updated_at FROM connector_subscriptions WHERE customer_email LIKE '%nkosi%' OR customer_reference LIKE '%296%' UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email, archive_key, restore_allowed, updated_at FROM backup_restore_entries WHERE customer_email LIKE '%nkosi%' OR customer_reference LIKE '%296%' UNION ALL SELECT 'sec', resource_id, subject_reference, event_code, retention_until, '', updated_at FROM security_audit_records WHERE subject_reference LIKE '%296%' OR subject_reference LIKE '%nkosi%' UNION ALL SELECT 'support', resource_id, customer_reference, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE requester_email LIKE '%nkosi%' OR customer_reference LIKE '%296%' UNION ALL SELECT 'analytics', resource_id, customer_reference, email, phone, audience_cohort, updated_at FROM customer_analytics_profiles WHERE email LIKE '%nkosi%' OR customer_reference LIKE '%296%'"
+   },
+   "output_chars": 274
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4267",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4880",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6023",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_165",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_7164",
+    "limit": 50
+   },
+   "output_chars": 1308
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at FROM customer_data_primary WHERE record_json LIKE '%nkosi%' OR record_json LIKE '%296%' OR record_json LIKE '%6eac6ff%' OR record_json LIKE '%8c75ef%' OR record_json LIKE '%2772249%' OR resource_id IN ('search_6282','support_643','account_4267','account_4880','account_6023','analytics_7164')"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE resource_id='support_643' OR requester_email LIKE '%sipho%' OR requester_name LIKE '%nkosi%' OR message_excerpt LIKE '%nkosi%'"
+   },
+   "output_chars": 295
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT 'search' t, resource_id, email, display_name, updated_at FROM customer_search_documents WHERE email LIKE '%sipho%' OR display_name LIKE '%nkosi%' OR resource_id='search_6282' UNION ALL SELECT 'profile', resource_id, email, full_name, updated_at FROM customer_profiles WHERE resource_id LIKE 'account_%' AND (email LIKE '%sipho%' OR full_name LIKE '%sipho%')"
+   },
+   "output_chars": 167
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'search' t, resource_id, email, updated_at FROM customer_search_documents WHERE email LIKE '%nkosi%' OR resource_id='search_6282' UNION ALL SELECT 'support', resource_id, requester_email, updated_at FROM support_records WHERE requester_email LIKE '%nkosi%' OR resource_id='support_643' UNION ALL SELECT 'profile', resource_id, email, updated_at FROM customer_profiles WHERE email LIKE '%nkosi%' OR resource_id LIKE 'account_42%' OR resource_id IN ('account_4880','account_6023')"
+   },
+   "output_chars": 68
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_31",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 65
+  }
+ ]
+}

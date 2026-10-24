@@ -1,0 +1,470 @@
+{
+ "case_id": "case_53",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_1034",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_28"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1034",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9644",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1034",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_53",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "support_1034",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_28",
+    "reason": "Helpline ticket CS-5034 for customer Kofi Agyeman (email kagyeman8947@fastmail.com, linked to user_22 by activity_4005) is still visible in the support console at 2026-05-24T07:00Z, before audit_at. The conversation carries shared order ORD-20265034 and agent Maya Chen context that must be retained, so the required treatment is REDACT of direct identifiers (name, email), not DELETE. Direct identifiers are still visible, so the record is PRESENT and needs redaction.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_6766",
+    "reason": "Linked only through deletion-worker run activity_2017, which is shared with case_254, case_255 and case_256. The only usable evidence is the workflow activity row, which carries no identity for this subject, so it cannot be attributed. Rejected."
+   },
+   {
+    "resource_id": "backup_2427",
+    "reason": "Linked only through shared run activity_2024 (shared with case_254/255/256). No usable evidence ties this archive to kagyeman8947@fastmail.com, user_22 or the subject's name. Rejected as not attributable."
+   },
+   {
+    "resource_id": "data_flow_6233",
+    "reason": "Linked only through shared run activity_2027. The connector record has no identity for this subject and no evidence ties it to the subject. Rejected."
+   },
+   {
+    "resource_id": "data_flow_8612",
+    "reason": "Linked only through shared run activity_2025. No evidence ties it to this subject. Rejected."
+   },
+   {
+    "resource_id": "search_1390",
+    "reason": "Linked only through shared run activity_2022. No identity-bearing evidence ties it to this subject. Rejected."
+   },
+   {
+    "resource_id": "search_1730",
+    "reason": "Linked only through shared run activity_2020. No identity-bearing evidence ties it to this subject. Rejected."
+   },
+   {
+    "resource_id": "search_3011",
+    "reason": "Linked only through shared run activity_2029. No identity-bearing evidence ties it to this subject. Rejected."
+   },
+   {
+    "resource_id": "search_4027",
+    "reason": "Linked only through shared run activity_2028. No identity-bearing evidence ties it to this subject. Rejected."
+   },
+   {
+    "resource_id": "search_9020",
+    "reason": "Linked only through shared run activity_2021. No identity-bearing evidence ties it to this subject. Rejected."
+   },
+   {
+    "resource_id": "support_3772",
+    "reason": "Linked only through shared run activity_2026. The only evidence is a workflow activity row with no subject identity. Rejected."
+   },
+   {
+    "resource_id": "support_7707",
+    "reason": "Linked only through shared run activity_2018. The only evidence is a workflow activity row with no subject identity. Rejected."
+   },
+   {
+    "resource_id": "support_8301",
+    "reason": "Linked only through shared run activity_2023. The only evidence is a workflow activity row with no subject identity. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to erase the account linked to their email address and for records covered by the request to be treated accordingly, which is erasure of the person's own account and data. The request for a confirmation afterward does not change that it authorizes deletion.",
+   "summary: Only one record is attributable to the subject: support_1034 (helpline ticket CS-5034, Kofi Agyeman, kagyeman8947@fastmail.com, user_22 link via activity_4005). It is present in the console at 2026-05-24T07:00Z with shared order and agent context, so it needs REDACT rather than DELETE. Searches of the subject's hash, phone, user_id and name, and the 2026-05-24 and 2026-05-19 inventory and replica snapshots, found no other subject rows. The other 11 candidates were linked only through shared deletion-worker runs with other customers and carry no identity for this subject, so they were rejected. No account, analytics, export, marketing, or data-flow record for this subject was found in usable evidence. The workflow's COMPLETE claim is not supported: support_1034 remains unredacted.",
+   "future verification added for audit_record_9644 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_53",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1052,
+    "output_tokens": 109,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_53",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 494,
+    "cache_creation_input_tokens": 3999,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_53",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1062,
+    "cache_creation_input_tokens": 10292,
+    "cache_read_input_tokens": 8870
+   },
+   {
+    "case_id": "case_53",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 904,
+    "cache_creation_input_tokens": 10828,
+    "cache_read_input_tokens": 19162
+   },
+   {
+    "case_id": "case_53",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 718,
+    "cache_creation_input_tokens": 3257,
+    "cache_read_input_tokens": 29990
+   },
+   {
+    "case_id": "case_53",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 576,
+    "cache_creation_input_tokens": 2004,
+    "cache_read_input_tokens": 33247
+   },
+   {
+    "case_id": "case_53",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1013,
+    "cache_creation_input_tokens": 1597,
+    "cache_read_input_tokens": 35251
+   },
+   {
+    "case_id": "case_53",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 899,
+    "cache_creation_input_tokens": 1679,
+    "cache_read_input_tokens": 36848
+   },
+   {
+    "case_id": "case_53",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1993,
+    "cache_creation_input_tokens": 20800,
+    "cache_read_input_tokens": 38527
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kagyeman8947@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 1849
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_22",
+    "limit": 100
+   },
+   "output_chars": 618
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "agyeman",
+    "limit": 100
+   },
+   "output_chars": 5338
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-22T00:00:00Z",
+    "end": "2026-05-25T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 14861
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2223309bb52ac82b56ee55504acf27956503f83a61a81703bd9f24a5f5a292c6",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233247524312",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_1034"
+   },
+   "output_chars": 2683
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6766"
+   },
+   "output_chars": 1507
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_2427"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_6233"
+   },
+   "output_chars": 1502
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_8612"
+   },
+   "output_chars": 1502
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_1390"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_1730"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3011"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4027"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_9020"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3772"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_7707"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_8301"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_1034",
+    "limit": 100
+   },
+   "output_chars": 1863
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT 'support_records' t, resource_id, customer_reference, requester_name||' | '||requester_email||' | '||requester_phone AS ids, message_excerpt FROM support_records UNION ALL SELECT 'customer_search_documents', resource_id, customer_reference, display_name||' | '||email||' | '||phone||' | '||email_hash, index_name FROM customer_search_documents UNION ALL SELECT 'customer_analytics_profiles', resource_id, customer_reference, email||' | '||phone||' | '||email_hash, audience_cohort FROM customer_analytics_profiles UNION ALL SELECT 'connector_subscriptions', resource_id, customer_reference, customer_email||' | '||connector_name||' | '||enabled, last_delivery_status FROM connector_subscriptions UNION ALL SELECT 'backup_restore_entries', resource_id, customer_reference, customer_email||' | '||archive_key, restore_allowed FROM backup_restore_entries UNION ALL SELECT 'customer_exports', resource_id, customer_reference, owner_email||' | '||owner_phone, object_key FROM customer_exports UNION ALL SELECT 'security_audit_records', resource_id, subject_reference, event_code, retention_until FROM security_audit_records"
+   },
+   "output_chars": 2374
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 421
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT 'primary' src, resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%agyeman%' OR record_json LIKE '%user_22%' OR record_json LIKE '%233247524312%' OR record_json LIKE '%2223309b%' OR record_json LIKE '%kofi%' UNION ALL SELECT 'ap_south', resource_id, origin_system, collection_name, record_json FROM customer_data_replica_ap_south WHERE record_json LIKE '%agyeman%' OR record_json LIKE '%user_22%' OR record_json LIKE '%233247524312%' OR record_json LIKE '%2223309b%' OR record_json LIKE '%kofi%' UNION ALL SELECT 'eu_west', resource_id, origin_system, collection_name, record_json FROM customer_data_replica_eu_west WHERE record_json LIKE '%agyeman%' OR record_json LIKE '%user_22%' OR record_json LIKE '%233247524312%' OR record_json LIKE '%2223309b%' OR record_json LIKE '%kofi%'"
+   },
+   "output_chars": 98
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name||' | '||email||' | '||phone||' | '||email_hash AS ids, account_status FROM customer_profiles UNION ALL SELECT 'search', resource_id, customer_reference, display_name||' | '||email||' | '||phone||' | '||email_hash, index_name FROM customer_search_documents UNION ALL SELECT 'analytics', resource_id, customer_reference, email||' | '||phone||' | '||email_hash, audience_cohort FROM customer_analytics_profiles UNION ALL SELECT 'connector', resource_id, customer_reference, customer_email||' | '||connector_name, enabled FROM connector_subscriptions UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email||' | '||archive_key, restore_allowed FROM backup_restore_entries UNION ALL SELECT 'support', resource_id, customer_reference, requester_name||' | '||requester_email||' | '||requester_phone, message_excerpt FROM support_records"
+   },
+   "output_chars": 1391
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kofi",
+    "limit": 100
+   },
+   "output_chars": 1282
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fastmail",
+    "limit": 100
+   },
+   "output_chars": 39331
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8947",
+    "limit": 100
+   },
+   "output_chars": 1828
+  }
+ ]
+}

@@ -1,0 +1,439 @@
+{
+ "case_id": "case_147",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_4244",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_86"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_4244",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_4244",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_147",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "backup_4244",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_86",
+    "reason": "Backup restore entry archive/customer-data/backup_4244.tar.zst carries the subject's exact email l.fernandez84@gmail.com and restore_allowed=true when observed at 2026-08-07T07:35:24Z (export captured 2026-08-07T07:41:04Z, before audit_at). The workflow's restore-access check (activity_2951) is only a claim, but the direct export confirms the subject's data is still restorable. Restore must be blocked, not just deleted from live stores.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_9191",
+    "reason": "Linked only through the deletion-worker batch run activity_2949, which is shared with case_146 and case_148 (other customers). No usable evidence ties account_9191 to this subject's email, hash, phone, or user_145. The only other mention is the workflow's own DELETE_RECORD claim, which is not identity evidence. Cannot be attributed to this subject, so rejected; its reported absence is not relied on. The read replica snapshot evidence_15 (2026-08-02) also shows no account_9191 row."
+   },
+   {
+    "resource_id": "search_5226 / analytics_671 (diego-fernandez@gmail.com)",
+    "reason": "Name-substring match 'Fernández' only; different customer email and user_327 reference. Not this subject."
+   },
+   {
+    "resource_id": "search_5146 / analytics_1922 / support_3802 / support_6569 (Lucía García, lucia-garcia@proton.me, user_405)",
+    "reason": "Different person (Lucía García, user_405, different email and phone). Name is not an exact match to the subject's Lucía Fernández and no identifier matches."
+   },
+   {
+    "resource_id": "data_flow_9846 (lucia-torres@gmail.com) and data_flow_1121 (jain.aditi@gmail.com)",
+    "reason": "Connector selectors belong to other customers; no identifier of the subject. Not in scope."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Spanish): The customer asks for permanent deletion of the account associated with their email, including current and previous identifiers, and asks for confirmation of the result. This is a first-person erasure request for their own account and personal data, not negated or third-party.",
+   "summary: Subject identifiers (l.fernandez84@gmail.com, user_145, Lucía Fernández, phones, hash) were searched across all usable evidence. Only backup_4244 is tied to the subject by exact email, and it remains RESTORABLE at audit_at (evidence_86), so restore must be blocked. account_9191 was reported absent by the workflow, but it is linked only through a shared batch run with other customers and has no identity evidence tying it to this subject, so it was rejected. No live profile, search, analytics, support, export, or connector record for the subject was found in the usable evidence. Connector and workflow claims were not relied upon."
+  ],
+  "usage": [
+   {
+    "case_id": "case_147",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1081,
+    "output_tokens": 111,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_147",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 378,
+    "cache_creation_input_tokens": 4166,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_147",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1093,
+    "cache_creation_input_tokens": 3421,
+    "cache_read_input_tokens": 9037
+   },
+   {
+    "case_id": "case_147",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 725,
+    "cache_creation_input_tokens": 15096,
+    "cache_read_input_tokens": 12458
+   },
+   {
+    "case_id": "case_147",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 503,
+    "cache_creation_input_tokens": 14978,
+    "cache_read_input_tokens": 27554
+   },
+   {
+    "case_id": "case_147",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 900,
+    "cache_creation_input_tokens": 9406,
+    "cache_read_input_tokens": 42532
+   },
+   {
+    "case_id": "case_147",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 481,
+    "cache_creation_input_tokens": 1073,
+    "cache_read_input_tokens": 51938
+   },
+   {
+    "case_id": "case_147",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 360,
+    "cache_creation_input_tokens": 2527,
+    "cache_read_input_tokens": 53011
+   },
+   {
+    "case_id": "case_147",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2043,
+    "cache_creation_input_tokens": 510,
+    "cache_read_input_tokens": 55538
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9191"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_4244"
+   },
+   "output_chars": 2251
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "l.fernandez84@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 826
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_145",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Fernández",
+    "limit": 100
+   },
+   "output_chars": 1762
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_17",
+    "offset": 0
+   },
+   "output_chars": 4642
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_85",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_16",
+    "offset": 0
+   },
+   "output_chars": 4463
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_15",
+    "offset": 0
+   },
+   "output_chars": 4513
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_14",
+    "offset": 0
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0c02dab8cd949dc8c60f0f502ccfbbf7af8f0c41a6f74bc3acadcc51447bc4e7",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34691583526",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34776829829",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9191",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Lucía",
+    "limit": 100
+   },
+   "output_chars": 2552
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_33",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-20T00:00:00Z",
+    "end": "2026-08-07T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31364
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fernandez84",
+    "limit": 100
+   },
+   "output_chars": 814
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Fernandez",
+    "limit": 100
+   },
+   "output_chars": 4167
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lucia",
+    "limit": 100
+   },
+   "output_chars": 12386
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_145",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "backup_4244",
+    "limit": 100
+   },
+   "output_chars": 1435
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_15",
+    "sql": "SELECT resource_id, origin_system, collection_name FROM customer_data_primary WHERE resource_id LIKE '%9191%' OR record_json LIKE '%fernandez%' OR record_json LIKE '%145%'"
+   },
+   "output_chars": 76
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_15",
+    "sql": "SELECT DISTINCT origin_system FROM customer_data_primary"
+   },
+   "output_chars": 193
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_17",
+    "offset": 6000
+   },
+   "output_chars": 4650
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_15",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_15",
+    "sql": "SELECT resource_id, origin_system, collection_name FROM customer_data_read_replica WHERE resource_id LIKE '%9191%' OR record_json LIKE '%fernandez%' OR record_json LIKE '%user_145%' OR record_json LIKE '%34691583526%' OR origin_system LIKE 'account%'"
+   },
+   "output_chars": 132
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_17",
+    "sql": "SELECT 1"
+   },
+   "output_chars": 65
+  }
+ ]
+}

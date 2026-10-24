@@ -1,0 +1,505 @@
+{
+ "case_id": "case_390",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_7618",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_36"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "legal_service",
+   "resource_id": "legal_hold_8049",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_36"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_101",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_36"
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_5720",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": "evidence_36"
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5737",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": "evidence_36"
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_5165",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": "evidence_36"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_390",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_7618",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_36",
+    "reason": "Primary profile for dnakamura7301@gmail.com. The 2026-04-09T12:00:00Z customer export (records/9) returns NOT_FOUND for this subject reference, after the earlier FOUND row (records/0, 2026-04-03). Workflow DELETE activity_1117 is only a claim. Record is gone at audit_at, so DELETE is compliant.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_5720",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "TREATED",
+    "evidence_id": "evidence_36",
+    "reason": "Support conversation linked to user_388 (records/43). Export shows result REDACTED with no direct identifiers, only the stable user_id reference. Conversation holds shared order/agent context, so REDACT is the required action and it has been applied (TREATED).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_5165",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "BLOCKED",
+    "evidence_id": "evidence_36",
+    "reason": "Backup archive for user_388 (records/19) shows result BLOCKED at 2026-04-09T12:00:00Z, so restore of the subject's data is blocked. Retain rule applies; BLOCK_RESTORE activity_1124 is consistent but the export is the proof.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_5737",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "DISABLED",
+    "evidence_id": "evidence_36",
+    "reason": "Integration data flow for user_388 (records/23) shows DISABLED at audit_at, so it cannot copy or recreate the subject's data. No active connector for this subject was found.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "legal_hold_8049",
+    "system_id": "legal_service",
+    "category": "LEGAL_HOLD_RECORD",
+    "state": "PRESENT",
+    "evidence_id": "evidence_36",
+    "reason": "Legal hold record for user_388 is FOUND in the legal service at 2026-04-09T12:00:00Z (records/25). No release or expiry was found, so the hold is treated as active and the record must be retained and verified.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_101",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_36",
+    "reason": "Security audit record for user_388 is FOUND at audit_at (records/32). No retention-period end before audit_at was found in the evidence, so it stays within retention and must be retained.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_448",
+    "reason": "Linked only through the shared deletion-worker run activity_1121 (shared with case_389 and case_391). Its only export record (evidence_36 records/15) is an identity-free ANONYMIZED profile with an empty subject reference, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_3206",
+    "reason": "Appears only in shared batch run activity_1118 for other requests' records (case_389/case_391); no evidence ties it to dnakamura7301@gmail.com or user_388."
+   },
+   {
+    "resource_id": "account_4446",
+    "reason": "Belongs to yuna.y5220@outlook.com (case_391) per evidence_36 and shared batch run activity_1119; not this subject."
+   },
+   {
+    "resource_id": "analytics_5354",
+    "reason": "Belongs to sibusiso-mthembu@gmail.com (case_389); shared run only; not this subject."
+   },
+   {
+    "resource_id": "search_9470",
+    "reason": "Belongs to yuna.y5220@outlook.com (case_391); not this subject."
+   },
+   {
+    "resource_id": "search_2794",
+    "reason": "Belongs to sibusiso-mthembu@gmail.com (case_389); not this subject."
+   },
+   {
+    "resource_id": "account_4979 / support_9251",
+    "reason": "Matches suzuki.daichi90@gmail.com (a different Daichi S.) in evidence_48 log traces; not this subject's email, so rejected as name-only coincidence."
+   },
+   {
+    "resource_id": "account_4204 / search_1449",
+    "reason": "Matches y.nakamura42@yahoo.com / Yuki Nakamura (user_427) in evidence_40 and evidence_68; different person, rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Japanese): The customer asks for complete deletion of the account linked to their email address and asks the shop to verify current and past identifiers under the privacy procedure, which is part of carrying out the erasure. This is a clear deletion request for the person's own account and data.",
+   "summary: Subject dnakamura7301@gmail.com / user_388 / Daichi Nakamura. Primary account_7618 is absent at audit_at (evidence_36 NOT_FOUND 2026-04-09T12:00Z). Support message support_5720 is already redacted (TREATED). Backup backup_5165 is BLOCKED, data_flow_5737 is DISABLED. Legal hold legal_hold_8049 and security audit record audit_record_101 remain present and retained. No search-index, analytics-with-identity, marketing, export, or email-log record tied to this subject was found. analytics_448 was rejected as unattributable (identity-free profile in a shared run). The workflow COMPLETE claim is consistent with the observed states, but evidence_36 is the only usable observation for most records."
+  ],
+  "usage": [
+   {
+    "case_id": "case_390",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1079,
+    "output_tokens": 117,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_390",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 375,
+    "cache_creation_input_tokens": 2350,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_390",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 532,
+    "cache_creation_input_tokens": 7588,
+    "cache_read_input_tokens": 7221
+   },
+   {
+    "case_id": "case_390",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 707,
+    "cache_creation_input_tokens": 9999,
+    "cache_read_input_tokens": 14809
+   },
+   {
+    "case_id": "case_390",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 546,
+    "cache_creation_input_tokens": 17845,
+    "cache_read_input_tokens": 24808
+   },
+   {
+    "case_id": "case_390",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2173,
+    "cache_creation_input_tokens": 7087,
+    "cache_read_input_tokens": 42653
+   },
+   {
+    "case_id": "case_390",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 202,
+    "cache_creation_input_tokens": 4041,
+    "cache_read_input_tokens": 49740
+   },
+   {
+    "case_id": "case_390",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 885,
+    "cache_creation_input_tokens": 2301,
+    "cache_read_input_tokens": 53781
+   },
+   {
+    "case_id": "case_390",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2703,
+    "cache_creation_input_tokens": 7194,
+    "cache_read_input_tokens": 56082
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "dnakamura7301@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 1320
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_388",
+    "limit": 50
+   },
+   "output_chars": 3196
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Nakamura",
+    "limit": 50
+   },
+   "output_chars": 5442
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 2500
+   },
+   "output_chars": 4734
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7618"
+   },
+   "output_chars": 2752
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_448"
+   },
+   "output_chars": 2136
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_5165"
+   },
+   "output_chars": 2055
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_5737"
+   },
+   "output_chars": 2096
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_8049"
+   },
+   "output_chars": 1952
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_5720"
+   },
+   "output_chars": 2123
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_101"
+   },
+   "output_chars": 1508
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 5000
+   },
+   "output_chars": 4736
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819036216819",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "21bb422cee2adc77b94bca151fe5cb5da11652aaa028addc0788a24d1d689a0f",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7618",
+    "limit": 50
+   },
+   "output_chars": 1919
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "daichi",
+    "limit": 50
+   },
+   "output_chars": 1718
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-22T00:00:00Z",
+    "end": "2026-04-09T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31827
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "dnakamura",
+    "limit": 50
+   },
+   "output_chars": 1306
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "daichi nakamura",
+    "limit": 50
+   },
+   "output_chars": 55
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-22T00:00:00Z",
+    "end": "2026-03-25T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 14474
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold_8049",
+    "limit": 50
+   },
+   "output_chars": 1268
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_101",
+    "limit": 50
+   },
+   "output_chars": 688
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "7301",
+    "limit": 50
+   },
+   "output_chars": 1301
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "9036216",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "LEGAL_HOLD_RECORD"
+   },
+   "output_chars": 137
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 8000
+   },
+   "output_chars": 4131
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "388",
+    "limit": 50
+   },
+   "output_chars": 13446
+  }
+ ]
+}

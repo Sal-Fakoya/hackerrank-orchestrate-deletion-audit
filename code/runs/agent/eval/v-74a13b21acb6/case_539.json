@@ -1,0 +1,30 @@
+{
+ "case_id": "case_539",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_539",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: access (English): The customer asks what personal information the shop holds about them and explicitly states this is not a request to erase it. This is an access request, not deletion."
+  ],
+  "usage": [
+   {
+    "case_id": "case_539",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1036,
+    "output_tokens": 79,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

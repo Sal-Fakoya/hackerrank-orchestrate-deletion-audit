@@ -1,0 +1,412 @@
+{
+ "case_id": "case_545",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5041",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_52"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_946",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": "evidence_52"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_545",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "tombstone_946",
+    "system_id": "identity_service",
+    "category": "ACCOUNT_TOMBSTONE",
+    "state": "TREATED",
+    "evidence_id": "evidence_52",
+    "reason": "Deleted-account tombstone for subject_reference user_545 in the 2026-09-20 failover replica and primary (captured at audit_at). name, email, email_hash and phone are all null, so only the stable internal user_id remains. That matches the REDACT outcome of TREATED.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_5041",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_545 is present in both primary and failover replica at audit_at. It is a recent workflow record with no evidence of retention expiry, so it is retained and verified as present. No retention-period record for this specific event was found; evidence_55 covers a different event (audit_record_003, user_03).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2577",
+    "reason": "Linked only through batch_run activity_3718, which is shared with case_543 and case_544. No usable evidence (no user_545, email, hash, phone or name match) ties this account to the subject. Its PARTIAL claim is not an observation, and the snapshots checked do not show it. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_7320",
+    "reason": "Linked only through shared batch run activity_3720 (case_543/case_544). No evidence ties it to user_545. The SUCCESS/absent claim is not an observation. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_8931",
+    "reason": "Linked only through shared batch run activity_3717 (case_543/case_544). No evidence ties it to user_545. The SUCCESS/absent claim is not an observation. Rejected as unattributable."
+   },
+   {
+    "resource_id": "marketing_001 (Soo-jin Park)",
+    "reason": "evidence_60 shows Soo-jin Park with sj.park@naver.com and +82 10-5837-9451. These do not match the subject's email, phone or hash, and the name is different from 'soo-jin kang'. Not the subject."
+   },
+   {
+    "resource_id": "account_3785 / export_7992 / search_4618 / account_6345 / support_2691 (Kang-surname records)",
+    "reason": "Matched only on surname 'Kang' with different emails and subject_references (user_324, user_103, user_506, etc.). No link to the subject's identifiers. Not the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to permanently delete the account tied to their email address across all systems covered by the deletion policy, and requests confirmation of the outcome. This is a direct erasure request for the person's own account and data.",
+   "summary: Subject user_545 (soojin.k584@outlook.com) has no evidence of its own primary account, search, export, marketing, analytics or support records in the usable evidence. Searches on the email, hash, phones, user_545 and name variants matched only the tombstone and audit record. The three batch-run accounts (account_2577/7320/8931) are shared with other requests and have no tie to this subject, so they were rejected. Tombstone_946 is TREATED (identifiers nulled, user_id remains). Audit record audit_record_5041 is PRESENT and retained. Caveat: the workflow's account deletion claims are unverified for the batch accounts, which could not be attributed."
+  ],
+  "usage": [
+   {
+    "case_id": "case_545",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 106,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_545",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 712,
+    "cache_creation_input_tokens": 5993,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_545",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 690,
+    "cache_creation_input_tokens": 9928,
+    "cache_read_input_tokens": 10864
+   },
+   {
+    "case_id": "case_545",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1443,
+    "cache_creation_input_tokens": 15893,
+    "cache_read_input_tokens": 20792
+   },
+   {
+    "case_id": "case_545",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 952,
+    "cache_creation_input_tokens": 14128,
+    "cache_read_input_tokens": 36685
+   },
+   {
+    "case_id": "case_545",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 940,
+    "cache_creation_input_tokens": 5066,
+    "cache_read_input_tokens": 50813
+   },
+   {
+    "case_id": "case_545",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3589,
+    "cache_creation_input_tokens": 3037,
+    "cache_read_input_tokens": 55879
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "soojin.k584@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_545",
+    "limit": 100
+   },
+   "output_chars": 3464
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e671db6bd2e6cb2cf53ad53e10c90666d7fc72652a36c469f287625ea28c479c",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kang",
+    "limit": 100
+   },
+   "output_chars": 6544
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2577"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7320"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8931"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5041"
+   },
+   "output_chars": 2661
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "tombstone_946"
+   },
+   "output_chars": 2540
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "soojin",
+    "limit": 100
+   },
+   "output_chars": 1414
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k584",
+    "limit": 100
+   },
+   "output_chars": 44
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821037025161",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821043148697",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-05T00:00:00Z",
+    "end": "2026-09-20T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_02",
+    "offset": 0
+   },
+   "output_chars": 4657
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_2577",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-09-08T10:00:00Z",
+    "end": "2026-09-08T12:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 1321
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-05T00:00:00Z",
+    "end": "2026-09-08T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 21690
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_54",
+    "offset": 0
+   },
+   "output_chars": 2330
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_52",
+    "offset": 0
+   },
+   "output_chars": 4456
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "soo-jin",
+    "limit": 100
+   },
+   "output_chars": 1010
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_52",
+    "offset": 2500
+   },
+   "output_chars": 4518
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2577",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tombstone_946",
+    "limit": 100
+   },
+   "output_chars": 2294
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_53",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  }
+ ]
+}

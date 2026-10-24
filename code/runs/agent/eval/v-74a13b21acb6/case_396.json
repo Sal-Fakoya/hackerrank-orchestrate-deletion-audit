@@ -1,0 +1,447 @@
+{
+ "case_id": "case_396",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "export_service",
+   "resource_id": "export_4664",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_69"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_7293",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_69"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "export_service",
+   "resource_id": "export_4664",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_7293",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "export_service",
+   "resource_id": "export_4664",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_7293",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_396",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "export_4664",
+    "system_id": "export_service",
+    "category": "USER_EXPORT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_69",
+    "reason": "Customer export row customer_exports:export_4664 in the 2026-04-04 inventory capture still stores owner_email HLEFEVRE4815@FASTMAIL.COM (the request email) and object key exports/export_4664/customer_data.zip. Captured after the 2026-03-13 deletion worker's PARTIAL claim (activity_976), so the export still exists. USER_EXPORT is always DELETE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_7293",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_69",
+    "reason": "Search document search_7293 (index customer_directory_v3) in the 2026-04-04 inventory capture still stores email HLEFEVRE4815@FASTMAIL.COM. The deletion worker's PARTIAL claim (activity_978) is contradicted by this direct observation. SEARCH_INDEX_ENTRY is always DELETE.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_163",
+    "reason": "Linked only via deletion-worker batch run activity_965, which is shared with five other requests (case_395, case_397, case_410, case_411, case_412). No usable evidence ties this account to the subject; the only observation is the workflow's own DELETE claim. Not attributable to this subject, so rejected."
+   },
+   {
+    "resource_id": "account_2464",
+    "reason": "Shared batch run activity_971 with other requests; no evidence links this account to hlefevre4815 or user_394. Rejected as not attributable."
+   },
+   {
+    "resource_id": "account_2775",
+    "reason": "Shared batch run activity_966 with other requests; no evidence ties it to the subject. Rejected."
+   },
+   {
+    "resource_id": "account_3492",
+    "reason": "Shared batch run activity_969 with other requests; no evidence ties it to the subject. Rejected."
+   },
+   {
+    "resource_id": "account_6443",
+    "reason": "Shared batch run activity_970 with other requests; no evidence ties it to the subject. Rejected."
+   },
+   {
+    "resource_id": "account_8985",
+    "reason": "Shared batch run activity_967 with other requests; no evidence ties it to the subject. Rejected."
+   },
+   {
+    "resource_id": "analytics_298",
+    "reason": "Linked only via shared batch run activity_968. Its record in evidence_38 and evidence_69 has all identifiers null (user_id, email, phone, hash) and no subject reference, so it is an identity-free analytics profile that cannot be attributed to this subject. Rejected."
+   },
+   {
+    "resource_id": "analytics_4651",
+    "reason": "Linked only via shared batch run activity_972. In evidence_69 every identifier is null (general_shopper cohort) with no subject reference, so it cannot be attributed to this subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (fr): The customer asks for permanent deletion of the account tied to their email address, including current and past identifiers, and asks for confirmation of the outcome. This is a direct erasure request, not negated or third-party.",
+   "summary: Subject: hlefevre4815@fastmail.com / user_394 / hugo lefèvre. Two in-scope resources remain present in the 2026-04-04 inventory snapshot (evidence_69): export_4664 (USER_EXPORT, owner email still visible) and search_7293 (SEARCH_INDEX_ENTRY, email still visible). The workflow's COMPLETE claim and the PARTIAL deletion results for both are contradicted. The six account_service candidates and two analytics candidates were linked only through a deletion-worker batch shared with other customers and have no tie to this subject, so they were rejected. No user_394 or hash or phone matches were found in any usable evidence, and no support, connector, backup, or marketing records for this email appear at audit_at."
+  ],
+  "usage": [
+   {
+    "case_id": "case_396",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1094,
+    "output_tokens": 102,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_396",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 510,
+    "cache_creation_input_tokens": 2931,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_396",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 996,
+    "cache_creation_input_tokens": 6580,
+    "cache_read_input_tokens": 7802
+   },
+   {
+    "case_id": "case_396",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 592,
+    "cache_creation_input_tokens": 5323,
+    "cache_read_input_tokens": 14382
+   },
+   {
+    "case_id": "case_396",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 520,
+    "cache_creation_input_tokens": 15467,
+    "cache_read_input_tokens": 19705
+   },
+   {
+    "case_id": "case_396",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1175,
+    "cache_creation_input_tokens": 8158,
+    "cache_read_input_tokens": 35172
+   },
+   {
+    "case_id": "case_396",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2295,
+    "cache_creation_input_tokens": 4063,
+    "cache_read_input_tokens": 43330
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hlefevre4815@fastmail.com",
+    "limit": 50
+   },
+   "output_chars": 1369
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_394",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_396",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_298"
+   },
+   "output_chars": 4940
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4651"
+   },
+   "output_chars": 2135
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_4664"
+   },
+   "output_chars": 2113
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_7293"
+   },
+   "output_chars": 2154
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_163"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2464"
+   },
+   "output_chars": 1490
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2775"
+   },
+   "output_chars": 1490
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3492"
+   },
+   "output_chars": 1490
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6443"
+   },
+   "output_chars": 1490
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8985"
+   },
+   "output_chars": 1490
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hugo lefèvre",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6f063f9812ecf71254ee91633d0282f7b0a624c024e60cdd89ded30b4ef6f428",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33680341462",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-11T00:00:00Z",
+    "end": "2026-04-04T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31632
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 2400
+   },
+   "output_chars": 3568
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_38",
+    "offset": 0
+   },
+   "output_chars": 4579
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lefevre",
+    "limit": 50
+   },
+   "output_chars": 1351
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4815",
+    "limit": 50
+   },
+   "output_chars": 1348
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_394",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "export_4664",
+    "limit": 50
+   },
+   "output_chars": 1292
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_7293",
+    "limit": 50
+   },
+   "output_chars": 1328
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_965",
+    "limit": 50
+   },
+   "output_chars": 653
+  }
+ ]
+}

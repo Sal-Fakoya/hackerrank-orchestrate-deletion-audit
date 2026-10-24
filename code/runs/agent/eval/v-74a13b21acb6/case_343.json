@@ -1,0 +1,285 @@
+{
+ "case_id": "case_343",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_1949",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_71"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9233",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_71"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_4751",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": "evidence_71"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_343",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_1949",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_71",
+    "reason": "Primary profile linked to the deletion run (activity_1532). Direct account_service lookup at 2026-04-29T07:42:28Z returned 404 with no profile, so the record no longer exists at audit_at. The workflow's SUCCESS claim is corroborated by the direct observation.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_9233",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_71",
+    "reason": "ACCOUNT_DELETION_RECORDED event referencing subject user_341, observed 2026-04-29T08:01:21Z. retention_until 2031-12-31 is after audit_at, so the record is within retention and must be retained (verified as available).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_4751",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "TREATED",
+    "evidence_id": "evidence_71",
+    "reason": "Analytics profile linked only through the deletion-worker anonymize run (activity_1533). Current export at 2026-04-29T08:32:22Z shows email, email_hash, phone and customer_reference all null with only a general_shopper cohort, and no evidence ties it to user_341. It can no longer be linked to the subject, so it is anonymized. The activity's reported SUCCESS is only a claim, but the stored record confirms it.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1949",
+    "reason": "Not rejected as a subject record; listed as ABSENT above."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests permanent account deletion and asks that it be applied to the relevant account records, so it authorizes erasure of the person's own account and data. The request to confirm the result is a follow-up on that same deletion.",
+   "summary: Subject user_341 (liam.s5108@outlook.com). Account profile account_1949 is confirmed absent by a 404 lookup at 2026-04-29. The security audit record audit_record_9233 is within retention until 2031 and is retained. The analytics profile analytics_4751 has no identifiers and no subject reference, so it is treated as unlinkable. No search hits exist for the subject's email, phone, hash or name beyond user_341 in audit_record_9233, and no active connector, export or restorable backup references this subject. Nothing else is in scope."
+  ],
+  "usage": [
+   {
+    "case_id": "case_343",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 109,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_343",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 439,
+    "cache_creation_input_tokens": 2181,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_343",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 589,
+    "cache_creation_input_tokens": 3772,
+    "cache_read_input_tokens": 7052
+   },
+   {
+    "case_id": "case_343",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 867,
+    "cache_creation_input_tokens": 16212,
+    "cache_read_input_tokens": 10824
+   },
+   {
+    "case_id": "case_343",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2217,
+    "cache_creation_input_tokens": 5098,
+    "cache_read_input_tokens": 27036
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_341",
+    "limit": 100
+   },
+   "output_chars": 811
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "liam.s5108@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Liam Sullivan",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1949"
+   },
+   "output_chars": 2123
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4751"
+   },
+   "output_chars": 2268
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_9233"
+   },
+   "output_chars": 1642
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8f6928e3250f6288cd860508f9db51870cde16cbc228f330cce20994ad68a251",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "16465550141",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "liam",
+    "limit": 100
+   },
+   "output_chars": 1984
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-18T00:00:00Z",
+    "end": "2026-04-29T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31082
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 2500
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-21T08:00:00Z",
+    "end": "2026-04-21T09:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 649
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_1533",
+    "limit": 50
+   },
+   "output_chars": 669
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1949",
+    "limit": 50
+   },
+   "output_chars": 1297
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_4751",
+    "limit": 50
+   },
+   "output_chars": 1444
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_9233",
+    "limit": 50
+   },
+   "output_chars": 820
+  }
+ ]
+}

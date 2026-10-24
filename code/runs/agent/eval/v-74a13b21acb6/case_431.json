@@ -1,0 +1,462 @@
+{
+ "case_id": "case_431",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_7427",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_68"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_3615",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_68"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_7427",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3615",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_7427",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3236",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3615",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_431",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_7427",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_68",
+    "reason": "Search index document search_7427 still exposes the subject's email lucas-almeida@proton.me in the 2026-03-20T07:23:49Z export (observed 05:46:08Z). Deletion workflow reported FAILED (activity_808) and is not proof of absence. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_3615",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_68",
+    "reason": "Support ticket support_3615 carries requester_email lucas-almeida@proton.me (present at 2026-03-20T07:23:27Z). The conversation is a generic account-access contact with no shared order or agent context requiring retention, so the REDACT condition is not met; the record is a subject-only conversation and should be deleted. Workflow reported FAILED (activity_806), which does not prove absence.",
+    "condition_met": false
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3075",
+    "reason": "Linked only through batch run activity_803, which is shared with case_432 (anair9899@fastmail.com). No usable evidence ties this account to lucas-almeida@proton.me, user_429, or the subject's hash/phone; the only evidence is the workflow claim (and it is attributed to another requester's run)."
+   },
+   {
+    "resource_id": "account_6101",
+    "reason": "Linked only through shared batch run activity_799 (shared with case_432). No evidence ties it to this subject; only a workflow claim exists."
+   },
+   {
+    "resource_id": "account_6489",
+    "reason": "Linked only through shared batch run activity_798 (shared with case_432). No evidence ties it to this subject; only a workflow claim exists."
+   },
+   {
+    "resource_id": "account_9120",
+    "reason": "Linked only through shared batch run activity_804 (shared with case_432). No evidence ties it to this subject; only a workflow claim exists."
+   },
+   {
+    "resource_id": "legal_hold_438",
+    "reason": "Linked only through shared batch run activity_801 (shared with case_432). Legal hold relates to the other requester's run; no evidence ties it to this subject's data, so it is not a governed resource of this request."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for permanent account deletion and confirmation of the result; the request is clear and is not negated, withdrawn, or third-party. The vague phrase about applying treatment to covered records is consistent with erasing the account data, so it authorizes deletion.",
+   "summary: Subject lucas-almeida@proton.me (user_429). Searches of the email, hash, phone, user_id and name across all usable evidence find the subject's data only in search_7427 (search index, still present with the email per evidence_68) and support_3615 (support ticket with requester email, still present per evidence_68). Both workflow deletion results were FAILED and are not proof of absence. The four account candidates and legal_hold_438 came from a deletion-worker run shared with case_432 and have no evidence tying them to this subject, so they are rejected. No active data flow, backup, export, or analytics record was found linked to this subject. The subject's primary account record was not found in any usable snapshot. Actions needed: delete search_7427 and support_3615 (or support-message handling per policy), then re-verify.",
+   "future verification added for audit_record_3236 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_431",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 124,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_431",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 430,
+    "cache_creation_input_tokens": 1826,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_431",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 775,
+    "cache_creation_input_tokens": 14190,
+    "cache_read_input_tokens": 6697
+   },
+   {
+    "case_id": "case_431",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 782,
+    "cache_creation_input_tokens": 10470,
+    "cache_read_input_tokens": 20887
+   },
+   {
+    "case_id": "case_431",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1015,
+    "cache_creation_input_tokens": 10456,
+    "cache_read_input_tokens": 31357
+   },
+   {
+    "case_id": "case_431",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1115,
+    "cache_creation_input_tokens": 1314,
+    "cache_read_input_tokens": 41813
+   },
+   {
+    "case_id": "case_431",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 406,
+    "cache_creation_input_tokens": 15064,
+    "cache_read_input_tokens": 43127
+   },
+   {
+    "case_id": "case_431",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1690,
+    "cache_creation_input_tokens": 1604,
+    "cache_read_input_tokens": 58191
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lucas-almeida@proton.me",
+    "limit": 100
+   },
+   "output_chars": 2554
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_429",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lucas almeida",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-01T00:00:00Z",
+    "end": "2026-03-20T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31307
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-01T08:00:00Z",
+    "end": "2026-03-20T08:00:00Z",
+    "limit": 30
+   },
+   "output_chars": 9411
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "99b86a480d2eb03db56490ff0d7320bb998d2525cd83141f97edb15eb32250bf",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5531956980675",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3075"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6101"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6489"
+   },
+   "output_chars": 1483
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9120"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_438"
+   },
+   "output_chars": 1172
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_7427"
+   },
+   "output_chars": 3126
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3615"
+   },
+   "output_chars": 2326
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-02T06:00:00Z",
+    "end": "2026-03-02T10:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 5162
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT 'profile' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE email LIKE '%almeida%' OR full_name LIKE '%almeida%' OR resource_id IN ('account_3075','account_6101','account_6489','account_9120') UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE email LIKE '%almeida%' OR resource_id IN ('search_7427') UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE requester_email LIKE '%almeida%' OR resource_id='support_3615' UNION ALL SELECT 'analytics', resource_id, customer_reference, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles WHERE email LIKE '%almeida%'"
+   },
+   "output_chars": 130
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%almeida%' OR record_json LIKE '%user_429%' OR record_json LIKE '%99b86a48%' OR record_json LIKE '%5531956980675%' OR resource_id IN ('account_3075','account_6101','account_6489','account_9120','legal_hold_438','search_7427','support_3615')"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "almeida",
+    "limit": 100
+   },
+   "output_chars": 2538
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "proton.me",
+    "limit": 100
+   },
+   "output_chars": 23155
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "anair9899@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 2492
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4921"
+   },
+   "output_chars": 2092
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lucas",
+    "limit": 100
+   },
+   "output_chars": 2536
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "956980675",
+    "limit": 50
+   },
+   "output_chars": 49
+  }
+ ]
+}

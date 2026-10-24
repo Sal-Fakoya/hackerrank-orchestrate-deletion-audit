@@ -1,0 +1,380 @@
+{
+ "case_id": "case_117",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_1220",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_88"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1598",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_88"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_117",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_1220",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_88",
+    "reason": "Subject's primary profile. Readback trace rb-091626-011 at 2026-08-22T09:16:26Z looked up the subject's current email r.suzuki14@yahoo.com against account_1220 and got rows=0, http_status=404. No stored copy of account_1220 appears in the later snapshots or replicas. The workflow's PARTIAL claim (activity_3017) is not relied on.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1598",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_88",
+    "reason": "Security audit record for this subject (subject_reference=user_115, event_code SUBJECT_REQUEST_AUDITED) is still readable at 2026-08-22T08:29:55Z. Its retention_until is 2033-12-31, which is after audit_at, so it is retained and verified as PRESENT.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1823",
+    "reason": "Linked only through the shared batch run activity_3018 (shared with cases 116, 118, 131, 132). No usable evidence ties this account to the subject's email, user_id, hash, phone or name, so it cannot be attributed. The SUCCESS/absent claim is not relied on."
+   },
+   {
+    "resource_id": "account_5785",
+    "reason": "Linked only through the shared batch run activity_3019 (shared with other requests). No usable evidence ties it to this subject. The workflow's present claim is not attributable to this subject."
+   },
+   {
+    "resource_id": "analytics_8698",
+    "reason": "Linked only through the shared batch run activity_3020. The only observation (evidence_88, trace rb-094825-016) was an identity-free read with lookup_key=null and all identifiers null (cohort mobile_browser). It cannot be attributed to the subject and is rejected."
+   },
+   {
+    "resource_id": "search_696",
+    "reason": "Appeared in the deletion run (activity_3031), but evidence_88 ties search_696 to another customer (ayanda.dlamini@outlook.com), not this subject."
+   },
+   {
+    "resource_id": "data_flow_6699",
+    "reason": "Connector checked in the shared run (activity_3029). evidence_88 ties it to another customer (ayanda.dlamini@outlook.com), not this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Japanese): The customer asks for complete deletion of the account linked to their email address and asks the shop to verify current and past identifiers as part of the privacy procedure. This is a request to erase the person's own account and personal data, so it authorizes deletion.",
+   "summary: Subject user_115 / r.suzuki14@yahoo.com. Only one subject profile was identified: account_1220. A lookup by the subject's current email now returns 404, so it is absent. Its earlier PARTIAL deletion claim is not relied on. The security audit record audit_record_1598 references the subject and is retained until 2033, so it is present and retained. Identifiers searched with no hits: the email hash, both phone numbers, the historical \"rina suzuki\" name, and audit_112. Three batch-run candidates (account_1823, account_5785, analytics_8698) were shared with other customers and have no usable tie to this subject, so they were rejected. No active data flow or restorable backup tied to this subject was found."
+  ],
+  "usage": [
+   {
+    "case_id": "case_117",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1079,
+    "output_tokens": 115,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_117",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 574,
+    "cache_creation_input_tokens": 4823,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_117",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 678,
+    "cache_creation_input_tokens": 9842,
+    "cache_read_input_tokens": 9694
+   },
+   {
+    "case_id": "case_117",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 759,
+    "cache_creation_input_tokens": 18659,
+    "cache_read_input_tokens": 19536
+   },
+   {
+    "case_id": "case_117",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 653,
+    "cache_creation_input_tokens": 9164,
+    "cache_read_input_tokens": 38195
+   },
+   {
+    "case_id": "case_117",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3069,
+    "cache_creation_input_tokens": 25215,
+    "cache_read_input_tokens": 47359
+   },
+   {
+    "case_id": "case_117",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2181,
+    "cache_creation_input_tokens": 6501,
+    "cache_read_input_tokens": 72574
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1220"
+   },
+   "output_chars": 2076
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1823"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5785"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_8698"
+   },
+   "output_chars": 2128
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1598"
+   },
+   "output_chars": 1595
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "r.suzuki14@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 659
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_115",
+    "limit": 100
+   },
+   "output_chars": 771
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "suzuki",
+    "limit": 100
+   },
+   "output_chars": 9435
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "12586c8ee47680a0fdcc0c7c02724e2bddb48790aaa659f493e997ad079585ad",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819005497793",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819055483292",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rina",
+    "limit": 100
+   },
+   "output_chars": 10394
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-28T00:00:00Z",
+    "end": "2026-08-22T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31379
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5785",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_88",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_12",
+    "offset": 0
+   },
+   "output_chars": 4651
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-28T00:00:00Z",
+    "end": "2026-07-31T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 16903
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "r.suzuki",
+    "limit": 100
+   },
+   "output_chars": 647
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_112",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 37769
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_88",
+    "offset": 4500
+   },
+   "output_chars": 4231
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1823",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_8698",
+    "limit": 50
+   },
+   "output_chars": 1311
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1220",
+    "limit": 50
+   },
+   "output_chars": 1262
+  }
+ ]
+}

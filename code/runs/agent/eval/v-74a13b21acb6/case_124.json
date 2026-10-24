@@ -1,0 +1,372 @@
+{
+ "case_id": "case_124",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_9126",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_87"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9126",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_282",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9126",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_124",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "support_9126",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_87",
+    "reason": "Support record in customer_data_inventory snapshot captured 2026-08-17 (audit_at) still holds requester_email holm.linnea@gmail.com (direct identifier). Message 'Customer followed up about an order update' carries order context that must be retained, so the rule is REDACT, not DELETE. Workflow redaction activity_3169 reported FAILED. Record is still PRESENT and needs redaction.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2988",
+    "reason": "Only linked through deletion-worker batch run activity_3165, which is shared with case_123 (m.mercier28@gmail.com). No usable evidence mentions user_122, the subject's email, phone or hash in association with this account, so it cannot be attributed to this subject. Not in scope for this request."
+   },
+   {
+    "resource_id": "account_8951",
+    "reason": "Only linked through the shared batch run activity_3167 (shared with case_123). No usable evidence ties it to user_122 or the subject's identifiers, so it cannot be attributed to this subject. Workflow 'present' claim is not sufficient."
+   },
+   {
+    "resource_id": "backup_8742",
+    "reason": "Surfaced by searching the Mercier email (case_123 subject). It is not linked to holm.linnea@gmail.com or user_122, so it belongs to another request's subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to begin the account deletion process for the account tied to their email address, apply it to the relevant records, and confirm review. This is a clear request to erase the person's own account and personal data.",
+   "summary: Subject holm.linnea@gmail.com (user_122). Only subject-linked record found in evidence in the request window is support_9126 (support message with direct email identifier still PRESENT at audit_at; needs REDACT). Account candidates account_2988 and account_8951 came only from a deletion batch run shared with case_123 and have no evidence linking them to this subject, so they were rejected. No inventory, search, analytics, export, connector or backup record for this subject was found in the evidence (searches on email, phone, hash, user_id and name returned only support_9126). Workflow PARTIALLY_COMPLETE claim is not relied on; support_9126 redaction (activity_3169) reported FAILED and the record remains present.",
+   "future verification added for audit_record_282 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_124",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 100,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_124",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 439,
+    "cache_creation_input_tokens": 4272,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_124",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 637,
+    "cache_creation_input_tokens": 3235,
+    "cache_read_input_tokens": 9143
+   },
+   {
+    "case_id": "case_124",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 793,
+    "cache_creation_input_tokens": 19894,
+    "cache_read_input_tokens": 12378
+   },
+   {
+    "case_id": "case_124",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 685,
+    "cache_creation_input_tokens": 2171,
+    "cache_read_input_tokens": 32272
+   },
+   {
+    "case_id": "case_124",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1700,
+    "cache_creation_input_tokens": 9850,
+    "cache_read_input_tokens": 34443
+   },
+   {
+    "case_id": "case_124",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1141,
+    "cache_creation_input_tokens": 8249,
+    "cache_read_input_tokens": 44293
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "holm.linnea@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 737
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_122",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "linnea holm",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2988"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8951"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_9126"
+   },
+   "output_chars": 2161
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-01T00:00:00Z",
+    "end": "2026-08-17T10:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31315
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_87",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46702188482",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ca9b38f9286e8ce2cf57034327846ddd0263e0d5a19498b64d726fa46681dda9",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "holm",
+    "limit": 100
+   },
+   "output_chars": 720
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_87",
+    "offset": 5000
+   },
+   "output_chars": 1153
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_8951",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_2988",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "m.mercier28@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 664
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8951",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2988",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-05T00:00:00Z",
+    "end": "2026-08-08T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 20296
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "702188",
+    "limit": 50
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "linnea",
+    "limit": 50
+   },
+   "output_chars": 8333
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_12",
+    "limit": 50
+   },
+   "output_chars": 1298
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 2500
+   },
+   "output_chars": 4620
+  }
+ ]
+}

@@ -1,0 +1,460 @@
+{
+ "case_id": "case_501",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_634",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_63"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2799",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_63"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_634",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2799",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_634",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2799",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_501",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_634",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_63",
+    "reason": "Primary customer profile for the subject (email O.ERIKSEN10@YAHOO.COM, status DELETION_PENDING) still exists in the 2026-02-13 account_service capture, so the workflow's SUCCESS claim in activity_174 is contradicted. DELETE required.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_2799",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_63",
+    "reason": "customer_directory_v3 search document still carries the subject's email O.ERIKSEN10@YAHOO.COM as of 2026-02-13 capture; the deletion worker's FAILED result (activity_179) is consistent with it remaining. DELETE required.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_5738",
+    "reason": "Linked only through deletion-worker batch run activity_173, which is shared with case_500 (INES.ROUSSEAU@OUTLOOK.COM). No usable evidence ties account_5738 to user_499 or this email; the workflow's absent claim is not needed for this subject. Attributed to another request's subject, so rejected."
+   },
+   {
+    "resource_id": "data_flow_006",
+    "reason": "customer_events_connector subscription is tied to INES.ROUSSEAU@OUTLOOK.COM (case_500's subject), not to this subject's identifiers; no evidence links this connector to the subject's data. Rejected as not belonging to this subject."
+   },
+   {
+    "resource_id": "search_6092",
+    "reason": "Search document for INES.ROUSSEAU@OUTLOOK.COM belongs to another customer (case_500); no link to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for a permanent account deletion for their email address and for review of eligible data for deletion or de-identification. This is a clear erasure request about the person's own account and data; the verification request does not change that.",
+   "summary: Subject O.ERIKSEN10@YAHOO.COM (user_499). Two in-scope resources remain present at audit_at per the 2026-02-13 inventory capture (evidence_63): account_634 customer profile and search_2799 directory entry, both still holding the subject's email. The workflow's COMPLETE claim and the account_634 SUCCESS/absent claim are contradicted. No other subject records were found in the reporting replica, snapshot bundle, service export, or log; no subject-linked backups, exports, support records, analytics, or active data flows were found. account_5738 and data_flow_006 belong to case_500's subject and were rejected."
+  ],
+  "usage": [
+   {
+    "case_id": "case_501",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 105,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_501",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 501,
+    "cache_creation_input_tokens": 1029,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_501",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 477,
+    "cache_creation_input_tokens": 14869,
+    "cache_read_input_tokens": 5900
+   },
+   {
+    "case_id": "case_501",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 775,
+    "cache_creation_input_tokens": 3862,
+    "cache_read_input_tokens": 20769
+   },
+   {
+    "case_id": "case_501",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 584,
+    "cache_creation_input_tokens": 11611,
+    "cache_read_input_tokens": 24631
+   },
+   {
+    "case_id": "case_501",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 733,
+    "cache_creation_input_tokens": 2578,
+    "cache_read_input_tokens": 36242
+   },
+   {
+    "case_id": "case_501",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 936,
+    "cache_creation_input_tokens": 2597,
+    "cache_read_input_tokens": 38820
+   },
+   {
+    "case_id": "case_501",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1321,
+    "cache_creation_input_tokens": 3196,
+    "cache_read_input_tokens": 41417
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_499",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "o.eriksen10@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 1373
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "O.ERIKSEN10@YAHOO.COM",
+    "limit": 100
+   },
+   "output_chars": 1373
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "eriksen",
+    "limit": 100
+   },
+   "output_chars": 1359
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-15T00:00:00Z",
+    "end": "2026-02-13T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5738"
+   },
+   "output_chars": 1336
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_634"
+   },
+   "output_chars": 2444
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2799"
+   },
+   "output_chars": 1861
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "202b0e081de8b828bed9f619267324aa049ee50b9d196f026a2cae1c5b348256",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46706966390",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "o.eriksen10@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 1373
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_47",
+    "offset": 0
+   },
+   "output_chars": 4507
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 2400
+   },
+   "output_chars": 3281
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_search_documents WHERE email LIKE '%eriksen%' OR email LIKE '%ERIKSEN%' OR display_name LIKE '%rik%' OR email_hash LIKE '202b%'"
+   },
+   "output_chars": 251
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%eriksen%' OR record_json LIKE '%ERIKSEN%' OR record_json LIKE '%user_499%' OR record_json LIKE '%202b0e08%' OR record_json LIKE '%46706966390%' OR record_json LIKE '%467069%'"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_5738",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 346
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_634",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 668
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-17T06:00:00Z",
+    "end": "2026-01-17T10:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 2575
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_500",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5738",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "eriksen10",
+    "limit": 50
+   },
+   "output_chars": 1361
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "oskar",
+    "limit": 50
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6966390",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_006",
+    "limit": 50
+   },
+   "output_chars": 1306
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_006"
+   },
+   "output_chars": 1849
+  }
+ ]
+}

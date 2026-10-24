@@ -1,0 +1,703 @@
+{
+ "case_id": "case_34",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_5762",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_04"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_9538",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_04"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_5762",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9538",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_5762",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9538",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_34",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_5762",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_04",
+    "reason": "Latest direct observation (admin console, 2026-09-26 11:00Z, before audit_at) shows the live customer profile user_11 / account_5762 with email haruka.s1838@zoho.com, phone +81 90 7610 2507 and Haruka Sato. The 2026-09-15 primary lookup 404 (evidence_01) is older and conflicts with the later console view; the later direct observation governs. The deletion_worker FAILED claim (activity_3485) is not proof of absence. Profile must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_9538",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_04",
+    "reason": "Support ticket CS-8538 (support_9538) is still visible in the 2026-09-26 console with the subject's name and email and a conversation containing customer replies and agent responses (shared order and agent context: ORD-20265762, ORD-20265518). Also a 2026-09-15 attachment PII scan (evidence_01, tr-5845609) matched the subject's historical phone in delivery_confirmation_32.pdf. Conversation must be redacted (retain shared context) rather than deleted, and direct identifiers remain.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "audit_record_003 / user_03 journal entries (evidence_55, evidence_37)",
+    "reason": "Belong to a different subject (user_03), not this request's subject."
+   },
+   {
+    "resource_id": "search_428 / g.silva76 records (evidence_09)",
+    "reason": "Different customer (Gabriel Silva, user_13); not linked to haruka.s1838 or user_11."
+   },
+   {
+    "resource_id": "support_9553, support_5569, support_5742, search_4262, analytics_5589 and other identifiers seen in the 2026-09-15 and 2026-09-26 logs",
+    "reason": "Linked to other customers' identifiers (e.g. e.varga90, mori.ren, zofia-dvorak79, akosua.gyasi, null-identity analytics rows); no tie to this subject found."
+   },
+   {
+    "resource_id": "data_flow_4713 / backup_7809 (user_49 lookups)",
+    "reason": "Linked to user_49, not this subject; no connector or backup entry references haruka.s1838, user_11 or the subject's phones/hashes."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for the account associated with this address to be erased and for copies within the scope of the deletion to be handled, which is a request for erasure of their own account and personal data.",
+   "summary: Subject user_11 (haruka.s1838@zoho.com) has three in-scope resources. account_5762 is still PRESENT on the 2026-09-26 admin console despite the earlier 404 lookup and the workflow's FAILED delete claim, so it must be deleted. support_9538 (CS-8538) is PRESENT with direct identifiers and shared order/agent context, so it must be redacted. audit_record_3753 is a retained security audit record. No active data flow, restorable backup, or legal hold tied to the subject was found in usable evidence. The workflow COMPLETE claim is not supported.",
+   "dropped out-of-episode fact audit_record_3753: no usable evidence since requested_at"
+  ],
+  "usage": [
+   {
+    "case_id": "case_34",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 90,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 451,
+    "cache_creation_input_tokens": 6005,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 867,
+    "cache_creation_input_tokens": 7955,
+    "cache_read_input_tokens": 10876
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 844,
+    "cache_creation_input_tokens": 2924,
+    "cache_read_input_tokens": 18831
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 868,
+    "cache_creation_input_tokens": 13539,
+    "cache_read_input_tokens": 21755
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 654,
+    "cache_creation_input_tokens": 9858,
+    "cache_read_input_tokens": 35294
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 926,
+    "cache_creation_input_tokens": 9434,
+    "cache_read_input_tokens": 45152
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 937,
+    "cache_creation_input_tokens": 5035,
+    "cache_read_input_tokens": 54586
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1154,
+    "cache_creation_input_tokens": 2748,
+    "cache_read_input_tokens": 59621
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 653,
+    "cache_creation_input_tokens": 1398,
+    "cache_read_input_tokens": 62369
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1452,
+    "cache_creation_input_tokens": 16425,
+    "cache_read_input_tokens": 63767
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 913,
+    "cache_creation_input_tokens": 3975,
+    "cache_read_input_tokens": 80192
+   },
+   {
+    "case_id": "case_34",
+    "call": "turn_12",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2135,
+    "cache_creation_input_tokens": 1907,
+    "cache_read_input_tokens": 84167
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "haruka.s1838@zoho.com",
+    "limit": 50
+   },
+   "output_chars": 2759
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "haruka sato",
+    "limit": 50
+   },
+   "output_chars": 1043
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_11",
+    "limit": 50
+   },
+   "output_chars": 2386
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5762"
+   },
+   "output_chars": 4187
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_9538"
+   },
+   "output_chars": 3755
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_3753"
+   },
+   "output_chars": 1413
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819061560005",
+    "limit": 50
+   },
+   "output_chars": 823
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819076102507",
+    "limit": 50
+   },
+   "output_chars": 1273
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "haruka.s183889@zoho.com",
+    "limit": 50
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "532f8531fceba1d914b95e331ffb690ebb2a2d64611ea00361df48bd919544b7",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "db83a42f1f41508b4c44fc526100f9663ea8f72b347f16769ef3ac6975015fa2",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_04",
+    "offset": 0
+   },
+   "output_chars": 1380
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_5762",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 688
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-01T00:00:00Z",
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 30638
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "resource_lookup_trace_20260926",
+    "limit": 50
+   },
+   "output_chars": 70
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_11 account_5762",
+    "limit": 50
+   },
+   "output_chars": 60
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_94",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 0
+   },
+   "output_chars": 4397
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_61",
+    "offset": 0
+   },
+   "output_chars": 2054
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_09",
+    "offset": 0
+   },
+   "output_chars": 1354
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_14",
+    "offset": 0
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_9538",
+    "limit": 50
+   },
+   "output_chars": 2935
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "CS-8538",
+    "limit": 50
+   },
+   "output_chars": 1290
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5762",
+    "limit": 50
+   },
+   "output_chars": 3368
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "haruka",
+    "limit": 50
+   },
+   "output_chars": 6892
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1838",
+    "limit": 50
+   },
+   "output_chars": 3328
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_3753",
+    "limit": 50
+   },
+   "output_chars": 592
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_01",
+    "offset": 0
+   },
+   "output_chars": 4241
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_52",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 94
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 102
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_92",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_52",
+    "sql": "SELECT sql FROM sqlite_master"
+   },
+   "output_chars": 639
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_05",
+    "sql": "SELECT sql FROM sqlite_master"
+   },
+   "output_chars": 635
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_93",
+    "sql": "SELECT sql FROM sqlite_master"
+   },
+   "output_chars": 2296
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_52",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_failover_replica WHERE record_json LIKE '%haruka%' OR record_json LIKE '%5762%' OR record_json LIKE '%user_11%' OR record_json LIKE '%1838%' OR record_json LIKE '%9538%' OR record_json LIKE '%3753%' OR record_json LIKE '%6156%' OR record_json LIKE '%7610%' OR record_json LIKE '%Sato%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_05",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_read_replica WHERE record_json LIKE '%haruka%' OR record_json LIKE '%5762%' OR record_json LIKE '%user_11%' OR record_json LIKE '%1838%' OR record_json LIKE '%9538%' OR record_json LIKE '%3753%' OR record_json LIKE '%6156%' OR record_json LIKE '%7610%' OR record_json LIKE '%Sato%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_93",
+    "sql": "SELECT 'profile', resource_id, customer_reference, full_name, email, phone, email_hash, account_status, updated_at FROM customer_profiles WHERE email LIKE '%haruka%' OR customer_reference='user_11' OR full_name LIKE '%Sato%' OR phone LIKE '%7610%' OR phone LIKE '%6156%' OR resource_id IN ('account_5762','support_9538','audit_record_3753')\nUNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents WHERE email LIKE '%haruka%' OR customer_reference='user_11' OR display_name LIKE '%Sato%' OR resource_id IN ('account_5762','support_9538')\nUNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at, '' FROM support_records WHERE requester_email LIKE '%haruka%' OR customer_reference='user_11' OR resource_id IN ('support_9538','account_5762')"
+   },
+   "output_chars": 152
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_277",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ORD-20265762",
+    "limit": 20
+   },
+   "output_chars": 1044
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ORD-20265518",
+    "limit": 20
+   },
+   "output_chars": 1044
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Kichijoji",
+    "limit": 20
+   },
+   "output_chars": 1041
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "delivery_confirmation_32",
+    "limit": 20
+   },
+   "output_chars": 835
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "deletion_worker",
+    "limit": 50
+   },
+   "output_chars": 30644
+  },
+  {
+   "turn": 10,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 10,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 10,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 10,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_58",
+    "offset": 0
+   },
+   "output_chars": 1085
+  },
+  {
+   "turn": 11,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_93",
+    "sql": "SELECT * FROM security_audit_records WHERE resource_id='audit_record_3753' OR subject_reference LIKE '%user_11%' OR subject_reference LIKE '%haruka%'"
+   },
+   "output_chars": 108
+  },
+  {
+   "turn": 11,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_02",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 65
+  },
+  {
+   "turn": 11,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_52",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at FROM customer_data_failover_replica WHERE resource_id IN ('account_5762','support_9538','audit_record_3753') OR origin_system LIKE '%security%'"
+   },
+   "output_chars": 823
+  },
+  {
+   "turn": 11,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_05",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at FROM customer_data_read_replica WHERE resource_id IN ('account_5762','support_9538','audit_record_3753') OR origin_system LIKE '%security%'"
+   },
+   "output_chars": 1006
+  }
+ ]
+}

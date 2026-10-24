@@ -1,0 +1,653 @@
+{
+ "case_id": "case_369",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8590",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_35"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_337",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_34"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_369",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_8590",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_35",
+    "reason": "Subject's own profile: the account_service lookup for d.bennett02@yahoo.com (trace tr-1061351, evidence_34, 2026-04-19) returned rows=0, http 404 for account_8590. The records-assurance snapshot of account_service captured 2026-04-16 (evidence_35) covers the system and does not contain account_8590, so the record is absent at audit_at. The workflow's SUCCESS claim (activity_1271) is consistent with this but was not relied on alone.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_337",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_34",
+    "reason": "Security audit record keyed to the subject's user_id user_367: trace tr-5810573 (evidence_34, 2026-04-19T06:55:01Z) shows audit_record_337 read completed with rows=1 and integrity_check passed. No retention_until expiry is visible in usable evidence, so it is treated as within retention and retained (RETAIN, verify it is available).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3918",
+    "reason": "Linked only through the deletion-worker batch run activity_1273, which is shared with other requests (case_353, 354, 355, 368, 370). No usable evidence ties this profile to the subject's email, hash, phone or user_367. Its only other evidence is the workflow's own DELETE claim, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_9056",
+    "reason": "Linked only through the shared batch run activity_1274 (other requests' emails in shared_with). No identity-bearing evidence ties it to this subject. The workflow's FAILED/present claim is not evidence of subject ownership."
+   },
+   {
+    "resource_id": "analytics_2807",
+    "reason": "Linked only through the shared batch run activity_1272. The only direct observation (trace tr-5475232, evidence_34) is an identity-free analytics read (direct_identifiers=0, email null, phone null), so it cannot be attributed to this subject under the shared-run rule."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to erase the account linked to their email address and to apply the request across systems, which is a request for deletion of their own account and personal data. The request contains no injected instructions and no negation.",
+   "summary: Subject d.bennett02@yahoo.com (user_367). Subject-owned records found: account_8590 (USER_PROFILE, ABSENT at audit_at, evidence_35 snapshot lacks it after the request; trace evidence_34 shows 404 for the subject's email) and audit_record_337 (SECURITY_AUDIT_LOG, PRESENT and retained, keyed to user_367, evidence_34). Three shared-run candidates (account_3918, account_9056, analytics_2807) were rejected for lack of subject-linking evidence. No support, export, connector, backup, marketing, analytics-profile, search-index or cache records for this subject were found in usable evidence, and no record carries the subject's email hash or phone. The workflow's COMPLETE claim is not relied on for the states above."
+  ],
+  "usage": [
+   {
+    "case_id": "case_369",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1054,
+    "output_tokens": 96,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_369",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 553,
+    "cache_creation_input_tokens": 2528,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_369",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 501,
+    "cache_creation_input_tokens": 8311,
+    "cache_read_input_tokens": 7399
+   },
+   {
+    "case_id": "case_369",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 620,
+    "cache_creation_input_tokens": 9822,
+    "cache_read_input_tokens": 15710
+   },
+   {
+    "case_id": "case_369",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1942,
+    "cache_creation_input_tokens": 1999,
+    "cache_read_input_tokens": 25532
+   },
+   {
+    "case_id": "case_369",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 986,
+    "cache_creation_input_tokens": 2451,
+    "cache_read_input_tokens": 27531
+   },
+   {
+    "case_id": "case_369",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 688,
+    "cache_creation_input_tokens": 1775,
+    "cache_read_input_tokens": 29982
+   },
+   {
+    "case_id": "case_369",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1253,
+    "cache_creation_input_tokens": 6965,
+    "cache_read_input_tokens": 31757
+   },
+   {
+    "case_id": "case_369",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1895,
+    "cache_creation_input_tokens": 4240,
+    "cache_read_input_tokens": 38722
+   },
+   {
+    "case_id": "case_369",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 812,
+    "cache_creation_input_tokens": 3111,
+    "cache_read_input_tokens": 42962
+   },
+   {
+    "case_id": "case_369",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1019,
+    "cache_creation_input_tokens": 30083,
+    "cache_read_input_tokens": 46073
+   },
+   {
+    "case_id": "case_369",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2541,
+    "cache_creation_input_tokens": 6680,
+    "cache_read_input_tokens": 76156
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3918"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8590"
+   },
+   "output_chars": 2542
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9056"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2807"
+   },
+   "output_chars": 2547
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_337"
+   },
+   "output_chars": 1935
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d.bennett02@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 1117
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_367",
+    "limit": 50
+   },
+   "output_chars": 1108
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Bennett",
+    "limit": 50
+   },
+   "output_chars": 3573
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_34",
+    "offset": 0
+   },
+   "output_chars": 4829
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_35",
+    "offset": 0
+   },
+   "output_chars": 4659
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d.bennett",
+    "limit": 50
+   },
+   "output_chars": 1105
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8cce9c26180c5bccf5a006fe968f3dd3416a1efd0e1c6e8286f2ad422c7997f0",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "12025550167",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "daniel bennett",
+    "limit": 50
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_367",
+    "limit": 50
+   },
+   "output_chars": 1108
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status, updated_at FROM customer_profiles WHERE email LIKE '%bennett%' OR customer_reference='user_367' OR full_name LIKE '%Bennett%' OR phone LIKE '%12025550167%' OR email_hash LIKE '8cce9c26%' UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents WHERE email LIKE '%bennett%' OR customer_reference='user_367' OR display_name LIKE '%Bennett%' OR phone LIKE '%12025550167%' OR email_hash LIKE '8cce9c26%' UNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles WHERE email LIKE '%bennett%' OR customer_reference='user_367' OR phone LIKE '%12025550167%' OR email_hash LIKE '8cce9c26%'"
+   },
+   "output_chars": 144
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status, updated_at FROM customer_profiles WHERE email LIKE '%bennett%' OR customer_reference='user_367' OR full_name LIKE '%Bennett%' OR phone LIKE '%12025550167%' OR email_hash LIKE '8cce9c26%' UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents WHERE email LIKE '%bennett%' OR customer_reference='user_367' OR display_name LIKE '%Bennett%' OR phone LIKE '%12025550167%' OR email_hash LIKE '8cce9c26%' UNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles WHERE email LIKE '%bennett%' OR customer_reference='user_367' OR phone LIKE '%12025550167%' OR email_hash LIKE '8cce9c26%'"
+   },
+   "output_chars": 144
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status, updated_at FROM customer_profiles WHERE email LIKE '%bennett%' OR customer_reference='user_367' OR full_name LIKE '%Bennett%' OR phone LIKE '%12025550167%' OR email_hash LIKE '8cce9c26%' UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents WHERE email LIKE '%bennett%' OR customer_reference='user_367' OR display_name LIKE '%Bennett%' OR phone LIKE '%12025550167%' OR email_hash LIKE '8cce9c26%' UNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles WHERE email LIKE '%bennett%' OR customer_reference='user_367' OR phone LIKE '%12025550167%' OR email_hash LIKE '8cce9c26%'"
+   },
+   "output_chars": 144
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 129
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT * FROM customer_data_primary WHERE record_json LIKE '%bennett%' OR record_json LIKE '%user_367%' OR record_json LIKE '%8590%' OR record_json LIKE '%3918%' OR record_json LIKE '%9056%' OR record_json LIKE '%2807%' OR record_json LIKE '%337%'"
+   },
+   "output_chars": 921
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT * FROM customer_data_reporting_replica WHERE record_json LIKE '%bennett%' OR record_json LIKE '%user_367%' OR record_json LIKE '%8590%' OR record_json LIKE '%3918%' OR record_json LIKE '%9056%' OR record_json LIKE '%2807%' OR record_json LIKE '%337%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT * FROM customer_data_reporting_replica WHERE record_json LIKE '%bennett%' OR record_json LIKE '%user_367%' OR record_json LIKE '%8590%' OR record_json LIKE '%3918%' OR record_json LIKE '%9056%' OR record_json LIKE '%2807%' OR record_json LIKE '%337%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_34",
+    "trace_id": "tr-1061351"
+   },
+   "output_chars": 1697
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_34",
+    "trace_id": "tr-5475232"
+   },
+   "output_chars": 1071
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_34",
+    "trace_id": "tr-5810573"
+   },
+   "output_chars": 1036
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3918",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9056",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_2807",
+    "limit": 50
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_337",
+    "limit": 50
+   },
+   "output_chars": 1116
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8590",
+    "limit": 50
+   },
+   "output_chars": 1718
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM security_audit_records WHERE subject_reference LIKE '%367%' OR resource_id='audit_record_337'"
+   },
+   "output_chars": 108
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM security_audit_records WHERE subject_reference LIKE '%367%' OR resource_id='audit_record_337'"
+   },
+   "output_chars": 108
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM security_audit_records WHERE subject_reference LIKE '%367%' OR resource_id='audit_record_337'"
+   },
+   "output_chars": 108
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Daniel",
+    "limit": 50
+   },
+   "output_chars": 699
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "bennett02",
+    "limit": 50
+   },
+   "output_chars": 1105
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "555-0167",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 24946
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold",
+    "limit": 50
+   },
+   "output_chars": 10802
+  },
+  {
+   "turn": 9,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_337",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 9,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-02T00:00:00Z",
+    "end": "2026-04-19T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31240
+  },
+  {
+   "turn": 10,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 10,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-04T06:00:00Z",
+    "end": "2026-04-04T07:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 1595
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8590",
+    "limit": 50
+   },
+   "output_chars": 1710
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "337",
+    "limit": 50
+   },
+   "output_chars": 8815
+  }
+ ]
+}

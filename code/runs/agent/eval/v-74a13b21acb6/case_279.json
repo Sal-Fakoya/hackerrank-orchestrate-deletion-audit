@@ -1,0 +1,390 @@
+{
+ "case_id": "case_279",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_8588",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_77"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_8588",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5055",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_8588",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_279",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "backup_8588",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_77",
+    "reason": "Archive backup_8588 (archive/customer-data/backup_8588.tar.zst) carries the exact subject email l.fournier92@gmail.com and restore_allowed=true as observed at 2026-06-03T08:22:19Z, before audit_at. Restore of the subject's data is still allowed, so restore access must be blocked. No active legal hold covers this record (legal register evidence_27 lists only disputed order/tax rows for other users).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2430",
+    "reason": "Linked only through deletion-worker batch run activity_1800, which is shared with case_278 and case_280 (other customers). No usable evidence ties this account_id to the subject's email, hash, phone, user_277 or name. Not attributable to this subject; not in scope."
+   },
+   {
+    "resource_id": "account_4664",
+    "reason": "Linked only through shared batch run activity_1801 (shared with case_278 and case_280). No evidence of an identity link to this subject. Not attributable; rejected."
+   },
+   {
+    "resource_id": "account_6306",
+    "reason": "Linked only through shared batch run activity_1799 (shared with case_278 and case_280). No evidence of an identity link to this subject. Not attributable; rejected."
+   },
+   {
+    "resource_id": "analytics_8403",
+    "reason": "Record belongs to jules-fournier@gmail.com / user_459, a different customer. Name match on 'Fournier' only; no exact match to the subject's identifiers."
+   },
+   {
+    "resource_id": "data_flow_4612",
+    "reason": "Connector subject_selector is jules-fournier@gmail.com (user_459), a different customer; not this subject's data flow."
+   },
+   {
+    "resource_id": "search_9014",
+    "reason": "Search document for jules-fournier@gmail.com / user_459, a different customer."
+   },
+   {
+    "resource_id": "support_3901",
+    "reason": "Support conversation for jules-fournier@gmail.com / user_459 (ticket CS-7901), a different customer."
+   }
+  ],
+  "notes": [
+   "intent: deletion (fr): The customer requests permanent deletion of the account tied to their email address, including current and past identifiers, and asks for confirmation of the outcome. This is an erasure request for the person's own account and data.",
+   "summary: Subject l.fournier92@gmail.com (user_277). Only subject-linked resource found is backup_8588, which holds the exact subject email and is still restorable (restore_allowed=true at 2026-06-03T08:22:19Z), so restore must be blocked. The three account profiles (account_2430, account_4664, account_6306) are linked only via a batch run shared with other customers and have no identity link, so they are rejected. Jules Fournier (user_459) records are a different person and are rejected. No active DATA_FLOW, search, cache, analytics, or support records tied to the subject were found, and the subject's email hash and phone returned no matches.",
+   "future verification added for audit_record_5055 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_279",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1094,
+    "output_tokens": 99,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_279",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 496,
+    "cache_creation_input_tokens": 3063,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_279",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 689,
+    "cache_creation_input_tokens": 7911,
+    "cache_read_input_tokens": 7934
+   },
+   {
+    "case_id": "case_279",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 609,
+    "cache_creation_input_tokens": 13917,
+    "cache_read_input_tokens": 15845
+   },
+   {
+    "case_id": "case_279",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 773,
+    "cache_creation_input_tokens": 2646,
+    "cache_read_input_tokens": 29762
+   },
+   {
+    "case_id": "case_279",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 968,
+    "cache_creation_input_tokens": 7426,
+    "cache_read_input_tokens": 32408
+   },
+   {
+    "case_id": "case_279",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1807,
+    "cache_creation_input_tokens": 3050,
+    "cache_read_input_tokens": 39834
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "l.fournier92@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 824
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_277",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fournier",
+    "limit": 50
+   },
+   "output_chars": 8234
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4664"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_8588"
+   },
+   "output_chars": 2252
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6306"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2430"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "439b8be4e6502dfabff67e67cf9df5e6c7ef033cc2cf4a907058a3fb92a2f76f",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33626891280",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "léonie",
+    "limit": 50
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "leonie",
+    "limit": 50
+   },
+   "output_chars": 1216
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-07T00:00:00Z",
+    "end": "2026-06-03T09:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31013
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-09T07:40:00Z",
+    "end": "2026-05-09T10:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 2624
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4664",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6306",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2430",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_77",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_31",
+    "offset": 0
+   },
+   "output_chars": 4642
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fournier92",
+    "limit": 50
+   },
+   "output_chars": 812
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "626891280",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "backup_8588",
+    "limit": 50
+   },
+   "output_chars": 1434
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "439b8be4",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  }
+ ]
+}

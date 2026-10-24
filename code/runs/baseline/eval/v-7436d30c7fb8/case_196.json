@@ -1,0 +1,110 @@
+{
+ "case_id": "case_196",
+ "mode": "baseline",
+ "judge_version": "7436d30c7fb8",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_5599",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_82"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_660",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "activity_2474"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6389",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_82"
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_3454",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": "activity_2476"
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_5166",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": "activity_2475"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_196",
+  "mode": "baseline",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_5599",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_82",
+    "reason": "2026-07-13T07:20:27Z level=INFO service=account_service trace_id=rb-072027-006 event=profile_lookup_completed resource_id=account_5599 rows=0 http_status=404",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_660",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "activity_2474",
+    "reason": "DELETE_RECORD SUCCESS",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_3454",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "TREATED",
+    "evidence_id": "activity_2476",
+    "reason": "ANONYMIZE_RECORD SUCCESS",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_5166",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "TREATED",
+    "evidence_id": "activity_2475",
+    "reason": "ANONYMIZE_RECORD SUCCESS",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6389",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_82",
+    "reason": "2026-07-13T08:28:57Z level=INFO service=security_service trace_id=rb-082857-018 event=audit_record_read_completed resource_id=audit_record_6389 rows=1 subject_r",
+    "condition_met": true
+   }
+  ],
+  "rejected": [],
+  "notes": [],
+  "usage": []
+ },
+ "transcript": []
+}

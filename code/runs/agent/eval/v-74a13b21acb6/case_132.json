@@ -1,0 +1,433 @@
+{
+ "case_id": "case_132",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "export_service",
+   "resource_id": "export_9157",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_87"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3112",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_87"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "export_service",
+   "resource_id": "export_9157",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3112",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "export_service",
+   "resource_id": "export_9157",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3112",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1424",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_132",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "export_9157",
+    "system_id": "export_service",
+    "category": "USER_EXPORT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_87",
+    "reason": "Customer export row owned by cnascimento4199@fastmail.com (the request email) still exists in customer_exports at the 2026-08-17 inventory snapshot (object exports/export_9157/customer_data.zip). USER_EXPORT is always DELETE. The workflow's PARTIAL claim (activity_3022) does not prove deletion.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_3112",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_87",
+    "reason": "customer_directory_v3 search document with email cnascimento4199@fastmail.com still exists at the 2026-08-17 inventory snapshot. SEARCH_INDEX_ENTRY is always DELETE. The workflow's PARTIAL claim (activity_3024) does not prove deletion.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1220",
+    "reason": "Linked only through deletion-worker batch run activity_3017, which is shared with other requests (case_116, case_117, case_118, case_131). No usable evidence ties account_1220 to this subject (no email, user_130, or name match). Not attributed to this subject. It is also absent from the latest account_service snapshot (evidence_87), so no live copy was observed."
+   },
+   {
+    "resource_id": "account_1823",
+    "reason": "Linked only through shared batch run activity_3018 (shared with other requests). No usable evidence ties it to this subject. Not attributed. Absent from the latest account_service snapshot (evidence_87), so the activity_3018 SUCCESS claim is not contradicted."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Portuguese): The customer asks for permanent deletion of the account associated with their email, and asks the shop to check current and previous identifiers as part of the privacy process and confirm the outcome. This is a request for erasure of the person's own account and data.",
+   "summary: Subject cnascimento4199@fastmail.com (user_130). The latest inventory snapshot (evidence_87, 2026-08-17T09:42:50Z) still holds two subject-linked records: export_9157 (USER_EXPORT) and search_3112 (SEARCH_INDEX_ENTRY), both PRESENT with direct identifiers, so both need deletion. The two account candidates from the shared batch run have no evidence tying them to this subject and were rejected. No connectors, backups, support records, analytics profiles, or emails matching the subject's phones, hash, or name were found in usable evidence. The \"nascimento\" hits (l.nascimento40@gmail.com, backup_5520, account_7947) and the other fastmail addresses belong to other people and were not attributed. The search found no data flow or secondary copy for this subject.",
+   "future verification added for audit_record_1424 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_132",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1083,
+    "output_tokens": 113,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_132",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 443,
+    "cache_creation_input_tokens": 4477,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_132",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 580,
+    "cache_creation_input_tokens": 4468,
+    "cache_read_input_tokens": 9348
+   },
+   {
+    "case_id": "case_132",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 669,
+    "cache_creation_input_tokens": 12538,
+    "cache_read_input_tokens": 13816
+   },
+   {
+    "case_id": "case_132",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2119,
+    "cache_creation_input_tokens": 8469,
+    "cache_read_input_tokens": 26354
+   },
+   {
+    "case_id": "case_132",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 968,
+    "cache_creation_input_tokens": 33153,
+    "cache_read_input_tokens": 34823
+   },
+   {
+    "case_id": "case_132",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1328,
+    "cache_creation_input_tokens": 3981,
+    "cache_read_input_tokens": 67976
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1220"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1823"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_9157"
+   },
+   "output_chars": 2117
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3112"
+   },
+   "output_chars": 2147
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "cnascimento4199@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 1378
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_130",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nascimento",
+    "limit": 100
+   },
+   "output_chars": 15098
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "98fef6e9c4f28477174e3bbdf1179ef4ee12f6c8ea32b80848da02a7633bed4d",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5521961248878",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5541965210674",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_87",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_87",
+    "offset": 5000
+   },
+   "output_chars": 1153
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "camila",
+    "limit": 100
+   },
+   "output_chars": 11169
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "cnascimento",
+    "limit": 100
+   },
+   "output_chars": 1361
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "l.nascimento40@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2610
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_130",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_207",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "96124-8878",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "96521-0674",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fastmail",
+    "limit": 50
+   },
+   "output_chars": 39255
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_1220",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-28T00:00:00Z",
+    "end": "2026-08-17T10:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31315
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4199",
+    "limit": 50
+   },
+   "output_chars": 3114
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Nascimento Camila",
+    "limit": 50
+   },
+   "output_chars": 57
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_3018",
+    "limit": 20
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "export_9157",
+    "limit": 50
+   },
+   "output_chars": 1298
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_3112",
+    "limit": 50
+   },
+   "output_chars": 1334
+  }
+ ]
+}

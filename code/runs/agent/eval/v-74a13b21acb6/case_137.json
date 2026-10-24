@@ -1,0 +1,434 @@
+{
+ "case_id": "case_137",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_3734",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_13"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6779",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_13"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_137",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_3734",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_13",
+    "reason": "Subject's primary profile. Integration management lookup at 2026-08-12T09:00:00Z returned NOT_FOUND for account_3734 with subject_reference jonas-eriksen@gmail.com. Absent at audit_at. Its shared deletion run (activity_2874) is a workflow claim only; the record is tied to this subject by the exact email in evidence_13. Snapshots of account_service (evidence_83, evidence_17, evidence_84, evidence_15, evidence_86) also lack it.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6779",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_13",
+    "reason": "Security audit record referencing the subject's user_id user_135 is FOUND in security_service at 2026-08-12T09:00:00Z. No retention_until is visible in the usable evidence and no expiry is shown, so it is treated as within the retention period and must be retained (RETAIN, verified as PRESENT).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "audit_117",
+    "reason": "Identity audit ID listed in the request subject identifiers has no usable evidence at audit_at; nothing to assess."
+   },
+   {
+    "resource_id": "analytics_7468",
+    "reason": "Belongs to jonas-lund@proton.me (different person), not this subject's email jonas-eriksen@gmail.com."
+   },
+   {
+    "resource_id": "search_1091",
+    "reason": "Belongs to jonas-lund@proton.me / user_525; different person."
+   },
+   {
+    "resource_id": "support_3896",
+    "reason": "Linked to jonas-lund@proton.me; different person."
+   },
+   {
+    "resource_id": "support_9832",
+    "reason": "Linked to jonas-lund@proton.me / user_525; different person."
+   },
+   {
+    "resource_id": "search_2979",
+    "reason": "Linked to jonas-lund@proton.me / user_525; different person."
+   },
+   {
+    "resource_id": "account_634",
+    "reason": "Email O.ERIKSEN10@YAHOO.COM does not exactly match the subject's email; different person."
+   },
+   {
+    "resource_id": "search_2799",
+    "reason": "Email O.ERIKSEN10@YAHOO.COM does not match; different person."
+   },
+   {
+    "resource_id": "search_3232",
+    "reason": "Email jonas.s2734@zoho.com does not match; different person."
+   },
+   {
+    "resource_id": "data_flow_626",
+    "reason": "Connector linked to jonas.s2734@zoho.com; different person."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete this account and its personal data, a direct request for erasure of their own data, with no negation or third-party element.",
+   "summary: Subject user_135 / jonas-eriksen@gmail.com. Only two resources tie to the subject in evidence: account_3734 (user profile, now ABSENT per the 2026-08-12 integration lookup, with account_service snapshots after the request also lacking it) and audit_record_6779 (security audit log referencing user_135, PRESENT and to be retained; no expiry visible). No search index, cache, analytics, marketing, export, support, email log, backup or data-flow record was found that references the subject's email, phone, hash, user_id or name. The 07-19 deletion-worker COMPLETE claim is not treated as proof; the direct 08-12 lookup is used instead."
+  ],
+  "usage": [
+   {
+    "case_id": "case_137",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 81,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_137",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 386,
+    "cache_creation_input_tokens": 4196,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_137",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 236,
+    "cache_creation_input_tokens": 2869,
+    "cache_read_input_tokens": 9067
+   },
+   {
+    "case_id": "case_137",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 651,
+    "cache_creation_input_tokens": 12756,
+    "cache_read_input_tokens": 11936
+   },
+   {
+    "case_id": "case_137",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 537,
+    "cache_creation_input_tokens": 7299,
+    "cache_read_input_tokens": 24692
+   },
+   {
+    "case_id": "case_137",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 397,
+    "cache_creation_input_tokens": 8433,
+    "cache_read_input_tokens": 31991
+   },
+   {
+    "case_id": "case_137",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 912,
+    "cache_creation_input_tokens": 6855,
+    "cache_read_input_tokens": 40424
+   },
+   {
+    "case_id": "case_137",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 855,
+    "cache_creation_input_tokens": 2304,
+    "cache_read_input_tokens": 47279
+   },
+   {
+    "case_id": "case_137",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1479,
+    "cache_creation_input_tokens": 2486,
+    "cache_read_input_tokens": 49583
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3734"
+   },
+   "output_chars": 2118
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6779"
+   },
+   "output_chars": 1520
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jonas-eriksen@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 699
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_135",
+    "limit": 100
+   },
+   "output_chars": 690
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Jonas Eriksen",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 200
+   },
+   "output_chars": 31151
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-17T00:00:00Z",
+    "end": "2026-08-12T09:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 15635
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_3734",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46704236089",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46705860572",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e762852624f0f1b5add6e31845acfe4821181e6d485ad8a4f4033e16ce5cba9d",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "eriksen",
+    "limit": 100
+   },
+   "output_chars": 1997
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jonas",
+    "limit": 100
+   },
+   "output_chars": 10494
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3734",
+    "limit": 100
+   },
+   "output_chars": 1298
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_117",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_6779",
+    "limit": 100
+   },
+   "output_chars": 699
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 9000
+   },
+   "output_chars": 1109
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jonas-eriksen",
+    "limit": 100
+   },
+   "output_chars": 689
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_117"
+   },
+   "output_chars": 138
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_6779",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "security_audit_records",
+    "limit": 5
+   },
+   "output_chars": 3139
+  }
+ ]
+}

@@ -1,0 +1,546 @@
+{
+ "case_id": "case_88",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_2967",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_08"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2967",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_868",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3825",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2967",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_88",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_868",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_08",
+    "reason": "Subject's primary profile (linked to oladipo.ikenna98@gmail.com). Search/lookup at audit_at (evidence_08 line 9, 2026-09-06T07:00:00Z) returned NOT_FOUND from account_service, so the record no longer exists. The deletion-worker SUCCESS claim (activity_3414) is not relied on; the direct lookup is. Compliant for DELETE category.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_2967",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_08",
+    "reason": "Support conversation keyed to the subject's current email (oladipo.ikenna98@gmail.com). At audit_at, evidence_08 line 35 shows it still exposes direct identifiers (IDENTIFIABLE). The deletion worker's REDACT result (activity_3421) was FAILED and is not reflected in the stored record. Rule requires REDACT, keeping shared order/agent context. Message content was not readable, so the shared-context condition is taken from its record type SUPPORT_MESSAGE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_3825",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_08",
+    "reason": "Security audit record with subject_reference user_86 (the subject's user_id), found at audit_at (evidence_08 line 27). Retained, not deleted. No retention_until value was visible in any usable file, so condition_met is an assumption that the record is still within its supplied retention period; this should be verified against the security retention register.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_9500",
+    "reason": "Linked only through shared batch run activity_3416 (shared with other requests case_102, case_73, case_86, case_87). The only usable observation (evidence_08 line 15) is an ANONYMIZED record with an empty subject_reference and no identifiers, so nothing ties it to this subject. Identity-free record in a shared run cannot be attributed."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to permanently delete the account tied to their email address and to review connected identifiers as part of that erasure, and requests confirmation of the outcome. This is a deletion request for the person's own account and data.",
+   "summary: Subject user_86 (oladipo.ikenna98@gmail.com). Confirmed: account_868 absent at audit_at (direct lookup, evidence_08); support_2967 still present with direct identifiers and needs REDACT (deletion worker's FAILED result not reflected); audit_record_3825 is a retained security audit record keyed to user_86 (retention end date not visible, flagged). Rejected analytics_9500 as an identity-free record from a shared batch run. Searches for the old email, phone and hashes found no further subject records. Failover/regional replicas checked: no subject rows. No active data flows, backups, exports, or legal holds tied to this subject were found in usable evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_88",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 107,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_88",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 696,
+    "cache_creation_input_tokens": 5134,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_88",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 781,
+    "cache_creation_input_tokens": 5111,
+    "cache_read_input_tokens": 10005
+   },
+   {
+    "case_id": "case_88",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 691,
+    "cache_creation_input_tokens": 16831,
+    "cache_read_input_tokens": 15116
+   },
+   {
+    "case_id": "case_88",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1717,
+    "cache_creation_input_tokens": 1580,
+    "cache_read_input_tokens": 31947
+   },
+   {
+    "case_id": "case_88",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1185,
+    "cache_creation_input_tokens": 10118,
+    "cache_read_input_tokens": 33527
+   },
+   {
+    "case_id": "case_88",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 816,
+    "cache_creation_input_tokens": 4858,
+    "cache_read_input_tokens": 43645
+   },
+   {
+    "case_id": "case_88",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2178,
+    "cache_creation_input_tokens": 3723,
+    "cache_read_input_tokens": 48503
+   },
+   {
+    "case_id": "case_88",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1384,
+    "cache_creation_input_tokens": 5003,
+    "cache_read_input_tokens": 52226
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "oladipo.ikenna98@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1084
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_86",
+    "limit": 100
+   },
+   "output_chars": 541
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "oladipo.ikenna@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 64
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ikenna oladipo",
+    "limit": 100
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348038829733",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_868"
+   },
+   "output_chars": 1971
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9500"
+   },
+   "output_chars": 1999
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_3825"
+   },
+   "output_chars": 1366
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2967"
+   },
+   "output_chars": 2012
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 0
+   },
+   "output_chars": 4397
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-21T00:00:00Z",
+    "end": "2026-09-06T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31419
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": null
+   },
+   "output_chars": 608
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_90",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": null
+   },
+   "output_chars": 640
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles_failover_replica"
+   },
+   "output_chars": 626
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles_primary"
+   },
+   "output_chars": 500
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_read_replica WHERE record_json LIKE '%oladipo%' OR record_json LIKE '%user_86%' OR record_json LIKE '%ikenna%' OR record_json LIKE '%2348038829733%' OR record_json LIKE '%30de6a7d%' OR record_json LIKE '%fa0b727d%' OR record_json LIKE '%account_868%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 8000
+   },
+   "output_chars": 220
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_88",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_11",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_09",
+    "offset": 0
+   },
+   "output_chars": 1354
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_868",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 345
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "oladipo",
+    "limit": 100
+   },
+   "output_chars": 3257
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_3825",
+    "limit": 50
+   },
+   "output_chars": 551
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_2967",
+    "limit": 50
+   },
+   "output_chars": 1197
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_9500",
+    "limit": 50
+   },
+   "output_chars": 1182
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_868",
+    "limit": 50
+   },
+   "output_chars": 1146
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary WHERE resource_id IN ('account_868','analytics_9500','audit_record_3825','support_2967') OR record_json LIKE '%user_86%' OR record_json LIKE '%oladipo%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_read_replica WHERE resource_id IN ('account_868','analytics_9500','audit_record_3825','support_2967') OR record_json LIKE '%user_86%' OR record_json LIKE '%oladipo%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2967"
+   },
+   "output_chars": 2012
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "30de6a7d8a938fb60879958dfcb9010864629953230c6b7a6eb9a1ceb8161fd3",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fa0b727dafea31a06ef3cab04b8160bdba38071adf9b10fcf4b7f4dcd9b44ce1",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-21T00:00:00Z",
+    "end": "2026-09-06T07:00:00Z",
+    "limit": 20
+   },
+   "output_chars": 6352
+  }
+ ]
+}

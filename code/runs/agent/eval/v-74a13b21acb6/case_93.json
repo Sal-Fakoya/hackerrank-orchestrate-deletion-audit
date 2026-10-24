@@ -1,0 +1,513 @@
+{
+ "case_id": "case_93",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_4421",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_1310",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_1824",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_047",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_047",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_4421",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_1310",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1824",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4421",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_1310",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1824",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_047",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_93",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4421",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_89",
+    "reason": "Account profile lookup at 2026-09-01T05:06:02Z returned status 200 with the subject's current email t.lima5881@yahoo.com still visible. Workflow activity_3228 reported PARTIAL and replication checkpoint activity_3231 was PARTIAL, so the profile was not confirmed deleted. Account_4421 is linked to the subject by its email, not by the shared run.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_047",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_89",
+    "reason": "Connector support_profile_sync is enabled with last_delivery_status delivered at 2026-09-01T03:12:34Z and carries customer_email t.lima5881@yahoo.com. It can keep copying or recreating the subject's data. The workflow's activity_3234 check is only a claim and is superseded by this observation.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_1310",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_89",
+    "reason": "Customer directory index query for the subject's email at 2026-09-01T05:08:28Z returned search_1310 with email t.lima5881@yahoo.com. The deletion result activity_3235 was FAILED, and the record is still present.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_1824",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_89",
+    "reason": "Support ticket at 2026-09-01T05:26:52Z has requester_email t.lima5881@yahoo.com still visible, so direct identifiers remain. It is a delivery-query conversation with order context, so it is a support message to redact rather than delete. The redaction activity_3236 was FAILED.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4037",
+    "reason": "Linked only through deletion batch activity_3227, which was shared with case_94 (mehta.neel82@icloud.com). No usable evidence ties account_4037 to this subject's email, hashes, phone, user_91 or name, so it cannot be attributed and is rejected."
+   },
+   {
+    "resource_id": "search_7631",
+    "reason": "Search-index entry for mehta.neel82@icloud.com, belonging to case_94's subject, not this request."
+   },
+   {
+    "resource_id": "data_flow_3165",
+    "reason": "analytics_identity_bridge connector for maja.eriksen86@gmail.com, a different person, not this subject."
+   },
+   {
+    "resource_id": "account_6813",
+    "reason": "Lookup returned 404 with no identity; no evidence ties it to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Portuguese): The customer requests permanent deletion of the account associated with their email, and asks the shop to check current and previous identifiers as part of the privacy process and confirm the result. This is a deletion request on the customer's own account; the extra confirmation and verification asks do not change that.",
+   "summary: Subject t.lima5881@yahoo.com (user_91, Thiago Lima). Four resources of this episode are still present or active at audit_at 2026-09-01T06:00:00Z per evidence_89: account_4421 (profile still holds the email), data_flow_047 (enabled support_profile_sync connector still copying the email), search_1310 (index entry with the email), and support_1824 (support ticket with requester email). The workflow's PARTIAL/FAILED/SUCCESS claims are not supported by stored state. account_4037 was rejected because it is attributable only to the batch shared with case_94. No historical emails, hashes, phone or name matches were found in the evidence, and no analytics, cache, export, backup, email-log, or legal-hold records were found for this subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_93",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1083,
+    "output_tokens": 125,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_93",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 430,
+    "cache_creation_input_tokens": 4807,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_93",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 428,
+    "cache_creation_input_tokens": 2518,
+    "cache_read_input_tokens": 9678
+   },
+   {
+    "case_id": "case_93",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 784,
+    "cache_creation_input_tokens": 6004,
+    "cache_read_input_tokens": 12196
+   },
+   {
+    "case_id": "case_93",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 652,
+    "cache_creation_input_tokens": 15454,
+    "cache_read_input_tokens": 18200
+   },
+   {
+    "case_id": "case_93",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 601,
+    "cache_creation_input_tokens": 4848,
+    "cache_read_input_tokens": 33654
+   },
+   {
+    "case_id": "case_93",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 572,
+    "cache_creation_input_tokens": 8164,
+    "cache_read_input_tokens": 38502
+   },
+   {
+    "case_id": "case_93",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1765,
+    "cache_creation_input_tokens": 27908,
+    "cache_read_input_tokens": 46666
+   },
+   {
+    "case_id": "case_93",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1762,
+    "cache_creation_input_tokens": 3616,
+    "cache_read_input_tokens": 74574
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "t.lima5881@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 4136
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_91",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "t.lima58@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 58
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thiago lima",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5511978466475",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4037"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4421"
+   },
+   "output_chars": 2899
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_047"
+   },
+   "output_chars": 2271
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_1310"
+   },
+   "output_chars": 3115
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_1824"
+   },
+   "output_chars": 2328
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_258",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_4037",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-11T00:00:00Z",
+    "end": "2026-09-01T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31240
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lima",
+    "limit": 100
+   },
+   "output_chars": 6012
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "bb849bc0d62d50c3a01a50791235abf388b5a1218b91dd80c827285819ebc70d",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d09e1dbe223dcbf120f91c8374ecf4d2ac05a2488cd9dee9dab0883744f6dbae",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-13T04:00:00Z",
+    "end": "2026-08-13T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 3264
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_94",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4037",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_profile_sync",
+    "limit": 50
+   },
+   "output_chars": 13596
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_3165"
+   },
+   "output_chars": 2288
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4421",
+    "limit": 50
+   },
+   "output_chars": 2085
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "t.lima",
+    "limit": 50
+   },
+   "output_chars": 4122
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Thiago",
+    "limit": 50
+   },
+   "output_chars": 15379
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 37706
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 5000
+   },
+   "output_chars": 4599
+  }
+ ]
+}

@@ -1,0 +1,415 @@
+{
+ "case_id": "case_485",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3582",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_64"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1981",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_64"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3582",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1981",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3582",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4405",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1981",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_485",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_3582",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_64",
+    "reason": "Search customer_directory_v3 returned a hit on andres-castillo@gmail.com (trace rb-083651-024, captured 2026-02-18T08:39:11Z, before audit_at). The index entry still exposes the subject's email. The workflow's DELETE result (activity_449, FAILED) is only a claim. Always DELETE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_1981",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_64",
+    "reason": "Analytics profile read (trace rb-083905-025, 2026-02-18T08:39:05Z) still returns email=andres-castillo@gmail.com, so the record is attributable to the subject. Requires ANONYMIZE. The workflow's ANONYMIZE result (activity_447, FAILED) is not proof of the current state.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3378",
+    "reason": "Linked only via the deletion-worker batch run activity_444, which is shared with case_486, case_487 and case_502. No usable evidence ties account_3378 to user_483 or andres-castillo@gmail.com. It also does not appear in the account_service snapshots (evidence_63, evidence_47, evidence_49, evidence_62), so it is not attributable to this subject. Rejected as belonging to other requests' shared run."
+   },
+   {
+    "resource_id": "analytics_5948",
+    "reason": "Linked only via shared batch run activity_446 (shared with case_486, case_487, case_502). The only observation (evidence_64 trace rb-071130-014) is an identity-free profile with all-null email, phone, email_hash and customer_reference, and no lookup key. It cannot be attributed to this subject, so it is rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to close their account and have its associated personal data deleted, which is erasure of their own data and account. The request for confirmation is an additional ask and does not change the classification.",
+   "summary: Subject andres-castillo@gmail.com (user_483). Two in-scope subject records are still present: search_3582 (search index entry with the subject's email) and analytics_1981 (analytics profile with the subject's email), both per evidence_64 captured 2026-02-18 before audit_at. Workflow DELETE/ANONYMIZE results were FAILED and are not proof of absence. The account_3378 and analytics_5948 candidates came from a shared deletion run with other customers and carry no identity linking them to this subject, so they were rejected. No USER_PROFILE/account record for user_483 was found in any usable snapshot or log. No active data flow, backup, export or support record was found tied to this subject. No legal hold or retention record was found for the subject.",
+   "future verification added for audit_record_4405 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_485",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 96,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_485",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 486,
+    "cache_creation_input_tokens": 1185,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_485",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 470,
+    "cache_creation_input_tokens": 5316,
+    "cache_read_input_tokens": 6056
+   },
+   {
+    "case_id": "case_485",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 658,
+    "cache_creation_input_tokens": 17525,
+    "cache_read_input_tokens": 11372
+   },
+   {
+    "case_id": "case_485",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1711,
+    "cache_creation_input_tokens": 5562,
+    "cache_read_input_tokens": 28897
+   },
+   {
+    "case_id": "case_485",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 487,
+    "cache_creation_input_tokens": 3872,
+    "cache_read_input_tokens": 34459
+   },
+   {
+    "case_id": "case_485",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 316,
+    "cache_creation_input_tokens": 4593,
+    "cache_read_input_tokens": 38331
+   },
+   {
+    "case_id": "case_485",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1338,
+    "cache_creation_input_tokens": 2177,
+    "cache_read_input_tokens": 42924
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_483",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "andres-castillo@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 1476
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Castillo",
+    "limit": 50
+   },
+   "output_chars": 1459
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3378"
+   },
+   "output_chars": 1336
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1981"
+   },
+   "output_chars": 2047
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5948"
+   },
+   "output_chars": 1991
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3582"
+   },
+   "output_chars": 2064
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-05T00:00:00Z",
+    "end": "2026-02-18T09:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31183
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3378",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8168042ddf22b828a1026ca98adfdace0bf1bfea6f894cfa74418219702a39cf",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34727032163",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "andrés",
+    "limit": 50
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_3582",
+    "limit": 50
+   },
+   "output_chars": 1386
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-05T00:00:00Z",
+    "end": "2026-02-07T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 9506
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 2500
+   },
+   "output_chars": 3181
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_search_documents WHERE email LIKE '%castillo%' OR display_name LIKE '%ndr%' OR customer_reference LIKE '%483%'"
+   },
+   "output_chars": 138
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": null
+   },
+   "output_chars": 618
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, email FROM customer_profiles WHERE email LIKE '%castillo%' OR customer_reference LIKE '%483%' UNION ALL SELECT 'analytics', resource_id, customer_reference, email FROM customer_analytics_profiles WHERE email LIKE '%castillo%' OR customer_reference LIKE '%483%' UNION ALL SELECT 'support', resource_id, customer_reference, requester_email FROM support_records WHERE requester_email LIKE '%castillo%' OR customer_reference LIKE '%483%' UNION ALL SELECT 'exports', resource_id, customer_reference, owner_email FROM customer_exports WHERE owner_email LIKE '%castillo%' OR customer_reference LIKE '%483%' UNION ALL SELECT 'conn', resource_id, customer_reference, customer_email FROM connector_subscriptions WHERE customer_email LIKE '%castillo%' OR customer_reference LIKE '%483%' UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email FROM backup_restore_entries WHERE customer_email LIKE '%castillo%' OR customer_reference LIKE '%483%'"
+   },
+   "output_chars": 76
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT 'replica' src, resource_id, origin_system, collection_name, record_json FROM customer_data_reporting_replica WHERE record_json LIKE '%castillo%' OR record_json LIKE '%483%' OR resource_id IN ('account_3378','analytics_1981','analytics_5948','search_3582') UNION ALL SELECT 'primary', resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%castillo%' OR record_json LIKE '%483%' OR resource_id IN ('account_3378','analytics_1981','analytics_5948','search_3582')"
+   },
+   "output_chars": 98
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  }
+ ]
+}

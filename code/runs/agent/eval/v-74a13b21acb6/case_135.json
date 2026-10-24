@@ -1,0 +1,324 @@
+{
+ "case_id": "case_135",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_1417",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_13"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5140",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_13"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_135",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_1417",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_13",
+    "reason": "Subject's primary USER_PROFILE (subject_reference o.morgan56@gmail.com, user_133). The 2026-08-12T09:00:00Z integration-management lookup in evidence_13 (records/1) returned NOT_FOUND for account_1417, captured before audit_at. The deletion worker's DELETE_RECORD (activity_2913, 2026-07-22) is only a workflow claim. evidence_13 records/38 shows FOUND with recorded_at 2026-08-14, after audit_at, so it is ignored. Compliant: DELETE category, record absent.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_5140",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_13",
+    "reason": "Security audit record linked to the subject via subject_reference user_133 (the subject's user_id). evidence_13 (records/27, captured 2026-08-12T09:00:00Z) shows it FOUND and available. No retention_until for this record appears in any usable evidence, so retention-window expiry cannot be shown; treated as within retention and RETAIN. Verify the retention end date before final closure.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [],
+  "notes": [
+   "intent: deletion (English): The customer asks for permanent account deletion for their own email address, asks that copies within scope be handled, and requests confirmation of the outcome; these are erasure requests for the person's own data and the follow-up confirmation is part of the deletion.",
+   "summary: Case case_135 (o.morgan56@gmail.com, user_133). Two resources are tied to the subject. account_1417 (USER_PROFILE) is ABSENT at audit_at per evidence_13, so it is compliant. audit_record_5140 (SECURITY_AUDIT_LOG, user_133) is PRESENT and retained, but its retention_until was not found in the evidence. Identifier searches for the email hash, phone, name and historical emails returned no other subject records. No active connector, backup or support/analytics copies were tied to this subject in the evidence. The workflow's COMPLETE claim is not fully supported as a complete outcome because of the retention verification gap."
+  ],
+  "usage": [
+   {
+    "case_id": "case_135",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1062,
+    "output_tokens": 113,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_135",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 474,
+    "cache_creation_input_tokens": 4112,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_135",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 836,
+    "cache_creation_input_tokens": 3540,
+    "cache_read_input_tokens": 8983
+   },
+   {
+    "case_id": "case_135",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 720,
+    "cache_creation_input_tokens": 20489,
+    "cache_read_input_tokens": 12523
+   },
+   {
+    "case_id": "case_135",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 857,
+    "cache_creation_input_tokens": 9109,
+    "cache_read_input_tokens": 33012
+   },
+   {
+    "case_id": "case_135",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 701,
+    "cache_creation_input_tokens": 2151,
+    "cache_read_input_tokens": 42121
+   },
+   {
+    "case_id": "case_135",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1545,
+    "cache_creation_input_tokens": 17314,
+    "cache_read_input_tokens": 44272
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "o.morgan56@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1327
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_133",
+    "limit": 100
+   },
+   "output_chars": 690
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Oliver Morgan",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1417"
+   },
+   "output_chars": 2749
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5140"
+   },
+   "output_chars": 1520
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8f846a0cd281c1aecad004fb9afe30a0b822e26ead0bcc084b7795c278fe3a2a",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "14155550133",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "morgan",
+    "limit": 100
+   },
+   "output_chars": 9898
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-19T00:00:00Z",
+    "end": "2026-08-12T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31150
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-20T00:00:00Z",
+    "end": "2026-07-23T23:59:59Z",
+    "limit": 200
+   },
+   "output_chars": 14464
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "o.morgan",
+    "limit": 100
+   },
+   "output_chars": 1315
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1417",
+    "limit": 100
+   },
+   "output_chars": 1929
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_5140",
+    "limit": 100
+   },
+   "output_chars": 699
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 9000
+   },
+   "output_chars": 1109
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "USER_PROFILE"
+   },
+   "output_chars": 107
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_5140 retention",
+    "limit": 50
+   },
+   "output_chars": 67
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 35693
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_133 security",
+    "limit": 50
+   },
+   "output_chars": 57
+  }
+ ]
+}

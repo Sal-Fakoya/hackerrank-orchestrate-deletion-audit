@@ -1,0 +1,435 @@
+{
+ "case_id": "case_10",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_002",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_61"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_002",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_010",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_002",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_10",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "support_002",
+    "system_id": "support_platform",
+    "category": "SECONDARY_IDENTIFIER",
+    "state": "PRESENT",
+    "evidence_id": "evidence_61",
+    "reason": "Support replica (legacy_contact_index) still returns the subject's current email nadia.ionescu@yahoo.com for support_002 at 2026-09-17T22:00:05Z; deletion_marker_check marker_found=false. The workflow's DELETE_RECORD (activity_3596) is only a claim and the replica copy survived it. A contact-detail copy in a secondary store is SECONDARY_IDENTIFIER and must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_010",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_93",
+    "reason": "Latest account_service inventory capture (2026-09-16T08:37:39Z) covers account_service and does not contain account_010; the failover replica capture evidence_54 (2026-09-02T23:00Z) also lacks it. Deletion activity_3595 is a workflow claim only, but the stored-state snapshots support absence.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "audit_121",
+    "reason": "Identity audit id listed for the subject, but no usable evidence in the request episode mentions it; not attributable to a governed resource in scope."
+   },
+   {
+    "resource_id": "audit_122",
+    "reason": "Identity audit id listed for the subject, but no usable evidence in the request episode mentions it; not attributable to a governed resource in scope."
+   },
+   {
+    "resource_id": "audit_238",
+    "reason": "Identity audit id listed for the subject, but no usable evidence in the request episode mentions it; not attributable to a governed resource in scope."
+   },
+   {
+    "resource_id": "audit_239",
+    "reason": "Identity audit id listed for the subject, but no usable evidence in the request episode mentions it; not attributable to a governed resource in scope."
+   },
+   {
+    "resource_id": "support_5914",
+    "reason": "Matched lookup_key nadia.popescu@yahoo.com, which is a different person's email (surname Popescu, not Petrescu/Ionescu); no identifier link to the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to remove records linked to both their old and current email addresses, which is erasure of their own personal data rather than a narrow single-item edit, so it authorizes deletion.",
+   "summary: Subject nadia.ionescu@yahoo.com / user_10. Two in-scope resources: support_002 (support-platform legacy contact index copy of the current email, still PRESENT at 2026-09-17T22:00Z despite the claimed deletion, so it needs deletion) and account_010 (primary profile, ABSENT per the 2026-09-16 inventory). No other subject records (name, phone, historical emails, hashes) surfaced in usable evidence. The workflow COMPLETE claim is not reliable for support_002."
+  ],
+  "usage": [
+   {
+    "case_id": "case_10",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1041,
+    "output_tokens": 97,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_10",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 507,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 10614
+   },
+   {
+    "case_id": "case_10",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 354,
+    "cache_creation_input_tokens": 1250,
+    "cache_read_input_tokens": 10614
+   },
+   {
+    "case_id": "case_10",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 844,
+    "cache_creation_input_tokens": 14668,
+    "cache_read_input_tokens": 11864
+   },
+   {
+    "case_id": "case_10",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 842,
+    "cache_creation_input_tokens": 11926,
+    "cache_read_input_tokens": 26532
+   },
+   {
+    "case_id": "case_10",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1200,
+    "cache_creation_input_tokens": 10329,
+    "cache_read_input_tokens": 38458
+   },
+   {
+    "case_id": "case_10",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 908,
+    "cache_creation_input_tokens": 22023,
+    "cache_read_input_tokens": 48787
+   },
+   {
+    "case_id": "case_10",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1106,
+    "cache_creation_input_tokens": 1130,
+    "cache_read_input_tokens": 70810
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nadia.ionescu@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 952
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_10",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "n.petrescu@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 60
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nadia.petrescu@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 64
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nadia petrescu",
+    "limit": 100
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "40723481638",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_002"
+   },
+   "output_chars": 2389
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_010"
+   },
+   "output_chars": 1501
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-31T00:00:00Z",
+    "end": "2026-09-18T12:25:00Z",
+    "limit": 200
+   },
+   "output_chars": 31092
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-31T15:00:00Z",
+    "end": "2026-09-02T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 15816
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ionescu",
+    "limit": 100
+   },
+   "output_chars": 7480
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "petrescu",
+    "limit": 100
+   },
+   "output_chars": 1741
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6385b5b5e70720c197abedd379f714bb84330a9c7bc86bbb4bfbc4405bdba326",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "708ef5640eec7c7aa89a6dc39793c5df6f9bca6968397f46a8f44ff1bdde75f5",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e407f542e6f638d23b7efa7c74bacfb3ee6c3991ca6625ad36c8dcb7dffa144a",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_61",
+    "offset": 0
+   },
+   "output_chars": 2054
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_54",
+    "offset": 0
+   },
+   "output_chars": 2330
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_02",
+    "offset": 0
+   },
+   "output_chars": 4657
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_51",
+    "offset": 0
+   },
+   "output_chars": 2266
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_93",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_92",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nadia",
+    "limit": 100
+   },
+   "output_chars": 4621
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_010",
+    "limit": 100
+   },
+   "output_chars": 674
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_002",
+    "limit": 100
+   },
+   "output_chars": 1566
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+40",
+    "limit": 100
+   },
+   "output_chars": 43
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 37804
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_121"
+   },
+   "output_chars": 138
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_238"
+   },
+   "output_chars": 138
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_121",
+    "limit": 50
+   },
+   "output_chars": 49
+  }
+ ]
+}

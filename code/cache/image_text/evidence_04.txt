@@ -1,0 +1,58 @@
+Northstar Shop
+Customer Operations
+Search customers, orders, tickets...
+Production
+Help
+CO
+
+Customers
+Orders
+Support
+Catalog
+Promotions
+Analytics
+
+Customer Operations
+Production workspace
+build 2026.10.4
+
+Northstar Shop / Customer Operations / Customers
+Haruka Sato
+Silver
+user_11 · account_5762
+
+Filter
+Export
+Actions
+
+Overview
+Orders
+Addresses
+Support history
+
+Email: haruka.s1838@zoho.com
+Phone: +81 90 7610 2507
+Signup channel: mobile_app
+Market: JP
+Preferred language: Japanese
+Last contact: 24 Sep 2026 09:14 JST
+
+Overview
+Updated moments ago · 2 records
+
+Order ID | Date | Item | Qty | Total | Status
+1 ORD-20265762 | 12 Sep 2026 | Ceramic coffee set | 1 | JPY 8,900 | Delivered · 18 Sep
+2 ORD-20265518 | 28 Aug 2026 | Travel backpack | 1 | JPY 12,400 | Returned · 03 Sep
+
+Customer details
+Default address: 2-18-4 Kichijoji, Musashino, Tokyo 180-0004
+Loyalty tier: Silver
+Support: CS-8538 · support_9538
+Member since: 12 Jan 2024
+
+Activity
+24 Sep | Customer replied to CS-8538
+22 Sep | Support agent responded
+18 Sep | Order ORD-20265762 delivered
+03 Sep | Order ORD-20265518 returned
+28 Aug | support_9538 created

@@ -1,0 +1,507 @@
+{
+ "case_id": "case_100",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_018",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_1630",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_018",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1630",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_018",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1630",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_100",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_018",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_89",
+    "reason": "Search index document search_018 returns the subject's email nasser.mariam88@gmail.com on a query for that exact address (observed 2026-09-01T04:45:42Z). Direct identifier still visible; DELETE required. Workflow DELETE_RECORD activity_3144 reported FAILED.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_1630",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_89",
+    "reason": "Support ticket support_1630 has requester_email nasser.mariam88@gmail.com still visible (observed 2026-09-01T04:10:02Z). Ticket is a single-customer account-access contact, so REDACT applies. Workflow REDACT_RECORD activity_3143 reported FAILED.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1034",
+    "reason": "Linked only via batch_run activity_3136, which is shared with case_98 and case_99. No usable evidence ties this account to the subject (no snapshot or export row mentions it or the subject's identifiers). Rejected as unattributable; the absent claim is not relied on."
+   },
+   {
+    "resource_id": "account_7927",
+    "reason": "Linked only via shared batch_run activity_3135 (shared with case_98, case_99). No evidence ties it to this subject. Rejected."
+   },
+   {
+    "resource_id": "account_9511",
+    "reason": "Linked only via shared batch_run activity_3137 (shared with case_98, case_99). No evidence ties it to this subject. Rejected."
+   },
+   {
+    "resource_id": "legal_hold_668",
+    "reason": "Linked only via shared batch_run activity_3138 (shared with case_98, case_99). The only evidence is a workflow RETAIN claim; no record shows it references the subject. Rejected as not this subject's governed record."
+   },
+   {
+    "resource_id": "data_flow_3165",
+    "reason": "Connector analytics_identity_bridge is for maja.eriksen86@gmail.com (case_98 subject), not this subject. Rejected."
+   },
+   {
+    "resource_id": "backup_7804",
+    "reason": "Backup archive is for i.horvat72@gmail.com (case_99 subject), not this subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to close their own account and process the associated personal-data deletion. The extra sentences about completing review and confirming are procedural asks, not instructions to override the classification; the core request is erasure of the person's own account and data.",
+   "summary: Subject nasser.mariam88@gmail.com (user_98). Only two live records are tied to the subject in the request window: search_018 (search index, PRESENT, DELETE) and support_1630 (support ticket with requester email, PRESENT, REDACT). Both are from evidence_89 captured 2026-09-01. The shared-batch accounts and legal hold were rejected for lack of attributable evidence. No active data flow or restorable backup was tied to this subject. Searches on the subject's hashes, phone, old email and user_98 found no further records."
+  ],
+  "usage": [
+   {
+    "case_id": "case_100",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1052,
+    "output_tokens": 108,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_100",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 637,
+    "cache_creation_input_tokens": 4940,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_100",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 900,
+    "cache_creation_input_tokens": 5800,
+    "cache_read_input_tokens": 9811
+   },
+   {
+    "case_id": "case_100",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 803,
+    "cache_creation_input_tokens": 7091,
+    "cache_read_input_tokens": 15611
+   },
+   {
+    "case_id": "case_100",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 622,
+    "cache_creation_input_tokens": 12465,
+    "cache_read_input_tokens": 22702
+   },
+   {
+    "case_id": "case_100",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 239,
+    "cache_creation_input_tokens": 13127,
+    "cache_read_input_tokens": 35167
+   },
+   {
+    "case_id": "case_100",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 990,
+    "cache_creation_input_tokens": 8752,
+    "cache_read_input_tokens": 48294
+   },
+   {
+    "case_id": "case_100",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1494,
+    "cache_creation_input_tokens": 17176,
+    "cache_read_input_tokens": 57046
+   },
+   {
+    "case_id": "case_100",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1945,
+    "cache_creation_input_tokens": 7189,
+    "cache_read_input_tokens": 74222
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nasser.mariam88@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2557
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_98",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nasser.mariam@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Mariam Nasser",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_018"
+   },
+   "output_chars": 3118
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_1630"
+   },
+   "output_chars": 2326
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_668"
+   },
+   "output_chars": 1455
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1034"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7927"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9511"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1fb889a86885d20c89078754af088be580a899073865e6991b42ce60333dcad4",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f4e9abcb5082caba70103ebee3257753e7cbb75302913ab60b2af432c607eded",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971547705148",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nasser",
+    "limit": 100
+   },
+   "output_chars": 9327
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1034",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_10",
+    "offset": 0
+   },
+   "output_chars": 4560
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_12",
+    "offset": 0
+   },
+   "output_chars": 4651
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_87",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-01T00:00:00Z",
+    "end": "2026-09-01T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31240
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-04T00:00:00Z",
+    "end": "2026-08-08T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 21226
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mariam",
+    "limit": 100
+   },
+   "output_chars": 12914
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold",
+    "limit": 100
+   },
+   "output_chars": 15640
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_256",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_3165"
+   },
+   "output_chars": 2288
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_7804"
+   },
+   "output_chars": 2248
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_1630",
+    "limit": 100
+   },
+   "output_chars": 1511
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_09",
+    "offset": 0
+   },
+   "output_chars": 1354
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_14",
+    "offset": 0
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_15",
+    "offset": 0
+   },
+   "output_chars": 4513
+  }
+ ]
+}

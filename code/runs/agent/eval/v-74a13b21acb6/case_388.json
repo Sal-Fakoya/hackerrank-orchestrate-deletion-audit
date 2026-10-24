@@ -1,0 +1,528 @@
+{
+ "case_id": "case_388",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_182",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_36"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_2784",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_36"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_8378",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_36"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3250",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_36"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3250",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_182",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_8378",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_2784",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8186",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_182",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_8683",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_8378",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_2784",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 14,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3250",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_388",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_8186",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_36",
+    "reason": "Customer export manifest captured 2026-04-09 shows the primary profile account_8186 for agyeman.adwoa@gmail.com as NOT_FOUND. The deletion worker's DELETE result (activity_1160) was FAILED, which does not prove presence; the latest stored-state observation shows absence. DELETE category, so compliant.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_2784",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_36",
+    "reason": "Export manifest captured 2026-04-09 shows analytics_2784 still IDENTIFIABLE with subject_reference agyeman.adwoa@gmail.com. The ANONYMIZE activity (activity_1173) reported FAILED. Still attributable to the user, so it must be anonymized.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_182",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_36",
+    "reason": "Export manifest captured 2026-04-09 shows search_182 FOUND for agyeman.adwoa@gmail.com. The delete result in activity_1170 was FAILED. Index entry still exists and must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_8378",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_36",
+    "reason": "Export manifest captured 2026-04-09 shows support_8378 as a SUPPORT_MESSAGE with direct identifiers for agyeman.adwoa@gmail.com. The REDACT activity_1167 reported FAILED. Conversation must be redacted (retained shared context), not deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_3250",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_36",
+    "reason": "Export manifest captured 2026-04-09 shows data_flow_3250 with ACTIVE status tied to agyeman.adwoa@gmail.com. The connector can copy or recreate the subject's data, so it must be disabled. The workflow's CHECK_DATA_FLOW (activity_1175) only confirmed it remained enabled.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_8683",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_36",
+    "reason": "Export manifest captured 2026-04-09 shows security audit record audit_record_8683 FOUND with subject_reference user_386, the subject's internal user_id. No retention end date is supplied for this record, so no expiry is shown; it is retained and verified as present.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "backup_1668",
+    "reason": "Backup archive is tied to y.okeke4489@gmail.com (another customer) in evidence_36, not to this subject. The restore-access check (activity_1166) concerns another person's data, so it was rejected."
+   },
+   {
+    "resource_id": "search_6401",
+    "reason": "Matched only on adwoa.boateng@gmail.com, a different person's email. Not this subject."
+   },
+   {
+    "resource_id": "account_9641",
+    "reason": "Lookup key adwoa.boateng@gmail.com, a different person. 404 result."
+   },
+   {
+    "resource_id": "data_flow_3518",
+    "reason": "Connector subject_key adwoa.boateng@gmail.com, a different person's data flow."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to permanently delete the account associated with their email address and asks that the relevant account records be processed, which is erasure of the person's own account and data. The request to send a short confirmation is additional but does not change the deletion authorization.",
+   "summary: Subject agyeman.adwoa@gmail.com (user_386) has six in-scope resources, all seen in the 2026-04-09 customer export manifest (evidence_36), within the request window. Account profile account_8186 is absent. Analytics profile, search index entry, and support message remain present with identifiers. Data flow data_flow_3250 is active and must be disabled. Security audit record audit_record_8683 is retained. Every deletion/anonymize/redact attempt in the workflow reported FAILED, so the NOT_STARTED status is inaccurate. Backup backup_1668 and the adwoa.boateng records were rejected as other customers' data."
+  ],
+  "usage": [
+   {
+    "case_id": "case_388",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 114,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_388",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 398,
+    "cache_creation_input_tokens": 1962,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_388",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 491,
+    "cache_creation_input_tokens": 8530,
+    "cache_read_input_tokens": 6833
+   },
+   {
+    "case_id": "case_388",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 578,
+    "cache_creation_input_tokens": 14998,
+    "cache_read_input_tokens": 15363
+   },
+   {
+    "case_id": "case_388",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 762,
+    "cache_creation_input_tokens": 13922,
+    "cache_read_input_tokens": 30361
+   },
+   {
+    "case_id": "case_388",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 978,
+    "cache_creation_input_tokens": 4258,
+    "cache_read_input_tokens": 44283
+   },
+   {
+    "case_id": "case_388",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1042,
+    "cache_creation_input_tokens": 2005,
+    "cache_read_input_tokens": 48541
+   },
+   {
+    "case_id": "case_388",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1275,
+    "cache_creation_input_tokens": 4171,
+    "cache_read_input_tokens": 50546
+   },
+   {
+    "case_id": "case_388",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2109,
+    "cache_creation_input_tokens": 2745,
+    "cache_read_input_tokens": 54717
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "agyeman.adwoa@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 3302
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_386",
+    "limit": 100
+   },
+   "output_chars": 683
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "adwoa",
+    "limit": 100
+   },
+   "output_chars": 5517
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8186"
+   },
+   "output_chars": 2126
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "3cbadc247383c208155a5ed83d1fe68b73725d0c28364a7ebede9b437e78e2a0",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233241638526",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "agyeman",
+    "limit": 100
+   },
+   "output_chars": 3286
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-24T00:00:00Z",
+    "end": "2026-04-09T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31827
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2784"
+   },
+   "output_chars": 2183
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_8683"
+   },
+   "output_chars": 1512
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_3250"
+   },
+   "output_chars": 2139
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_182"
+   },
+   "output_chars": 2101
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_8378"
+   },
+   "output_chars": 2154
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-03-24T00:00:00Z",
+    "end": "2026-04-09T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 21829
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 2000
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT 'ana' t, * FROM customer_analytics_profiles WHERE email LIKE '%adwoa%' OR customer_reference LIKE '%386%' OR email_hash LIKE '3cbad%' OR phone LIKE '%41638526%' UNION ALL SELECT 'sb', resource_id, customer_reference, customer_email, archive_key, restore_allowed, updated_at, NULL FROM backup_restore_entries UNION ALL SELECT 'conn', resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status, updated_at FROM connector_subscriptions UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents UNION ALL SELECT 'audit', resource_id, subject_reference, event_code, retention_until, updated_at, NULL, NULL FROM security_audit_records UNION ALL SELECT 'sup', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records UNION ALL SELECT 'exp', resource_id, customer_reference, owner_email, owner_phone, object_key, updated_at, NULL FROM customer_exports"
+   },
+   "output_chars": 1861
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT 'p' src, resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%adwoa%' OR record_json LIKE '%user_386%' OR record_json LIKE '%41638526%' OR record_json LIKE '%3cbad%' UNION ALL SELECT 'ap', resource_id, origin_system, collection_name, record_json FROM customer_data_replica_ap_south WHERE record_json LIKE '%adwoa%' OR record_json LIKE '%user_386%' OR record_json LIKE '%41638526%' OR record_json LIKE '%3cbad%' UNION ALL SELECT 'eu', resource_id, origin_system, collection_name, record_json FROM customer_data_replica_eu_west WHERE record_json LIKE '%adwoa%' OR record_json LIKE '%user_386%' OR record_json LIKE '%41638526%' OR record_json LIKE '%3cbad%'"
+   },
+   "output_chars": 98
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-27T10:00:00Z",
+    "end": "2026-03-27T16:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 5933
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_8683"
+   },
+   "output_chars": 1512
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_8683",
+    "limit": 50
+   },
+   "output_chars": 692
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_1668"
+   },
+   "output_chars": 2118
+  }
+ ]
+}

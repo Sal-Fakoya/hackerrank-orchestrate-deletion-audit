@@ -1,0 +1,422 @@
+{
+ "case_id": "case_344",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_5267",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_71"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5544",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_71"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5544",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_5267",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5267",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5268",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5544",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_344",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_5267",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_71",
+    "reason": "Latest usable export (2026-04-29T08:32:22Z) shows search_5267 still indexes chloe.mercier90@outlook.com (the subject's current email) in a query-hit at 08:11:53Z. Search index entry must be deleted; the workflow's FAILED delete (activity_1496) does not prove absence.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_5544",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_71",
+    "reason": "Connector support_profile_sync (data_flow_5544) is enabled and last delivered at 2026-04-29T06:40:36Z for the subject's email chloe.mercier90@outlook.com. It can copy or recreate the subject's data and must be disabled. The deletion worker's CHECK_DATA_FLOW claim (activity_1495) is older and is superseded by evidence_71.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_5268",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "ABSENT",
+    "evidence_id": "evidence_71",
+    "reason": "Activity_1628 says connector data_flow_4521 repopulated search_5268 on 2026-04-28, and activity_1630 reports a FAILED delete. In the latest search-service export (2026-04-29T08:32:22Z), the subject-email query returns only search_5267, not search_5268, and evidence_71 is a usable snapshot covering search_service that lacks this record. So no current copy was found. Compliant, but it should be re-verified because the connector that fed it is still in scope.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_486",
+    "reason": "Linked only through batch run activity_1491, which is shared with case_345 and case_346. No usable evidence ties it to this subject. Latest snapshot evidence_71 does not contain it. Not attributable."
+   },
+   {
+    "resource_id": "account_5214",
+    "reason": "Linked only through shared batch run activity_1492. Its only observation (evidence_71) is an identity-free 404 profile lookup, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_8834",
+    "reason": "Linked only through shared batch run activity_1490. Its only observation (evidence_71) is an identity-free 404 profile lookup, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "analytics_3990",
+    "reason": "Linked only through shared batch run activity_1493. Its evidence_71 profile has all-null email, hash, phone and customer_reference, so it is identity-free and cannot be attributed."
+   },
+   {
+    "resource_id": "analytics_7102",
+    "reason": "Linked only through shared batch run activity_1494. Its evidence_71 profile has all-null identifiers, so it is identity-free and cannot be attributed."
+   },
+   {
+    "resource_id": "data_flow_4521",
+    "reason": "Connector that repopulated search_5268 (activity_1628). It is absent from the latest integration_service connector export (evidence_71), so it no longer exists and is not an active recreation path at audit_at. Its only record is the workflow activity claim, so it is not reported as a DATA_FLOW fact."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete this account and its personal data, including associated records, and requests confirmation of the outcome. This is a direct erasure request for their own data.",
+   "summary: Subject chloe.mercier90@outlook.com / user_342. Two live items remain: search_5267 still indexes the subject's email (PRESENT, delete), and connector data_flow_5544 is enabled and delivering the subject's email (ACTIVE, disable). search_5268 was repopulated by a since-removed connector and is absent in the latest export. The batch-linked accounts and analytics profiles are in a run shared with other requests and carry no identity, so they are rejected. No user-level account, support, marketing, backup, or audit record for user_342 was found in usable evidence. Historical email, hashes, phone and name searches returned nothing beyond evidence_71."
+  ],
+  "usage": [
+   {
+    "case_id": "case_344",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 90,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_344",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 565,
+    "cache_creation_input_tokens": 2655,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_344",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 637,
+    "cache_creation_input_tokens": 17429,
+    "cache_read_input_tokens": 7526
+   },
+   {
+    "case_id": "case_344",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2053,
+    "cache_creation_input_tokens": 9277,
+    "cache_read_input_tokens": 24955
+   },
+   {
+    "case_id": "case_344",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1707,
+    "cache_creation_input_tokens": 5060,
+    "cache_read_input_tokens": 34232
+   },
+   {
+    "case_id": "case_344",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3747,
+    "cache_creation_input_tokens": 7069,
+    "cache_read_input_tokens": 39292
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chloe.mercier90@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 2518
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_342",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mercier",
+    "limit": 50
+   },
+   "output_chars": 2498
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-17T00:00:00Z",
+    "end": "2026-04-29T09:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31082
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 9000
+   },
+   "output_chars": 975
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_5544"
+   },
+   "output_chars": 2293
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5267"
+   },
+   "output_chars": 3143
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5268"
+   },
+   "output_chars": 2035
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3990"
+   },
+   "output_chars": 2267
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7102"
+   },
+   "output_chars": 2267
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_486"
+   },
+   "output_chars": 1483
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5214"
+   },
+   "output_chars": 2123
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8834"
+   },
+   "output_chars": 2123
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 1900
+   },
+   "output_chars": 4623
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chloe.mercier@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 65
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6202ebad2aafd13e3dd281352661d3fc518360be515e5e11a69791eda499e3dc",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "b723caffee33f72355722a5cb61d7b009e3bd1e110bbf8e3b28f8e5eab1df479",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33670646229",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chloé mercier",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_4521"
+   },
+   "output_chars": 1495
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_140",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 3800
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 5700
+   },
+   "output_chars": 4604
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Chloe",
+    "limit": 50
+   },
+   "output_chars": 2496
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_4521",
+    "limit": 20
+   },
+   "output_chars": 672
+  }
+ ]
+}

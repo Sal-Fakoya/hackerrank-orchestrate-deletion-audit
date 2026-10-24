@@ -1,0 +1,675 @@
+{
+ "case_id": "case_329",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_5226",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_671",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_5226",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_671",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5226",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3525",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_671",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_329",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_5226",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_73",
+    "reason": "Live index query at 2026-05-09T10:43:53Z (trace rb-104353-033) on customer_directory_v3 with the subject's email diego-fernandez@gmail.com returned a hit (total_hits=1) with the email still exposed. The deletion worker's DELETE_RECORD (activity_1568) reported FAILED, so the index entry was not removed. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_671",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_73",
+    "reason": "Analytics profile read at 2026-05-09T08:22:47Z (trace rb-082247-008) returned email=diego-fernandez@gmail.com with audience_cohort=general_shopper. The profile is still attributable to the subject through the email, so ANONYMIZE is required. The workflow's ANONYMIZE_RECORD (activity_1566) reported FAILED.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2583",
+    "reason": "Linked only through batch_run activity_1556, which is shared with other requests (case_314, 315, 316, 330, 331). No usable evidence ties this account to user_327 or the subject's identifiers. The 'absent' state is only a workflow claim, so it was not used to decide anything."
+   },
+   {
+    "resource_id": "account_591",
+    "reason": "Linked only through shared batch_run activity_1562 with other requests. No identity evidence ties it to the subject. Only the workflow claim (SUCCESS) exists."
+   },
+   {
+    "resource_id": "account_6301",
+    "reason": "Linked only through shared batch_run activity_1557 with other requests. No identity evidence ties it to the subject. Its only signal is a workflow claim (FAILED/present), not an observation."
+   },
+   {
+    "resource_id": "account_9523",
+    "reason": "Linked only through shared batch_run activity_1563 with other requests. No identity evidence ties it to the subject. Only the workflow claim exists."
+   },
+   {
+    "resource_id": "analytics_2022",
+    "reason": "Linked only through shared batch_run activity_1558. The only direct observation (evidence_73, trace rb-093026-019) was a read with lookup_key=null and all identifiers null (email, phone, email_hash, customer_reference). It is an identity-free record in a shared run and cannot be attributed to the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks the shop to begin the account deletion process for their own account using the given email address, to review connected identifiers as part of that deletion, and to confirm when finished. This is a request for erasure of the person's own account and data.",
+   "summary: Subject diego-fernandez@gmail.com (user_327). Two records are attributable to the subject and in scope from the 2026-05-09 readback (evidence_73): search_5226 (search index entry still holds the email, PRESENT, delete) and analytics_671 (analytics profile still holds the email, PRESENT, anonymize). Four account_service candidates and analytics_2022 come from the shared deletion batch run and have no identity evidence linking them to this subject, so they were rejected. No DATA_FLOW, backup, export, support, or marketing record tied to the subject was found in usable evidence. The primary account for user_327 has no usable record in the evidence set, so its state could not be observed.",
+   "future verification added for audit_record_3525 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_329",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 111,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 618,
+    "cache_creation_input_tokens": 2993,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 748,
+    "cache_creation_input_tokens": 7102,
+    "cache_read_input_tokens": 7864
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 357,
+    "cache_creation_input_tokens": 2328,
+    "cache_read_input_tokens": 14966
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1753,
+    "cache_creation_input_tokens": 5481,
+    "cache_read_input_tokens": 17294
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 683,
+    "cache_creation_input_tokens": 2456,
+    "cache_read_input_tokens": 22775
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 421,
+    "cache_creation_input_tokens": 1080,
+    "cache_read_input_tokens": 25231
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 550,
+    "cache_creation_input_tokens": 1117,
+    "cache_read_input_tokens": 26311
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 231,
+    "cache_creation_input_tokens": 13084,
+    "cache_read_input_tokens": 27428
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1796,
+    "cache_creation_input_tokens": 3793,
+    "cache_read_input_tokens": 40512
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 602,
+    "cache_creation_input_tokens": 2234,
+    "cache_read_input_tokens": 44305
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 702,
+    "cache_creation_input_tokens": 2869,
+    "cache_read_input_tokens": 46539
+   },
+   {
+    "case_id": "case_329",
+    "call": "turn_12",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1533,
+    "cache_creation_input_tokens": 3911,
+    "cache_read_input_tokens": 49408
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diego-fernandez@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_327",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2583"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_591"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6301"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9523"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2022"
+   },
+   "output_chars": 2137
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_671"
+   },
+   "output_chars": 2183
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5226"
+   },
+   "output_chars": 2207
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diego",
+    "limit": 50
+   },
+   "output_chars": 1454
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34658383577",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "dd126b271a19209d6d22ff27d3c06171ebcf53284ca4d3287258041e78f2905d",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6301",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Fernández",
+    "limit": 50
+   },
+   "output_chars": 939
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 2406
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'cp' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status, updated_at FROM customer_profiles WHERE email LIKE '%diego%' OR full_name LIKE '%Fern%' OR customer_reference='user_327' OR phone LIKE '%58383577%' OR resource_id IN ('account_2583','account_591','account_6301','account_9523')"
+   },
+   "output_chars": 144
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'sd' t, resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents WHERE email LIKE '%diego%' OR display_name LIKE '%Fern%' OR customer_reference='user_327' OR resource_id='search_5226'"
+   },
+   "output_chars": 143
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'ap' t, resource_id, customer_reference, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles WHERE email LIKE '%diego%' OR customer_reference='user_327' OR resource_id IN ('analytics_2022','analytics_671')"
+   },
+   "output_chars": 132
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'sr' t, resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE requester_email LIKE '%diego%' OR requester_name LIKE '%Fern%' OR customer_reference='user_327'"
+   },
+   "output_chars": 156
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'ce' t, resource_id, customer_reference, owner_email, owner_phone, object_key, updated_at FROM customer_exports WHERE owner_email LIKE '%diego%' OR customer_reference='user_327'"
+   },
+   "output_chars": 125
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'cs' t, resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status, updated_at FROM connector_subscriptions WHERE customer_email LIKE '%diego%' OR customer_reference='user_327'"
+   },
+   "output_chars": 152
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'br' t, resource_id, customer_reference, customer_email, archive_key, restore_allowed, updated_at FROM backup_restore_entries WHERE customer_email LIKE '%diego%' OR customer_reference='user_327'"
+   },
+   "output_chars": 133
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'sa' t, resource_id, subject_reference, event_code, retention_until, updated_at FROM security_audit_records WHERE subject_reference='user_327'"
+   },
+   "output_chars": 113
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 377
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'cp' t, COUNT(*) FROM customer_profiles UNION ALL SELECT 'sd', COUNT(*) FROM customer_search_documents UNION ALL SELECT 'ap', COUNT(*) FROM customer_analytics_profiles UNION ALL SELECT 'cs', COUNT(*) FROM connector_subscriptions UNION ALL SELECT 'br', COUNT(*) FROM backup_restore_entries UNION ALL SELECT 'ce', COUNT(*) FROM customer_exports UNION ALL SELECT 'sr', COUNT(*) FROM support_records UNION ALL SELECT 'sa', COUNT(*) FROM security_audit_records"
+   },
+   "output_chars": 128
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 42
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT resource_id, customer_reference, full_name, email, phone, account_status, updated_at FROM customer_profiles UNION ALL SELECT resource_id, customer_reference, display_name, email, phone, index_name, updated_at FROM customer_search_documents"
+   },
+   "output_chars": 893
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT resource_id, customer_reference, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles"
+   },
+   "output_chars": 401
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-22T00:00:00Z",
+    "end": "2026-05-09T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31274
+  },
+  {
+   "turn": 8,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-22T10:00:00Z",
+    "end": "2026-04-23T13:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 8867
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": "SELECT resource_id, customer_reference, full_name, email, phone, account_status, updated_at FROM customer_profiles WHERE resource_id IN ('account_2583','account_591','account_6301','account_9523') OR customer_reference='user_327' OR email LIKE '%diego%' OR full_name LIKE '%Fern%'"
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT resource_id, customer_reference, full_name, email, phone, account_status, updated_at FROM customer_profiles WHERE resource_id IN ('account_2583','account_591','account_6301','account_9523') OR customer_reference='user_327' OR email LIKE '%diego%' OR full_name LIKE '%Fern%'"
+   },
+   "output_chars": 125
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT resource_id, customer_reference, full_name, email, phone, account_status, updated_at FROM customer_profiles WHERE resource_id IN ('account_2583','account_591','account_6301','account_9523') OR customer_reference='user_327' OR email LIKE '%diego%' OR full_name LIKE '%Fern%'"
+   },
+   "output_chars": 125
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT resource_id, customer_reference, full_name, email, phone, account_status, updated_at FROM customer_profiles WHERE resource_id IN ('account_2583','account_591','account_6301','account_9523') OR customer_reference='user_327' OR email LIKE '%diego%' OR full_name LIKE '%Fern%'"
+   },
+   "output_chars": 125
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, customer_reference, full_name, email, phone, account_status, updated_at FROM customer_profiles WHERE resource_id IN ('account_2583','account_591','account_6301','account_9523') OR customer_reference='user_327' OR email LIKE '%diego%' OR full_name LIKE '%Fern%'"
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, customer_reference, full_name, email, phone, account_status, updated_at FROM customer_profiles WHERE resource_id IN ('account_2583','account_591','account_6301','account_9523') OR customer_reference='user_327' OR email LIKE '%diego%' OR full_name LIKE '%Fern%'"
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT resource_id, customer_reference, full_name, email, phone, account_status, updated_at FROM customer_profiles WHERE resource_id IN ('account_2583','account_591','account_6301','account_9523') OR customer_reference='user_327' OR email LIKE '%diego%' OR full_name LIKE '%Fern%'"
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2583",
+    "limit": 20
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_591",
+    "limit": 20
+   },
+   "output_chars": 655
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9523",
+    "limit": 20
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_5226",
+    "limit": 20
+   },
+   "output_chars": 1389
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_671",
+    "limit": 20
+   },
+   "output_chars": 1361
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_327",
+    "limit": 20
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 11,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fernandez",
+    "limit": 50
+   },
+   "output_chars": 1458
+  },
+  {
+   "turn": 11,
+   "tool": "search_evidence",
+   "input": {
+    "query": "gmail.com",
+    "limit": 5
+   },
+   "output_chars": 3415
+  },
+  {
+   "turn": 11,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2022"
+   },
+   "output_chars": 2137
+  }
+ ]
+}

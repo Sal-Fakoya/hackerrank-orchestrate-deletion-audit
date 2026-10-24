@@ -1,0 +1,261 @@
+{
+ "case_id": "case_260",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1876",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_260",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_1876",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Security audit event 'account_deletion_reviewed' with subject_reference user_258 is still stored in the primary and read replica at audit_at (2026-06-13T11:00:00Z). It is a recent record from this deletion episode with no expiry evidence, so it is within the retention period and must be retained (reported as PRESENT for retention verification). It carries only a stable internal reference, no direct identifiers.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_5053",
+    "reason": "Linked only through the deletion-worker run activity_1941, which is shared with case_261 (y.park50@yahoo.com). The stored record (evidence_24) has email, email_hash, phone and user_id all null and no subject reference, so no usable evidence ties it to user_258 or to this subject. Identity-free record in a shared run cannot be attributed, so it is rejected and not treated as this subject's data. The workflow's ANONYMIZE SUCCESS claim (activity_1941) is not relied upon."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks the shop to permanently delete the account associated with their email address, which is an erasure request for their own account and data. Asking to review connected identifiers and to be notified on completion are part of the same deletion request.",
+   "summary: Searches on the subject's email, email hash, phone, user_id user_258, and name found only one record tied to this subject: audit_record_1876 (SECURITY_AUDIT_LOG, retained, PRESENT at audit_at). The only other candidate, analytics_5053, is identity-free in a shared run with case_261 and was rejected. No USER_PROFILE, search, cache, support, export, marketing, or data-flow records for user_258 were found in the episode evidence. The workflow NOT_STARTED claim was not relied upon."
+  ],
+  "usage": [
+   {
+    "case_id": "case_260",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1053,
+    "output_tokens": 108,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_260",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 366,
+    "cache_creation_input_tokens": 2996,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_260",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 704,
+    "cache_creation_input_tokens": 4322,
+    "cache_read_input_tokens": 7867
+   },
+   {
+    "case_id": "case_260",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 824,
+    "cache_creation_input_tokens": 2009,
+    "cache_read_input_tokens": 12189
+   },
+   {
+    "case_id": "case_260",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 712,
+    "cache_creation_input_tokens": 16962,
+    "cache_read_input_tokens": 14198
+   },
+   {
+    "case_id": "case_260",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1053,
+    "cache_creation_input_tokens": 21300,
+    "cache_read_input_tokens": 31160
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5053"
+   },
+   "output_chars": 3796
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1876"
+   },
+   "output_chars": 2641
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "daichi.takahashi@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 68
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_258",
+    "limit": 50
+   },
+   "output_chars": 1806
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "daichi takahashi",
+    "limit": 50
+   },
+   "output_chars": 56
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "547d24ada073da76d32020eb8e8fe5da9b04af0a8cac5abe932a6a0bd3c7fba9",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819043640133",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_1941",
+    "limit": 50
+   },
+   "output_chars": 669
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "analytics_5053",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 324
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 3,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "takahashi",
+    "limit": 50
+   },
+   "output_chars": 861
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "258",
+    "limit": 50
+   },
+   "output_chars": 6999
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-16T00:00:00Z",
+    "end": "2026-06-13T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30902
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "daichi",
+    "limit": 50
+   },
+   "output_chars": 1718
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "outlook.com",
+    "limit": 50
+   },
+   "output_chars": 42480
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_1876",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 24
+  }
+ ]
+}

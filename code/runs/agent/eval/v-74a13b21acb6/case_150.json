@@ -1,0 +1,440 @@
+{
+ "case_id": "case_150",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1584",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_86"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_150",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_1584",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_86",
+    "reason": "Security audit record references user_148 (this subject's user_id) with event SUBJECT_REQUEST_AUDITED, observed 2026-08-07T07:19:45Z, retention_until 2033-12-31, so it is within the retention period and must be retained (state PRESENT for verification).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1084",
+    "reason": "Linked only via shared deletion-worker batch run activity_2910 (shared with case_149 and case_151). No usable evidence ties this account to user_148 or the subject's email/phone/hash. Not attributable to this subject; rejected."
+   },
+   {
+    "resource_id": "account_3897",
+    "reason": "Shared-run candidate (activity_2903). Only identity-free evidence is evidence_86 404 lookup with null profile. Cannot be attributed to this subject; rejected."
+   },
+   {
+    "resource_id": "account_4079",
+    "reason": "Shared-run candidate (activity_2912) with only a workflow claim of deletion. No identity evidence linking it to this subject; rejected as unattributable."
+   },
+   {
+    "resource_id": "account_874",
+    "reason": "Shared-run candidate (activity_2901). Only identity-free 404 lookup in evidence_86 with null profile. Cannot be attributed; rejected."
+   },
+   {
+    "resource_id": "account_9505",
+    "reason": "Shared-run candidate (activity_2904) with only a workflow claim of deletion. No identity evidence linking it to this subject; rejected as unattributable."
+   },
+   {
+    "resource_id": "analytics_1626",
+    "reason": "Shared-run candidate (activity_2907). Its only snapshot (evidence_86) is an all-null analytics profile with no identifiers or user reference. Cannot be attributed to this subject; rejected."
+   },
+   {
+    "resource_id": "analytics_7254",
+    "reason": "Shared-run candidate (activity_2906). Its only snapshot (evidence_86) is an all-null analytics profile with no identifiers or user reference. Cannot be attributed to this subject; rejected."
+   },
+   {
+    "resource_id": "account_8854",
+    "reason": "Deletion activity from 2026-07-19, before this request's window, in another run; no link to this subject. Not in scope."
+   },
+   {
+    "resource_id": "user_148",
+    "reason": "Stable user_id, not a resource; no usable record found for a profile or tombstone of this subject in the request window."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer asks for the account tied to their address to be erased, including data linked through current or earlier identifiers, and requests a confirmation afterward. This is a deletion request for the person's own account and personal data.",
+   "summary: Subject identifiers (email, phone, hash, name) return no matches in any usable evidence. The only record tied to this subject in the request window is audit_record_1584, a security audit log referencing user_148 with retention to 2033, so it is retained (PRESENT). All other candidates come from the shared deletion-worker batch run (shared with case_149 and case_151) and carry no identity link to this subject, so they were rejected as unattributable. No account profile, tombstone, marketing, export or connector record for this subject was found. Note: the workflow's NOT_STARTED claim is unverified; no deletion of this subject's data was evidenced in the episode."
+  ],
+  "usage": [
+   {
+    "case_id": "case_150",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1054,
+    "output_tokens": 101,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_150",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 757,
+    "cache_creation_input_tokens": 4626,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_150",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 756,
+    "cache_creation_input_tokens": 11663,
+    "cache_read_input_tokens": 9497
+   },
+   {
+    "case_id": "case_150",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1187,
+    "cache_creation_input_tokens": 8009,
+    "cache_read_input_tokens": 21160
+   },
+   {
+    "case_id": "case_150",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 660,
+    "cache_creation_input_tokens": 15645,
+    "cache_read_input_tokens": 29169
+   },
+   {
+    "case_id": "case_150",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1223,
+    "cache_creation_input_tokens": 4743,
+    "cache_read_input_tokens": 44814
+   },
+   {
+    "case_id": "case_150",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 829,
+    "cache_creation_input_tokens": 3946,
+    "cache_read_input_tokens": 49557
+   },
+   {
+    "case_id": "case_150",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1376,
+    "cache_creation_input_tokens": 1575,
+    "cache_read_input_tokens": 53503
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1084"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3897"
+   },
+   "output_chars": 2114
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4079"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_874"
+   },
+   "output_chars": 2107
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9505"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1626"
+   },
+   "output_chars": 2263
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7254"
+   },
+   "output_chars": 2263
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1584"
+   },
+   "output_chars": 1636
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "iandersson6741@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 64
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_148",
+    "limit": 100
+   },
+   "output_chars": 809
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "andersson",
+    "limit": 100
+   },
+   "output_chars": 7491
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "None",
+    "event_type": "None",
+    "start": "2026-07-20T00:00:00Z",
+    "end": "2026-08-07T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ingrid",
+    "limit": 100
+   },
+   "output_chars": 10664
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46707582031",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "7427fe54da7783080b45ff25b7c3129b9eb5dd1b8fe2ba0785180b4885126dea",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "iandersson",
+    "limit": 100
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 2400
+   },
+   "output_chars": 4621
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-19T00:00:00Z",
+    "end": "2026-08-07T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31364
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-22T06:40:00Z",
+    "end": "2026-07-22T08:30:00Z",
+    "limit": 200
+   },
+   "output_chars": 4085
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 4800
+   },
+   "output_chars": 4113
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 7200
+   },
+   "output_chars": 1473
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4079",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1084",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9505",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_1626",
+    "limit": 50
+   },
+   "output_chars": 1443
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_7254",
+    "limit": 50
+   },
+   "output_chars": 1443
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_1584",
+    "limit": 50
+   },
+   "output_chars": 818
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8854",
+    "limit": 50
+   },
+   "output_chars": 1297
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Ingrid Andersson",
+    "limit": 50
+   },
+   "output_chars": 56
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "user_148"
+   },
+   "output_chars": 137
+  }
+ ]
+}

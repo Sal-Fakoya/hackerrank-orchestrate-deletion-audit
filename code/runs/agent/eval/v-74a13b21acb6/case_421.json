@@ -1,0 +1,565 @@
+{
+ "case_id": "case_421",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3251",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_39"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4750",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_39"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4750",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3251",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8482",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3251",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1256",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4750",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_421",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_8482",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_39",
+    "reason": "Profile lookup on 2026-03-25 by this subject's email (correlation_key noah.r2790@zoho.com) returned 404 rows=0, so the primary profile is gone. The deletion run activity_748 was shared with case_419/case_420, but evidence_39 ties this resource to this subject's email, so it is attributed here. The workflow FAILED claim does not override the direct observation. Compliant for DELETE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_3251",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_39",
+    "reason": "Search index customer_directory_v3 returned a hit (result=hit, resource_id search_3251) for match_key noah.r2790@zoho.com at 2026-03-25T08:59:32Z. The entry still exposes the subject's email. It was repopulated by the active connector data_flow_4750 (activity_754). Must be DELETED. The activity_757 FAILED claim is contradicted by the direct observation.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_4750",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_39",
+    "reason": "Connector heartbeat at 2026-03-25T08:55:00Z shows enabled=true and scheduler_registered=true, with correlation_key noah.r2790@zoho.com. It is an active connector that repopulated search_3251 after the deletion request (activity_754). It must be DISABLED to stop recreation of the subject's data.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1256",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_39",
+    "reason": "Security audit record read at 2026-03-25T08:56:24Z (integrity_check passed) with correlation_key user_419, which is the subject's user_id. No supplied retention expiry shows it has lapsed, so it is retained and verified as PRESENT.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "user_419",
+    "reason": "Customer reference, not a stored resource. It has no system record and no snapshot row."
+   },
+   {
+    "resource_id": "snapshot rows (customer_data_primary / reporting_replica / inventory tables, evidence_43, evidence_63, evidence_66)",
+    "reason": "No rows for noah.r2790@zoho.com, user_419, the phone, or the email hash. The subject has no other copies in the replica or inventory snapshots."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to delete this account and its personal data, with no negation or withdrawal, so it authorizes deletion. The remaining sentences only request handling of covered records and a review notice, which do not change the classification.",
+   "summary: The request is for noah.r2790@zoho.com (user_419). Four in-scope resources were confirmed. account_8482 is ABSENT (404 lookup, evidence_39). search_3251 is PRESENT in customer_directory_v3 (evidence_39) and was repopulated by the active connector. data_flow_4750 is ACTIVE with enabled=true (evidence_39) and must be disabled. audit_record_1256 is a retained security audit record (PRESENT, user_419). Searches for the name, phone, email hash, and other identifiers returned no further subject records in the snapshots, exports, or logs."
+  ],
+  "usage": [
+   {
+    "case_id": "case_421",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 108,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_421",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 421,
+    "cache_creation_input_tokens": 1754,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_421",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 443,
+    "cache_creation_input_tokens": 2049,
+    "cache_read_input_tokens": 6625
+   },
+   {
+    "case_id": "case_421",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 559,
+    "cache_creation_input_tokens": 6753,
+    "cache_read_input_tokens": 8674
+   },
+   {
+    "case_id": "case_421",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 581,
+    "cache_creation_input_tokens": 7951,
+    "cache_read_input_tokens": 15427
+   },
+   {
+    "case_id": "case_421",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 362,
+    "cache_creation_input_tokens": 24434,
+    "cache_read_input_tokens": 23378
+   },
+   {
+    "case_id": "case_421",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 890,
+    "cache_creation_input_tokens": 9039,
+    "cache_read_input_tokens": 47812
+   },
+   {
+    "case_id": "case_421",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 567,
+    "cache_creation_input_tokens": 1198,
+    "cache_read_input_tokens": 56851
+   },
+   {
+    "case_id": "case_421",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1083,
+    "cache_creation_input_tokens": 709,
+    "cache_read_input_tokens": 58049
+   },
+   {
+    "case_id": "case_421",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 588,
+    "cache_creation_input_tokens": 1538,
+    "cache_read_input_tokens": 58758
+   },
+   {
+    "case_id": "case_421",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1312,
+    "cache_creation_input_tokens": 2087,
+    "cache_read_input_tokens": 60296
+   },
+   {
+    "case_id": "case_421",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1353,
+    "cache_creation_input_tokens": 3371,
+    "cache_read_input_tokens": 62383
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "noah.r2790@zoho.com",
+    "limit": 50
+   },
+   "output_chars": 2210
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_419",
+    "limit": 50
+   },
+   "output_chars": 613
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "noah reed",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6776a2eec37eff6f8f712344de474144933cd0f412a6467f2f0512805229ba3b",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "16175550119",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8482"
+   },
+   "output_chars": 2057
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1256"
+   },
+   "output_chars": 1448
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_4750"
+   },
+   "output_chars": 2096
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3251"
+   },
+   "output_chars": 3020
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "r2790",
+    "limit": 50
+   },
+   "output_chars": 2196
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Noah",
+    "limit": 50
+   },
+   "output_chars": 2195
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_40",
+    "offset": 0
+   },
+   "output_chars": 4660
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-20T00:00:00Z",
+    "end": "2026-03-25T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30976
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zoho",
+    "limit": 50
+   },
+   "output_chars": 21866
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "noah.r",
+    "limit": 50
+   },
+   "output_chars": 2197
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-24T00:00:00Z",
+    "end": "2026-02-28T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 21075
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_748",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM customer_search_documents WHERE display_name LIKE '%noah%' OR email LIKE '%noah%' OR customer_reference LIKE '%419%' OR resource_id IN ('search_3251','account_8482','data_flow_4750')"
+   },
+   "output_chars": 138
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_reporting_replica WHERE record_json LIKE '%noah%' OR record_json LIKE '%419%' OR resource_id IN ('search_3251','account_8482','data_flow_4750','audit_record_1256')"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT 'search' t, resource_id, customer_reference, email FROM customer_search_documents WHERE email LIKE '%noah%' OR customer_reference LIKE '%419%' OR resource_id IN ('search_3251') UNION ALL SELECT 'profile', resource_id, customer_reference, email FROM customer_profiles WHERE email LIKE '%noah%' OR customer_reference LIKE '%419%' OR resource_id='account_8482' UNION ALL SELECT 'flow', resource_id, customer_reference, customer_email FROM connector_subscriptions WHERE customer_email LIKE '%noah%' OR resource_id='data_flow_4750' UNION ALL SELECT 'audit', resource_id, subject_reference, event_code FROM security_audit_records WHERE subject_reference LIKE '%419%' OR resource_id='audit_record_1256'"
+   },
+   "output_chars": 76
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT 'analytics' t, resource_id, customer_reference, email FROM customer_analytics_profiles WHERE email LIKE '%noah%' OR customer_reference LIKE '%419%' UNION ALL SELECT 'support', resource_id, customer_reference, requester_email FROM support_records WHERE requester_email LIKE '%noah%' OR requester_name LIKE '%reed%' OR customer_reference LIKE '%419%' UNION ALL SELECT 'export', resource_id, customer_reference, owner_email FROM customer_exports WHERE owner_email LIKE '%noah%' OR customer_reference LIKE '%419%' UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email FROM backup_restore_entries WHERE customer_email LIKE '%noah%' OR customer_reference LIKE '%419%' UNION ALL SELECT 'audit', resource_id, subject_reference, event_code FROM security_audit_records"
+   },
+   "output_chars": 362
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT 'analytics' t, resource_id, customer_reference, email FROM customer_analytics_profiles WHERE email LIKE '%noah%' OR customer_reference LIKE '%419%' UNION ALL SELECT 'support', resource_id, customer_reference, requester_email FROM support_records WHERE requester_email LIKE '%noah%' OR requester_name LIKE '%reed%' OR customer_reference LIKE '%419%' UNION ALL SELECT 'export', resource_id, customer_reference, owner_email FROM customer_exports WHERE owner_email LIKE '%noah%' OR customer_reference LIKE '%419%' UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email FROM backup_restore_entries WHERE customer_email LIKE '%noah%' OR customer_reference LIKE '%419%' UNION ALL SELECT 'audit', resource_id, subject_reference, event_code FROM security_audit_records UNION ALL SELECT 'flow', resource_id, customer_reference, customer_email FROM connector_subscriptions WHERE customer_email LIKE '%noah%'"
+   },
+   "output_chars": 216
+  },
+  {
+   "turn": 8,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "user_419"
+   },
+   "output_chars": 137
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_1256",
+    "limit": 50
+   },
+   "output_chars": 622
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_3251",
+    "limit": 50
+   },
+   "output_chars": 2258
+  },
+  {
+   "turn": 9,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2790",
+    "limit": 50
+   },
+   "output_chars": 2818
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Reed",
+    "limit": 50
+   },
+   "output_chars": 44
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_4750",
+    "limit": 50
+   },
+   "output_chars": 1267
+  }
+ ]
+}

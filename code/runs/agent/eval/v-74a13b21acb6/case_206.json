@@ -1,0 +1,446 @@
+{
+ "case_id": "case_206",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9878",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_20"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_206",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_9878",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_20",
+    "reason": "Security audit event 'account_deletion_reviewed' with subject_reference user_204 (this subject's user_id) is still present in the primary and read replica at audit_at. It was captured within this request's window. No retention_until is recorded for it and no legal hold covers this subject (evidence_27 covers only other finance dispute orders), so it remains within retention and must be retained and verified.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1065",
+    "reason": "Only linked through deletion-worker batch run activity_2513, which is shared with other requests (case_193, case_207, case_208, case_222). No usable evidence ties this account to user_204 or the subject's emails or phone. Rejected as not attributable to this subject."
+   },
+   {
+    "resource_id": "account_3685",
+    "reason": "Only linked through shared batch run activity_2511 (shared with other requests). No evidence ties it to this subject. Rejected as not attributable."
+   },
+   {
+    "resource_id": "account_4522",
+    "reason": "Only linked through shared batch run activity_2510 (shared with other requests). No evidence ties it to this subject. Rejected as not attributable."
+   },
+   {
+    "resource_id": "account_5678",
+    "reason": "Only linked through shared batch run activity_2508 (shared with other requests). No evidence ties it to this subject. Rejected as not attributable."
+   },
+   {
+    "resource_id": "analytics_9580",
+    "reason": "Identity-free analytics profile (user_id, email, phone and email_hash all null in evidence_20) in a shared batch run (activity_2512) with other requests. It cannot be attributed to this subject, so it is rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for a permanent account deletion for their email address and asks for confirmation when completed, which is a request for erasure of the person's own account and data.",
+   "summary: Searched the subject's emails, hashes, phone, user_id user_204, name and audit ids. Only audit_record_9878 (security audit event referencing user_204, present at 2026-07-08) ties to this subject; it is a SECURITY_AUDIT_LOG to retain. The four account_service candidates and analytics_9580 come only from a batch run shared with other customers and have no link to this subject, so they were rejected. No direct identifier matches (emails, hashes, phone) were found in any usable evidence, and no active data flow, restorable backup, or active legal hold tied to the subject was found."
+  ],
+  "usage": [
+   {
+    "case_id": "case_206",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1052,
+    "output_tokens": 89,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_206",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 623,
+    "cache_creation_input_tokens": 4096,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_206",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 921,
+    "cache_creation_input_tokens": 9786,
+    "cache_read_input_tokens": 8967
+   },
+   {
+    "case_id": "case_206",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 586,
+    "cache_creation_input_tokens": 3480,
+    "cache_read_input_tokens": 18753
+   },
+   {
+    "case_id": "case_206",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 751,
+    "cache_creation_input_tokens": 17452,
+    "cache_read_input_tokens": 22233
+   },
+   {
+    "case_id": "case_206",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1166,
+    "cache_creation_input_tokens": 7237,
+    "cache_read_input_tokens": 39685
+   },
+   {
+    "case_id": "case_206",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1821,
+    "cache_creation_input_tokens": 3754,
+    "cache_read_input_tokens": 46922
+   },
+   {
+    "case_id": "case_206",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 623,
+    "cache_creation_input_tokens": 2744,
+    "cache_read_input_tokens": 50676
+   },
+   {
+    "case_id": "case_206",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1302,
+    "cache_creation_input_tokens": 1917,
+    "cache_read_input_tokens": 53420
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ama.agyeman84@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_204",
+    "limit": 50
+   },
+   "output_chars": 1806
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Agyeman",
+    "limit": 50
+   },
+   "output_chars": 5338
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1065"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3685"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4522"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5678"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9580"
+   },
+   "output_chars": 3607
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_9878"
+   },
+   "output_chars": 2630
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ama.agyeman@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 61
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "908163b3492b567ceb89bd9259d1122b1432bedd1a32fda48923a817fa9f2337",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "c11489e018fb46b5b8292da1f2eaa897fdddf55041ad45e8d79a8787e5aa6b21",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233241518989",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_205",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ama agyeman",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 0
+   },
+   "output_chars": 4505
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 3000
+   },
+   "output_chars": 4482
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_81",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-24T00:00:00Z",
+    "end": "2026-07-08T09:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31149
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-24T09:00:00Z",
+    "end": "2026-06-25T10:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 6034
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "user_204",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_22",
+    "offset": 0
+   },
+   "output_chars": 4650
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_primary WHERE resource_id LIKE 'account%' OR record_json LIKE '%agyeman%' OR record_json LIKE '%user_204%' OR record_json LIKE '%ama.%' OR record_json LIKE '%908163%' OR record_json LIKE '%c11489%'"
+   },
+   "output_chars": 459
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT 'profile' t, resource_id, customer_reference, email, phone, email_hash FROM customer_profiles WHERE customer_reference='user_204' OR email LIKE '%agyeman%' OR resource_id LIKE 'account_1065' OR resource_id IN ('account_3685','account_4522','account_5678') UNION ALL SELECT 'search', resource_id, customer_reference, email, phone, email_hash FROM customer_search_documents WHERE email LIKE '%agyeman%' OR customer_reference='user_204' UNION ALL SELECT 'support', resource_id, customer_reference, requester_email, requester_phone, message_excerpt FROM support_records WHERE requester_email LIKE '%agyeman%' OR customer_reference='user_204'"
+   },
+   "output_chars": 99
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_21",
+    "offset": 0
+   },
+   "output_chars": 4449
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT * FROM security_audit_records WHERE subject_reference='user_204' OR resource_id='audit_record_9878'"
+   },
+   "output_chars": 108
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "LEGAL_HOLD_RECORD"
+   },
+   "output_chars": 137
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_9878",
+    "limit": 50
+   },
+   "output_chars": 1815
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT * FROM security_audit_records LIMIT 5"
+   },
+   "output_chars": 663
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_9878",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  }
+ ]
+}

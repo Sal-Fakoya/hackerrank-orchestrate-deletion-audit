@@ -1,0 +1,465 @@
+{
+ "case_id": "case_178",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_8521",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_84"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_178",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_8521",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_84",
+    "reason": "Privacy-request audit row (PRIVACY_REQUEST_ACCEPTED) with subject_reference user_176, the subject's user_id. retention_until 2032-06-30 is after audit_at, so it is within the retention period and must be retained. Captured 2026-07-23, inside the request window.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1090",
+    "reason": "Linked only through the shared deletion batch run (activity_2599, shared with other customers' requests). No usable evidence ties it to user_176 or rahman.laila@icloud.com. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_6608",
+    "reason": "Linked only through the shared batch run (activity_2591). No evidence ties it to this subject; not present in any snapshot or export."
+   },
+   {
+    "resource_id": "account_9317",
+    "reason": "Linked only through the shared batch run (activity_2592). The only observation is a 404 lookup (evidence_83), which is identity-free. Cannot attribute it to this subject."
+   },
+   {
+    "resource_id": "account_9877",
+    "reason": "Linked only through the shared batch run (activity_2596, a workflow claim of SUCCESS). No stored record or evidence ties it to this subject."
+   },
+   {
+    "resource_id": "analytics_2414",
+    "reason": "Linked only through the shared batch run (activity_2601). The profile in evidence_84 is all-null (no email, phone, hash or customer_reference), so it is identity-free and cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "analytics_5614",
+    "reason": "Linked only through the shared batch run (activity_2593). The profile in evidence_83 is all-null for identifiers and customer reference, so it is identity-free and cannot be attributed to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to close their account and process the associated personal-data deletion, including data linked through current or earlier identifiers, and wants confirmation of the outcome. This is a clear request for erasure of their own account and personal data.",
+   "summary: The subject (user_176, rahman.laila@icloud.com) has no account, profile, search, support, export or connector record in any usable evidence. Searches on the email, its hash, the phone, 'laila rahman' and 'user_176' found only audit_record_8521, a privacy-request audit row within its retention period. It is retained and recorded as PRESENT. The six batch-linked candidates were rejected because no evidence ties them to this subject, and the batch run was shared with other customers' requests. The workflow's NOT_STARTED status and the batch's deletion claims were not relied on."
+  ],
+  "usage": [
+   {
+    "case_id": "case_178",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 107,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_178",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 681,
+    "cache_creation_input_tokens": 4456,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_178",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 701,
+    "cache_creation_input_tokens": 6928,
+    "cache_read_input_tokens": 9327
+   },
+   {
+    "case_id": "case_178",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 642,
+    "cache_creation_input_tokens": 8371,
+    "cache_read_input_tokens": 16255
+   },
+   {
+    "case_id": "case_178",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 404,
+    "cache_creation_input_tokens": 23326,
+    "cache_read_input_tokens": 24626
+   },
+   {
+    "case_id": "case_178",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 504,
+    "cache_creation_input_tokens": 12978,
+    "cache_read_input_tokens": 47952
+   },
+   {
+    "case_id": "case_178",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 788,
+    "cache_creation_input_tokens": 6347,
+    "cache_read_input_tokens": 60930
+   },
+   {
+    "case_id": "case_178",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2525,
+    "cache_creation_input_tokens": 3648,
+    "cache_read_input_tokens": 67277
+   },
+   {
+    "case_id": "case_178",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1469,
+    "cache_creation_input_tokens": 5148,
+    "cache_read_input_tokens": 70925
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1090"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6608"
+   },
+   "output_chars": 1481
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9317"
+   },
+   "output_chars": 2112
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9877"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2414"
+   },
+   "output_chars": 2131
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5614"
+   },
+   "output_chars": 2264
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_8521"
+   },
+   "output_chars": 1491
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rahman.laila@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_176",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "laila rahman",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "bf7fb1c21b11790cd2dda1647863c44240d554d1cea4094cf146c98fe1eccbfe",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971551723231",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rahman",
+    "limit": 100
+   },
+   "output_chars": 5882
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 2900
+   },
+   "output_chars": 4248
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 5000
+   },
+   "output_chars": 4618
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "laila",
+    "limit": 100
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "icloud",
+    "limit": 100
+   },
+   "output_chars": 39344
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_176",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-27T00:00:00Z",
+    "end": "2026-07-23T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31515
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-30T09:00:00Z",
+    "end": "2026-06-30T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 4071
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_22",
+    "offset": 0
+   },
+   "output_chars": 4650
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 0
+   },
+   "output_chars": 4505
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1090",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6608",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9877",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9317",
+    "limit": 100
+   },
+   "output_chars": 1298
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_5614",
+    "limit": 100
+   },
+   "output_chars": 1447
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_2414",
+    "limit": 100
+   },
+   "output_chars": 1308
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 4000
+   },
+   "output_chars": 4613
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_8521",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  }
+ ]
+}

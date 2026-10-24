@@ -1,0 +1,329 @@
+{
+ "case_id": "case_525",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_4974",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_62"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_4974",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4974",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3803",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_525",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4974",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_62",
+    "reason": "Account_service profile lookup at 2026-01-29T09:56:58Z (captured 2026-01-29T11:44:59Z, before audit_at) returned HTTP 200 with email o.walker6695@yahoo.com, an exact match to the subject's current email. The deletion worker's DELETE (activity_197, reported SUCCESS) is a claim contradicted by this direct observation. The replication checkpoint (activity_201, PARTIAL) indicates a possible replica copy, which is not separately evidenced. Record must be deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1400",
+    "reason": "Only linked via the shared batch run activity_196 (shared with case_524 and case_526). The sole evidence is a DELETE activity row with no identifier, name, or other subject tie; attribution to this subject is not supported. Its absence from the 2026-01-29 export is not enough to attribute it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_704",
+    "reason": "Only linked via the shared batch run activity_198 (shared with case_524 and case_526). The only observation, evidence_62 profile_lookups/4, is an identity-free HTTP 404 with null profile, so it cannot be attributed to this subject. Rejected as unattributable."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to erase the account linked to their email address, including data linked through current or earlier identifiers, and requests a short confirmation when complete. This is a request for erasure of the person's own account and personal data.",
+   "summary: Only one resource is tied to this subject: account_4974 (account_service), which still exposes o.walker6695@yahoo.com at 2026-01-29 (evidence_62), so the workflow's COMPLETE claim is contradicted. account_1400 and account_704 come from a shared deletion run and have no identity-bearing evidence tying them to this subject, so they were rejected. Searches on the historical email o.walker66@yahoo.com, both hashes, phone 16465550123, user_523 and the name returned no other records. No connector, backup, export, analytics, support, or search record was found for this subject. Note: activity_201 indicates a replication checkpoint for account_4974, so a replica copy may exist and should be checked in remediation.",
+   "future verification added for audit_record_3803 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_525",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 105,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_525",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 364,
+    "cache_creation_input_tokens": 859,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_525",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1109,
+    "cache_creation_input_tokens": 2866,
+    "cache_read_input_tokens": 5730
+   },
+   {
+    "case_id": "case_525",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 375,
+    "cache_creation_input_tokens": 14237,
+    "cache_read_input_tokens": 8596
+   },
+   {
+    "case_id": "case_525",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 386,
+    "cache_creation_input_tokens": 6613,
+    "cache_read_input_tokens": 22833
+   },
+   {
+    "case_id": "case_525",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 160,
+    "cache_creation_input_tokens": 2695,
+    "cache_read_input_tokens": 29446
+   },
+   {
+    "case_id": "case_525",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 80,
+    "cache_creation_input_tokens": 2062,
+    "cache_read_input_tokens": 32141
+   },
+   {
+    "case_id": "case_525",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1495,
+    "cache_creation_input_tokens": 1968,
+    "cache_read_input_tokens": 34203
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4974"
+   },
+   "output_chars": 2182
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1400"
+   },
+   "output_chars": 903
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_704"
+   },
+   "output_chars": 1388
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "o.walker6695@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 873
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_523",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "o.walker66@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 60
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6570536e0f14e7262d2b39a7d7968f30a4f7ee35f260591a95a3a54c313363a8",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "9c40bdbab4944a7f0e06bb210e8990ff340ee998813b17e432000a70f5dfe554",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "16465550123",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "oliver walker",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "walker",
+    "limit": 50
+   },
+   "output_chars": 857
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-16T00:00:00Z",
+    "end": "2026-01-29T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31076
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-16T00:00:00Z",
+    "end": "2026-01-18T13:00:00Z",
+    "limit": 60
+   },
+   "output_chars": 15393
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_59",
+    "limit": 20
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_60",
+    "limit": 20
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_4974",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 672
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 2600
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 5200
+   },
+   "output_chars": 4612
+  }
+ ]
+}

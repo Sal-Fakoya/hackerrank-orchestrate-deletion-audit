@@ -1,0 +1,30 @@
+{
+ "case_id": "custom_04",
+ "mode": "agent",
+ "judge_version": "b63032b7f21d",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "custom_04",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: marketing_opt_out (English): The customer explicitly says not to delete the account and only wants to stop emails, which is a marketing opt-out and a negated deletion request."
+  ],
+  "usage": [
+   {
+    "case_id": "custom_04",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 963,
+    "output_tokens": 86,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

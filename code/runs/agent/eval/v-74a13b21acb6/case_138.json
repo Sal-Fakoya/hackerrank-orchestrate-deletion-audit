@@ -1,0 +1,642 @@
+{
+ "case_id": "case_138",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_4464",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_13"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_2716",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_13"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_4464",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2716",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_6452",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_4464",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_122",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2716",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_138",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_6452",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_13",
+    "reason": "Latest usable observation (integration_management_service lookup at 2026-08-12T09:00:00Z) returns NOT_FOUND for account_6452 with subject_reference nhorvat1713@gmail.com, so the profile no longer exists. The deletion-worker SUCCESS claim (activity_2876) is consistent but not relied on. Record is tied to this subject by exact email match, so it stays in scope despite the shared batch run.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_4464",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_13",
+    "reason": "Latest observation at 2026-08-12T09:00:00Z shows search_4464 FOUND with subject_reference nhorvat1713@gmail.com. The deletion worker reported FAILED (activity_2880). Index entry still exposes the subject's email and must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_2716",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_13",
+    "reason": "Latest observation at 2026-08-12T09:00:00Z shows support_2716 IDENTIFIABLE with subject_reference nhorvat1713@gmail.com and direct identifiers present. The redaction attempt reported FAILED (activity_2877). Conversation must be redacted (retained shared context), not deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_122",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_13",
+    "reason": "Security audit record for user_136 is FOUND at 2026-08-12T09:00:00Z. No supplied retention expiry for this record appears in any usable snapshot, so it is treated as within retention and must be retained and verified as available.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "search_2256",
+    "reason": "Index entry for andrei.horvat@outlook.com, a different person; no link to nhorvat1713@gmail.com or user_136."
+   },
+   {
+    "resource_id": "account_9178",
+    "reason": "404 lookup for andrei.horvat@outlook.com, a different subject."
+   },
+   {
+    "resource_id": "data_flow_8828",
+    "reason": "Connector configured for andrei.horvat@outlook.com, a different subject; no link to this subject found."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests permanent account deletion and erasure of associated records under the privacy process, which is erasure of their own account and personal data; the request is not negated or third-party.",
+   "summary: Subject nadia horvat (user_136, nhorvat1713@gmail.com). Four in-scope resources were found via the 2026-08-12 integration lookup (evidence_13). account_6452 profile is ABSENT. search_4464 index entry and support_2716 conversation are still PRESENT, despite the workflow's claim of completion. audit_record_122 is a retained security log. No active data flows, analytics/marketing profiles, exports, backups, or legal holds tied to this subject were found in usable evidence. The workflow's COMPLETE status is not supported."
+  ],
+  "usage": [
+   {
+    "case_id": "case_138",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1052,
+    "output_tokens": 94,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 496,
+    "cache_creation_input_tokens": 4251,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 587,
+    "cache_creation_input_tokens": 8748,
+    "cache_read_input_tokens": 9122
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 684,
+    "cache_creation_input_tokens": 4798,
+    "cache_read_input_tokens": 17870
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 307,
+    "cache_creation_input_tokens": 15443,
+    "cache_read_input_tokens": 22668
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 614,
+    "cache_creation_input_tokens": 7200,
+    "cache_read_input_tokens": 38111
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 221,
+    "cache_creation_input_tokens": 1245,
+    "cache_read_input_tokens": 45311
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 281,
+    "cache_creation_input_tokens": 246,
+    "cache_read_input_tokens": 46556
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 784,
+    "cache_creation_input_tokens": 499,
+    "cache_read_input_tokens": 46802
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1627,
+    "cache_creation_input_tokens": 2657,
+    "cache_read_input_tokens": 47301
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1854,
+    "cache_creation_input_tokens": 9276,
+    "cache_read_input_tokens": 49958
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 710,
+    "cache_creation_input_tokens": 2962,
+    "cache_read_input_tokens": 59234
+   },
+   {
+    "case_id": "case_138",
+    "call": "turn_12",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1967,
+    "cache_creation_input_tokens": 932,
+    "cache_read_input_tokens": 62196
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nhorvat1713@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2003
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_136",
+    "limit": 100
+   },
+   "output_chars": 687
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Horvat",
+    "limit": 100
+   },
+   "output_chars": 7008
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6452"
+   },
+   "output_chars": 2116
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_122"
+   },
+   "output_chars": 1516
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4464"
+   },
+   "output_chars": 2115
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2716"
+   },
+   "output_chars": 2160
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nadia horvat",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d126a2939d87a5883064b0e4168ebe93a9f8139c947fff93c8cd72d837e46949",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48629669198",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nhorvat",
+    "limit": 100
+   },
+   "output_chars": 1989
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6452",
+    "limit": 100
+   },
+   "output_chars": 1296
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_15",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_17",
+    "offset": 0
+   },
+   "output_chars": 4642
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-17T00:00:00Z",
+    "end": "2026-08-12T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31150
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-17T00:00:00Z",
+    "end": "2026-07-20T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 14102
+  },
+  {
+   "turn": 4,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_85",
+    "trace_id": "x"
+   },
+   "output_chars": 2712
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 421
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_15",
+    "sql": "SELECT name, sql FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 682
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT * FROM customer_profiles WHERE lower(cast(* as text)) LIKE '%horvat%'"
+   },
+   "output_chars": 37
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT 'profiles' t, * FROM customer_profiles WHERE record_json LIKE '%horvat%' OR record_json LIKE '%user_136%' OR record_json LIKE '%nhorvat%' OR record_json LIKE '%48629669198%' OR record_json LIKE '%d126a29%' UNION ALL SELECT 'search', * FROM customer_search_documents WHERE 1=0"
+   },
+   "output_chars": 40
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT * FROM customer_profiles LIMIT 3"
+   },
+   "output_chars": 248
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_15",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at FROM customer_data_read_replica WHERE record_json LIKE '%horvat%' OR record_json LIKE '%user_136%' OR record_json LIKE '%48629669198%' OR record_json LIKE '%d126a29%'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT * FROM customer_profiles"
+   },
+   "output_chars": 248
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT * FROM customer_search_documents"
+   },
+   "output_chars": 955
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT * FROM support_records"
+   },
+   "output_chars": 828
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT * FROM customer_analytics_profiles"
+   },
+   "output_chars": 622
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT * FROM connector_subscriptions"
+   },
+   "output_chars": 604
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT * FROM security_audit_records"
+   },
+   "output_chars": 329
+  },
+  {
+   "turn": 9,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 9,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 9,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_16",
+    "offset": 0
+   },
+   "output_chars": 4463
+  },
+  {
+   "turn": 9,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 9,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_14",
+    "offset": 0
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 10,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 10,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_122",
+    "limit": 50
+   },
+   "output_chars": 695
+  },
+  {
+   "turn": 11,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT * FROM security_audit_records WHERE resource_id='audit_record_122' OR subject_reference IN ('user_136')"
+   },
+   "output_chars": 108
+  },
+  {
+   "turn": 11,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM security_audit_records WHERE resource_id='audit_record_122' OR subject_reference IN ('user_136')"
+   },
+   "output_chars": 108
+  },
+  {
+   "turn": 11,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_15",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at FROM customer_data_read_replica WHERE resource_id IN ('search_4464','support_2716','account_6452','audit_record_122')"
+   },
+   "output_chars": 90
+  }
+ ]
+}

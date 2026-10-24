@@ -1,0 +1,30 @@
+{
+ "case_id": "case_537",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_537",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: correction (English): The customer asks to correct a misspelled surname and explicitly wants no records removed, so this is a correction, not an erasure request."
+  ],
+  "usage": [
+   {
+    "case_id": "case_537",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1032,
+    "output_tokens": 78,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

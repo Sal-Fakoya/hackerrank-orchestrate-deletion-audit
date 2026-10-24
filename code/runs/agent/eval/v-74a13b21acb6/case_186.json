@@ -1,0 +1,408 @@
+{
+ "case_id": "case_186",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_4062",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_83"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_7428",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_83"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_7428",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_4062",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_4062",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_7428",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_186",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_4062",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_83",
+    "reason": "Search index document in customer_directory_v3 still exposes the subject's exact email egarcia1825@gmail.com (query export observed 2026-07-18T08:22:10Z, captured 10:43:35Z, before audit_at). The workflow's deletion activity_2695 reported FAILED and does not outweigh the direct observation. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_7428",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_83",
+    "reason": "Connector support_profile_sync (data_flow_7428) is enabled=true with last_delivery_status=delivered and carries customer_email egarcia1825@gmail.com as observed 2026-07-18T09:57:31Z. It can keep copying or recreating the subject's data, so it must be disabled. The workflow's CHECK_DATA_FLOW claim (activity_2692) is older and only says it remained enabled.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3878",
+    "reason": "Linked only through the deletion-worker batch run activity_2690, which is shared with case_185, case_187 and case_202. No usable evidence ties account_3878 to this subject's email, hash, phone, name or user_184. Latest account_service export (evidence_83) does not contain it. Not attributable to this subject, so rejected."
+   },
+   {
+    "resource_id": "account_9579",
+    "reason": "Linked only through shared batch run activity_2688 (case_185, case_187, case_202). No identifier or reference evidence ties it to this subject. Rejected as not attributable."
+   },
+   {
+    "resource_id": "analytics_349",
+    "reason": "Linked only through shared batch run activity_2687. Its only usable observation (evidence_82, trace rb-090817-021) is identity-free (customer_reference, email, phone and email_hash all null, cohort home_lifestyle) and in a run shared with other customers, so it cannot be attributed to the subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Spanish): The customer requests permanent deletion of the account associated with their email, including current and prior identifiers, and asks for confirmation of the result. This is an erasure request for the person's own account and data.",
+   "summary: Subject egarcia1825@gmail.com (user_184). Only two resources are provably linked to the subject in usable evidence captured in the request window: search_4062 (search index document still holding the exact email, PRESENT, must be deleted) and data_flow_7428 (support_profile_sync connector still enabled and delivering the subject's email, ACTIVE, must be disabled). The batch-run candidates account_3878, account_9579 and analytics_349 are not attributable to this subject and were rejected. No hash, phone, user_id or name matches were found in usable evidence. The workflow's NOT_STARTED claim and FAILED deletion results are contradicted by the 2026-07-18 export."
+  ],
+  "usage": [
+   {
+    "case_id": "case_186",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1081,
+    "output_tokens": 99,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_186",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 474,
+    "cache_creation_input_tokens": 4009,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_186",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 803,
+    "cache_creation_input_tokens": 6510,
+    "cache_read_input_tokens": 8880
+   },
+   {
+    "case_id": "case_186",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 423,
+    "cache_creation_input_tokens": 9437,
+    "cache_read_input_tokens": 15390
+   },
+   {
+    "case_id": "case_186",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 668,
+    "cache_creation_input_tokens": 12953,
+    "cache_read_input_tokens": 24827
+   },
+   {
+    "case_id": "case_186",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 816,
+    "cache_creation_input_tokens": 17069,
+    "cache_read_input_tokens": 37780
+   },
+   {
+    "case_id": "case_186",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1261,
+    "cache_creation_input_tokens": 6048,
+    "cache_read_input_tokens": 54849
+   },
+   {
+    "case_id": "case_186",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1782,
+    "cache_creation_input_tokens": 4253,
+    "cache_read_input_tokens": 60897
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "egarcia1825@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2488
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_184",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3878"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9579"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_349"
+   },
+   "output_chars": 2126
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_7428"
+   },
+   "output_chars": 2280
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4062"
+   },
+   "output_chars": 3118
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "18f5d68ce12fdaaed8ba1dd04e7d4633103da2ddf71cedd511e07b4fb82e8992",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34643412674",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Elena",
+    "limit": 100
+   },
+   "output_chars": 15418
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3878",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_349",
+    "limit": 100
+   },
+   "output_chars": 1303
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "garc",
+    "limit": 100
+   },
+   "output_chars": 15865
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "egarcia",
+    "limit": 100
+   },
+   "output_chars": 2474
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_82",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 2000
+   },
+   "output_chars": 4622
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_82",
+    "offset": 2000
+   },
+   "output_chars": 4232
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-04T00:00:00Z",
+    "end": "2026-07-18T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31447
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-04T00:00:00Z",
+    "end": "2026-07-06T23:59:59Z",
+    "limit": 40
+   },
+   "output_chars": 12427
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_19",
+    "offset": 0
+   },
+   "output_chars": 1517
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 0
+   },
+   "output_chars": 4505
+  }
+ ]
+}

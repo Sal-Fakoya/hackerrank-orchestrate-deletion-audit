@@ -1,0 +1,420 @@
+{
+ "case_id": "case_293",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_5854",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_75"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_5854",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_5854",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_293",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "analytics_5854",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_75",
+    "reason": "Latest usable inventory capture (2026-05-24, before audit_at) shows customer_analytics_profiles row analytics_5854 still holding the subject's exact email erik-johansson@gmail.com (audience_cohort returning_customer). The record is still attributable to the subject, so ANONYMIZE applies. The deletion worker's ANONYMIZE on 2026-05-04 (activity_1729) reported FAILED and is not proof of anonymization.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1235",
+    "reason": "Linked only via batch_run activity_1716, a deletion-worker run shared with other cases (case_294, 295, 308, 309, 310). No usable evidence ties it to this subject's identifiers, and no snapshot contains it. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_4319",
+    "reason": "Linked only via shared batch run activity_1714 (cases 294, 295, 308, 309, 310). No identity-bearing evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_6996",
+    "reason": "Linked only via shared batch run activity_1723 (cases 294, 295, 308, 309, 310). No identity-bearing evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_8353",
+    "reason": "Linked only via shared batch run activity_1724 (cases 294, 295, 308, 309, 310). No identity-bearing evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_8647",
+    "reason": "Linked only via shared batch run activity_1715 (cases 294, 295, 308, 309, 310). No identity-bearing evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_9091",
+    "reason": "Linked only via shared batch run activity_1720 (cases 294, 295, 308, 309, 310). No identity-bearing evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "analytics_061",
+    "reason": "Linked only via shared batch run activity_1725. Latest inventory (evidence_75) shows an identity-free profile (all identifiers null, cohort only). Cannot be attributed to the subject; rejected."
+   },
+   {
+    "resource_id": "analytics_096",
+    "reason": "Linked only via shared batch run activity_1717. Replica snapshot evidence_29 shows an identity-free report (email, phone, hash, user_id all null). Cannot be attributed to the subject; rejected."
+   },
+   {
+    "resource_id": "analytics_3678",
+    "reason": "Linked only via shared batch run activity_1718. Replica snapshot evidence_29 shows an identity-free report (all identifiers null). Cannot be attributed to the subject; rejected."
+   },
+   {
+    "resource_id": "analytics_7575",
+    "reason": "Linked only via shared batch run activity_1726. Latest inventory evidence_75 shows an identity-free profile (all identifiers null). Cannot be attributed to the subject; rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to begin the deletion process for the account tied to their email address, which is a request to erase/close their own account and data. The additional asks (complete identity and data review, notify when reviewed) are procedural and do not change the deletion authorization.",
+   "summary: Subject user_291 / erik-johansson@gmail.com. The only resource found that still carries the subject's identifier is analytics_5854 (analytics profile with the exact email, still present at audit_at per evidence_75), which needs ANONYMIZE. The deletion worker's run (activity_1714-1726) was shared with other cases, and its candidates (six account_service records and four analytics records) have no evidence tying them to this subject, so they were rejected. Searches for user_291, the phone, the email hash, and the name returned no other records in the request window. No secondary identifiers, search entries, exports, connectors, backups, or support records were tied to this subject. The workflow's COMPLETE claim is not supported, because analytics_5854 still exposes the subject's email."
+  ],
+  "usage": [
+   {
+    "case_id": "case_293",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1054,
+    "output_tokens": 117,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_293",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 1128,
+    "cache_creation_input_tokens": 4036,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_293",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1052,
+    "cache_creation_input_tokens": 13407,
+    "cache_read_input_tokens": 8907
+   },
+   {
+    "case_id": "case_293",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 979,
+    "cache_creation_input_tokens": 9952,
+    "cache_read_input_tokens": 22314
+   },
+   {
+    "case_id": "case_293",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 402,
+    "cache_creation_input_tokens": 15792,
+    "cache_read_input_tokens": 32266
+   },
+   {
+    "case_id": "case_293",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1044,
+    "cache_creation_input_tokens": 4878,
+    "cache_read_input_tokens": 48058
+   },
+   {
+    "case_id": "case_293",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1634,
+    "cache_creation_input_tokens": 2549,
+    "cache_read_input_tokens": 52936
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "erik-johansson@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 726
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_291",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "erik johansson",
+    "limit": 100
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46702232145",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6a1d845c584bbd3ae96fcef0729f77f0723b850d867a226fc62c03eee0f8a26a",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1235"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4319"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6996"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8353"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8647"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9091"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_061"
+   },
+   "output_chars": 2126
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_096"
+   },
+   "output_chars": 4843
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3678"
+   },
+   "output_chars": 4821
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5854"
+   },
+   "output_chars": 2177
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7575"
+   },
+   "output_chars": 2135
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_29",
+    "offset": 0
+   },
+   "output_chars": 4508
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "erik",
+    "limit": 100
+   },
+   "output_chars": 2871
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "johansson",
+    "limit": 100
+   },
+   "output_chars": 1564
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "erik-johansson",
+    "limit": 100
+   },
+   "output_chars": 716
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 2500
+   },
+   "output_chars": 4249
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-03T00:00:00Z",
+    "end": "2026-05-24T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31412
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-04T04:00:00Z",
+    "end": "2026-05-04T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 5389
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_72",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_5854",
+    "limit": 50
+   },
+   "output_chars": 1349
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "ANALYTICS_PROFILE"
+   },
+   "output_chars": 147
+  }
+ ]
+}

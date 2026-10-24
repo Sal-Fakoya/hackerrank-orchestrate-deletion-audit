@@ -1,0 +1,376 @@
+{
+ "case_id": "case_399",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_2642",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_69"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_2642",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_2642",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_399",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "backup_2642",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_69",
+    "reason": "Backup archive archive/customer-data/backup_2642.tar.zst has customer_email f.rahman72@gmail.com (exact match to the request email) and restore_allowed=1 in the 2026-04-04 inventory capture, which is before audit_at. The subject's data can still be restored, so restore access must be blocked. Activity_943 (CHECK_RESTORE_ACCESS, 2026-03-10) corroborates restorability but is only a workflow claim.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1140",
+    "reason": "Linked only through batch_run activity_939 (DELETE_RECORD, reported PARTIAL), a run shared with case_398 and case_400. No usable evidence ties account_1140 to f.rahman72@gmail.com, user_397, the subject's name, phone or hash; the only evidence is the workflow activity claim. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_2138",
+    "reason": "Linked only through shared batch_run activity_937 (shared with case_398 and case_400). No usable evidence ties it to this subject's identifiers. Evidence is only the workflow activity claim. Not attributable."
+   },
+   {
+    "resource_id": "account_928",
+    "reason": "Linked only through shared batch_run activity_940 (shared with case_398 and case_400). No usable evidence ties it to this subject; the absent hint is only a workflow claim. Not attributable."
+   },
+   {
+    "resource_id": "analytics_4455",
+    "reason": "Linked only through shared batch_run activity_941. The inventory row evidence_69 is identity-free (email, email_hash, phone, customer_reference all NULL, general_shopper cohort) in a run shared with other customers, so it cannot be attributed to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their email address and asks for confirmation when completed, which is a request to erase/close their own account and data.",
+   "summary: Searched the request email, the phone, the hash, user_397, and the name variants across all usable evidence. Only backup_2642 (BACKUP_ARCHIVE) carries the subject's identifier. It is still restorable at audit_at (evidence_69), so restore access must be blocked. No subject-linked search index, support, export, analytics, marketing, connector/DATA_FLOW, or legal-hold records were found. The four batch-run candidates from shared runs were rejected for lack of attribution."
+  ],
+  "usage": [
+   {
+    "case_id": "case_399",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 86,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_399",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 566,
+    "cache_creation_input_tokens": 2054,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_399",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 678,
+    "cache_creation_input_tokens": 5353,
+    "cache_read_input_tokens": 6925
+   },
+   {
+    "case_id": "case_399",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 906,
+    "cache_creation_input_tokens": 17581,
+    "cache_read_input_tokens": 12278
+   },
+   {
+    "case_id": "case_399",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 795,
+    "cache_creation_input_tokens": 1540,
+    "cache_read_input_tokens": 29859
+   },
+   {
+    "case_id": "case_399",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 792,
+    "cache_creation_input_tokens": 10664,
+    "cache_read_input_tokens": 31399
+   },
+   {
+    "case_id": "case_399",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3146,
+    "cache_creation_input_tokens": 3308,
+    "cache_read_input_tokens": 42063
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f.rahman72@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 662
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_397",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Rahman",
+    "limit": 100
+   },
+   "output_chars": 648
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1140"
+   },
+   "output_chars": 1491
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2138"
+   },
+   "output_chars": 1491
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_928"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4455"
+   },
+   "output_chars": 2135
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_2642"
+   },
+   "output_chars": 2089
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971505256079",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e3f6431dcf5be997925d307511835065641ad1aa78f88fac45ff2c5bc34c9da7",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Farah",
+    "limit": 100
+   },
+   "output_chars": 4100
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-08T00:00:00Z",
+    "end": "2026-04-04T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31632
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 5000
+   },
+   "output_chars": 951
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT * FROM customer_profiles WHERE email LIKE '%rahman%' OR full_name LIKE '%Rahman%' OR phone LIKE '%505256079%' OR customer_reference='user_397' OR resource_id IN ('account_1140','account_2138','account_928')"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT 'search' t, resource_id, customer_reference, display_name, email, phone, email_hash FROM customer_search_documents WHERE email LIKE '%rahman%' OR display_name LIKE '%Rahman%' OR customer_reference='user_397' UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt FROM support_records WHERE requester_email LIKE '%rahman%' OR requester_name LIKE '%Rahman%' OR customer_reference='user_397' UNION ALL SELECT 'export', resource_id, customer_reference, owner_email, owner_phone, object_key, updated_at FROM customer_exports WHERE owner_email LIKE '%rahman%' OR customer_reference='user_397' UNION ALL SELECT 'connector', resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status FROM connector_subscriptions WHERE customer_email LIKE '%rahman%' OR customer_reference='user_397' UNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, updated_at, NULL FROM security_audit_records WHERE subject_reference='user_397'"
+   },
+   "output_chars": 115
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-08T00:00:00Z",
+    "end": "2026-03-11T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 16299
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1140",
+    "limit": 100
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2138",
+    "limit": 100
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_928",
+    "limit": 100
+   },
+   "output_chars": 652
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_4455",
+    "limit": 100
+   },
+   "output_chars": 1305
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "backup_2642",
+    "limit": 100
+   },
+   "output_chars": 1271
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rahman72",
+    "limit": 100
+   },
+   "output_chars": 650
+  }
+ ]
+}

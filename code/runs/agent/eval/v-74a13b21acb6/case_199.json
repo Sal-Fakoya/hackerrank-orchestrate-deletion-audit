@@ -1,0 +1,400 @@
+{
+ "case_id": "case_199",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_9917",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_82"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_9161",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_82"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_9917",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_9161",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_9917",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_9161",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_199",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_9917",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_82",
+    "reason": "Latest direct observation at 2026-07-13T09:20:12Z (trace rb-092012-025, HTTP 200, rows=1) shows the account profile still exists and still exposes email diego.t477299@outlook.com. The workflow's DELETE_RECORD SUCCESS (activity_2426) and the later replication checkpoint (activity_2434) are claims that the live read contradicts. Requires DELETE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_9161",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_82",
+    "reason": "Latest direct observation at 2026-07-13T07:39:16Z (trace rb-073916-009, index customer_directory_v3) returns a hit with email diego.t477299@outlook.com. The workflow's DELETE_RECORD SUCCESS (activity_2437) is a claim contradicted by this read. Requires DELETE.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4320",
+    "reason": "Lookup of a.sato96@gmail.com in evidence_82; not this subject's identifier."
+   },
+   {
+    "resource_id": "analytics_671",
+    "reason": "diego-fernandez@gmail.com is a different person (Diego Fernández); no match to the subject's email, hash, phone or user_id."
+   },
+   {
+    "resource_id": "search_5226",
+    "reason": "Indexed document for diego-fernandez@gmail.com (user_327), a different person."
+   },
+   {
+    "resource_id": "data_flow_2310",
+    "reason": "Connector config is for grace.reed@outlook.com, a different customer; no link to this subject."
+   },
+   {
+    "resource_id": "export_1260",
+    "reason": "Export owned by ingrid.dahl@outlook.com / user_18, a different customer."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer clearly asks the shop to permanently delete the account tied to their email address and to confirm the result, which is an erasure request for the person's own account and data. The instruction to review connected identifiers is part of carrying out the deletion, not an instruction to the classifier.",
+   "summary: Two in-scope resources for user_197 (diego.t477299@outlook.com): account_9917 (USER_PROFILE) and search_9161 (SEARCH_INDEX_ENTRY). Both are PRESENT in the latest live readbacks at 2026-07-13 (evidence_82), contradicting the workflow's COMPLETE/SUCCESS claims for the deletion worker runs (activity_2426, activity_2437). No secondary identifiers, analytics, support, export, marketing, or data-flow records tied to this subject were found; identifiers searched included the historical email, both hashes, phone, user_id and name, with no matches beyond these two resources. Replica snapshot evidence_20 lacks account_9917 and search_9161, but the later primary readback shows them present, so the primary live hit controls."
+  ],
+  "usage": [
+   {
+    "case_id": "case_199",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 122,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_199",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 535,
+    "cache_creation_input_tokens": 3609,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_199",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 842,
+    "cache_creation_input_tokens": 3713,
+    "cache_read_input_tokens": 8480
+   },
+   {
+    "case_id": "case_199",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 560,
+    "cache_creation_input_tokens": 17603,
+    "cache_read_input_tokens": 12193
+   },
+   {
+    "case_id": "case_199",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 554,
+    "cache_creation_input_tokens": 8799,
+    "cache_read_input_tokens": 29796
+   },
+   {
+    "case_id": "case_199",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 997,
+    "cache_creation_input_tokens": 14769,
+    "cache_read_input_tokens": 38595
+   },
+   {
+    "case_id": "case_199",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1571,
+    "cache_creation_input_tokens": 3369,
+    "cache_read_input_tokens": 53364
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diego.t477299@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 1517
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_197",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diego.t4772@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diego torres",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34665421313",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9917"
+   },
+   "output_chars": 2814
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_9161"
+   },
+   "output_chars": 2202
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_82",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "14c460a1c5185518f0a0c64ae9e0d426f05c49dc52b7c902d8d627b5dbae00f6",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fe241c2e669c092fc8e234bb8bb12fcf3c257b8f382166d7dc01c840de1b26e7",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diego",
+    "limit": 100
+   },
+   "output_chars": 4852
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-16T00:00:00Z",
+    "end": "2026-07-13T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31095
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_208",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_209",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-16T00:00:00Z",
+    "end": "2026-06-20T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 20099
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "user_197"
+   },
+   "output_chars": 137
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "t477299",
+    "limit": 100
+   },
+   "output_chars": 1499
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diego.t4772",
+    "limit": 100
+   },
+   "output_chars": 1503
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Torres",
+    "limit": 100
+   },
+   "output_chars": 3753
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+34 665 421 313",
+    "limit": 100
+   },
+   "output_chars": 55
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_replication_cluster",
+    "limit": 100
+   },
+   "output_chars": 25136
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_19",
+    "offset": 0
+   },
+   "output_chars": 1517
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_23",
+    "offset": 0
+   },
+   "output_chars": 1517
+  }
+ ]
+}

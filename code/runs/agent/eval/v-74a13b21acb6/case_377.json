@@ -1,0 +1,524 @@
+{
+ "case_id": "case_377",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_3651",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_70"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_3651",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3685",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_3651",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_377",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "analytics_3651",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_70",
+    "reason": "Analytics profile read at 2026-04-14T03:47:02Z (before audit_at) returned email=rina-sato@gmail.com, an identifier of the subject, so the record is still attributable to the user. Rule ANONYMIZE applies. The workflow's ANONYMIZE activity_1082 reported FAILED and is not relied on.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1824",
+    "reason": "Linked only through deletion-worker batch run activity_1080, which is shared with case_378 and case_379. No usable evidence ties account_1824 to this subject: no email, hash, phone, name or user_id appears on it in any evidence. Not attributable to rina-sato, so rejected."
+   },
+   {
+    "resource_id": "analytics_3234",
+    "reason": "Linked only through the shared batch run activity_1081 (case_378/case_379). The only observation (evidence_70, rb-025049-001) is an identity-free analytics profile with all identifiers null, so it cannot be attributed to this subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to erase the account linked to their email address and asks for a review of data eligible for deletion or de-identification; this is a request for erasure of their own account and personal data, with an added request to be notified, which does not negate the deletion request.",
+   "summary: Case case_377 (rina-sato@gmail.com). Only one record is attributable to the subject: analytics_3651, still PRESENT with the email at audit_at (evidence_70), requiring ANONYMIZE; the workflow's FAILED anonymize claim (activity_1082) is contradicted by the observation. Two batch-run candidates shared with other customers (account_1824, analytics_3234) were rejected for lack of attribution evidence. Searches of the subject's email, email hash, phones, user_id user_375, and name across all snapshots and logs found no other subject records (no user profile, search, support, export, connector, backup or cache records). No data-flow or backup evidence links to the subject.",
+   "future verification added for audit_record_3685 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_377",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 116,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_377",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 430,
+    "cache_creation_input_tokens": 2002,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_377",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 757,
+    "cache_creation_input_tokens": 3582,
+    "cache_read_input_tokens": 6873
+   },
+   {
+    "case_id": "case_377",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 594,
+    "cache_creation_input_tokens": 1920,
+    "cache_read_input_tokens": 10455
+   },
+   {
+    "case_id": "case_377",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 701,
+    "cache_creation_input_tokens": 10313,
+    "cache_read_input_tokens": 12375
+   },
+   {
+    "case_id": "case_377",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2282,
+    "cache_creation_input_tokens": 17399,
+    "cache_read_input_tokens": 22688
+   },
+   {
+    "case_id": "case_377",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 680,
+    "cache_creation_input_tokens": 2544,
+    "cache_read_input_tokens": 40087
+   },
+   {
+    "case_id": "case_377",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 554,
+    "cache_creation_input_tokens": 1042,
+    "cache_read_input_tokens": 42631
+   },
+   {
+    "case_id": "case_377",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1431,
+    "cache_creation_input_tokens": 1399,
+    "cache_read_input_tokens": 43673
+   },
+   {
+    "case_id": "case_377",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 811,
+    "cache_creation_input_tokens": 1665,
+    "cache_read_input_tokens": 45072
+   },
+   {
+    "case_id": "case_377",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2599,
+    "cache_creation_input_tokens": 6215,
+    "cache_read_input_tokens": 46737
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rina-sato@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 732
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_375",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rina sato",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1824"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3234"
+   },
+   "output_chars": 2137
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3651"
+   },
+   "output_chars": 2182
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "10b096b817b742db5fe102d212f403b668460d13b6830ec15a40e9cac662989a",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819040061113",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819065425325",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1824",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_3234",
+    "limit": 100
+   },
+   "output_chars": 1315
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_14",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sato",
+    "limit": 100
+   },
+   "output_chars": 3752
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rina",
+    "limit": 100
+   },
+   "output_chars": 4644
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "10b096b8",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_377",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-20T00:00:00Z",
+    "end": "2026-04-14T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30947
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT 'profile' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE full_name LIKE '%sato%' OR email LIKE '%rina%' OR email LIKE '%sato%' OR phone IN ('819040061113','819065425325') OR email_hash LIKE '10b096%' OR customer_reference LIKE '%375%'\nUNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE display_name LIKE '%sato%' OR email LIKE '%rina%' OR email LIKE '%sato%' OR phone IN ('819040061113','819065425325') OR email_hash LIKE '10b096%'\nUNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort FROM customer_analytics_profiles WHERE email LIKE '%rina%' OR email LIKE '%sato%' OR phone IN ('819040061113','819065425325') OR email_hash LIKE '10b096%'\nUNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE requester_name LIKE '%sato%' OR requester_email LIKE '%rina%' OR requester_email LIKE '%sato%' OR requester_phone IN ('819040061113','819065425325')\nUNION ALL SELECT 'export', resource_id, customer_reference, NULL, owner_email, owner_phone, object_key, updated_at FROM customer_exports WHERE owner_email LIKE '%rina%' OR owner_email LIKE '%sato%' OR owner_phone IN ('819040061113','819065425325')\nUNION ALL SELECT 'connector', resource_id, customer_reference, connector_name, customer_email, enabled, last_delivery_status, updated_at FROM connector_subscriptions WHERE customer_email LIKE '%rina%' OR customer_email LIKE '%sato%'\nUNION ALL SELECT 'backup', resource_id, customer_reference, archive_key, customer_email, restore_allowed, updated_at, NULL FROM backup_restore_entries WHERE customer_email LIKE '%rina%' OR customer_email LIKE '%sato%'\nUNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, NULL, updated_at, NULL FROM security_audit_records WHERE subject_reference LIKE '%rina%' OR subject_reference LIKE '%375%'"
+   },
+   "output_chars": 130
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT 'profile' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE full_name LIKE '%sato%' OR email LIKE '%rina%' OR email LIKE '%sato%' OR phone IN ('819040061113','819065425325') OR email_hash LIKE '10b096%' OR customer_reference LIKE '%375%'\nUNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE display_name LIKE '%sato%' OR email LIKE '%rina%' OR email LIKE '%sato%' OR phone IN ('819040061113','819065425325') OR email_hash LIKE '10b096%'\nUNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort FROM customer_analytics_profiles WHERE email LIKE '%rina%' OR email LIKE '%sato%' OR phone IN ('819040061113','819065425325') OR email_hash LIKE '10b096%'\nUNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE requester_name LIKE '%sato%' OR requester_email LIKE '%rina%' OR requester_email LIKE '%sato%' OR requester_phone IN ('819040061113','819065425325')\nUNION ALL SELECT 'export', resource_id, customer_reference, NULL, owner_email, owner_phone, object_key, updated_at FROM customer_exports WHERE owner_email LIKE '%rina%' OR owner_email LIKE '%sato%' OR owner_phone IN ('819040061113','819065425325')\nUNION ALL SELECT 'connector', resource_id, customer_reference, connector_name, customer_email, enabled, last_delivery_status, updated_at FROM connector_subscriptions WHERE customer_email LIKE '%rina%' OR customer_email LIKE '%sato%'\nUNION ALL SELECT 'backup', resource_id, customer_reference, archive_key, customer_email, restore_allowed, updated_at, NULL FROM backup_restore_entries WHERE customer_email LIKE '%rina%' OR customer_email LIKE '%sato%'\nUNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, NULL, updated_at, NULL FROM security_audit_records WHERE subject_reference LIKE '%rina%' OR subject_reference LIKE '%375%'"
+   },
+   "output_chars": 130
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 129
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT * FROM sqlite_master WHERE type='table' AND 0"
+   },
+   "output_chars": 72
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT sql FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 923
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT sql FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 624
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_analytics_profiles WHERE resource_id IN ('analytics_3651','analytics_3234') OR email LIKE '%rina%' OR email LIKE '%sato%'"
+   },
+   "output_chars": 127
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT 'p' src, resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_primary WHERE record_json LIKE '%rina%' OR record_json LIKE '%sato%' OR record_json LIKE '%375%' OR record_json LIKE '%account_1824%' OR record_json LIKE '%analytics_3651%' OR record_json LIKE '%10b096%' OR record_json LIKE '%819040061113%' OR record_json LIKE '%819065425325%' UNION ALL SELECT 'ap', resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_replica_ap_south WHERE record_json LIKE '%rina%' OR record_json LIKE '%sato%' OR record_json LIKE '%375%' OR record_json LIKE '%account_1824%' OR record_json LIKE '%analytics_3651%' OR record_json LIKE '%10b096%' OR record_json LIKE '%819040061113%' OR record_json LIKE '%819065425325%' UNION ALL SELECT 'eu', resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_replica_eu_west WHERE record_json LIKE '%rina%' OR record_json LIKE '%sato%' OR record_json LIKE '%375%' OR record_json LIKE '%account_1824%' OR record_json LIKE '%analytics_3651%' OR record_json LIKE '%10b096%' OR record_json LIKE '%819040061113%' OR record_json LIKE '%819065425325%'"
+   },
+   "output_chars": 112
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT 'rep' src, resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_reporting_replica WHERE record_json LIKE '%rina%' OR record_json LIKE '%sato%' OR record_json LIKE '%375%' OR record_json LIKE '%account_1824%' OR record_json LIKE '%analytics_3651%' OR record_json LIKE '%10b096%' OR record_json LIKE '%819040061113%' OR record_json LIKE '%819065425325%' UNION ALL SELECT 'prim', resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_primary WHERE record_json LIKE '%rina%' OR record_json LIKE '%sato%' OR record_json LIKE '%375%' OR record_json LIKE '%account_1824%' OR record_json LIKE '%analytics_3651%' OR record_json LIKE '%10b096%'"
+   },
+   "output_chars": 112
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT 'rep' src, resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_reporting_replica WHERE record_json LIKE '%rina%' OR record_json LIKE '%sato%' OR record_json LIKE '%375%' OR record_json LIKE '%account_1824%' OR record_json LIKE '%analytics_3651%' OR record_json LIKE '%10b096%' OR record_json LIKE '%819040061113%' OR record_json LIKE '%819065425325%' UNION ALL SELECT 'prim', resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_primary WHERE record_json LIKE '%rina%' OR record_json LIKE '%sato%' OR record_json LIKE '%375%' OR record_json LIKE '%account_1824%' OR record_json LIKE '%analytics_3651%' OR record_json LIKE '%10b096%'"
+   },
+   "output_chars": 112
+  },
+  {
+   "turn": 9,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-20T00:00:00Z",
+    "end": "2026-03-22T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 8586
+  },
+  {
+   "turn": 9,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 2000
+   },
+   "output_chars": 4231
+  }
+ ]
+}

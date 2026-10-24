@@ -1,0 +1,487 @@
+{
+ "case_id": "case_403",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_1246",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_38"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4733",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_38"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_7090",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": "evidence_38"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_403",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_1246",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_38",
+    "reason": "Primary profile account_1246 (linked to user_401 via the deletion-worker run activity_1093) is not present in customer_data_primary, customer_data_replica_ap_south or customer_data_replica_eu_west in the 2026-03-30 regional capture, which is the latest usable snapshot covering account_service. The workflow's DELETE SUCCESS claim is consistent with this direct observation. No active connector or restore path for this profile was found.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_7090",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "TREATED",
+    "evidence_id": "evidence_38",
+    "reason": "Analytics profile analytics_7090 is linked to this request only through the deletion-worker run activity_1094 (no shared_with other requests appears in the run evidence). In all three regional copies (primary, ap_south, eu_west) at 2026-03-30 it has user_id, email, phone and email_hash all null, so it can no longer be linked to user_401. It is therefore already anonymized (TREATED); it still appears in the three copies and should be verified.",
+    "condition_met": false
+   },
+   {
+    "resource_id": "audit_record_4733",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_38",
+    "reason": "Security audit event audit_record_4733 (account_deletion_reviewed, subject_reference user_401) is present in the primary and both regional replicas at 2026-03-30. It was created by this request's deletion review, so it falls within the retention period and must be retained (no expired retention_until is shown).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "user_401",
+    "reason": "Not a stored resource; it is a subject identifier only. No other records were found for this subject in any usable evidence (name, email, email hash, phone and user_id searches only match audit_record_4733)."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for permanent account deletion and erasure of their account, with a confirmation once complete. This is a direct deletion request for their own account.",
+   "summary: The subject (haruka.w248@outlook.com / user_401) has a very small footprint in usable evidence. account_1246 is confirmed absent from all regional copies at audit_at (evidence_38). analytics_7090 is an identity-free analytics profile from this request's deletion run, already anonymized (TREATED) but still present in three copies. audit_record_4733 is a recent security audit record to be retained. No searches found the subject's name, email, hash or phone in any other store, backup, export, connector or legal hold. The workflow's COMPLETE claim is consistent with what was observed, apart from the retained audit record and the anonymized analytics copies."
+  ],
+  "usage": [
+   {
+    "case_id": "case_403",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1063,
+    "output_tokens": 87,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_403",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 445,
+    "cache_creation_input_tokens": 1733,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_403",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 375,
+    "cache_creation_input_tokens": 1936,
+    "cache_read_input_tokens": 6604
+   },
+   {
+    "case_id": "case_403",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 526,
+    "cache_creation_input_tokens": 17493,
+    "cache_read_input_tokens": 8540
+   },
+   {
+    "case_id": "case_403",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 596,
+    "cache_creation_input_tokens": 8045,
+    "cache_read_input_tokens": 26033
+   },
+   {
+    "case_id": "case_403",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 621,
+    "cache_creation_input_tokens": 6959,
+    "cache_read_input_tokens": 34078
+   },
+   {
+    "case_id": "case_403",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 748,
+    "cache_creation_input_tokens": 1445,
+    "cache_read_input_tokens": 41037
+   },
+   {
+    "case_id": "case_403",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1557,
+    "cache_creation_input_tokens": 5478,
+    "cache_read_input_tokens": 42482
+   },
+   {
+    "case_id": "case_403",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1297,
+    "cache_creation_input_tokens": 23664,
+    "cache_read_input_tokens": 47960
+   },
+   {
+    "case_id": "case_403",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 487,
+    "cache_creation_input_tokens": 2536,
+    "cache_read_input_tokens": 71624
+   },
+   {
+    "case_id": "case_403",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1715,
+    "cache_creation_input_tokens": 10055,
+    "cache_read_input_tokens": 74160
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "haruka",
+    "limit": 100
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_401",
+    "limit": 100
+   },
+   "output_chars": 2735
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "haruka.w248@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819075198309",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2dd78336f3a4b6d968b748c52ea7288b977204d64cefa53f97421226f9016e22",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1246"
+   },
+   "output_chars": 1493
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7090"
+   },
+   "output_chars": 4751
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4733"
+   },
+   "output_chars": 3570
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-19T00:00:00Z",
+    "end": "2026-03-30T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31323
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "w248",
+    "limit": 100
+   },
+   "output_chars": 44
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "watanabe",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_1093",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-19T00:00:00Z",
+    "end": "2026-03-22T23:59:59Z",
+    "limit": 60
+   },
+   "output_chars": 17652
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_38",
+    "offset": 0
+   },
+   "output_chars": 4579
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_40",
+    "offset": 0
+   },
+   "output_chars": 4660
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT name, sql FROM sqlite_master"
+   },
+   "output_chars": 1196
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "user_401"
+   },
+   "output_chars": 137
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "analytics_7090",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 324
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT 'primary' t, resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%user_401%' OR record_json LIKE '%haruka%' OR record_json LIKE '%w248%' OR record_json LIKE '%819075198309%' OR record_json LIKE '%Watanabe%' OR resource_id IN ('account_1246','analytics_7090','audit_record_4733') UNION ALL SELECT 'ap', resource_id, origin_system, collection_name, record_json FROM customer_data_replica_ap_south WHERE record_json LIKE '%user_401%' OR record_json LIKE '%haruka%' OR record_json LIKE '%w248%' OR resource_id IN ('account_1246','analytics_7090','audit_record_4733') UNION ALL SELECT 'eu', resource_id, origin_system, collection_name, record_json FROM customer_data_replica_eu_west WHERE record_json LIKE '%user_401%' OR record_json LIKE '%haruka%' OR record_json LIKE '%w248%' OR resource_id IN ('account_1246','analytics_7090','audit_record_4733')"
+   },
+   "output_chars": 2582
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1246",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_7090",
+    "limit": 100
+   },
+   "output_chars": 3923
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_4733",
+    "limit": 100
+   },
+   "output_chars": 2744
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "401",
+    "limit": 100
+   },
+   "output_chars": 6070
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1246",
+    "limit": 100
+   },
+   "output_chars": 652
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Haruka Watanabe",
+    "limit": 100
+   },
+   "output_chars": 55
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "outlook.com",
+    "limit": 100
+   },
+   "output_chars": 40069
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "shared_with",
+    "limit": 20
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch",
+    "limit": 20
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2026-03-22T09",
+    "limit": 50
+   },
+   "output_chars": 2456
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 30
+   },
+   "output_chars": 20199
+  },
+  {
+   "turn": 9,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 9,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_4733",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 24
+  }
+ ]
+}

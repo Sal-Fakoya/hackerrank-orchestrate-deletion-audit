@@ -1,0 +1,641 @@
+{
+ "case_id": "case_262",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2228",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2228",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_2481",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_2981",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2228",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4812",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_262",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_2481",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_24",
+    "reason": "Deletion-worker run activity_2237 (reported PARTIAL) is only a workflow claim. The latest usable account_service observation (customer_data_read_replica_20260613, primary and read-replica tables, captured 2026-06-13T11:00Z) contains no row for account_2481, so the profile is absent. The run had no shared_with entries and this is the only request on the subject, so the resource is attributed to this subject.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_2981",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_24",
+    "reason": "Deletion-worker run activity_2236 reported SUCCESS. The later replication checkpoint activity_2242 (SYNC_RECORD to account_replication_cluster) is a workflow claim, not a stored-data observation. The latest account_service snapshot (evidence_24, 2026-06-13) lacks account_2981 in both primary and read-replica tables, so the profile is absent. No direct observation of account_replication_cluster after 2026-06-06 was found; this copy should be verified.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_2228",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "customer_directory_v3 document search_2228 still exposes display_name 'Camila Oliveira', email oliveira.camila@icloud.com and customer_reference user_260 in both the primary and read-replica tables at 2026-06-13T11:00Z. The deletion event activity_2240 reported FAILED. The index entry must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_4812",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "security_audit_events record audit_record_4812 (account_deletion_reviewed, subject_reference user_260, automated privacy workflow) is present in both the primary and read-replica tables at 2026-06-13T11:00Z. It was created during this request window and is within the retention period, so it is retained. The record holds only the user_260 reference and no direct identifiers.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_9608",
+    "reason": "Belongs to user_257 (Sibusiso Nkosi), not this subject."
+   },
+   {
+    "resource_id": "legal_hold_8017",
+    "reason": "Legal hold for user_259, not this subject; no hold found for user_260."
+   },
+   {
+    "resource_id": "audit_record_1421",
+    "reason": "Security audit row for user_257, not this subject."
+   },
+   {
+    "resource_id": "support_3772",
+    "reason": "Support message for user_254 (Yasmine Mansour), not this subject; no support conversation references user_260 or the subject email."
+   },
+   {
+    "resource_id": "search_5296",
+    "reason": "Search document for user_256 (Adwoa Osei), not this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for permanent account deletion of their own account and data, with a confirmation after completion; this is an erasure request, not negated or third-party.",
+   "summary: Subject user_260 (oliveira.camila@icloud.com). Two account profiles from the deletion run (account_2481, account_2981) are ABSENT in the latest account_service observation, although the run reported PARTIAL/SUCCESS and a later replication checkpoint was only claimed. The search index document search_2228 is still PRESENT with the subject's name and email, so it must be deleted. The security audit record audit_record_4812 is PRESENT and retained within its retention period. No support messages, attachments, analytics, telemetry, backups, exports, marketing profiles, or active data flows were found linked to this subject. The account_replication_cluster copy of account_2981 could not be directly observed and should be verified."
+  ],
+  "usage": [
+   {
+    "case_id": "case_262",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 88,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_262",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 515,
+    "cache_creation_input_tokens": 3091,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_262",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 709,
+    "cache_creation_input_tokens": 7990,
+    "cache_read_input_tokens": 7962
+   },
+   {
+    "case_id": "case_262",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 779,
+    "cache_creation_input_tokens": 13621,
+    "cache_read_input_tokens": 15952
+   },
+   {
+    "case_id": "case_262",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 932,
+    "cache_creation_input_tokens": 7461,
+    "cache_read_input_tokens": 29573
+   },
+   {
+    "case_id": "case_262",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 664,
+    "cache_creation_input_tokens": 8445,
+    "cache_read_input_tokens": 37034
+   },
+   {
+    "case_id": "case_262",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1266,
+    "cache_creation_input_tokens": 3137,
+    "cache_read_input_tokens": 45479
+   },
+   {
+    "case_id": "case_262",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 962,
+    "cache_creation_input_tokens": 10286,
+    "cache_read_input_tokens": 48616
+   },
+   {
+    "case_id": "case_262",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2198,
+    "cache_creation_input_tokens": 8935,
+    "cache_read_input_tokens": 58902
+   },
+   {
+    "case_id": "case_262",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2966,
+    "cache_creation_input_tokens": 40147,
+    "cache_read_input_tokens": 67837
+   },
+   {
+    "case_id": "case_262",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1879,
+    "cache_creation_input_tokens": 22949,
+    "cache_read_input_tokens": 107984
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "oliveira.camila@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 1718
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_260",
+    "limit": 100
+   },
+   "output_chars": 3460
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "camila oliveira",
+    "limit": 100
+   },
+   "output_chars": 1707
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2481"
+   },
+   "output_chars": 1489
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2981"
+   },
+   "output_chars": 2101
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2228"
+   },
+   "output_chars": 3137
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4812"
+   },
+   "output_chars": 2641
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "dd005d7a7bd743e49231bce324767bedd179449aad6bb14fa5428f74431ec940",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5521939076424",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5561998768296",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_2237",
+    "limit": 100
+   },
+   "output_chars": 662
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-03T00:00:00Z",
+    "end": "2026-06-13T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30902
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 0
+   },
+   "output_chars": 4519
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_26",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_77",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-06T10:00:00Z",
+    "end": "2026-06-06T11:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 1297
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2981",
+    "limit": 100
+   },
+   "output_chars": 1273
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2481",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 5000
+   },
+   "output_chars": 4526
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 10000
+   },
+   "output_chars": 4558
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 15000
+   },
+   "output_chars": 4518
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 18900
+   },
+   "output_chars": 986
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_4812",
+    "limit": 100
+   },
+   "output_chars": 1815
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_2228",
+    "limit": 100
+   },
+   "output_chars": 2313
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_107",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_25",
+    "offset": 0
+   },
+   "output_chars": 4671
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_26",
+    "offset": 5000
+   },
+   "output_chars": 4644
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-03T00:00:00Z",
+    "end": "2026-06-06T13:00:00Z",
+    "limit": 60
+   },
+   "output_chars": 18727
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_2481",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_2981",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 674
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Oliveira",
+    "limit": 100
+   },
+   "output_chars": 8608
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "camila",
+    "limit": 100
+   },
+   "output_chars": 7855
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+55",
+    "limit": 100
+   },
+   "output_chars": 8353
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_replication_cluster",
+    "limit": 100
+   },
+   "output_chars": 20845
+  },
+  {
+   "turn": 8,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 100
+   },
+   "output_chars": 36583
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tombstone",
+    "limit": 50
+   },
+   "output_chars": 614
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "icloud.com",
+    "limit": 100
+   },
+   "output_chars": 40730
+  },
+  {
+   "turn": 9,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  }
+ ]
+}

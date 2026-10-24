@@ -1,0 +1,500 @@
+{
+ "case_id": "case_519",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_8264",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_48"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_8264",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_1506",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4027",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_8264",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_519",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_1506",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_48",
+    "reason": "Profile lookup keyed on the subject's email s.dlamini52@gmail.com (trace tr-4544239, 2026-02-03T05:57) returned 404 with rows=0 for account_1506, so the primary profile no longer exists at audit_at. The deletion worker's PARTIAL claim in activity_46 is superseded by this direct observation. Snapshots evidence_49 and evidence_62 (before audit_at) also do not list account_1506. The record is linked to the subject by the email lookup, so it is in scope. Compliant for DELETE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_4027",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_48",
+    "reason": "Audit record for subject_ref user_517 was read successfully with integrity check passed (trace tr-4612767, 2026-02-03T05:51). No supplied retention expiry for this record is visible and it is recent, so the retention condition is treated as holding. It must be RETAINED and verified as available, not deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_8264",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_48",
+    "reason": "Restore policy check for subject_key s.dlamini52@gmail.com (trace tr-8270299, 2026-02-03T05:58) evaluated backup_8264 as eligible=true with deletion_block=false, so the subject's data can still be restored. The earlier activity_49 SUCCESS claim is consistent with this. Restore access can be blocked, so the archive must be blocked (RETAIN action) rather than left restorable.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to permanently delete the account associated with their email address and to apply this across systems, which is an erasure request for their own account and data; requesting confirmation of the outcome does not change this.",
+   "summary: Subject user_517 (s.dlamini52@gmail.com). Three in-scope resources found. account_1506 profile is ABSENT (404 lookup by subject email at 2026-02-03). audit_record_4027 is PRESENT and must be retained. backup_8264 is RESTORABLE with no deletion block and needs blocking. No other subject records (email, hash, phone, name, user_517) were found in usable evidence. No active DATA_FLOW or support, analytics, search, or export records for this subject were found. Snapshots evidence_49 and evidence_62 contain no subject records."
+  ],
+  "usage": [
+   {
+    "case_id": "case_519",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 101,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_519",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 347,
+    "cache_creation_input_tokens": 843,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_519",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 461,
+    "cache_creation_input_tokens": 3940,
+    "cache_read_input_tokens": 5714
+   },
+   {
+    "case_id": "case_519",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 567,
+    "cache_creation_input_tokens": 19136,
+    "cache_read_input_tokens": 9654
+   },
+   {
+    "case_id": "case_519",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 515,
+    "cache_creation_input_tokens": 2003,
+    "cache_read_input_tokens": 28790
+   },
+   {
+    "case_id": "case_519",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 872,
+    "cache_creation_input_tokens": 7502,
+    "cache_read_input_tokens": 30793
+   },
+   {
+    "case_id": "case_519",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 901,
+    "cache_creation_input_tokens": 12146,
+    "cache_read_input_tokens": 38295
+   },
+   {
+    "case_id": "case_519",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1433,
+    "cache_creation_input_tokens": 2242,
+    "cache_read_input_tokens": 50441
+   },
+   {
+    "case_id": "case_519",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1963,
+    "cache_creation_input_tokens": 3451,
+    "cache_read_input_tokens": 52683
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1506"
+   },
+   "output_chars": 1761
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4027"
+   },
+   "output_chars": 1364
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_8264"
+   },
+   "output_chars": 1768
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_517",
+    "limit": 50
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "dlamini",
+    "limit": 50
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-07T00:00:00Z",
+    "end": "2026-02-03T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31052
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "s.dlamini52@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4d32484f68adbb3443f8c2569ad25b2e15df6587c11cb4f5edffb1ca427d2b6b",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27727145630",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Sibusiso",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_517",
+    "limit": 50
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 2000
+   },
+   "output_chars": 4621
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 4000
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 6000
+   },
+   "output_chars": 4607
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 8000
+   },
+   "output_chars": 2831
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 2000
+   },
+   "output_chars": 4631
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 4000
+   },
+   "output_chars": 4646
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 6000
+   },
+   "output_chars": 4655
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 8000
+   },
+   "output_chars": 4605
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 10000
+   },
+   "output_chars": 4594
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 12000
+   },
+   "output_chars": 3326
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_1506",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 345
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "backup_8264",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 354
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_4027",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_48",
+    "trace_id": "tr-4612767"
+   },
+   "output_chars": 703
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_48",
+    "trace_id": "tr-8270299"
+   },
+   "output_chars": 507
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_48",
+    "trace_id": "tr-4544239"
+   },
+   "output_chars": 510
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_4027",
+    "limit": 50
+   },
+   "output_chars": 972
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "backup_8264",
+    "limit": 50
+   },
+   "output_chars": 1378
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1506",
+    "limit": 50
+   },
+   "output_chars": 1370
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "BACKUP_ARCHIVE"
+   },
+   "output_chars": 132
+  }
+ ]
+}

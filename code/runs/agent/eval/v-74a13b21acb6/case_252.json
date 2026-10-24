@@ -1,0 +1,396 @@
+{
+ "case_id": "case_252",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "export_service",
+   "resource_id": "export_8598",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_78"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2936",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_78"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "export_service",
+   "resource_id": "export_8598",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2936",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "export_service",
+   "resource_id": "export_8598",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2936",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_252",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "export_8598",
+    "system_id": "export_service",
+    "category": "USER_EXPORT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_78",
+    "reason": "Customer export package exports/export_8598/customer_data.zip still has owner_email hcollins447986@fastmail.com in the export_service customer_exports table at 2026-06-18T11:44:03Z (before audit_at). The deletion worker's PARTIAL result (activity_2157) does not prove removal. USER_EXPORT is always DELETE, so the export must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_2936",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_78",
+    "reason": "Search document search_2936 in customer_directory_v3 still holds email hcollins447986@fastmail.com at 2026-06-18T11:44:03Z (latest snapshot, before audit_at). The deletion worker's PARTIAL result (activity_2159) does not prove removal. SEARCH_INDEX_ENTRY is always DELETE, so the entry must be deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4643",
+    "reason": "Linked only via deletion-worker batch run activity_2154, which is shared with case_251 (nicolas-lopez@proton.me). No usable evidence ties this account to hannah collins or user_250; the only record is the workflow's own absent claim, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_7518",
+    "reason": "Linked only via batch run activity_2156, shared with case_251 (nicolas-lopez@proton.me). No usable evidence ties it to this subject; the record is only a workflow claim, so it is rejected as belonging to another customer's run."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to close the account and have its associated personal data deleted, including associated records, which is erasure of their own data. The request for a confirmation afterward does not change that.",
+   "summary: Two subject records are confirmed PRESENT at audit_at from the 2026-06-18 inventory snapshot (evidence_78): export_8598 (USER_EXPORT, contains owner email) and search_2936 (SEARCH_INDEX_ENTRY, contains email). Both need deletion; the workflow's COMPLETE claim and PARTIAL results are contradicted. Two account candidates from the shared case_251 run were rejected for lack of attribution. No primary profile, analytics, support, marketing, backup, or data-flow record tied to hannah collins/user_250 was found in usable evidence. The searches for user_250, the phone, the hashes and the historical email returned nothing."
+  ],
+  "usage": [
+   {
+    "case_id": "case_252",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 94,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_252",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 469,
+    "cache_creation_input_tokens": 3285,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_252",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 530,
+    "cache_creation_input_tokens": 3236,
+    "cache_read_input_tokens": 8156
+   },
+   {
+    "case_id": "case_252",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 429,
+    "cache_creation_input_tokens": 10994,
+    "cache_read_input_tokens": 11392
+   },
+   {
+    "case_id": "case_252",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 431,
+    "cache_creation_input_tokens": 12930,
+    "cache_read_input_tokens": 22386
+   },
+   {
+    "case_id": "case_252",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 198,
+    "cache_creation_input_tokens": 11667,
+    "cache_read_input_tokens": 35316
+   },
+   {
+    "case_id": "case_252",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 685,
+    "cache_creation_input_tokens": 2079,
+    "cache_read_input_tokens": 46983
+   },
+   {
+    "case_id": "case_252",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 619,
+    "cache_creation_input_tokens": 2008,
+    "cache_read_input_tokens": 49062
+   },
+   {
+    "case_id": "case_252",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1368,
+    "cache_creation_input_tokens": 1387,
+    "cache_read_input_tokens": 51070
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hcollins447986@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 1375
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_250",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hcollins4479@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 65
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Hannah Collins",
+    "limit": 100
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_8598"
+   },
+   "output_chars": 2118
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2936"
+   },
+   "output_chars": 2154
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4643"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7518"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "250",
+    "limit": 100
+   },
+   "output_chars": 15345
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "collins",
+    "limit": 100
+   },
+   "output_chars": 4041
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "447700900250",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "78293e5036b7c240a39090d9b56978bf9566ae9cb691fa3b1d97ba99e084c53f",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-28T00:00:00Z",
+    "end": "2026-06-18T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31032
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_185",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-28T00:00:00Z",
+    "end": "2026-06-01T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 22422
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_78",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_78",
+    "offset": 2400
+   },
+   "output_chars": 3634
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hcollins",
+    "limit": 100
+   },
+   "output_chars": 1356
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4643",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7518",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_251",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_23",
+    "offset": 0
+   },
+   "output_chars": 1517
+  }
+ ]
+}

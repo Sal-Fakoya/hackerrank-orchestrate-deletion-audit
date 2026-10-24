@@ -1,0 +1,509 @@
+{
+ "case_id": "case_197",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_6762",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_82"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6093",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_82"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_6762",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6093",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_6762",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6093",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_197",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_6762",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_82",
+    "reason": "Search query at 2026-07-13T07:57:23Z (trace rb-075723-012, before audit_at) by lookup key rafael-silva@gmail.com returned a hit in customer_directory_v3 with the subject's email. The record still exposes direct identifiers. The workflow's FAILED deletion activity (activity_2435) does not prove absence. Always DELETE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_6093",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_82",
+    "reason": "Analytics profile read at 2026-07-13T07:52:45Z (trace rb-075245-011) returned email=rafael-silva@gmail.com with audience_cohort=mobile_browser. The profile is still attributable to the subject through the email, so it is not anonymized. The workflow's FAILED ANONYMIZE result (activity_2432) does not prove the state. Required action is ANONYMIZE.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "user_195",
+    "reason": "Subject user_id: no usable evidence in the request window mentions user_195, and no account or profile record for this subject was found in any snapshot or log."
+   },
+   {
+    "resource_id": "audit_142",
+    "reason": "Identity audit id from the subject list: not present in any usable evidence, so no state can be attributed."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their email address and asks for a confirmation once complete, which is an erasure request for their own account and data.",
+   "summary: Two in-scope subject records were found, both PRESENT at audit_at per the 2026-07-13 service lookup trace (evidence_82): search_6762 (search index entry, DELETE) and analytics_6093 (analytics profile still carrying the email, ANONYMIZE). Both workflow results (FAILED) are claims and do not prove absence. No other records were found for the subject's email, hash, phones, user_195, or name in any snapshot, replica, backup, connector, support, export, or log. The workflow's COMPLETE claim is not supported: both candidates still exist with the subject's data."
+  ],
+  "usage": [
+   {
+    "case_id": "case_197",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1063,
+    "output_tokens": 86,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_197",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 389,
+    "cache_creation_input_tokens": 3567,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_197",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 507,
+    "cache_creation_input_tokens": 3188,
+    "cache_read_input_tokens": 8438
+   },
+   {
+    "case_id": "case_197",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 483,
+    "cache_creation_input_tokens": 1820,
+    "cache_read_input_tokens": 11626
+   },
+   {
+    "case_id": "case_197",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 933,
+    "cache_creation_input_tokens": 13882,
+    "cache_read_input_tokens": 13446
+   },
+   {
+    "case_id": "case_197",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 633,
+    "cache_creation_input_tokens": 1853,
+    "cache_read_input_tokens": 27328
+   },
+   {
+    "case_id": "case_197",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 660,
+    "cache_creation_input_tokens": 1827,
+    "cache_read_input_tokens": 29181
+   },
+   {
+    "case_id": "case_197",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 576,
+    "cache_creation_input_tokens": 6172,
+    "cache_read_input_tokens": 31008
+   },
+   {
+    "case_id": "case_197",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 740,
+    "cache_creation_input_tokens": 6388,
+    "cache_read_input_tokens": 37180
+   },
+   {
+    "case_id": "case_197",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 949,
+    "cache_creation_input_tokens": 5814,
+    "cache_read_input_tokens": 43568
+   },
+   {
+    "case_id": "case_197",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1191,
+    "cache_creation_input_tokens": 1453,
+    "cache_read_input_tokens": 49382
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rafael-silva@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 1461
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_195",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rafael silva",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_6762"
+   },
+   "output_chars": 2196
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6093"
+   },
+   "output_chars": 2179
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "b601f28c113b251cdc8b060aee8926381588d6aaa79fabca69d2c06fdd3742d8",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5511966560765",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5531920082626",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_142",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rafael",
+    "limit": 50
+   },
+   "output_chars": 2293
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": null
+   },
+   "output_chars": 608
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-01T00:00:00Z",
+    "end": "2026-07-13T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31095
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT 'analytics' t, resource_id, customer_reference, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles UNION ALL SELECT 'search', resource_id, customer_reference, email, phone, email_hash, index_name, updated_at FROM customer_search_documents UNION ALL SELECT 'export', resource_id, customer_reference, owner_email, owner_phone, object_key, updated_at FROM customer_exports UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email, archive_key, restore_allowed, updated_at FROM backup_restore_entries UNION ALL SELECT 'conn', resource_id, customer_reference, customer_email, connector_name, enabled, updated_at FROM connector_subscriptions"
+   },
+   "output_chars": 101
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT 'support' t, resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records UNION ALL SELECT 'audit', resource_id, subject_reference, event_code, retention_until, updated_at, NULL, NULL FROM security_audit_records"
+   },
+   "output_chars": 1564
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_read_replica WHERE record_json LIKE '%rafael%' OR record_json LIKE '%user_195%' OR record_json LIKE '%5511966560765%' OR record_json LIKE '%5531920082626%' OR record_json LIKE '%b601f28c%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT 'analytics' t, resource_id, customer_reference, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles"
+   },
+   "output_chars": 651
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents"
+   },
+   "output_chars": 718
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT resource_id, customer_reference, owner_email, owner_phone, object_key, updated_at FROM customer_exports"
+   },
+   "output_chars": 241
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT resource_id, customer_reference, customer_email, archive_key, restore_allowed, updated_at FROM backup_restore_entries"
+   },
+   "output_chars": 233
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status, updated_at FROM connector_subscriptions"
+   },
+   "output_chars": 365
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_82",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "user_195",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-18T00:00:00Z",
+    "end": "2026-06-20T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 8866
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_82",
+    "offset": 9500
+   },
+   "output_chars": 1380
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT resource_id, origin_system, collection_name, substr(record_json,1,300), updated_at FROM customer_data_read_replica LIMIT 50"
+   },
+   "output_chars": 10720
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "silva",
+    "limit": 50
+   },
+   "output_chars": 5916
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_6762",
+    "limit": 50
+   },
+   "output_chars": 1383
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_6093",
+    "limit": 50
+   },
+   "output_chars": 1362
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_24",
+    "sql": null
+   },
+   "output_chars": 608
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT 'search' t, resource_id, customer_reference, email, phone, email_hash FROM customer_search_documents UNION ALL SELECT 'analytics', resource_id, customer_reference, email, phone, email_hash FROM customer_analytics_profiles UNION ALL SELECT 'profile', resource_id, customer_reference, email, phone, email_hash FROM customer_profiles"
+   },
+   "output_chars": 944
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_24",
+    "sql": "SELECT resource_id, collection_name, record_json FROM customer_data_read_replica WHERE record_json LIKE '%rafael%' OR record_json LIKE '%user_195%' OR record_json LIKE '%search_6762%' OR record_json LIKE '%analytics_6093%'"
+   },
+   "output_chars": 74
+  }
+ ]
+}

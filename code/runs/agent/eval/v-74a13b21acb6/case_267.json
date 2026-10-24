@@ -1,0 +1,464 @@
+{
+ "case_id": "case_267",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8384",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_25"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6621",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_25"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_267",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_8384",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_25",
+    "reason": "Primary profile for the subject (lookup_key j.nystrom64@gmail.com, the subject's current email). The account_service lookup at 2026-06-08T09:51:52Z returned http_status 404 rows=0 after the workflow's deletion submission (activity_2069). The deletion is confirmed by a direct lookup, not only by the workflow claim. Retained snapshot evidence_26 (2026-06-05) also covers account_service without this record.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6621",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_25",
+    "reason": "Security audit record read at 2026-06-08T09:52:27Z with subject_ref user_265 (the subject's user_id), integrity check passed, rows=1. It is still present. No retention end date or expiry for it appears in usable evidence, so it stays within retention and must be retained and verified, not deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_3793",
+    "reason": "Linked only through the shared deletion-worker run (activity_2070, shared with case_266, case_268 and case_282). The only observation (evidence_25, tr-2340805) is an analytics profile read with direct_identifiers=0, email=null, phone=null and no user reference. That is an identity-free record in a shared run, so it cannot be attributed to user_265 or to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to remove their own account and the personal information linked to it, including identifiers connected to the account, which is erasure of their own data and account.",
+   "summary: Subject user_265 (j.nystrom64@gmail.com). Confirmed: account_8384 (USER_PROFILE) is ABSENT, with a 404 direct lookup by the subject's email at 2026-06-08T09:51:52Z (evidence_25). Audit record audit_record_6621 (SECURITY_AUDIT_LOG) is PRESENT, tied to user_265, and retained. analytics_3793 is rejected because it is an identity-free profile in a shared run. Searches for the subject's hash, both phone numbers, the name variants, and audit_45 returned no further records in the request window. No other in-scope resources were found. The workflow's COMPLETE claim is only partly borne out: the primary account is gone, but the audit record remains, as the retention rule requires."
+  ],
+  "usage": [
+   {
+    "case_id": "case_267",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 86,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_267",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 461,
+    "cache_creation_input_tokens": 3096,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_267",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 572,
+    "cache_creation_input_tokens": 4710,
+    "cache_read_input_tokens": 7967
+   },
+   {
+    "case_id": "case_267",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 472,
+    "cache_creation_input_tokens": 6492,
+    "cache_read_input_tokens": 12677
+   },
+   {
+    "case_id": "case_267",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 749,
+    "cache_creation_input_tokens": 17368,
+    "cache_read_input_tokens": 19169
+   },
+   {
+    "case_id": "case_267",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1181,
+    "cache_creation_input_tokens": 10025,
+    "cache_read_input_tokens": 36537
+   },
+   {
+    "case_id": "case_267",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1186,
+    "cache_creation_input_tokens": 12057,
+    "cache_read_input_tokens": 46562
+   },
+   {
+    "case_id": "case_267",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1128,
+    "cache_creation_input_tokens": 19700,
+    "cache_read_input_tokens": 58619
+   },
+   {
+    "case_id": "case_267",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1481,
+    "cache_creation_input_tokens": 1773,
+    "cache_read_input_tokens": 78319
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8384"
+   },
+   "output_chars": 2523
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3793"
+   },
+   "output_chars": 2086
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6621"
+   },
+   "output_chars": 1906
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "j.nystrom64@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1092
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_265",
+    "limit": 100
+   },
+   "output_chars": 1071
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nyström",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "10269c360846968776cb23a89d96e2b92b7557cfcbca50e6912b1ca57264b6e2",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46701463442",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46708648596",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Jonas",
+    "limit": 100
+   },
+   "output_chars": 9856
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_45",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nystrom",
+    "limit": 100
+   },
+   "output_chars": 2404
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-24T00:00:00Z",
+    "end": "2026-06-08T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31030
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_25",
+    "offset": 0
+   },
+   "output_chars": 4671
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_26",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8384",
+    "limit": 100
+   },
+   "output_chars": 1685
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "3793",
+    "limit": 100
+   },
+   "output_chars": 1248
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6621",
+    "limit": 100
+   },
+   "output_chars": 1067
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_265",
+    "limit": 100
+   },
+   "output_chars": 1071
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "j.nystrom",
+    "limit": 100
+   },
+   "output_chars": 1080
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-24T00:00:00Z",
+    "end": "2026-05-27T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 15483
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Nystr",
+    "limit": 100
+   },
+   "output_chars": 2402
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "146 3442",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "864 8596",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "j.nystrom64",
+    "limit": 100
+   },
+   "output_chars": 1082
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "265",
+    "limit": 100
+   },
+   "output_chars": 18228
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_25",
+    "trace_id": "tr-8487476"
+   },
+   "output_chars": 1456
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_25",
+    "trace_id": "tr-4631008"
+   },
+   "output_chars": 887
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_25",
+    "trace_id": "tr-2340805"
+   },
+   "output_chars": 382
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 36397
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+46 70 146",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+46 70 864",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_6621",
+    "limit": 50
+   },
+   "output_chars": 1080
+  }
+ ]
+}

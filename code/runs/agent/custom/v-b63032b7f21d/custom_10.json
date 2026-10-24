@@ -1,0 +1,234 @@
+{
+ "case_id": "custom_10",
+ "mode": "agent",
+ "judge_version": "b63032b7f21d",
+ "status": "COMPLETE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "custom_10",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [],
+  "rejected": [
+   {
+    "resource_id": "analytics_2713",
+    "reason": "Linked only via batch_run activity_2857, a run shared with case_33 (ingrid.dahl@outlook.com). No usable evidence ties this record to the request subject (unknown.person.7731@example.net / its hash / no user_id). Only evidence is a workflow FAILED activity claim; latest snapshots covering analytics_platform (evidence_81, evidence_22, evidence_20, evidence_83) do not contain it. Cannot be attributed to this subject, so rejected."
+   },
+   {
+    "resource_id": "search_5261",
+    "reason": "Linked only via batch_run activity_2852, shared with case_33 (ingrid.dahl). No evidence ties it to the request subject; the request email and hash match no evidence. Snapshots covering search_service (evidence_83, evidence_20, evidence_81, evidence_22, evidence_80) lack it. Rejected as belonging to another customer's run."
+   },
+   {
+    "resource_id": "search_8678",
+    "reason": "Linked only via batch_run activity_2853, shared with case_33 (ingrid.dahl). No evidence ties it to the request subject; snapshots covering search_service (evidence_83, evidence_20, evidence_81, evidence_22, evidence_80) lack it. Rejected as belonging to another customer's run."
+   },
+   {
+    "resource_id": "support_3155",
+    "reason": "Linked only via batch_run activity_2854, shared with case_33 (ingrid.dahl). No evidence ties it to the request subject; snapshots covering support_platform (evidence_83, evidence_20, evidence_81, evidence_22, evidence_80) lack it. Rejected as belonging to another customer's run."
+   },
+   {
+    "resource_id": "support_3586",
+    "reason": "Linked only via batch_run activity_2856, shared with case_33 (ingrid.dahl). No evidence ties it to the request subject; snapshots covering support_platform (evidence_83, evidence_20, evidence_81, evidence_22, evidence_80) lack it. Rejected as belonging to another customer's run."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks the shop to permanently delete their account and all personal data linked to their email address, which is a direct erasure request.",
+   "summary: No records could be attributed to the request subject (unknown.person.7731@example.net, hash 6febbf...e5b84, user_id unresolved). Searching all usable evidence for the email and hash returned zero hits, and no identity audit or user_id links exist. All five deterministic candidates are linked only through the reported deletion-worker batch run shared with case_33 (ingrid.dahl@outlook.com, user_18), and their only evidence is workflow activity claims; the candidates are absent from covering snapshots. They were rejected. No subject facts are supported, so the workflow's COMPLETE claim cannot be verified against any subject-owned record; the case lacks an identifiable subject and needs human review of the identity resolution before any deletion is asserted."
+  ],
+  "usage": [
+   {
+    "case_id": "custom_10",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 970,
+    "output_tokens": 80,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "custom_10",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 412,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 8770
+   },
+   {
+    "case_id": "custom_10",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 488,
+    "cache_creation_input_tokens": 7281,
+    "cache_read_input_tokens": 8770
+   },
+   {
+    "case_id": "custom_10",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 828,
+    "cache_creation_input_tokens": 3985,
+    "cache_read_input_tokens": 16051
+   },
+   {
+    "case_id": "custom_10",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 446,
+    "cache_creation_input_tokens": 4060,
+    "cache_read_input_tokens": 20036
+   },
+   {
+    "case_id": "custom_10",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1559,
+    "cache_creation_input_tokens": 2780,
+    "cache_read_input_tokens": 24096
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "unknown.person.7731@example.net",
+    "limit": 100
+   },
+   "output_chars": 71
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6febbf5a3fb459b3c9eb192d269853ecac8b36bdff457d5e2adbf378881e5b84",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-16T00:00:00Z",
+    "end": "2026-07-19T13:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 16813
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2713"
+   },
+   "output_chars": 1508
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5261"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_8678"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3155"
+   },
+   "output_chars": 1489
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3586"
+   },
+   "output_chars": 1489
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_33",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-16T00:00:00Z",
+    "end": "2026-07-17T08:00:00Z",
+    "limit": 5
+   },
+   "output_chars": 1668
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_2857",
+    "limit": 50
+   },
+   "output_chars": 684
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ingrid.dahl@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 3951
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "unknown.person",
+    "limit": 50
+   },
+   "output_chars": 54
+  }
+ ]
+}

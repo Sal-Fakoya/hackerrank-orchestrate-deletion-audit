@@ -1,0 +1,12 @@
+{
+ "mode": "agent",
+ "judge_version": "b63032b7f21d",
+ "cases": 13,
+ "completed": 13,
+ "resumed": 0,
+ "failed": {},
+ "skipped_for_budget": 0,
+ "seconds_this_session": 64.1,
+ "model_calls": 56,
+ "estimated_cost_usd": 0.0808
+}

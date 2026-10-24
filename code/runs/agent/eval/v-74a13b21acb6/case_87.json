@@ -1,0 +1,590 @@
+{
+ "case_id": "case_87",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_4689",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_08"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_4689",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8166",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4474",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_4689",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_87",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_8166",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_08",
+    "reason": "Primary profile for the subject (z.saleh44@gmail.com, user_85). The search-index diagnostic at 2026-09-06T07:00:00Z (line 7) shows account_service lookup NOT_FOUND for this email. The deletion worker's DELETE_RECORD (activity_3415) reported FAILED, so the workflow's failure is not proof of presence. The failover replica snapshot evidence_54 (2026-09-02) also lacks account_8166. DELETE category, record absent, so compliant.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_9500",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "TREATED",
+    "evidence_id": "evidence_08",
+    "reason": "Analytics profile linked to the subject's deletion run (activity_3416). The lookup at 2026-09-06T07:00:00Z (line 15) shows result ANONYMIZED with an empty subject_reference, so it can no longer be linked to the user. The ANONYMIZE condition (still attributable) does not hold.",
+    "condition_met": false
+   },
+   {
+    "resource_id": "audit_record_4474",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_08",
+    "reason": "Security audit record with subject_reference user_85 (the subject's user_id), found FOUND at 2026-09-06T07:00:00Z (line 28). Retain while within the retention period. No usable evidence gives a retention_until for this record, so retention is treated as active; the retention end should be confirmed. Retain, not delete.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_4689",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_08",
+    "reason": "Backup archive with subject reference z.saleh44@gmail.com. The lookup at 2026-09-06T07:00:00Z (line 16) reports result ACTIVE, which means the archive is restorable with the subject's data. The workflow's CHECK_RESTORE_ACCESS (activity_3422) is consistent but is only a claim. No BLOCK_RESTORE was found for backup_4689. Restore access must be blocked, so the archive is treated as restorable.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "data_flow_1791",
+    "reason": "Connector subscription for zayd.k7314@zoho.com, a different person (not the subject's email, phone or user_id). Not linked to the subject."
+   },
+   {
+    "resource_id": "search_3120",
+    "reason": "Search document for zayd.k7314@zoho.com, a different person. Not linked to the subject."
+   },
+   {
+    "resource_id": "account_7030",
+    "reason": "Lookup for zayd.k7314@zoho.com (404), a different person. Not linked to the subject."
+   },
+   {
+    "resource_id": "account_3119",
+    "reason": "Profile of Zayd Mansour (z.mansour54@yahoo.com, user_475), a different person. A name-only match to 'Zayd' does not match 'zayd saleh'."
+   },
+   {
+    "resource_id": "search_5052",
+    "reason": "Search document for Zayd Mansour (user_475), a different person."
+   },
+   {
+    "resource_id": "search_8185",
+    "reason": "Search hit for zayd-farouk@proton.me, a different person. No link to the subject."
+   },
+   {
+    "resource_id": "support_9474",
+    "reason": "Support ticket from zayd-farouk@proton.me, a different person. No link to the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for the account associated with their address to be erased, along with any copies within the deletion scope, which is a request to erase their own account and personal data. The request for confirmation is a follow-up on the same deletion and does not change the classification.",
+   "summary: Subject z.saleh44@gmail.com (user_85). The four candidates are confirmed in scope and their states are cited to evidence_08 (2026-09-06 search-index diagnostic). account_8166 is ABSENT, so it is compliant. analytics_9500 is TREATED (anonymized, no subject reference). audit_record_4474 is a retained security audit log that is PRESENT; its retention end is not in the evidence. backup_4689 is RESTORABLE, with no block found, so restore access remains a recreation risk. No active data flow was linked to this subject. Name, phone and hash searches found no further subject records. Zayd-named records belong to other people and were rejected.",
+   "attribution rule A: dropped analytics_9500 (only linked via a run shared with ['case_102', 'case_73', 'case_86', 'case_88'])"
+  ],
+  "usage": [
+   {
+    "case_id": "case_87",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 111,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_87",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 492,
+    "cache_creation_input_tokens": 5068,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_87",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 635,
+    "cache_creation_input_tokens": 4788,
+    "cache_read_input_tokens": 9939
+   },
+   {
+    "case_id": "case_87",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 434,
+    "cache_creation_input_tokens": 8628,
+    "cache_read_input_tokens": 14727
+   },
+   {
+    "case_id": "case_87",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 565,
+    "cache_creation_input_tokens": 17717,
+    "cache_read_input_tokens": 23355
+   },
+   {
+    "case_id": "case_87",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1511,
+    "cache_creation_input_tokens": 11555,
+    "cache_read_input_tokens": 41072
+   },
+   {
+    "case_id": "case_87",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 618,
+    "cache_creation_input_tokens": 5254,
+    "cache_read_input_tokens": 52627
+   },
+   {
+    "case_id": "case_87",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1624,
+    "cache_creation_input_tokens": 7811,
+    "cache_read_input_tokens": 57881
+   },
+   {
+    "case_id": "case_87",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 809,
+    "cache_creation_input_tokens": 18192,
+    "cache_read_input_tokens": 65692
+   },
+   {
+    "case_id": "case_87",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2270,
+    "cache_creation_input_tokens": 2291,
+    "cache_read_input_tokens": 83884
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "z.saleh44@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1032
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_85",
+    "limit": 100
+   },
+   "output_chars": 541
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zayd saleh",
+    "limit": 100
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8166"
+   },
+   "output_chars": 1972
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9500"
+   },
+   "output_chars": 1999
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4474"
+   },
+   "output_chars": 1366
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_4689"
+   },
+   "output_chars": 1977
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 0
+   },
+   "output_chars": 4397
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0bf5783e4e3911aa7a4c106f649d6e23fda224c1e605001d7fe7769c238cef36",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971524832929",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971525755590",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "saleh",
+    "limit": 100
+   },
+   "output_chars": 5626
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8166",
+    "limit": 100
+   },
+   "output_chars": 1147
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 2900
+   },
+   "output_chars": 4406
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 2900
+   },
+   "output_chars": 4739
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-22T00:00:00Z",
+    "end": "2026-09-06T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31419
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-22T00:00:00Z",
+    "end": "2026-08-25T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 16317
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "z.saleh",
+    "limit": 100
+   },
+   "output_chars": 1020
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Zayd",
+    "limit": 100
+   },
+   "output_chars": 8261
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_288",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 102
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_09",
+    "offset": 0
+   },
+   "output_chars": 1354
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_4474",
+    "limit": 50
+   },
+   "output_chars": 551
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "backup_4689",
+    "limit": 50
+   },
+   "output_chars": 1158
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_9500",
+    "limit": 50
+   },
+   "output_chars": 1182
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM customer_profiles_failover_replica LIMIT 50"
+   },
+   "output_chars": 626
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT * FROM customer_data_read_replica LIMIT 50"
+   },
+   "output_chars": 11035
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 35472
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_4474",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "483 2929",
+    "limit": 20
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "575 5590",
+    "limit": 20
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0bf5783e",
+    "limit": 20
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "backup_9287",
+    "limit": 20
+   },
+   "output_chars": 2790
+  }
+ ]
+}

@@ -1,0 +1,223 @@
+{
+ "case_id": "case_524",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5429",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_62"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_524",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_5429",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_62",
+    "reason": "Security audit record ACCOUNT_DELETION_RECORDED with subject_reference user_522 (the subject's user_id), observed 2026-01-29T08:49:08Z, retention_until 2031-12-31, which is after audit_at. Retention applies, so the record is retained and verified as present.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1400",
+    "reason": "Linked only via deletion-worker run activity_196, which is shared with case_525 and case_526. No usable evidence ties account_1400 to user_522 or to this subject's identifiers. Its absence claim (activity_196 SUCCESS) is a workflow claim and cannot be attributed to this subject, so it is rejected rather than counted."
+   },
+   {
+    "resource_id": "account_704",
+    "reason": "Linked via shared deletion-worker run activity_198 (shared with case_525 and case_526). The only state evidence, evidence_62 profile_lookups entry, is an identity-free 404 lookup with no profile, email, or user_id, so it cannot be attributed to this subject. Rejected as not belonging to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for a permanent account deletion for their email address, asks that copies within scope be handled, and requests confirmation of the outcome. This is a deletion request for the person's own account and data.",
+   "summary: Subject user_522 (mateo.castillo@outlook.com). Only subject-linked resource found is audit_record_5429 (security audit record referencing user_522, retention to 2031), which is retained and present. Searches on the email, phone, email hash, name, and user_id found no other subject-linked records. The two account_service candidates came from a batch run shared with other requests and have no identity tie to this subject, so they were rejected. No active connectors, exports, backups, analytics, or search entries were tied to this subject in usable evidence. Note: the other customer records in evidence_62 (e.g., chevalier.hugo, o.walker6695) belong to other requests and were not attributed here."
+  ],
+  "usage": [
+   {
+    "case_id": "case_524",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1062,
+    "output_tokens": 102,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_524",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 485,
+    "cache_creation_input_tokens": 752,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_524",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 514,
+    "cache_creation_input_tokens": 4445,
+    "cache_read_input_tokens": 5623
+   },
+   {
+    "case_id": "case_524",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 328,
+    "cache_creation_input_tokens": 2951,
+    "cache_read_input_tokens": 10068
+   },
+   {
+    "case_id": "case_524",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1483,
+    "cache_creation_input_tokens": 13949,
+    "cache_read_input_tokens": 13019
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mateo.castillo@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 66
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_522",
+    "limit": 50
+   },
+   "output_chars": 811
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1400"
+   },
+   "output_chars": 903
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_704"
+   },
+   "output_chars": 1388
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5429"
+   },
+   "output_chars": 923
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 4000
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mateo castillo",
+    "limit": 50
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34629765457",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6ba69020119b7f5cd1a261eb4536de9bb1fa65a9150037ef9cfa7d36a6e64111",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1400",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 8000
+   },
+   "output_chars": 2831
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-17T00:00:00Z",
+    "end": "2026-01-29T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31076
+  }
+ ]
+}

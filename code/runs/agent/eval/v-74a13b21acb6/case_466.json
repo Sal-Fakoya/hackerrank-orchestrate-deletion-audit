@@ -1,0 +1,458 @@
+{
+ "case_id": "case_466",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_8417",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_65"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_8417",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_8417",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_8892",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_466",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_8417",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_65",
+    "reason": "Search index document search_8417 still exposes the subject's exact email appiah.ama80@icloud.com (query result captured 2026-02-28T10:36:37Z, before audit_at). The workflow's FAILED deletion result (activity_610) is not proof of absence. Direct identifier present, so the DELETE requirement is unmet.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2480",
+    "reason": "Linked only through shared batch run activity_602 (shared with case_464 and case_465). The only later observation, evidence_65 profile_lookup, is a 404 with no profile, so it carries no identity and cannot be attributed to this subject. Rejected; the workflow's SUCCESS claim is not relied on."
+   },
+   {
+    "resource_id": "account_7503",
+    "reason": "Linked only through shared batch run activity_603 (shared with other requests). No usable evidence other than the workflow's own activity row mentions it or ties it to user_464 or the subject's email/phone/hash. Rejected as not attributable."
+   },
+   {
+    "resource_id": "analytics_8746",
+    "reason": "Linked only through shared batch run activity_606. The only observation (evidence_65) is an analytics profile with all identifiers null (cohort returning_customer), so it is identity-free and cannot be attributed to the subject in a shared run. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to erase the account linked to their email address and to review connected identifiers as part of that erasure, with a confirmation on completion. This is a request for deletion of the person's own account and data.",
+   "summary: Subject footprint is limited to search_8417, which still holds the subject's exact email as of 2026-02-28 (evidence_65) and needs deletion. The subject's identifiers (user_464, both emails, both hashes, phone) did not match any other usable evidence. The three shared-run candidates (account_2480, account_7503, analytics_8746) were rejected as unattributable; the workflow's COMPLETE claim is not supported because search_8417 remains present.",
+   "future verification added for audit_record_8892 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_466",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 102,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_466",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 394,
+    "cache_creation_input_tokens": 1383,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_466",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 566,
+    "cache_creation_input_tokens": 7345,
+    "cache_read_input_tokens": 6254
+   },
+   {
+    "case_id": "case_466",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 541,
+    "cache_creation_input_tokens": 3568,
+    "cache_read_input_tokens": 13599
+   },
+   {
+    "case_id": "case_466",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 660,
+    "cache_creation_input_tokens": 18059,
+    "cache_read_input_tokens": 17167
+   },
+   {
+    "case_id": "case_466",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 919,
+    "cache_creation_input_tokens": 15168,
+    "cache_read_input_tokens": 35226
+   },
+   {
+    "case_id": "case_466",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 483,
+    "cache_creation_input_tokens": 5715,
+    "cache_read_input_tokens": 50394
+   },
+   {
+    "case_id": "case_466",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1414,
+    "cache_creation_input_tokens": 3885,
+    "cache_read_input_tokens": 56109
+   },
+   {
+    "case_id": "case_466",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1056,
+    "cache_creation_input_tokens": 2889,
+    "cache_read_input_tokens": 59994
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "appiah",
+    "limit": 50
+   },
+   "output_chars": 1696
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2480"
+   },
+   "output_chars": 2118
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7503"
+   },
+   "output_chars": 1481
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_8746"
+   },
+   "output_chars": 2271
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_8417"
+   },
+   "output_chars": 3131
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 4500
+   },
+   "output_chars": 4617
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_464",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "appiah.ama",
+    "limit": 50
+   },
+   "output_chars": 1700
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233249906182",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "b2f931fe74744901b609f70294779a6a59d9f9364852ede6705f720d0ba5e3ce",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "b3ceaf96cf2a8bcd59dd0aea99b80b020a9d20d65e8a1cb660f06ad0a5904807",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 7500
+   },
+   "output_chars": 2288
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 0
+   },
+   "output_chars": 4669
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-14T00:00:00Z",
+    "end": "2026-02-28T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31636
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-14T00:00:00Z",
+    "end": "2026-02-28T11:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 15694
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-01T00:00:00Z",
+    "end": "2026-02-14T11:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 15650
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_47",
+    "offset": 0
+   },
+   "output_chars": 4507
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_7503",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 346
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "analytics_8746",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 323
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7503",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2480",
+    "limit": 50
+   },
+   "output_chars": 1294
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ama",
+    "limit": 50
+   },
+   "output_chars": 4765
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_602",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "249906182",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "464",
+    "limit": 50
+   },
+   "output_chars": 1795
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_464",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-02-17T09:00:00Z",
+    "end": "2026-02-17T12:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 1319
+  }
+ ]
+}

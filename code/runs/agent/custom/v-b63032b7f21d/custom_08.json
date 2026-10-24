@@ -1,0 +1,30 @@
+{
+ "case_id": "custom_08",
+ "mode": "agent",
+ "judge_version": "b63032b7f21d",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "custom_08",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: other (en): The sender asks to delete a deceased father's account and data. This is a third-party request: the sender is not the account holder and the request does not authorize erasing the sender's own data, so it is not a deletion authorization under the policy."
+  ],
+  "usage": [
+   {
+    "case_id": "custom_08",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 985,
+    "output_tokens": 105,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

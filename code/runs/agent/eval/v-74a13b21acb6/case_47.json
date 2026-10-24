@@ -1,0 +1,519 @@
+{
+ "case_id": "case_47",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_4324",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_94"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_5742",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_94"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_4324",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_5742",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_4324",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_5742",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_47",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_4324",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_94",
+    "reason": "Live index lookup at 2026-09-26T09:41:03Z (trace rb-094103-018) returned a hit in customer_directory_v3 for the request email zofia-dvorak79@proton.me, so the subject's search entry is still present. The workflow's FAILED result (activity_3812) is not proof of absence. Linked directly to the subject's email, so in scope.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_5742",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_94",
+    "reason": "Support ticket read at 2026-09-26T08:49:37Z (trace rb-084937-008) still exposes requester_email zofia-dvorak79@proton.me, so the record is present and identifies the subject. It is a support conversation record, so it should be redacted rather than deleted (the ticket may hold shared order or agent context). The workflow's FAILED result (activity_3809) is not proof of absence.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4248",
+    "reason": "Linked only through the deletion-worker run activity_3801. That run is shared with other requests (case_11, case_48, case_49), and no usable evidence ties account_4248 to this subject (no email, user_45, name or hash matches anywhere). It is an identity-free profile in a shared run, so it cannot be attributed and is rejected. Its absence claim (activity_3801) is therefore not used for this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer clearly asks to close their own account and have its associated personal data deleted, and requests confirmation of the outcome; this is an erasure request for their own data.",
+   "summary: Subject footprint in the request window: search_4324 (search index entry, still present for the request email at 2026-09-26T09:41Z) and support_5742 (support ticket with requester email, still present at 2026-09-26T08:49Z). Both must still be handled (search entry deleted; support record redacted). The deletion-worker's FAILED results for both are contradicted by direct readbacks. account_4248 was rejected as belonging to a shared batch run with no identity link to this subject. No user_45, historical email, hash, or phone matches were found beyond these records, and no active data flow or backup was tied to this subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_47",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 88,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_47",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 333,
+    "cache_creation_input_tokens": 6025,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_47",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 579,
+    "cache_creation_input_tokens": 1808,
+    "cache_read_input_tokens": 10896
+   },
+   {
+    "case_id": "case_47",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 663,
+    "cache_creation_input_tokens": 7603,
+    "cache_read_input_tokens": 12704
+   },
+   {
+    "case_id": "case_47",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 411,
+    "cache_creation_input_tokens": 15422,
+    "cache_read_input_tokens": 20307
+   },
+   {
+    "case_id": "case_47",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 658,
+    "cache_creation_input_tokens": 18326,
+    "cache_read_input_tokens": 35729
+   },
+   {
+    "case_id": "case_47",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1037,
+    "cache_creation_input_tokens": 7215,
+    "cache_read_input_tokens": 54055
+   },
+   {
+    "case_id": "case_47",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2862,
+    "cache_creation_input_tokens": 20353,
+    "cache_read_input_tokens": 61270
+   },
+   {
+    "case_id": "case_47",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 348,
+    "cache_creation_input_tokens": 5673,
+    "cache_read_input_tokens": 81623
+   },
+   {
+    "case_id": "case_47",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 282,
+    "cache_creation_input_tokens": 701,
+    "cache_read_input_tokens": 87296
+   },
+   {
+    "case_id": "case_47",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1137,
+    "cache_creation_input_tokens": 407,
+    "cache_read_input_tokens": 87997
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4248"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zofia-dvorak79@proton.me",
+    "limit": 100
+   },
+   "output_chars": 1448
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_45",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zofia-dvorak@proton.me",
+    "limit": 100
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "dvorak",
+    "limit": 100
+   },
+   "output_chars": 6476
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zofia",
+    "limit": 100
+   },
+   "output_chars": 7524
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4248",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "28d1f9e52b92f6450899df8ed1e1e76608efeb934a6dd35348f66701cdf50444",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "9098fec1bfb4f0b17c051c05e3681fe9adac3a0d6bbd3774fc70c5aff8887cdb",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48522801050",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4324"
+   },
+   "output_chars": 2205
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_5742"
+   },
+   "output_chars": 2146
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Dvořák",
+    "limit": 100
+   },
+   "output_chars": 859
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_45",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2801050",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-11T00:00:00Z",
+    "end": "2026-09-26T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30600
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-11T10:00:00Z",
+    "end": "2026-09-13T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 10575
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_295",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "deletion_worker",
+    "limit": 100
+   },
+   "output_chars": 30644
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_94",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_04",
+    "offset": 0
+   },
+   "output_chars": 1380
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_91",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_92",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "proton.me",
+    "limit": 100
+   },
+   "output_chars": 39692
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zofia-dvorak",
+    "limit": 100
+   },
+   "output_chars": 1436
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+48522801050",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Zofia Dvo",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "shared_with",
+    "limit": 20
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_5742",
+    "limit": 50
+   },
+   "output_chars": 1326
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_4324",
+    "limit": 50
+   },
+   "output_chars": 1387
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_58",
+    "offset": 0
+   },
+   "output_chars": 1085
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_61",
+    "offset": 0
+   },
+   "output_chars": 2054
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_05",
+    "sql": "SELECT * FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 793
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_05",
+    "sql": "SELECT resource_id, origin_system, collection_name FROM customer_data_read_replica WHERE origin_system='account_service' AND (resource_id='account_4248' OR record_json LIKE '%dvorak%' OR record_json LIKE '%user_45%') "
+   },
+   "output_chars": 76
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_05",
+    "sql": "SELECT COUNT(*) FROM customer_data_read_replica WHERE origin_system='account_service'"
+   },
+   "output_chars": 40
+  }
+ ]
+}

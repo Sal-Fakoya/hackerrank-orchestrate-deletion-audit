@@ -1,0 +1,30 @@
+{
+ "case_id": "custom_09",
+ "mode": "agent",
+ "judge_version": "b63032b7f21d",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "custom_09",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: account_support (en): The customer withdraws a previous deletion request and explicitly asks that the account and order history be kept, so it does not authorize deletion."
+  ],
+  "usage": [
+   {
+    "case_id": "custom_09",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 986,
+    "output_tokens": 80,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

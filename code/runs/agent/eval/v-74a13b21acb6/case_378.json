@@ -1,0 +1,458 @@
+{
+ "case_id": "case_378",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_976",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_70"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7312",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_70"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_378",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_976",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_70",
+    "reason": "Live account_service lookup keyed on the subject's email jkim227380@gmail.com (trace rb-035548-010, 2026-04-14T03:55:48Z) returned rows=0, http 404. The profile no longer exists at audit_at. Linked to the subject by that lookup key, so attribution is direct, not via the shared batch run only. The workflow's activity_1079 SUCCESS claim is not relied on.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_7312",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_70",
+    "reason": "Security audit record with subject_reference=user_376 (the subject's user_id), read at 2026-04-14T05:36:48Z (trace rb-053648-022). retention_until=2033-12-31, which is after audit_at, so the retention condition holds and the record is retained and verified as PRESENT.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1824",
+    "reason": "Linked only through batch_run activity_1080, which is shared with case_377 and case_379. No usable evidence ties account_1824 to user_376 or to this email. The only other observations are snapshots that lack the record, and those do not establish attribution. The PARTIAL deletion claim and the 'present' hint are unverified. Not attributable to this subject, so rejected."
+   },
+   {
+    "resource_id": "analytics_3234",
+    "reason": "Linked only through shared batch_run activity_1081 (shared with case_377 and case_379). The only direct observation, evidence_70 trace rb-025049-001, has lookup_key=null and all identifiers null (cohort returning_customer). It is an identity-free profile in a shared run and cannot be attributed to this subject, so rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (ko): The customer asks for permanent deletion of the account linked to their email address, which is erasure of the person's own account and data. The additional asks to review current and previous identifiers and confirm results are part of the same erasure request, not instructions to the classifier.",
+   "summary: Subject user_376 / jkim227380@gmail.com. Only one subject-attributable USER_PROFILE (account_976) is found, and it is ABSENT per the live 404 lookup at 2026-04-14 (evidence_70). The security audit record audit_record_7312 references user_376 and is retained until 2033, so it is PRESENT and retained (condition met). account_1824 and analytics_3234 are linked only through the shared deletion batch and have no evidence tying them to this subject, so both were rejected. Searches on the historical email, hashes, phone, and name found no further subject records. Snapshot queries found no other matching rows."
+  ],
+  "usage": [
+   {
+    "case_id": "case_378",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1097,
+    "output_tokens": 115,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_378",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 392,
+    "cache_creation_input_tokens": 2181,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_378",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 639,
+    "cache_creation_input_tokens": 4482,
+    "cache_read_input_tokens": 7052
+   },
+   {
+    "case_id": "case_378",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 468,
+    "cache_creation_input_tokens": 1612,
+    "cache_read_input_tokens": 11534
+   },
+   {
+    "case_id": "case_378",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1226,
+    "cache_creation_input_tokens": 17623,
+    "cache_read_input_tokens": 13146
+   },
+   {
+    "case_id": "case_378",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1261,
+    "cache_creation_input_tokens": 1548,
+    "cache_read_input_tokens": 30769
+   },
+   {
+    "case_id": "case_378",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1756,
+    "cache_creation_input_tokens": 3413,
+    "cache_read_input_tokens": 32317
+   },
+   {
+    "case_id": "case_378",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 665,
+    "cache_creation_input_tokens": 1888,
+    "cache_read_input_tokens": 35730
+   },
+   {
+    "case_id": "case_378",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1211,
+    "cache_creation_input_tokens": 7435,
+    "cache_read_input_tokens": 37618
+   },
+   {
+    "case_id": "case_378",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1289,
+    "cache_creation_input_tokens": 6220,
+    "cache_read_input_tokens": 45053
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1824"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_976"
+   },
+   "output_chars": 2079
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3234"
+   },
+   "output_chars": 2137
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_7312"
+   },
+   "output_chars": 1600
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_376",
+    "limit": 50
+   },
+   "output_chars": 771
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jkim",
+    "limit": 50
+   },
+   "output_chars": 639
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jkim227380@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 655
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jkim2273@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 58
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "b85c27d0a04c20aa2be4dbea96def68f86381fc664ea369b7c454cd552aa93bc",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f3c2d9f159780c594a58116eb7a0681d07e1d088cd28bcad5fd11d636e764b55",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821052817798",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jun-seo kim",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1824",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-19T00:00:00Z",
+    "end": "2026-04-14T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30947
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": "SELECT 'profile' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE email LIKE '%jkim%' OR customer_reference LIKE '%376%' OR phone LIKE '%821052817798%' OR full_name LIKE '%kim%' OR email_hash LIKE 'b85c%' OR email_hash LIKE 'f3c2%' UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE email LIKE '%jkim%' OR customer_reference LIKE '%376%' OR display_name LIKE '%kim%' UNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort FROM customer_analytics_profiles WHERE email LIKE '%jkim%' OR customer_reference LIKE '%376%' UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE requester_email LIKE '%jkim%' OR customer_reference LIKE '%376%' OR requester_name LIKE '%kim%' UNION ALL SELECT 'export', resource_id, customer_reference, NULL, owner_email, owner_phone, object_key, updated_at FROM customer_exports WHERE owner_email LIKE '%jkim%' OR customer_reference LIKE '%376%' UNION ALL SELECT 'connector', resource_id, customer_reference, connector_name, customer_email, enabled, last_delivery_status, updated_at FROM connector_subscriptions WHERE customer_email LIKE '%jkim%' OR customer_reference LIKE '%376%' UNION ALL SELECT 'backup', resource_id, customer_reference, archive_key, customer_email, restore_allowed, updated_at, NULL FROM backup_restore_entries WHERE customer_email LIKE '%jkim%' OR customer_reference LIKE '%376%' UNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, updated_at, NULL, NULL FROM security_audit_records WHERE subject_reference LIKE '%376%' OR subject_reference LIKE '%jkim%'"
+   },
+   "output_chars": 130
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 129
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT 'profile' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE email LIKE '%jkim%' OR customer_reference LIKE '%376%' OR resource_id IN ('account_1824','account_976') UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE email LIKE '%jkim%' OR customer_reference LIKE '%376%' OR display_name LIKE '%kim%' UNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort FROM customer_analytics_profiles WHERE email LIKE '%jkim%' OR customer_reference LIKE '%376%' OR resource_id='analytics_3234' UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE requester_email LIKE '%jkim%' OR customer_reference LIKE '%376%' OR requester_name LIKE '%kim%' UNION ALL SELECT 'export', resource_id, customer_reference, NULL, owner_email, owner_phone, object_key, updated_at FROM customer_exports WHERE owner_email LIKE '%jkim%' OR customer_reference LIKE '%376%' UNION ALL SELECT 'connector', resource_id, customer_reference, connector_name, customer_email, enabled, last_delivery_status, updated_at FROM connector_subscriptions WHERE customer_email LIKE '%jkim%' OR customer_reference LIKE '%376%' UNION ALL SELECT 'backup', resource_id, customer_reference, archive_key, customer_email, restore_allowed, updated_at, NULL FROM backup_restore_entries WHERE customer_email LIKE '%jkim%' OR customer_reference LIKE '%376%' UNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, updated_at, NULL, NULL FROM security_audit_records WHERE subject_reference LIKE '%376%' OR subject_reference LIKE '%jkim%'"
+   },
+   "output_chars": 130
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT * FROM customer_data_primary LIMIT 0"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT origin_system, collection_name, resource_id, updated_at, substr(record_json,1,300) FROM (SELECT 'primary' origin_system, collection_name, resource_id, updated_at, record_json FROM customer_data_primary UNION ALL SELECT 'ap', collection_name, resource_id, updated_at, record_json FROM customer_data_replica_ap_south UNION ALL SELECT 'eu', collection_name, resource_id, updated_at, record_json FROM customer_data_replica_eu_west) WHERE record_json LIKE '%jkim%' OR record_json LIKE '%user_376%' OR record_json LIKE '%821052817798%' OR record_json LIKE '%Jun-seo%' OR resource_id IN ('account_1824','account_976','analytics_3234','audit_record_7312')"
+   },
+   "output_chars": 119
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT 'profile', resource_id, record_json FROM customer_profiles WHERE resource_id IN ('account_1824','account_976') OR account_status LIKE '%' AND (email LIKE '%kim%' OR customer_reference IS NOT NULL AND customer_reference LIKE '%376%')"
+   },
+   "output_chars": 40
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": "SELECT 'primary' o, collection_name, count(*), min(resource_id), max(resource_id) FROM customer_data_primary GROUP BY collection_name UNION ALL SELECT 'ap', collection_name, count(*), min(resource_id), max(resource_id) FROM customer_data_replica_ap_south GROUP BY collection_name UNION ALL SELECT 'eu', collection_name, count(*), min(resource_id), max(resource_id) FROM customer_data_replica_eu_west GROUP BY collection_name"
+   },
+   "output_chars": 1489
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE resource_id IN ('account_1824','account_976') OR email LIKE '%376%' OR email LIKE '%227380%' OR full_name LIKE '%Jun%'"
+   },
+   "output_chars": 125
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-19T00:00:00Z",
+    "end": "2026-03-22T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 14937
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "227380",
+    "limit": 50
+   },
+   "output_chars": 641
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2273",
+    "limit": 50
+   },
+   "output_chars": 639
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "376",
+    "limit": 50
+   },
+   "output_chars": 7109
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jun-seo",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_129",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 8,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_976"
+   },
+   "output_chars": 2079
+  }
+ ]
+}

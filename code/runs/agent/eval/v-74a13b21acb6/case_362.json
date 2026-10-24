@@ -1,0 +1,475 @@
+{
+ "case_id": "case_362",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_3372",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_35"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_421",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_35"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_8638",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_33"
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_4273",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": "evidence_33"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_362",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_421",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_35",
+    "reason": "Primary profile account_421 was in the subject's solo deletion run (activity_1440, workflow claimed SUCCESS). The account_service snapshot captured 2026-04-16 (after the 2026-04-15 deletion) lists account_service customer_profiles without account_421, and no replica or other copy mentions it. Verified absent.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_3372",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_35",
+    "reason": "Primary profile account_3372 was in the subject's solo deletion run (activity_1441), which reported only PARTIAL, so the 'present' hint is a workflow claim. The account_service snapshot captured 2026-04-16 lacks account_3372, and the 2026-04-24 regional replica capture (evidence_33) contains no account_service rows and no copy of it. Direct observation shows it is absent; the PARTIAL result is not proof of presence.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_4273",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "TREATED",
+    "evidence_id": "evidence_33",
+    "reason": "Behavioural profile from the subject's solo deletion run (activity_1439 ANONYMIZE). At 2026-04-24 the primary and both regional replicas (ap_south, eu_west) hold the row with email, email_hash, phone and user_id all null and subject_reference=False, so it can no longer be linked to the user. Anonymization is effective; the metrics remain only as non-identifying aggregates.",
+    "condition_met": false
+   },
+   {
+    "resource_id": "audit_record_8638",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Security audit event account_deletion_reviewed referencing subject_reference user_360, present in primary and both regional replicas at 2026-04-24. It is a recent audit record with no expired retention indicated, so it is retained for compliance and must not be deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "audit_record_8638_other_copies",
+    "reason": "No other candidates were rejected; the subject's identifiers (email, hash, phones, name, user_360) were searched and matched no other records, so there are no third-party or shared-run records to exclude."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for the account to be permanently deleted and for the connected records to be checked and confirmed, which is a request for erasure of their own account and personal data.",
+   "summary: Subject user_360 (efua.asante@gmail.com). The solo deletion run covered account_421 and account_3372 (both absent at 2026-04-16 per evidence_35; account_3372 was reported PARTIAL but no copy exists), analytics_4273 (anonymized and no longer linkable per evidence_33), and the retained security audit record audit_record_8638. No email, phone, hash or name footprint for the subject was found in any evidence, and no active data flows, exports or backups tie to the subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_362",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 87,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_362",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 433,
+    "cache_creation_input_tokens": 2153,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_362",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 719,
+    "cache_creation_input_tokens": 7109,
+    "cache_read_input_tokens": 7024
+   },
+   {
+    "case_id": "case_362",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 583,
+    "cache_creation_input_tokens": 3758,
+    "cache_read_input_tokens": 14133
+   },
+   {
+    "case_id": "case_362",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 840,
+    "cache_creation_input_tokens": 6676,
+    "cache_read_input_tokens": 17891
+   },
+   {
+    "case_id": "case_362",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 375,
+    "cache_creation_input_tokens": 13402,
+    "cache_read_input_tokens": 24567
+   },
+   {
+    "case_id": "case_362",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 515,
+    "cache_creation_input_tokens": 1233,
+    "cache_read_input_tokens": 37969
+   },
+   {
+    "case_id": "case_362",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1009,
+    "cache_creation_input_tokens": 1060,
+    "cache_read_input_tokens": 39202
+   },
+   {
+    "case_id": "case_362",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2000,
+    "cache_creation_input_tokens": 5627,
+    "cache_read_input_tokens": 40262
+   },
+   {
+    "case_id": "case_362",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3307,
+    "cache_creation_input_tokens": 15265,
+    "cache_read_input_tokens": 45889
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3372"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_421"
+   },
+   "output_chars": 1481
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4273"
+   },
+   "output_chars": 4964
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_8638"
+   },
+   "output_chars": 3563
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "efua.asante@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 61
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_360",
+    "limit": 50
+   },
+   "output_chars": 2735
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_33",
+    "offset": 0
+   },
+   "output_chars": 4551
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3372",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_421",
+    "limit": 50
+   },
+   "output_chars": 655
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Efua Asante",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8cd4ae2f80cea470305adf910661e9977a1fe300cf3681ec187a4750233adf1b",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_33",
+    "offset": 6000
+   },
+   "output_chars": 4537
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_157",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at FROM customer_data_primary WHERE origin_system LIKE '%account%' OR resource_id IN ('account_3372','account_421')"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-14T08:00:00Z",
+    "end": "2026-04-24T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31106
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-15T07:00:00Z",
+    "end": "2026-04-15T09:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 1931
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 30
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_157",
+    "limit": 30
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "efua",
+    "limit": 30
+   },
+   "output_chars": 44
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "asante",
+    "limit": 30
+   },
+   "output_chars": 702
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233240528925",
+    "limit": 30
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233249554457",
+    "limit": 30
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_35",
+    "offset": 0
+   },
+   "output_chars": 4659
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_34",
+    "offset": 0
+   },
+   "output_chars": 4829
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 30
+   },
+   "output_chars": 21830
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 30
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 8,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  }
+ ]
+}

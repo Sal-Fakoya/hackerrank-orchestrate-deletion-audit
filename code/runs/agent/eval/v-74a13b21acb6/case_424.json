@@ -1,0 +1,268 @@
+{
+ "case_id": "case_424",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1474",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_68"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_424",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_1474",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_68",
+    "reason": "Security audit record (IDENTITY_CHANGE_RECORDED) whose subject_reference is user_422, the subject's user_id. Retention_until is 2034-09-30, after audit_at, so the retention condition holds and the record must be retained; it is present and available, so it is reported as PRESENT for retention verification.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2420",
+    "reason": "Linked only via the deletion-worker run activity_952, which was shared with case_423 (e.dahl28@gmail.com). evidence_68 shows a 404 profile lookup with no identity fields, so it cannot be attributed to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_2696",
+    "reason": "Linked only via the shared run activity_951 (case_423). evidence_68 shows a 404 profile lookup with no identity fields; it cannot be tied to user_422 or this email. Rejected as unattributable."
+   },
+   {
+    "resource_id": "analytics_3845",
+    "reason": "Linked only via the shared run activity_953 (case_423). evidence_68 shows an all-null analytics profile (no email, phone, hash or customer_reference, general_shopper cohort), so it cannot be attributed to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "analytics_6249",
+    "reason": "Linked only via the shared run activity_954 (case_423). evidence_68 shows an all-null analytics profile (no identifiers, returning_customer cohort); not attributable to this subject. Rejected as unattributable."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to close the account and have its associated personal data deleted, which is erasure of the person's own account and data. The request contains no negation or withdrawal and is not a third-party request.",
+   "summary: Searches for the subject's email, email hash, phone, name and user_422 found no usable evidence linking a primary profile, contact record, search entry, cache, support record, export, marketing or email log to this subject. The only subject-linked resource is audit_record_1474 (subject_reference user_422, retention to 2034), which is a retained security audit log, PRESENT. The four candidates from the shared batch run with case_423 are identity-free (404 lookups or all-null analytics profiles) and were rejected as unattributable. No active connector referencing this subject was found (data_flow_7718 carries another customer's email). Note: the workflow's PARTIALLY_COMPLETE claim is unverified; no subject data in scope was found to still be present beyond the retained audit record."
+  ],
+  "usage": [
+   {
+    "case_id": "case_424",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1061,
+    "output_tokens": 95,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_424",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 538,
+    "cache_creation_input_tokens": 1716,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_424",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 580,
+    "cache_creation_input_tokens": 13601,
+    "cache_read_input_tokens": 6587
+   },
+   {
+    "case_id": "case_424",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1099,
+    "cache_creation_input_tokens": 17872,
+    "cache_read_input_tokens": 20188
+   },
+   {
+    "case_id": "case_424",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 226,
+    "cache_creation_input_tokens": 5154,
+    "cache_read_input_tokens": 38060
+   },
+   {
+    "case_id": "case_424",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1785,
+    "cache_creation_input_tokens": 325,
+    "cache_read_input_tokens": 43214
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "varga.tomasz@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_422",
+    "limit": 50
+   },
+   "output_chars": 810
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tomasz varga",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48799125827",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-08T00:00:00Z",
+    "end": "2026-03-20T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31307
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2420"
+   },
+   "output_chars": 2121
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2696"
+   },
+   "output_chars": 2122
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3845"
+   },
+   "output_chars": 2263
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6249"
+   },
+   "output_chars": 2266
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1474"
+   },
+   "output_chars": 1639
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-01T00:00:00Z",
+    "end": "2026-03-12T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31142
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "varga",
+    "limit": 50
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "02c16a5a9ffd3a401710816b51b2cee6796fdb0b37630df955fa2552f69d9e58",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "422",
+    "limit": 50
+   },
+   "output_chars": 4083
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e.dahl28",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 9000
+   },
+   "output_chars": 219
+  }
+ ]
+}

@@ -1,0 +1,63 @@
+Northstar Shop
+Pulse Analytics
+Search users, products, orders or events...
+Production
+Help
+PA
+
+Overview
+Real-time
+Users
+Products
+Funnels
+Journeys
+Audiences
+Reports
+
+Pulse Analytics
+Production workspace
+build 2026.10.4
+
+Northstar Shop / Pulse Analytics / Users
+Omar Darwish
+Last 90 days
+user_20 · analytics_7438 · darwish.omar@icloud.com
+
+Filter
+Export
+Actions
+
+Event timeline
+Sessions (12)
+Orders (2)
+Products viewed (19)
+
+Sessions: 12
+Products viewed: 19
+Completed orders: 2
+Revenue: USD 167.42
+Mobile / Desktop: 67% / 33%
+Acquisition: Organic search
+
+Event timeline
+Updated moments ago · 5 records
+
+Time | Event | Product / detail | Value | Device
+14:22 | Order completed | Ceramic coffee set | USD 84.21 | Mobile
+14:20 | Checkout started | 2 items | USD 84.21 | Mobile
+14:17 | Product viewed | Ceramic coffee set | — | Mobile
+14:16 | Added to cart | Ceramic coffee set | USD 42.00 | Mobile
+14:12 | Product viewed | Stoneware mug | USD 18.00 | Desktop
+
+Profile attributes
+Market: AE
+Audience: Returning shopper
+Interest: Coffee & dining
+Last activity: 13 Jul 2026 14:22 UTC
+First seen: 21 Apr 2026 09:14 UTC
+
+Activity
+13 Jul | 6 events in active session
+08 Jul | Order completed · USD 83.21
+30 Jun | Product search · coffee set
+22 Jun | Campaign opened

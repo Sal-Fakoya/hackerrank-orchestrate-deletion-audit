@@ -1,0 +1,454 @@
+{
+ "case_id": "case_185",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_8463",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_83"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1950",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_83"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_8463",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1950",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_8463",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1950",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_185",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "analytics_1950",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_83",
+    "reason": "Pulse analytics profile in the 2026-07-18 records-assurance export (observed 08:42Z, after requested_at) still carries the subject's email diya-sharma85@gmail.com and is a behavioural profile still attributable to the subject. Activity_2694 claim of FAILED is not relied on. Must be anonymized.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_8463",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_83",
+    "reason": "Search index document search_8463 in the 2026-07-18 export (query diya-sharma85@gmail.com, observed 08:38Z) still exposes the subject's email. Activity_2697 FAILED claim is not relied on. Must be deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3878",
+    "reason": "Linked only through the shared deletion-worker batch run activity_2690 (shared with case_186, case_187, case_202). No usable evidence ties this account to user_183 or the subject's identifiers; the 2026-07-18 account_service export does not contain it. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_9579",
+    "reason": "Linked only through shared batch run activity_2688 (shared with other requests). No evidence ties it to the subject's identifiers; absent from the 2026-07-18 account_service export. Not attributable to this subject."
+   },
+   {
+    "resource_id": "analytics_349",
+    "reason": "Linked only through shared batch run activity_2687. Its only in-window observation (evidence_82, trace rb-090817-021) is identity-free (customer_reference, email, phone, email_hash all null, cohort home_lifestyle) and cannot be attributed to the subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "data_flow_7584",
+    "reason": "Connector analytics_identity_bridge is tied to diya.s284681@zoho.com, which is not a subject identifier (exact match fails). Its only evidence (evidence_66, activity_773) predates requested_at, so it is outside this request's episode. No in-window evidence links it to the subject."
+   },
+   {
+    "resource_id": "search_2886",
+    "reason": "Search document in customer_directory_v3 for diya.s284681@zoho.com, a non-subject address. Its evidence (evidence_66, captured 2026-03-10) predates requested_at and no in-window evidence links it to diya-sharma85@gmail.com or user_183."
+   },
+   {
+    "resource_id": "user_183",
+    "reason": "No record of user_183 (user id, name or email) was found in any usable evidence within the request window; no account profile, tombstone or export for this subject was observed."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for permanent account deletion for their email address and for copies within scope to be handled, which is erasure of the person's own account and personal data.",
+   "summary: Subject diya-sharma85@gmail.com (user_183). Two in-scope resources are still present at audit_at per the 2026-07-18 records-assurance export (evidence_83): analytics_1950 (ANALYTICS_PROFILE, must be anonymized) and search_8463 (SEARCH_INDEX_ENTRY, must be deleted). The reported deletion-worker FAILED/SUCCESS activities are claims and were not relied on. Candidates from shared batch runs (account_3878, account_9579, analytics_349) have no link to this subject and were rejected. The Zoho connector data_flow_7584 and search_2886 relate to a different address and predate the request window; they were rejected, but could be re-checked if the Zoho address is confirmed to be the subject's. No backups, exports, support records, or marketing profiles tied to the subject were found in the window."
+  ],
+  "usage": [
+   {
+    "case_id": "case_185",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1063,
+    "output_tokens": 83,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_185",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 487,
+    "cache_creation_input_tokens": 4052,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_185",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 708,
+    "cache_creation_input_tokens": 7129,
+    "cache_read_input_tokens": 8923
+   },
+   {
+    "case_id": "case_185",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 347,
+    "cache_creation_input_tokens": 5620,
+    "cache_read_input_tokens": 16052
+   },
+   {
+    "case_id": "case_185",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 335,
+    "cache_creation_input_tokens": 2896,
+    "cache_read_input_tokens": 21672
+   },
+   {
+    "case_id": "case_185",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1669,
+    "cache_creation_input_tokens": 4308,
+    "cache_read_input_tokens": 24568
+   },
+   {
+    "case_id": "case_185",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 602,
+    "cache_creation_input_tokens": 7051,
+    "cache_read_input_tokens": 28876
+   },
+   {
+    "case_id": "case_185",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 477,
+    "cache_creation_input_tokens": 22352,
+    "cache_read_input_tokens": 35927
+   },
+   {
+    "case_id": "case_185",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1928,
+    "cache_creation_input_tokens": 579,
+    "cache_read_input_tokens": 58279
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3878"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9579"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1950"
+   },
+   "output_chars": 2301
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_349"
+   },
+   "output_chars": 2126
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_8463"
+   },
+   "output_chars": 3124
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diya",
+    "limit": 100
+   },
+   "output_chars": 3795
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_183",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diya-sharma85@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2512
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diya-sharma@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 61
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "73b8e6124856302114a003598629070fc1f8306c9bb5b95849631c98988b7975",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "93c6728aadfd0dec64438b77c08e489f605fdf4462ba7ee4d50f8dae21c973e2",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919188107822",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sharma",
+    "limit": 100
+   },
+   "output_chars": 7714
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 4000
+   },
+   "output_chars": 4613
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "data_flow_7584",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 336
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_7584"
+   },
+   "output_chars": 2128
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_349"
+   },
+   "output_chars": 2126
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_1950",
+    "limit": 100
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_8463",
+    "limit": 100
+   },
+   "output_chars": 2311
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "s284681",
+    "limit": 100
+   },
+   "output_chars": 1347
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 0
+   },
+   "output_chars": 4505
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_19",
+    "offset": 0
+   },
+   "output_chars": 1517
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-05T00:00:00Z",
+    "end": "2026-07-18T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31447
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "183",
+    "limit": 100
+   },
+   "output_chars": 20235
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_216",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_217",
+    "limit": 20
+   },
+   "output_chars": 49
+  }
+ ]
+}

@@ -1,0 +1,446 @@
+{
+ "case_id": "case_317",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_8665",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_74"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1488",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_74"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_4439",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_74"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3064",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_74"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3064",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_8665",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4439",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1488",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_8665",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6170",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4439",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1488",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3064",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_317",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "analytics_1488",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_74",
+    "reason": "Analytics profile in the 2026-05-14 export still carries the subject's email ethan-morgan@gmail.com (direct identifier), so it remains attributable and must be anonymized. The workflow's ANONYMIZE 'FAILED' claim (activity_1522) is consistent with this.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_8665",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_74",
+    "reason": "Search index document search_8665 still exposes ethan-morgan@gmail.com (returned by an index query on the subject's email at 2026-05-14T11:22:16Z). Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_4439",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_74",
+    "reason": "Support ticket support_4439 still shows requester_email ethan-morgan@gmail.com. Its excerpt refers to an order update, which is shared order context that must be retained, so the rule is REDACT rather than delete.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_3064",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_74",
+    "reason": "Connector support_profile_sync (data_flow_3064) is enabled and was last delivered at 2026-05-14T10:03:19Z with customer_email ethan-morgan@gmail.com, so it can keep copying the subject's data. The workflow's 'remains enabled' check (activity_1526) is consistent with this. It must be disabled.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1530",
+    "reason": "Linked only through the shared deletion batch run activity_1516 (shared with case_318, case_319, case_332). No usable evidence ties this account to the subject's email, hash, phone or user_id. Its only subject-linked evidence is a workflow DELETE claim, so it cannot be attributed. Snapshots show it absent, but this is not attributed to this subject."
+   },
+   {
+    "resource_id": "account_1972",
+    "reason": "Linked only through the shared batch run activity_1514 (shared with other cases). No identifier evidence ties it to this subject. Only workflow claims and absence in snapshots; cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_2088",
+    "reason": "Identity-free 404 lookup (evidence_74, profile null) in a shared batch run (activity_1515, shared with case_318/319/332). Cannot be attributed to this subject, so rejected."
+   },
+   {
+    "resource_id": "analytics_2601",
+    "reason": "Identity-free analytics profile (evidence_74: all identifiers null, cohort returning_customer) linked only through shared batch run activity_1518. Cannot be attributed to this subject, so rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks the shop to remove their account and the personal information linked to it, which is erasure of their own account and data. The added request to complete an identity review and confirm is ordinary and does not change the deletion request.",
+   "summary: Subject ethan-morgan@gmail.com (user_315). Evidence_74 (2026-05-14 export, within the request window and before audit_at) shows live copies of the subject's email in analytics_1488 (PRESENT, anonymize), search_8665 (PRESENT, delete), support_4439 (PRESENT, redact), and the support_profile_sync connector data_flow_3064 (ACTIVE, must be disabled). The workflow's COMPLETE and absence claims are contradicted. Four shared-run candidates were rejected as unattributable. No usable evidence mentions user_315, the hash, phone numbers or audit_09, so no USER_PROFILE or MARKETING_PROFILE record could be tied to the subject.",
+   "future verification added for audit_record_6170 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_317",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 106,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_317",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 680,
+    "cache_creation_input_tokens": 2902,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_317",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 973,
+    "cache_creation_input_tokens": 10654,
+    "cache_read_input_tokens": 7773
+   },
+   {
+    "case_id": "case_317",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 466,
+    "cache_creation_input_tokens": 15705,
+    "cache_read_input_tokens": 18427
+   },
+   {
+    "case_id": "case_317",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1157,
+    "cache_creation_input_tokens": 5573,
+    "cache_read_input_tokens": 34132
+   },
+   {
+    "case_id": "case_317",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3202,
+    "cache_creation_input_tokens": 6052,
+    "cache_read_input_tokens": 39705
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1530"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1972"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2088"
+   },
+   "output_chars": 2121
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1488"
+   },
+   "output_chars": 2307
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2601"
+   },
+   "output_chars": 2274
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_3064"
+   },
+   "output_chars": 2291
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_8665"
+   },
+   "output_chars": 3131
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_4439"
+   },
+   "output_chars": 2328
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ethan-morgan@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 4123
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_315",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ae80bcc1d62e39aa22893ab82d757d0829e971a92be2cd87f97c28a050772aed",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ethan morgan",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "13125550165",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "14155550115",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-19T12:00:00Z",
+    "end": "2026-05-14T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30985
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 1900
+   },
+   "output_chars": 4619
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-19T12:00:00Z",
+    "end": "2026-04-21T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 7922
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "morgan",
+    "limit": 50
+   },
+   "output_chars": 4107
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ethan",
+    "limit": 50
+   },
+   "output_chars": 4106
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "315",
+    "limit": 50
+   },
+   "output_chars": 2416
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_09",
+    "limit": 50
+   },
+   "output_chars": 48
+  }
+ ]
+}

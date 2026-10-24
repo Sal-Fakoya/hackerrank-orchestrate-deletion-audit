@@ -1,0 +1,334 @@
+{
+ "case_id": "case_493",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_730",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_63"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_493",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_730",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_63",
+    "reason": "Security audit record ACCOUNT_DELETION_RECORDED with subject_reference user_491 (the subject's user_id) and retention_until 2031-12-31, which is after audit_at, so the retention period is still in force and the record is retained (verified as present).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_7766",
+    "reason": "Only links to the subject are the deletion-worker batch run activity_297, which is shared with other requests (case_506, case_507, case_508). No usable evidence ties account_7766 to user_491 or the request email, and the latest account_service snapshot (evidence_63) does not contain it, so it cannot be attributed to this subject. Not in scope for this request."
+   },
+   {
+    "resource_id": "analytics_5893",
+    "reason": "Linked only via batch run activity_298, shared with other requests. The only stored observation (evidence_63, customer_analytics_profiles) is identity-free: customer_reference, email, email_hash and phone are all null, and the record is not attributable to user_491 or the subject identifiers. Cannot be attributed to this subject in a shared run, so rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to erase the account linked to the email address and to apply appropriate treatment to covered records, which is erasure of their own personal data. The request to confirm completion is a follow-up that does not change the deletion classification.",
+   "summary: Searched the subject's identifiers (email, email hash, phone, user_491, name). Only evidence tying a record to user_491 is audit_record_730 (security audit ACCOUNT_DELETION_RECORDED, retention to 2031), which must be retained and is present. The two deterministic candidates (account_7766, analytics_5893) were linked only through deletion-worker batch runs shared with other customers, and neither carries usable identity linking them to this subject, so they were rejected. No subject-linked user profile, search, support, export, connector, backup, or analytics records were found in the usable evidence at audit_at, so no deletion facts were submitted for them."
+  ],
+  "usage": [
+   {
+    "case_id": "case_493",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1049,
+    "output_tokens": 111,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_493",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 422,
+    "cache_creation_input_tokens": 1072,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_493",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 333,
+    "cache_creation_input_tokens": 997,
+    "cache_read_input_tokens": 5943
+   },
+   {
+    "case_id": "case_493",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 521,
+    "cache_creation_input_tokens": 14736,
+    "cache_read_input_tokens": 6940
+   },
+   {
+    "case_id": "case_493",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 742,
+    "cache_creation_input_tokens": 11357,
+    "cache_read_input_tokens": 21676
+   },
+   {
+    "case_id": "case_493",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1124,
+    "cache_creation_input_tokens": 13437,
+    "cache_read_input_tokens": 33033
+   },
+   {
+    "case_id": "case_493",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1109,
+    "cache_creation_input_tokens": 6459,
+    "cache_read_input_tokens": 46470
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mandla.m2958@zoho.com",
+    "limit": 50
+   },
+   "output_chars": 61
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_491",
+    "limit": 50
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mandla",
+    "limit": 50
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27720502043",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "b9c437aff62ef13aadcc5798668905399f94e10b7c52765db0778fd8bff28151",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7766"
+   },
+   "output_chars": 1337
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5893"
+   },
+   "output_chars": 1846
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_730"
+   },
+   "output_chars": 1206
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-23T00:00:00Z",
+    "end": "2026-02-13T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_47",
+    "offset": 0
+   },
+   "output_chars": 4507
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 2500
+   },
+   "output_chars": 3181
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_profiles WHERE customer_reference='user_491' OR resource_id LIKE '%7766%' OR lower(email) LIKE '%mandla%' OR full_name LIKE '%Mahlangu%'"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%user_491%' OR record_json LIKE '%mandla%' OR record_json LIKE '%7766%' OR record_json LIKE '%2958%'"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-20T00:00:00Z",
+    "end": "2026-01-27T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 27178
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Mahlangu",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "m2958",
+    "limit": 50
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7766",
+    "limit": 50
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zoho",
+    "limit": 50
+   },
+   "output_chars": 10396
+  }
+ ]
+}

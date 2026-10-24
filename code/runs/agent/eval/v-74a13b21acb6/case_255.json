@@ -1,0 +1,383 @@
+{
+ "case_id": "case_255",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_2427",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_2427",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2513",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_2427",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_255",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_2513",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_253 (the subject's user_id) is still stored in the primary and read replica at audit_at. No retention end is supplied for this record and no evidence shows its retention ended, so it stays within retention and must be retained, not deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_2427",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_24",
+    "reason": "Backup catalog row for archive segment-27 carries subject_reference K.KOWALSKI36@GMAIL.COM and restore_allowed=true in the primary and replica at audit_at, so the subject's data can still be restored. activity_2024 (restore check SUCCESS) is only a workflow claim and was not relied on for the state.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3411",
+    "reason": "Profile lookup for katarina-ionescu@proton.me (a different person, not in the subject identifiers) returned 404; not attributable to this subject."
+   },
+   {
+    "resource_id": "search_1928",
+    "reason": "Search hit matched katarina-ionescu@proton.me, a different identity; not this subject's email or user_id."
+   },
+   {
+    "resource_id": "support_4533",
+    "reason": "Attachment delivery_confirmation_71.pdf matched katarina-ionescu@proton.me, a different identity."
+   },
+   {
+    "resource_id": "account_4844",
+    "reason": "Export record for katarina.v7706@zoho.com (different identity, NOT_FOUND); not linked to subject identifiers."
+   },
+   {
+    "resource_id": "data_flow_3913",
+    "reason": "Active connector tied to katarina.v7706@zoho.com, a different identity; no link to k.kowalski36@gmail.com or user_253."
+   },
+   {
+    "resource_id": "search_3355",
+    "reason": "Search document linked to katarina.v7706@zoho.com, a different identity."
+   },
+   {
+    "resource_id": "data_flow_8899",
+    "reason": "Connector selector marek.kowalski@outlook.com, a different person with the same surname."
+   },
+   {
+    "resource_id": "search_3759",
+    "reason": "Search document for Marek Kowalski (marek.kowalski@outlook.com, user_474), a different person."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to erase the account linked to their email address and to review the data eligible for deletion or de-identification, which is a request for erasure of their own account and personal data.",
+   "summary: Only two resources tie to the subject (user_253 / K.KOWALSKI36@GMAIL.COM): security audit record audit_record_2513 (retained, PRESENT) and backup archive backup_2427 (still RESTORABLE at audit_at per the replica and primary rows in evidence_24). No primary profile, search, cache, or analytics copies for this subject were found in usable evidence. Similar-name identities (Katarina Ionescu, katarina.v7706, Marek Kowalski) were rejected. The workflow's COMPLETE claim is not supported: the restore path remains open."
+  ],
+  "usage": [
+   {
+    "case_id": "case_255",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 92,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_255",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 366,
+    "cache_creation_input_tokens": 2982,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_255",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 416,
+    "cache_creation_input_tokens": 2153,
+    "cache_read_input_tokens": 7853
+   },
+   {
+    "case_id": "case_255",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 507,
+    "cache_creation_input_tokens": 6630,
+    "cache_read_input_tokens": 10006
+   },
+   {
+    "case_id": "case_255",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 443,
+    "cache_creation_input_tokens": 5123,
+    "cache_read_input_tokens": 16636
+   },
+   {
+    "case_id": "case_255",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 402,
+    "cache_creation_input_tokens": 2163,
+    "cache_read_input_tokens": 21759
+   },
+   {
+    "case_id": "case_255",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 677,
+    "cache_creation_input_tokens": 15791,
+    "cache_read_input_tokens": 23922
+   },
+   {
+    "case_id": "case_255",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1772,
+    "cache_creation_input_tokens": 18592,
+    "cache_read_input_tokens": 39713
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_253",
+    "limit": 100
+   },
+   "output_chars": 1806
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k.kowalski36@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1598
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Katarina Kowalski",
+    "limit": 100
+   },
+   "output_chars": 57
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "bbe3d96d55b6c980122d80ece4f06d012f0a5a1b239ed137bb9f8ee4f03c7b6b",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kowalski",
+    "limit": 100
+   },
+   "output_chars": 3226
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48789951500",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "katarina",
+    "limit": 100
+   },
+   "output_chars": 3973
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_2513"
+   },
+   "output_chars": 2641
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_2427"
+   },
+   "output_chars": 3032
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kowalski36",
+    "limit": 100
+   },
+   "output_chars": 1586
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "K.KOWALSKI36@GMAIL.COM",
+    "limit": 100
+   },
+   "output_chars": 1598
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_253",
+    "limit": 100
+   },
+   "output_chars": 1806
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 0
+   },
+   "output_chars": 4519
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "None",
+    "event_type": "None",
+    "start": "2026-05-21T00:00:00Z",
+    "end": "2026-06-13T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_3913"
+   },
+   "output_chars": 2135
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-21T00:00:00Z",
+    "end": "2026-06-13T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30902
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3411"
+   },
+   "output_chars": 2196
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_26",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 36583
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_2513",
+    "limit": 50
+   },
+   "output_chars": 1815
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  }
+ ]
+}

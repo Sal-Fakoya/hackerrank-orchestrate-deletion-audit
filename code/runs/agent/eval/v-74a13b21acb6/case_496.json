@@ -1,0 +1,546 @@
+{
+ "case_id": "case_496",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3169",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_63"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_6391",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_63"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3169",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_6391",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3169",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_6391",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_496",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_3169",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_63",
+    "reason": "customer_directory_v3 search document in the 2026-02-13 primary inventory still exposes the subject's email lima.larissa@gmail.com. The record was captured inside the request window. The workflow's FAILED deletion claim (activity_276) does not prove absence. Search index entries must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_6391",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_63",
+    "reason": "Support record in the 2026-02-13 inventory still has requester_email lima.larissa@gmail.com. It is a delivery-query conversation with order context that must be retained, so it is redacted rather than deleted. The workflow's FAILED redaction claim (activity_275) does not prove the redaction happened.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2512",
+    "reason": "Linked only through batch run activity_267, which is shared with other requests (case_494, case_495, case_509, case_510, case_511). No usable evidence captured in the window (not in any account_service snapshot or export) ties this account to user_494 or the subject's email, phone or hash. It cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_3479",
+    "reason": "Linked only through shared batch run activity_266. No usable evidence ties it to this subject. Its absent claim is unverified and it is not attributable, so it is not in scope."
+   },
+   {
+    "resource_id": "account_6049",
+    "reason": "Linked only through shared batch run activity_263. No usable evidence ties it to this subject. Not attributable."
+   },
+   {
+    "resource_id": "account_6623",
+    "reason": "Linked only through shared batch run activity_261. No usable evidence ties it to this subject. Not attributable."
+   },
+   {
+    "resource_id": "account_9784",
+    "reason": "Linked only through shared batch run activity_265. No usable evidence ties it to this subject. Not attributable."
+   },
+   {
+    "resource_id": "analytics_5443",
+    "reason": "Linked only through shared batch run activity_268. The only observation (evidence_63) is an identity-free analytics profile (all identifiers null, cohort mobile_browser). It cannot be attributed to the subject in a shared run."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to erase the account linked to their email address under the personal-data deletion procedure, which is a direct erasure request for their own account and data.",
+   "summary: Subject lima.larissa@gmail.com (user_494). Two attributable records were found in the 2026-02-13 inventory (evidence_63): search_3169 (search index document with the subject's email, PRESENT, delete) and support_6391 (support record with the subject's email, PRESENT, redact). The five account_service candidates and the analytics profile were linked only through the shared deletion batch and have no usable identity-linked evidence, so they were rejected. No email delivery, export, backup, connector, or legal hold record for this subject was found."
+  ],
+  "usage": [
+   {
+    "case_id": "case_496",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 87,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_496",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 698,
+    "cache_creation_input_tokens": 1773,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_496",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 562,
+    "cache_creation_input_tokens": 7711,
+    "cache_read_input_tokens": 6644
+   },
+   {
+    "case_id": "case_496",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1292,
+    "cache_creation_input_tokens": 17888,
+    "cache_read_input_tokens": 14355
+   },
+   {
+    "case_id": "case_496",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 454,
+    "cache_creation_input_tokens": 10557,
+    "cache_read_input_tokens": 32243
+   },
+   {
+    "case_id": "case_496",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 715,
+    "cache_creation_input_tokens": 6618,
+    "cache_read_input_tokens": 42800
+   },
+   {
+    "case_id": "case_496",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1723,
+    "cache_creation_input_tokens": 9483,
+    "cache_read_input_tokens": 49418
+   },
+   {
+    "case_id": "case_496",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1992,
+    "cache_creation_input_tokens": 3773,
+    "cache_read_input_tokens": 58901
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lima.larissa@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 1419
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_494",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "larissa",
+    "limit": 50
+   },
+   "output_chars": 1404
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2512"
+   },
+   "output_chars": 1337
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3479"
+   },
+   "output_chars": 1336
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6049"
+   },
+   "output_chars": 1337
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6623"
+   },
+   "output_chars": 1336
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9784"
+   },
+   "output_chars": 1336
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5443"
+   },
+   "output_chars": 1846
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3169"
+   },
+   "output_chars": 1862
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_6391"
+   },
+   "output_chars": 1896
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": null
+   },
+   "output_chars": 618
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-20T00:00:00Z",
+    "end": "2026-02-13T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-20T00:00:00Z",
+    "end": "2026-01-24T00:00:00Z",
+    "limit": 60
+   },
+   "output_chars": 18828
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_reporting_replica WHERE record_json LIKE '%lima%' OR record_json LIKE '%user_494%' OR record_json LIKE '%Larissa%' OR record_json LIKE '%954926917%' OR record_json LIKE '%b45617%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary WHERE record_json LIKE '%lima%' OR record_json LIKE '%user_494%' OR record_json LIKE '%Larissa%' OR record_json LIKE '%954926917%' OR record_json LIKE '%b45617%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_profiles"
+   },
+   "output_chars": 362
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_analytics_profiles"
+   },
+   "output_chars": 383
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_search_documents"
+   },
+   "output_chars": 604
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM support_records"
+   },
+   "output_chars": 434
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM backup_restore_entries"
+   },
+   "output_chars": 242
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM connector_subscriptions"
+   },
+   "output_chars": 268
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM security_audit_records"
+   },
+   "output_chars": 550
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 3500
+   },
+   "output_chars": 4617
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 3500
+   },
+   "output_chars": 4641
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at, substr(record_json,1,300) FROM customer_data_reporting_replica"
+   },
+   "output_chars": 8542
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at, substr(record_json,1,300) FROM customer_data_primary"
+   },
+   "output_chars": 8213
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2512",
+    "limit": 20
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "H.LIM96@GMAIL.COM",
+    "limit": 20
+   },
+   "output_chars": 656
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5521954926917",
+    "limit": 30
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "b45617dff6c3e49d92bc4911f26ae5f100995a8086508192c9281a98923d4915",
+    "limit": 30
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Lima",
+    "limit": 50
+   },
+   "output_chars": 1401
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lima",
+    "limit": 50
+   },
+   "output_chars": 1401
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-23T00:00:00Z",
+    "end": "2026-02-13T08:00:00Z",
+    "limit": 5
+   },
+   "output_chars": 1498
+  }
+ ]
+}

@@ -1,0 +1,446 @@
+{
+ "case_id": "case_437",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6172",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_41"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6172",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_022",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6846",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_6172",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_437",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_022",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_41",
+    "reason": "Downstream lookup at 2026-03-15T07:00:00Z returned NOT_FOUND for account_022 with subject_reference zofia-novak@gmail.com. The record is linked to this subject via the deletion-worker run (activity_636). The account_service snapshots (evidence_65, evidence_45, evidence_63, evidence_47, evidence_43) also lack it. Record is gone; DELETE rule is compliant. Shared-run membership does not change attribution because the lookup ties it to this subject's email.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_6172",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_41",
+    "reason": "Lookup at 2026-03-15T07:00:00Z on analytics_platform returned IDENTIFIABLE for analytics_6172 with subject_reference zofia-novak@gmail.com (direct identifiers present). The deletion run activity_639 reported FAILED. The record is still attributable to the subject, so ANONYMIZE is required. Not found in the 2026-03-10 inventory snapshot (evidence_66), but the later direct observation shows it present, and replicas must also be checked.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6846",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_41",
+    "reason": "Security audit record for user_435 (this subject's user_id) was FOUND at 2026-03-15T07:00:00Z. No retention end before audit_at is evidenced, so it is treated as within the retention period and RETAIN applies (report as PRESENT for retention verification).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_4031",
+    "reason": "Linked only through the shared deletion-worker run activity_634 (shared with case_438, case_439, case_452). Its profile in evidence_66 has all identifiers null (email, email_hash, phone, customer_reference all null, subject_reference false). It is identity-free and cannot be attributed to this subject, so it is rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their email address and asks that it be applied across systems covered by the deletion policy, which is erasure of the person's own account and data. Requesting confirmation on completion does not change this.",
+   "summary: Subject user_435 / zofia-novak@gmail.com. account_022 (USER_PROFILE) is ABSENT, confirmed by the 2026-03-15 lookup, despite the workflow's PARTIAL claim. analytics_6172 (ANALYTICS_PROFILE) is still PRESENT and identifiable at audit_at, so it needs anonymization even though the deletion run reported FAILED. audit_record_6846 (SECURITY_AUDIT_LOG) is PRESENT and retained. analytics_4031 was rejected as an identity-free record in a shared run. No searches surfaced any support, search-index, export, connector, backup, or marketing records for this subject, but searching by identifiers only found evidence_41; these were not checked for resource-id-only links beyond what the candidates and evidence showed."
+  ],
+  "usage": [
+   {
+    "case_id": "case_437",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 110,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_437",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 496,
+    "cache_creation_input_tokens": 1666,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_437",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 426,
+    "cache_creation_input_tokens": 1546,
+    "cache_read_input_tokens": 6537
+   },
+   {
+    "case_id": "case_437",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 379,
+    "cache_creation_input_tokens": 8374,
+    "cache_read_input_tokens": 8083
+   },
+   {
+    "case_id": "case_437",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 534,
+    "cache_creation_input_tokens": 16460,
+    "cache_read_input_tokens": 16457
+   },
+   {
+    "case_id": "case_437",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2019,
+    "cache_creation_input_tokens": 5124,
+    "cache_read_input_tokens": 32917
+   },
+   {
+    "case_id": "case_437",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 793,
+    "cache_creation_input_tokens": 11366,
+    "cache_read_input_tokens": 38041
+   },
+   {
+    "case_id": "case_437",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2418,
+    "cache_creation_input_tokens": 4076,
+    "cache_read_input_tokens": 49407
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zofia-novak@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1089
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_435",
+    "limit": 100
+   },
+   "output_chars": 548
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Zofia Novak",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48530927757",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48765328958",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "05388aad688ef79b8b1ca9c7c156d1cbda09eea0d55455a2790557257d14a585",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4031"
+   },
+   "output_chars": 2134
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_022"
+   },
+   "output_chars": 1971
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6172"
+   },
+   "output_chars": 2043
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6846"
+   },
+   "output_chars": 1377
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 4000
+   },
+   "output_chars": 4405
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 4000
+   },
+   "output_chars": 2786
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-18T00:00:00Z",
+    "end": "2026-03-15T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31141
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-18T07:00:00Z",
+    "end": "2026-02-19T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 8847
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zofia",
+    "limit": 100
+   },
+   "output_chars": 1073
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "novak",
+    "limit": 100
+   },
+   "output_chars": 1073
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 0
+   },
+   "output_chars": 4669
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_21",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "435",
+    "limit": 100
+   },
+   "output_chars": 3841
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_022",
+    "limit": 50
+   },
+   "output_chars": 1144
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_6172",
+    "limit": 50
+   },
+   "output_chars": 1221
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_6846",
+    "limit": 50
+   },
+   "output_chars": 557
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_437",
+    "limit": 50
+   },
+   "output_chars": 48
+  }
+ ]
+}

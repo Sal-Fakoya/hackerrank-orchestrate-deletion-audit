@@ -1,0 +1,278 @@
+{
+ "case_id": "case_01",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_001",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_54"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_01",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_001",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_54",
+    "reason": "Candidate linked to this subject's deletion-worker run (activity_3342, 2026-08-20, no shared_with other requests). The latest usable account_service snapshot before audit_at (evidence_54, failover replica and primary tables, captured 2026-09-02T23:00Z) contains no account_001 row and no row for user_01 or this email/phone. Absence is confirmed by a snapshot, not only by the deletion worker's SUCCESS claim. DELETE rule is satisfied (ABSENT = compliant).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_8741",
+    "reason": "Belongs to a different person (Karim El-Masri, karim.elmasri@gmail.com, user_8741). Surname match only; email, phone and user_id do not match the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to close the account and remove the profile and attached personal details, which is erasure of their own account and personal data.",
+   "summary: Subject user_01 (amina.elmasri@gmail.com) has one linked resource, account_001. Searches for the subject's email, phone, email hash, user_id and name variants found no other records in usable evidence. account_001 is ABSENT at audit_at, confirmed by evidence_54, which is the latest account_service snapshot and lacks the row. The workflow's SUCCESS claim alone was not used as proof. No secondary identifiers, search entries, caches, exports, connectors, backups or support records were found tied to this subject. The only surname match (account_8741) is a different person and was rejected."
+  ],
+  "usage": [
+   {
+    "case_id": "case_01",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1044,
+    "output_tokens": 74,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_01",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 351,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 9416
+   },
+   {
+    "case_id": "case_01",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 620,
+    "cache_creation_input_tokens": 1864,
+    "cache_read_input_tokens": 9416
+   },
+   {
+    "case_id": "case_01",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 592,
+    "cache_creation_input_tokens": 13726,
+    "cache_read_input_tokens": 11280
+   },
+   {
+    "case_id": "case_01",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 605,
+    "cache_creation_input_tokens": 1812,
+    "cache_read_input_tokens": 25006
+   },
+   {
+    "case_id": "case_01",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1103,
+    "cache_creation_input_tokens": 4920,
+    "cache_read_input_tokens": 26818
+   },
+   {
+    "case_id": "case_01",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1035,
+    "cache_creation_input_tokens": 2943,
+    "cache_read_input_tokens": 31738
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_001"
+   },
+   "output_chars": 1499
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "amina.elmasri@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_01",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Elmasri",
+    "limit": 100
+   },
+   "output_chars": 1445
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d4e1f59abcf9a1e0cfdc7c27ad6c07ed4ff88b326a16ed5eed5ec6bc31618c93",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971504827316",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_001",
+    "limit": 100
+   },
+   "output_chars": 674
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-18T00:00:00Z",
+    "end": "2026-09-03T11:30:00Z",
+    "limit": 200
+   },
+   "output_chars": 31495
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-20T16:00:00Z",
+    "end": "2026-08-20T17:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 961
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "amina",
+    "limit": 100
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "masri",
+    "limit": 100
+   },
+   "output_chars": 1443
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": null
+   },
+   "output_chars": 640
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_12",
+    "offset": 0
+   },
+   "output_chars": 4651
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT resource_id, user_id, full_name, email, account_status FROM customer_profiles_primary UNION ALL SELECT resource_id, user_id, full_name, email, account_status FROM customer_profiles_failover_replica"
+   },
+   "output_chars": 685
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "shared_with",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_service",
+    "limit": 5
+   },
+   "output_chars": 3065
+  }
+ ]
+}

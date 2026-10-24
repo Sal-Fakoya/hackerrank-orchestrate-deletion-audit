@@ -1,0 +1,528 @@
+{
+ "case_id": "case_104",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_8379",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_10"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6230",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_10"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_4882",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_10"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_4267",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_10"
+  },
+  {
+   "step_no": 5,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5127",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_10"
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5127",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_8379",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6230",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4267",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_4882",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_8379",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6230",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4267",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 14,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_4882",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 15,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5127",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_104",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "analytics_4882",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_10",
+    "reason": "Behavioral analytics report row for user_102 still carries email, email hash, phone and user_id at audit_at (primary and read replica both show it). Still attributable to the subject, so ANONYMIZE applies. Activity_3281 reported FAILED.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_8379",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_10",
+    "reason": "customer_directory_v3 search document still exposes display name 'Kenta Ito', email and customer_reference user_102 on primary and replica at audit_at. Must be deleted. Activity_3278 reported FAILED.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_4267",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_10",
+    "reason": "Support conversation CS-8267 still shows the subject's email and subject_reference user_102. It also carries shared order context (affected order: mechanical keyboard), so it must be redacted, not deleted. Activity_3280 reported FAILED.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_5127",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_10",
+    "reason": "Connector customer-events-to-warehouse-8 is enabled, in continuous_sync mode, with subject_selector kenta.ito@outlook.com, at audit_at. It can keep recreating the subject's analytics data and must be disabled. Activity_3275 claimed it remained enabled.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6230",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_10",
+    "reason": "Security audit event account_deletion_reviewed references user_102 and is present at audit_at. No supplied retention period for this record was found in any usable evidence (unlike other audit rows, which carry retention_until), so the within-retention condition cannot be confirmed. Flag for retention confirmation; do not treat as retained by default.",
+    "condition_met": false
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4514",
+    "reason": "Linked only through deletion-worker batch run activity_3274, which is shared with case_105 and case_106. No usable evidence ties this account to user_102 or the subject's identifiers. Not attributable to this subject; not in scope."
+   },
+   {
+    "resource_id": "account_8804",
+    "reason": "Linked only through shared batch run activity_3272 (shared with case_105 and case_106). No evidence ties it to this subject. Not attributable; not in scope."
+   },
+   {
+    "resource_id": "backup_369",
+    "reason": "Backup catalog entry references r.ito24@gmail.com, a different email from the subject's kenta.ito@outlook.com. Not this subject's data."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to close the account and have its associated personal data deleted, including data linked through current or earlier identifiers. This is a deletion request for their own account and data; requesting confirmation of review does not change that.",
+   "summary: Subject user_102 (kenta.ito@outlook.com). Confirmed in-scope records at audit_at from evidence_10: analytics_4882 (analytics profile, PRESENT, anonymize), search_8379 (search index, PRESENT, delete), support_4267 (support conversation with shared order context, PRESENT, redact), data_flow_5127 (enabled continuous sync, ACTIVE, disable), and audit_record_6230 (security audit event, PRESENT, retention condition not verifiable from supplied evidence). The workflow's SUCCESS/absent claims for account_4514 and account_8804 are not attributable to the subject, so they were rejected. Workflow FAILED results for the analytics, search and support deletions contradict the 'COMPLETE' status. No legal hold covers the subject. No ACCOUNT_TOMBSTONE, email delivery log, export or marketing record was found for the subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_104",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 106,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_104",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 677,
+    "cache_creation_input_tokens": 4722,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_104",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 790,
+    "cache_creation_input_tokens": 17127,
+    "cache_read_input_tokens": 9593
+   },
+   {
+    "case_id": "case_104",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 643,
+    "cache_creation_input_tokens": 15951,
+    "cache_read_input_tokens": 26720
+   },
+   {
+    "case_id": "case_104",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 742,
+    "cache_creation_input_tokens": 9328,
+    "cache_read_input_tokens": 42671
+   },
+   {
+    "case_id": "case_104",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 491,
+    "cache_creation_input_tokens": 10336,
+    "cache_read_input_tokens": 51999
+   },
+   {
+    "case_id": "case_104",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3610,
+    "cache_creation_input_tokens": 11922,
+    "cache_read_input_tokens": 62335
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4882"
+   },
+   "output_chars": 3785
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6230"
+   },
+   "output_chars": 2630
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_5127"
+   },
+   "output_chars": 3143
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_8379"
+   },
+   "output_chars": 3104
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_4267"
+   },
+   "output_chars": 3225
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4514"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8804"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kenta.ito",
+    "limit": 50
+   },
+   "output_chars": 7350
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_102",
+    "limit": 50
+   },
+   "output_chars": 7463
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Kenta Ito",
+    "limit": 50
+   },
+   "output_chars": 1679
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "7fe61754d6c2dcc886bf8cdf19daf35737d96068d264fc38f13364fcb038d4a5",
+    "limit": 50
+   },
+   "output_chars": 2385
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8325 7910",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "819083257910",
+    "limit": 50
+   },
+   "output_chars": 2333
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_4514",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-15T00:00:00Z",
+    "end": "2026-08-27T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31358
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "connector_configurations_20260812"
+   },
+   "output_chars": 162
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Ito",
+    "limit": 50
+   },
+   "output_chars": 12192
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4514",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8804",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_10",
+    "offset": 0
+   },
+   "output_chars": 4560
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kenta",
+    "limit": 50
+   },
+   "output_chars": 9661
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_6230",
+    "limit": 50
+   },
+   "output_chars": 1815
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_102",
+    "limit": 100
+   },
+   "output_chars": 7463
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 30
+   },
+   "output_chars": 21170
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "ACCOUNT_TOMBSTONE"
+   },
+   "output_chars": 212
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_369"
+   },
+   "output_chars": 3026
+  }
+ ]
+}

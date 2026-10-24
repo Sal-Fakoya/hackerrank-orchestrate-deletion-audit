@@ -1,0 +1,472 @@
+{
+ "case_id": "case_489",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_6654",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_64"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3426",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_64"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_6654",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3426",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_6654",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3426",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1372",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_489",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_6654",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_64",
+    "reason": "Account profile for the subject's current email i.zielinski8281@yahoo.com still returns HTTP 200 with the email on 2026-02-18T07:57:06Z (trace rb-075706-018), before audit_at. The deletion worker's DELETE activity (activity_404, PARTIAL) and replication checkpoint (activity_412) are claims only; the direct lookup shows the profile still exists. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_3426",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_64",
+    "reason": "customer_directory_v3 index query on 2026-02-18T08:39:11Z (trace rb-083911-026) returned a hit for i.zielinski8281@yahoo.com, so the search entry still exists at audit_at. Deletion activity_417 reported FAILED. Must be deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3205",
+    "reason": "Linked only through the deletion-worker batch run (activity_407/activity_420) that was shared with other requests (case_473, case_474, case_475, case_488, case_490). No usable evidence ties this account to the subject's identifiers (email, hash, phone, user_487). Its DELETE SUCCESS and SYNC SUCCESS are workflow claims; snapshots evidence_63/evidence_47/evidence_49/evidence_62 do not contain it. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_9904",
+    "reason": "Linked only through the shared batch run (activity_408, shared with other customers' requests) with no identity-bearing evidence tying it to this subject. Its only record is a workflow claim (FAILED). Not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete this account and its personal data, with no negation or third-party element, so it authorizes deletion. The request to confirm completion is a follow-up on the same erasure request.",
+   "summary: Subject i.zielinski8281@yahoo.com (user_487). Two subject-attributable resources remain PRESENT at audit_at per direct lookups in evidence_64: account_6654 (account profile, USER_PROFILE) and search_3426 (customer_directory_v3 index entry, SEARCH_INDEX_ENTRY); both need deletion despite the workflow's PARTIAL/FAILED claims. Snapshot inventories (evidence_63 primary/replica, evidence_47, evidence_49, evidence_62) contained no rows for the subject's identifiers, so no exports, support records, analytics profiles, connectors or backups were found tied to the subject. Candidates account_3205 and account_9904 were rejected as unattributable shared-run records. Other \"zieli\" matches (nzielinski0123@fastmail.com, user_526, etc.) belong to a different person.",
+   "future verification added for audit_record_1372 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_489",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 100,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_489",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 560,
+    "cache_creation_input_tokens": 1315,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_489",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 584,
+    "cache_creation_input_tokens": 9297,
+    "cache_read_input_tokens": 6186
+   },
+   {
+    "case_id": "case_489",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 887,
+    "cache_creation_input_tokens": 16305,
+    "cache_read_input_tokens": 15483
+   },
+   {
+    "case_id": "case_489",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 818,
+    "cache_creation_input_tokens": 2180,
+    "cache_read_input_tokens": 31788
+   },
+   {
+    "case_id": "case_489",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 711,
+    "cache_creation_input_tokens": 9743,
+    "cache_read_input_tokens": 33968
+   },
+   {
+    "case_id": "case_489",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 593,
+    "cache_creation_input_tokens": 1917,
+    "cache_read_input_tokens": 43711
+   },
+   {
+    "case_id": "case_489",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1731,
+    "cache_creation_input_tokens": 3576,
+    "cache_read_input_tokens": 45628
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "i.zielinski8281@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 1517
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_487",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "i.zielinski82@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zieli",
+    "limit": 50
+   },
+   "output_chars": 9306
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3205"
+   },
+   "output_chars": 1946
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9904"
+   },
+   "output_chars": 1336
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6654"
+   },
+   "output_chars": 2671
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3426"
+   },
+   "output_chars": 2064
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": null
+   },
+   "output_chars": 618
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-01T00:00:00Z",
+    "end": "2026-02-18T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31183
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status, updated_at FROM customer_profiles UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents UNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, NULL, updated_at FROM support_records UNION ALL SELECT 'backup', resource_id, customer_reference, NULL, customer_email, archive_key, restore_allowed, NULL, updated_at FROM backup_restore_entries UNION ALL SELECT 'connector', resource_id, customer_reference, connector_name, customer_email, enabled, last_delivery_status, NULL, updated_at FROM connector_subscriptions UNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, NULL, NULL, NULL, updated_at FROM security_audit_records"
+   },
+   "output_chars": 2377
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT 'primary' src, resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary WHERE record_json LIKE '%zielinski%' OR record_json LIKE '%user_487%' OR resource_id IN ('account_3205','account_9904','account_6654','search_3426') UNION ALL SELECT 'replica', resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_reporting_replica WHERE record_json LIKE '%zielinski%' OR record_json LIKE '%user_487%' OR resource_id IN ('account_3205','account_9904','account_6654','search_3426')"
+   },
+   "output_chars": 112
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT 'primary' src, resource_id, origin_system, collection_name, substr(record_json,1,300), updated_at FROM customer_data_primary UNION ALL SELECT 'replica', resource_id, origin_system, collection_name, substr(record_json,1,300), updated_at FROM customer_data_reporting_replica"
+   },
+   "output_chars": 17184
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_3205",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 672
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_9904",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 345
+  },
+  {
+   "turn": 4,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_64",
+    "trace_id": "rb-075706-018"
+   },
+   "output_chars": 468
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "426a7cd798dd604550b5288784834dbcb0c73025a00c72f1ab9c9c5facaa5c2c",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "43702abda367672e941303dc9bef252cca8af42fbc279504383e56a092012f30",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48873957386",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3205",
+    "limit": 50
+   },
+   "output_chars": 1267
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9904",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Iulia",
+    "limit": 50
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zielinski8281",
+    "limit": 50
+   },
+   "output_chars": 1505
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Zieliński",
+    "limit": 50
+   },
+   "output_chars": 872
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6654",
+    "limit": 50
+   },
+   "output_chars": 1992
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_3426",
+    "limit": 50
+   },
+   "output_chars": 1386
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_404",
+    "limit": 50
+   },
+   "output_chars": 658
+  }
+ ]
+}

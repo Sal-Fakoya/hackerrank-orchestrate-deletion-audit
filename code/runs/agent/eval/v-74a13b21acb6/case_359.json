@@ -1,0 +1,535 @@
+{
+ "case_id": "case_359",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2492",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_33"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_2537",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_33"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2492",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2537",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2492",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2537",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2641",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_359",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_2492",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Search index document customer_directory_v3 for customer_reference user_357 still exposes display name 'Iulia Popescu' and email iulia-popescu@proton.me in the primary, ap_south and eu_west replicas as captured 2026-04-24 (audit_at). The deletion attempt activity_1202 reported FAILED, which does not prove absence. Must be deleted from primary and all replicas.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_2537",
+    "system_id": "support_platform",
+    "category": "SUPPORT_ATTACHMENT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Ticket attachment delivery_confirmation_15.pdf on ticket CS-6537 with uploaded_by iulia-popescu@proton.me is present in primary, ap_south and eu_west replicas at 2026-04-24. No other uploader or party appears in the evidence, so the attachment belongs only to the subject and must be deleted. activity_1199 FAILED is a claim only.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_2641",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Security audit event account_deletion_reviewed (automated_privacy_workflow) with subject_reference user_357 is present in primary and replicas at 2026-04-24. The row carries no retention_until field, and no evidence shows an expired retention period, so the record is treated as within retention and retained for verification. Retention is not confirmed by any source and should be checked against the supplied retention period.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_6312",
+    "reason": "Linked only through deletion-worker batch run activity_1196, which is shared with case_360 and case_361 (other customers). No usable evidence ties this account to user_357. The account_service snapshot evidence_33 also lacks it. Not attributable to the subject."
+   },
+   {
+    "resource_id": "account_6445",
+    "reason": "Linked only through shared batch run activity_1194 (shared with case_360 and case_361). No usable identity evidence ties it to user_357; the only record is the workflow activity claim. Not attributable to the subject."
+   },
+   {
+    "resource_id": "account_7118",
+    "reason": "Linked only through shared batch run activity_1195 (shared with case_360 and case_361). No usable identity evidence ties it to user_357; the only record is the workflow activity claim. Not attributable to the subject."
+   },
+   {
+    "resource_id": "data_flow_3052",
+    "reason": "Connector customer-events-to-warehouse-5 has subject_selector chioma.b7650@zoho.com, which belongs to another customer (case_361). Not this subject's data flow."
+   },
+   {
+    "resource_id": "search_496",
+    "reason": "Search document for user_359 (Chioma Balogun, chioma.b7650@zoho.com). It belongs to another customer, not the subject."
+   },
+   {
+    "resource_id": "export_350",
+    "reason": "Customer export owned by mrahman973184@fastmail.com (case_360's subject, user_358). It belongs to another customer."
+   },
+   {
+    "resource_id": "search_957",
+    "reason": "Search document for user_358 (Mariam Rahman, mrahman973184@fastmail.com). It belongs to another customer."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer states they no longer use the account and asks for it to be permanently deleted, including reviewing connected identifiers, and requests confirmation of the outcome. This is a clear request to erase the account and the person's personal data.",
+   "summary: Subject user_357 (iulia-popescu@proton.me). Three in-scope records are still present at audit_at per evidence_33 (2026-04-24): search_2492 (search index, must delete), support_2537 (subject-only ticket attachment, must delete), and audit_record_2641 (security audit log, retained as in-retention). The workflow's account_service deletions (account_6312/6445/7118) are shared with other requests and have no identity link to the subject, so they were rejected. No active data flow for the subject was found; data_flow_3052 belongs to another customer. Workflow SUCCESS/FAILED claims were not relied on."
+  ],
+  "usage": [
+   {
+    "case_id": "case_359",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 107,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_359",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 416,
+    "cache_creation_input_tokens": 2358,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_359",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 672,
+    "cache_creation_input_tokens": 8426,
+    "cache_read_input_tokens": 7229
+   },
+   {
+    "case_id": "case_359",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 785,
+    "cache_creation_input_tokens": 5392,
+    "cache_read_input_tokens": 15655
+   },
+   {
+    "case_id": "case_359",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1110,
+    "cache_creation_input_tokens": 8789,
+    "cache_read_input_tokens": 21047
+   },
+   {
+    "case_id": "case_359",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 466,
+    "cache_creation_input_tokens": 10047,
+    "cache_read_input_tokens": 29836
+   },
+   {
+    "case_id": "case_359",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 174,
+    "cache_creation_input_tokens": 17300,
+    "cache_read_input_tokens": 39883
+   },
+   {
+    "case_id": "case_359",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 190,
+    "cache_creation_input_tokens": 841,
+    "cache_read_input_tokens": 57183
+   },
+   {
+    "case_id": "case_359",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 706,
+    "cache_creation_input_tokens": 633,
+    "cache_read_input_tokens": 58024
+   },
+   {
+    "case_id": "case_359",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 810,
+    "cache_creation_input_tokens": 20820,
+    "cache_read_input_tokens": 58657
+   },
+   {
+    "case_id": "case_359",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1874,
+    "cache_creation_input_tokens": 5466,
+    "cache_read_input_tokens": 79477
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6312"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6445"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7118"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "iulia-popescu@proton.me",
+    "limit": 50
+   },
+   "output_chars": 4992
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_357",
+    "limit": 50
+   },
+   "output_chars": 5250
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "iulia popescu",
+    "limit": 50
+   },
+   "output_chars": 2566
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "3fffb22320f815d122068d5a16b10907586df88cc8e2a48eb86081c8dd677ffd",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48616212542",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6445",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7118",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6312",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-28T00:00:00Z",
+    "end": "2026-03-30T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 9094
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2537"
+   },
+   "output_chars": 3903
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2492"
+   },
+   "output_chars": 3991
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_2641"
+   },
+   "output_chars": 3563
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_357",
+    "limit": 50
+   },
+   "output_chars": 5250
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_1194",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "CS-6537",
+    "limit": 50
+   },
+   "output_chars": 2461
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_3052"
+   },
+   "output_chars": 4010
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_496"
+   },
+   "output_chars": 4524
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_350"
+   },
+   "output_chars": 4190
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_957"
+   },
+   "output_chars": 3981
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_360",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 24946
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold",
+    "limit": 50
+   },
+   "output_chars": 10802
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": "SELECT * FROM sqlite_master"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE resource_id IN ('audit_record_2641','support_2537','search_2492') OR record_json LIKE '%user_357%' OR record_json LIKE '%popescu%' OR record_json LIKE '%iulia%'"
+   },
+   "output_chars": 942
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_deletion_reviewed",
+    "limit": 50
+   },
+   "output_chars": 44580
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention_days",
+    "limit": 20
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 8,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_2641",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "popescu",
+    "limit": 50
+   },
+   "output_chars": 4976
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "iulia",
+    "limit": 50
+   },
+   "output_chars": 4974
+  }
+ ]
+}

@@ -1,0 +1,503 @@
+{
+ "case_id": "case_477",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_3119",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_45"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_5052",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_45"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_3119",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_5052",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_3119",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5052",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6405",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_477",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_3119",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_45",
+    "reason": "Primary customer profile for user_475 (email z.mansour54@yahoo.com, name Zayd Mansour, phone +971 52 633 7051) still exists in account_service at audit_at per the 2026-02-23T10:00:00Z snapshot. The deletion worker's PARTIAL claim (activity_371) and replication checkpoint (activity_379) do not prove absence. Earlier snapshots (evidence_49, evidence_62, evidence_63) do not contain it, but the latest observation shows it present, so DELETE is required.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_5052",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_45",
+    "reason": "customer_directory_v3 document for Zayd Mansour (email z.mansour54@yahoo.com, customer_reference user_475) is still present in search_service at audit_at per the 2026-02-23T10:00:00Z snapshot. The deletion worker reported FAILED (activity_382), and the index entry was not removed; DELETE is required.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6405",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_45",
+    "reason": "security_service audit event account_deletion_reviewed with subject_reference user_475 is present at audit_at. It is a recent workflow-generated record with no expired retention indicator in the evidence, so it is within retention and must be retained and verified. The snapshot does not show an explicit retention_until value for this record, so this relies on the absence of any expiry evidence.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3119",
+    "reason": "not rejected; listed as in-scope fact above"
+   },
+   {
+    "resource_id": "search_5052",
+    "reason": "not rejected; listed as in-scope fact above"
+   },
+   {
+    "resource_id": "audit_record_6405",
+    "reason": "not rejected; listed as in-scope fact above"
+   },
+   {
+    "resource_id": "hash 1402209748f45559fa75736163dce94f504423b62315947e66d43652dcdb8de6 / phone 971527089687 / audit_24",
+    "reason": "Searched; no evidence record matches these identifiers, so no additional resources were found from them"
+   },
+   {
+    "resource_id": "analytics_*, support_*, export_*, backup_*, data_flow_* (other subjects)",
+    "reason": "Records surfaced in the bulk exports (e.g. data_flow_8899 selector marek.kowalski, legal_hold_4743 user_471) belong to other subjects; none reference user_475, z.mansour54@yahoo.com, Zayd Mansour or the phone numbers"
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to close the account and have its associated personal data deleted, which is erasure of their own data. The request for confirmation of the outcome is a follow-up that does not change the classification.",
+   "summary: Subject user_475 (z.mansour54@yahoo.com, Zayd Mansour). Three resources are linked to this subject and still present at audit_at: account_3119 (USER_PROFILE, DELETE), search_5052 (SEARCH_INDEX_ENTRY, DELETE), and audit_record_6405 (SECURITY_AUDIT_LOG, RETAIN). The workflow's PARTIAL/FAILED claims for account_3119 and search_5052 are not proof of deletion; the latest snapshot (evidence_45, 2026-02-23T10:00Z) shows both still stored. No analytics, support, export, backup, connector, email-log, or legal-hold records were found for this subject. The retention period for audit_record_6405 is not stated explicitly, so its condition rests on the absence of expiry evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_477",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 99,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_477",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 411,
+    "cache_creation_input_tokens": 1098,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_477",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 632,
+    "cache_creation_input_tokens": 6347,
+    "cache_read_input_tokens": 5969
+   },
+   {
+    "case_id": "case_477",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 593,
+    "cache_creation_input_tokens": 23268,
+    "cache_read_input_tokens": 12316
+   },
+   {
+    "case_id": "case_477",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 880,
+    "cache_creation_input_tokens": 15580,
+    "cache_read_input_tokens": 35584
+   },
+   {
+    "case_id": "case_477",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 940,
+    "cache_creation_input_tokens": 11211,
+    "cache_read_input_tokens": 51164
+   },
+   {
+    "case_id": "case_477",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 629,
+    "cache_creation_input_tokens": 6015,
+    "cache_read_input_tokens": 62375
+   },
+   {
+    "case_id": "case_477",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2217,
+    "cache_creation_input_tokens": 5682,
+    "cache_read_input_tokens": 68390
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3119"
+   },
+   "output_chars": 2799
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6405"
+   },
+   "output_chars": 1600
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5052"
+   },
+   "output_chars": 2150
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "z.mansour54@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 1727
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_475",
+    "limit": 50
+   },
+   "output_chars": 2579
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mansour",
+    "limit": 50
+   },
+   "output_chars": 1713
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 0
+   },
+   "output_chars": 4669
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-29T00:00:00Z",
+    "end": "2026-02-23T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31204
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zayd",
+    "limit": 50
+   },
+   "output_chars": 1710
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1402209748f45559fa75736163dce94f504423b62315947e66d43652dcdb8de6",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971526337051",
+    "limit": 50
+   },
+   "output_chars": 902
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971527089687",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_24",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "deletion_worker",
+    "limit": 50
+   },
+   "output_chars": 30567
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 6000
+   },
+   "output_chars": 4690
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 12000
+   },
+   "output_chars": 4685
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 18000
+   },
+   "output_chars": 4615
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 2500
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 6000
+   },
+   "output_chars": 4655
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_47",
+    "offset": 0
+   },
+   "output_chars": 4507
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_3119",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 672
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "search_5052",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_6405",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SEARCH_INDEX_ENTRY"
+   },
+   "output_chars": 113
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 20
+   },
+   "output_chars": 10393
+  }
+ ]
+}

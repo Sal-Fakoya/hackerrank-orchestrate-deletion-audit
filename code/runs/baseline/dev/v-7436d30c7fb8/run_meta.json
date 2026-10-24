@@ -1,0 +1,12 @@
+{
+ "mode": "baseline",
+ "judge_version": "7436d30c7fb8",
+ "cases": 20,
+ "completed": 20,
+ "resumed": 0,
+ "failed": {},
+ "skipped_for_budget": 0,
+ "seconds_this_session": 0.4,
+ "model_calls": 0,
+ "estimated_cost_usd": 0
+}

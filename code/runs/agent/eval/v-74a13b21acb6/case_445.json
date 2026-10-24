@@ -1,0 +1,567 @@
+{
+ "case_id": "case_445",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2886",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_66"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_7584",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_66"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_7584",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2886",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2886",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_7584",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_445",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_2886",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_66",
+    "reason": "Latest usable snapshot (customer_data_inventory 2026-03-10T05:38:48Z, table customer_search_documents, index customer_directory_v3) still holds the subject's email diya.s284681@zoho.com. Activity_776 FAILED claim is not proof of absence. Requires deletion.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_7584",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_66",
+    "reason": "connector_subscriptions row for analytics_identity_bridge with customer_email diya.s284681@zoho.com is enabled=1 with last_delivery_status delivered at the 2026-03-10T05:38:48Z snapshot. It repopulated search_2886 (activity_773), so it is a live recreation risk and must be disabled.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1736",
+    "reason": "Linked only via deletion-worker batch run activity_770, which is shared with case_443 and case_444 (other customers). No usable evidence ties this account to the subject (no email, name, or user_443 match in any snapshot or log). Cannot attribute; rejected."
+   },
+   {
+    "resource_id": "account_1776",
+    "reason": "Linked only via shared batch run activity_769 (shared with case_443 and case_444). No usable evidence ties it to this subject; rejected as not attributable."
+   },
+   {
+    "resource_id": "account_4042",
+    "reason": "Linked only via shared batch run activity_768 (shared with case_443 and case_444). No usable evidence ties it to this subject; rejected as not attributable."
+   },
+   {
+    "resource_id": "search_4925",
+    "reason": "Search index entry for seoyeon-choi@proton.me, another customer (case_443). Not this subject."
+   },
+   {
+    "resource_id": "search_3250",
+    "reason": "Search index entry for bsouza4927@fastmail.com, another customer (case_444). Not this subject."
+   },
+   {
+    "resource_id": "support_8341",
+    "reason": "Support record for seoyeon-choi@proton.me, another customer. Not this subject."
+   },
+   {
+    "resource_id": "export_4293",
+    "reason": "Export owned by bsouza4927@fastmail.com, another customer. Not this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks the shop to erase the account linked to their email address and process it under the personal-data deletion procedure, which is an account and personal data erasure request.",
+   "summary: Subject diya.s284681@zoho.com (user_443). Only two resources are attributable to the subject with usable evidence: search_2886 (search index entry still present with the subject's email at 2026-03-10 snapshot, workflow FAILED claim not proof of absence) and data_flow_7584 (analytics_identity_bridge connector still enabled and delivering, and it repopulated search_2886). Both need action. The three account_service profiles from the shared batch run were rejected because nothing ties them to this subject, and no snapshot shows the subject's own account_service profile. No support, analytics, export, backup or audit records for this subject were found in usable evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_445",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1053,
+    "output_tokens": 90,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_445",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 451,
+    "cache_creation_input_tokens": 1677,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_445",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 630,
+    "cache_creation_input_tokens": 5463,
+    "cache_read_input_tokens": 6548
+   },
+   {
+    "case_id": "case_445",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 604,
+    "cache_creation_input_tokens": 1322,
+    "cache_read_input_tokens": 12011
+   },
+   {
+    "case_id": "case_445",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 656,
+    "cache_creation_input_tokens": 16729,
+    "cache_read_input_tokens": 13333
+   },
+   {
+    "case_id": "case_445",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 553,
+    "cache_creation_input_tokens": 1447,
+    "cache_read_input_tokens": 30062
+   },
+   {
+    "case_id": "case_445",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 939,
+    "cache_creation_input_tokens": 1987,
+    "cache_read_input_tokens": 31509
+   },
+   {
+    "case_id": "case_445",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 567,
+    "cache_creation_input_tokens": 5305,
+    "cache_read_input_tokens": 33496
+   },
+   {
+    "case_id": "case_445",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 740,
+    "cache_creation_input_tokens": 1910,
+    "cache_read_input_tokens": 38801
+   },
+   {
+    "case_id": "case_445",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1362,
+    "cache_creation_input_tokens": 3621,
+    "cache_read_input_tokens": 40711
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1736"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1776"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4042"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_7584"
+   },
+   "output_chars": 2135
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2886"
+   },
+   "output_chars": 2704
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diya.s284681@zoho.com",
+    "limit": 50
+   },
+   "output_chars": 1361
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_443",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diya.s2846@zoho.com",
+    "limit": 50
+   },
+   "output_chars": 59
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919549599458",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "diya singh",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "01a5e3867d2370b0f0a2fd044061dc56507b4a53012e29d01e8bc1bc3a77feed",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f848286b8964398c59cbf26d7bb5e78b6096361b438a2f89919c8464f5cbb32c",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1736",
+    "limit": 50
+   },
+   "output_chars": 658
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_443",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": null
+   },
+   "output_chars": 618
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-25T06:00:00Z",
+    "end": "2026-03-10T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31127
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT 'ana' t, * FROM customer_analytics_profiles UNION ALL SELECT 'exp', * FROM customer_exports UNION ALL SELECT 'sec', resource_id, subject_reference, event_code, retention_until, updated_at, NULL FROM security_audit_records UNION ALL SELECT 'sup', * FROM support_records UNION ALL SELECT 'bak', * FROM backup_restore_entries UNION ALL SELECT 'conn', * FROM connector_subscriptions"
+   },
+   "output_chars": 101
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM customer_search_documents"
+   },
+   "output_chars": 946
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_reporting_replica WHERE record_json LIKE '%diya%' OR record_json LIKE '%284681%' OR record_json LIKE '%2846%' OR record_json LIKE '%user_443%' OR record_json LIKE '%9549599458%' OR resource_id LIKE 'account_%'"
+   },
+   "output_chars": 418
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM customer_analytics_profiles"
+   },
+   "output_chars": 623
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM support_records"
+   },
+   "output_chars": 570
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM customer_exports"
+   },
+   "output_chars": 239
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM connector_subscriptions"
+   },
+   "output_chars": 627
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM backup_restore_entries"
+   },
+   "output_chars": 247
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM security_audit_records"
+   },
+   "output_chars": 326
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name, substr(record_json,1,200), updated_at FROM customer_data_primary WHERE origin_system='account_service' OR resource_id LIKE 'account%' OR record_json LIKE '%diya%' OR record_json LIKE '%zoho%'"
+   },
+   "output_chars": 119
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_64",
+    "trace_id": "account_1736"
+   },
+   "output_chars": 67
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_44",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-28T04:00:00Z",
+    "end": "2026-02-28T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 3239
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "284681",
+    "limit": 50
+   },
+   "output_chars": 1346
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Diya",
+    "limit": 50
+   },
+   "output_chars": 1344
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_2886",
+    "limit": 50
+   },
+   "output_chars": 1940
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_7584",
+    "limit": 50
+   },
+   "output_chars": 1304
+  },
+  {
+   "turn": 8,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "DATA_FLOW"
+   },
+   "output_chars": 148
+  }
+ ]
+}

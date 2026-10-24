@@ -1,0 +1,367 @@
+{
+ "case_id": "case_229",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3627",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_80"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5831",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_80"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5831",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3627",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3627",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4310",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_5831",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_229",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_3627",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_80",
+    "reason": "Search index document in customer_directory_v3 still exposes the subject's exact email iulia.d2342@zoho.com (query hit observed 2026-06-28T05:38:47Z, before audit_at). Rule is DELETE; the record remains and must be removed.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_5831",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_80",
+    "reason": "Connector search_profile_indexer is enabled with last_delivery_status=delivered and customer_email iulia.d2342@zoho.com (observed 2026-06-28T04:58:05Z). It can copy or recreate the subject's search entry, so it must be disabled. activity_2358 (SYNC_RECORD reporting search_3627 repopulated) corroborates the recreation risk.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_6674",
+    "reason": "Linked only through the deletion-worker batch run activity_2353, which is shared with case_213, case_214, case_227 and case_228. No usable evidence ties account_6674 to user_227, the email, the hash, the phone or the name. The latest account_service export (evidence_80, 2026-06-28) does not contain it. It cannot be attributed to this subject, so it is rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to erase the account linked to their email address and to confirm the result, which is a request to erase their own account and personal data.",
+   "summary: The subject (user_227, iulia.d2342@zoho.com) still has a live footprint. search_3627 (SEARCH_INDEX_ENTRY) is PRESENT with the subject's exact email. data_flow_5831 (DATA_FLOW) is ACTIVE: an enabled search_profile_indexer connector that keeps delivering the subject's email and can recreate search_3627. Both are supported by evidence_80 (2026-06-28T06:25:56Z). account_6674 was rejected because it is attributable only through a shared batch run with other customers. No identifier, hash, phone or name search matched any other subject record, and no support, analytics, export, backup or email-log record was found for this subject. The workflow's COMPLETE claim is not supported: the deletion of search_3627 reported FAILED (activity_2363) and the connector was never disabled.",
+   "future verification added for audit_record_4310 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_229",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 80,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_229",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 372,
+    "cache_creation_input_tokens": 3333,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_229",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 575,
+    "cache_creation_input_tokens": 4991,
+    "cache_read_input_tokens": 8204
+   },
+   {
+    "case_id": "case_229",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 708,
+    "cache_creation_input_tokens": 4611,
+    "cache_read_input_tokens": 13195
+   },
+   {
+    "case_id": "case_229",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 745,
+    "cache_creation_input_tokens": 4234,
+    "cache_read_input_tokens": 17806
+   },
+   {
+    "case_id": "case_229",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 662,
+    "cache_creation_input_tokens": 17092,
+    "cache_read_input_tokens": 22040
+   },
+   {
+    "case_id": "case_229",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1354,
+    "cache_creation_input_tokens": 22253,
+    "cache_read_input_tokens": 39132
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "iulia.d2342@zoho.com",
+    "limit": 100
+   },
+   "output_chars": 2485
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_227",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6674"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_5831"
+   },
+   "output_chars": 2274
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3627"
+   },
+   "output_chars": 3673
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "785b44cb651463c954625e763ac7b8297428ed21b4e56cfd16ac60c357f97960",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48653560359",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "iulia",
+    "limit": 100
+   },
+   "output_chars": 7401
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6674",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_6674",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 346
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Dvořák",
+    "limit": 100
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d2342",
+    "limit": 100
+   },
+   "output_chars": 2470
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_2353",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 3500
+   },
+   "output_chars": 4618
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-11T00:00:00Z",
+    "end": "2026-06-28T07:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31355
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_79",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Dvorak",
+    "limit": 100
+   },
+   "output_chars": 5090
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zoho",
+    "limit": 100
+   },
+   "output_chars": 36979
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_5831",
+    "limit": 100
+   },
+   "output_chars": 1456
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_3627",
+    "limit": 100
+   },
+   "output_chars": 2922
+  }
+ ]
+}

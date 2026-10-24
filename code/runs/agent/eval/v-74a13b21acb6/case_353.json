@@ -1,0 +1,439 @@
+{
+ "case_id": "case_353",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_495",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_33"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_8011",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_33"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_2406",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_33"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3180",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_33"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3180",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_495",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2406",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_8011",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_495",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5773",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2406",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_8011",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3180",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_353",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "analytics_8011",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Behavioral analytics report for user_351 still carries email, email hash, phone and user_id in primary and all three regional replicas at 2026-04-24T08:00:00Z. Workflow ANONYMIZE (activity_1284) reported FAILED. Still attributable, so anonymize.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_495",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "customer_directory_v3 search document still holds display name 'Thiago Nascimento', email and customer_reference user_351 in primary, ap_south and eu_west replicas at audit_at. Workflow DELETE (activity_1285) reported FAILED. Delete.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_2406",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Support conversation CS-6406 still shows the subject's email and user_351 reference, and includes order context ('Cotton bedsheet set'), so it must be redacted, not deleted. Workflow REDACT (activity_1286) reported FAILED.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_5773",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Security audit event account_deletion_reviewed for user_351 is present in primary and replicas. It is a recent event from this deletion review, no expired retention period was supplied, so it is retained as-is.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_3180",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_33",
+    "reason": "Connector customer-events-to-warehouse-5 (continuous_sync, subject_selector thiago-nascimento@gmail.com) is enabled in primary and both replicas at audit_at and can keep recreating the subject's data. Must be disabled.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3918",
+    "reason": "Linked only via deletion-worker batch run activity_1273, which is shared with cases 354, 355, 368, 369 and 370. No usable evidence ties this account to user_351 or this subject's email. Not attributed to this subject; excluded."
+   },
+   {
+    "resource_id": "account_9056",
+    "reason": "Linked only via shared batch run activity_1274 (shared with cases 354, 355, 368, 369, 370). No evidence ties it to this subject. Excluded as belonging to others or unattributable."
+   },
+   {
+    "resource_id": "analytics_2807",
+    "reason": "Linked only via shared batch run activity_1272. Its only usable read (tr-5475232 in evidence_34) returns direct_identifiers=0, email null, phone null, an identity-free record in a shared run. Cannot be attributed to the subject; excluded."
+   },
+   {
+    "resource_id": "analytics_439",
+    "reason": "Linked only via shared batch run activity_1276. Its profile in evidence_33 has null email, email_hash, phone and user_id, so it cannot be attributed to the subject. Excluded."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks the shop to erase the account linked to their email address and to handle copies within the deletion scope, which is a request for erasure of their own account and personal data.",
+   "summary: Subject user_351 (thiago-nascimento@gmail.com). The workflow's DELETE/ANONYMIZE/REDACT results are claims contradicted by evidence_33 (captured at audit_at). Still present at 2026-04-24T08:00:00Z: analytics_8011 (analytics profile with direct identifiers), search_495 (search index document), support_2406 (support message with order context, to redact), audit_record_5773 (retained security audit event), and data_flow_3180 (connector still ACTIVE with subject selector, which can recreate the data). Four shared-run candidates (account_3918, account_9056, analytics_2807, analytics_439) were rejected because nothing ties them to this subject. No primary account or user-profile record for user_351 appears in usable evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_353",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1052,
+    "output_tokens": 92,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_353",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 801,
+    "cache_creation_input_tokens": 2755,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_353",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1222,
+    "cache_creation_input_tokens": 27089,
+    "cache_read_input_tokens": 7626
+   },
+   {
+    "case_id": "case_353",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1529,
+    "cache_creation_input_tokens": 9353,
+    "cache_read_input_tokens": 34715
+   },
+   {
+    "case_id": "case_353",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2263,
+    "cache_creation_input_tokens": 14412,
+    "cache_read_input_tokens": 44068
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thiago-nascimento@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 11255
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_351",
+    "limit": 100
+   },
+   "output_chars": 11389
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thiago nascimento",
+    "limit": 100
+   },
+   "output_chars": 2579
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3918"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9056"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2807"
+   },
+   "output_chars": 2550
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_439"
+   },
+   "output_chars": 4938
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_8011"
+   },
+   "output_chars": 4955
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5773"
+   },
+   "output_chars": 3563
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_3180"
+   },
+   "output_chars": 4037
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_495"
+   },
+   "output_chars": 3995
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2406"
+   },
+   "output_chars": 4167
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "86f7583a771020f5ca68e00c3be6dc5abcfa194d12f361f7082676cd6fd53529",
+    "limit": 100
+   },
+   "output_chars": 3551
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5531952132663",
+    "limit": 100
+   },
+   "output_chars": 3500
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3918",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9056",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-04T00:00:00Z",
+    "end": "2026-04-05T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 8329
+  },
+  {
+   "turn": 2,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_34",
+    "trace_id": "tr-5475232"
+   },
+   "output_chars": 1071
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nascimento",
+    "limit": 100
+   },
+   "output_chars": 11238
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thiago",
+    "limit": 100
+   },
+   "output_chars": 11234
+  },
+  {
+   "turn": 3,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_439"
+   },
+   "output_chars": 4938
+  }
+ ]
+}

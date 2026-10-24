@@ -1,0 +1,421 @@
+{
+ "case_id": "case_423",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_8082",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_68"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_423",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_8082",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_68",
+    "reason": "Security audit record references subject user_421 (subject_reference=user_421, IDENTITY_CHANGE_RECORDED) with retention_until 2034-09-30, which is after audit_at, so the retention condition holds and the record must be retained and verified as present.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2420",
+    "reason": "Only linked through deletion-worker batch run activity_952, which is shared with case_424 (varga.tomasz@gmail.com). Its only observation (evidence_68) is a 404 identity-free lookup with no link to user_421 or e.dahl28; cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_2696",
+    "reason": "Only linked through shared batch run activity_951 (shared with case_424). Evidence_68 shows only a 404 identity-free lookup; no usable evidence ties it to this subject."
+   },
+   {
+    "resource_id": "analytics_3845",
+    "reason": "Linked only through shared batch run activity_953 (shared with case_424). Evidence_68 shows an all-null analytics profile (no email, hash, phone, customer_reference); identity-free in a shared run, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "analytics_6249",
+    "reason": "Linked only through shared batch run activity_954 (shared with case_424). Evidence_68 shows an all-null analytics profile; identity-free in a shared run, cannot be attributed to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete this account and its personal data, including data linked through current or earlier identifiers, and asks to be notified on completion. This is an erasure request for the person's own data.",
+   "summary: Subject user_421 / e.dahl28@gmail.com. Searches for the email, hash, phone, name and user_id found no in-window record other than audit_record_8082 (security audit record referencing user_421, retained until 2034). The four batch-run candidates were shared with case_424 and show only identity-free observations, so they were rejected. No primary account, search, or support record for the subject was found in the evidence, and no active data flow tied to the subject was found. Note: the workflow's COMPLETE claim is not corroborated by any subject-specific deletion evidence; the only retained record is the audit record."
+  ],
+  "usage": [
+   {
+    "case_id": "case_423",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 98,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_423",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 446,
+    "cache_creation_input_tokens": 1703,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_423",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 486,
+    "cache_creation_input_tokens": 1094,
+    "cache_read_input_tokens": 6574
+   },
+   {
+    "case_id": "case_423",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 577,
+    "cache_creation_input_tokens": 17828,
+    "cache_read_input_tokens": 7668
+   },
+   {
+    "case_id": "case_423",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 401,
+    "cache_creation_input_tokens": 1485,
+    "cache_read_input_tokens": 25496
+   },
+   {
+    "case_id": "case_423",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 669,
+    "cache_creation_input_tokens": 6718,
+    "cache_read_input_tokens": 26981
+   },
+   {
+    "case_id": "case_423",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1573,
+    "cache_creation_input_tokens": 4363,
+    "cache_read_input_tokens": 33699
+   },
+   {
+    "case_id": "case_423",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 594,
+    "cache_creation_input_tokens": 1735,
+    "cache_read_input_tokens": 38062
+   },
+   {
+    "case_id": "case_423",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 350,
+    "cache_creation_input_tokens": 4880,
+    "cache_read_input_tokens": 39797
+   },
+   {
+    "case_id": "case_423",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1147,
+    "cache_creation_input_tokens": 1703,
+    "cache_read_input_tokens": 44677
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e.dahl28@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 58
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_421",
+    "limit": 100
+   },
+   "output_chars": 810
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Erik Dahl",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46705280847",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6ae4c1195e3121432032bbdf67bda372d39240e454c2f5c90a778a61a28bf0fb",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-01T00:00:00Z",
+    "end": "2026-03-20T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31307
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2420"
+   },
+   "output_chars": 2121
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2696"
+   },
+   "output_chars": 2122
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3845"
+   },
+   "output_chars": 2263
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6249"
+   },
+   "output_chars": 2266
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_8082"
+   },
+   "output_chars": 1639
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "dahl",
+    "limit": 100
+   },
+   "output_chars": 44
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "varga.tomasz@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-11T06:00:00Z",
+    "end": "2026-03-11T08:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 1896
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 0
+   },
+   "output_chars": 4669
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 6000
+   },
+   "output_chars": 774
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE email LIKE '%dahl%' OR full_name LIKE '%Dahl%' OR customer_reference='user_421' OR phone LIKE '%528%' OR resource_id IN ('account_2420','account_2696')\nUNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE email LIKE '%dahl%' OR display_name LIKE '%Dahl%' OR customer_reference='user_421'\nUNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort FROM customer_analytics_profiles WHERE email LIKE '%dahl%' OR customer_reference='user_421' OR resource_id IN ('analytics_3845','analytics_6249')\nUNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE requester_email LIKE '%dahl%' OR requester_name LIKE '%Dahl%' OR customer_reference='user_421'\nUNION ALL SELECT 'exports', resource_id, customer_reference, NULL, owner_email, owner_phone, object_key, updated_at FROM customer_exports WHERE owner_email LIKE '%dahl%' OR customer_reference='user_421'\nUNION ALL SELECT 'connector', resource_id, customer_reference, connector_name, customer_email, enabled, last_delivery_status, updated_at FROM connector_subscriptions WHERE customer_email LIKE '%dahl%' OR customer_reference='user_421'\nUNION ALL SELECT 'backup', resource_id, customer_reference, archive_key, customer_email, restore_allowed, updated_at, NULL FROM backup_restore_entries WHERE customer_email LIKE '%dahl%' OR customer_reference='user_421'\nUNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, NULL, updated_at, NULL FROM security_audit_records WHERE subject_reference='user_421'"
+   },
+   "output_chars": 130
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT * FROM customer_data_reporting_replica_tables_dummy"
+   },
+   "output_chars": 72
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_44",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e.dahl",
+    "limit": 50
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "erik",
+    "limit": 50
+   },
+   "output_chars": 1356
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2420",
+    "limit": 50
+   },
+   "output_chars": 1294
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  }
+ ]
+}

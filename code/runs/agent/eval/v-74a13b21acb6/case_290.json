@@ -1,0 +1,468 @@
+{
+ "case_id": "case_290",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3144",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_76"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_179",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_76"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_179",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3144",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3144",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_179",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_290",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_3144",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_76",
+    "reason": "Search customer_directory_v3 returned a hit for sofia.lopez@gmail.com at 2026-05-29T05:26:36Z (trace rb-052636-003), with direct identifier email still exposed. The deletion worker's DELETE_RECORD (activity_1859) reported FAILED, which does not prove absence. Index entry is still present and must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_179",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_76",
+    "reason": "Connector search_profile_indexer (data_flow_179) read at 2026-05-29T05:42:55Z shows enabled=true, last_delivery_status=delivered, customer_email=sofia.lopez@gmail.com. An active connector can recreate the subject's search entry and must be disabled. The workflow's CHECK_DATA_FLOW claim (activity_1857) does not change this.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2352",
+    "reason": "Linked only via batch_run activity_1847, a deletion run shared with other requests (case_275, 276, 277, 291, 292). No usable evidence ties this account to user_288 or sofia.lopez@gmail.com. Searches on the subject's email, hash, phone, name and user_id, and customer_reference queries on the snapshots, returned nothing for it. Rejected as not attributable to this subject."
+   },
+   {
+    "resource_id": "account_7177",
+    "reason": "Linked only via shared batch_run activity_1843 (other requests shown in shared_with). No evidence ties it to user_288 or the subject's identifiers. Rejected as belonging to someone else or unattributable."
+   },
+   {
+    "resource_id": "account_731",
+    "reason": "Linked only via shared batch_run activity_1850 (other requests shown in shared_with). No evidence ties it to the subject. Rejected."
+   },
+   {
+    "resource_id": "account_8914",
+    "reason": "Linked only via shared batch_run activity_1842 (other requests shown in shared_with). No evidence ties it to the subject's identifiers or user_288. Rejected as not attributable."
+   },
+   {
+    "resource_id": "analytics_2322",
+    "reason": "Linked only via shared batch_run activity_1844. The only direct observation (evidence_76, rb-060336-010) shows customer_reference=null, email=null, phone=null, email_hash=null, which is an identity-free profile in a shared run. It cannot be attributed to the subject, so it is rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer states they no longer use the account and asks for it to be permanently deleted, applied to the relevant account records. This is a request to erase the account and personal data, not a negated or third-party request.",
+   "summary: Subject sofia.lopez@gmail.com (user_288) has two attributable resources in the episode: search_3144 (SEARCH_INDEX_ENTRY, still PRESENT with direct email at 2026-05-29) and data_flow_179 (DATA_FLOW, ACTIVE connector search_profile_indexer that can recreate the subject's index entry). The workflow's FAILED/SUCCESS claims for search_3144 and data_flow_179 are contradicted by direct readbacks. Four account_service records and one analytics profile were linked only through the shared deletion batch run or are identity-free, and no evidence ties them to this subject, so they were rejected. No support, export, backup, marketing, or security records tied to user_288 or the subject's identifiers were found."
+  ],
+  "usage": [
+   {
+    "case_id": "case_290",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 97,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_290",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 585,
+    "cache_creation_input_tokens": 3471,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_290",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 606,
+    "cache_creation_input_tokens": 7132,
+    "cache_read_input_tokens": 8342
+   },
+   {
+    "case_id": "case_290",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 500,
+    "cache_creation_input_tokens": 2132,
+    "cache_read_input_tokens": 15474
+   },
+   {
+    "case_id": "case_290",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 800,
+    "cache_creation_input_tokens": 10783,
+    "cache_read_input_tokens": 17606
+   },
+   {
+    "case_id": "case_290",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 242,
+    "cache_creation_input_tokens": 15167,
+    "cache_read_input_tokens": 28389
+   },
+   {
+    "case_id": "case_290",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1837,
+    "cache_creation_input_tokens": 4179,
+    "cache_read_input_tokens": 43556
+   },
+   {
+    "case_id": "case_290",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1970,
+    "cache_creation_input_tokens": 10141,
+    "cache_read_input_tokens": 47735
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sofia.lopez@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1529
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_288",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2352"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7177"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_731"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8914"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2322"
+   },
+   "output_chars": 2137
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_179"
+   },
+   "output_chars": 2245
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3144"
+   },
+   "output_chars": 2199
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sofía lópez",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6a53b0e4f1fe82e9580f92e89c7e0acf393198bfdfb07cb7749bb9d0b74d67b6",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34706601698",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sofia",
+    "limit": 100
+   },
+   "output_chars": 1513
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8914",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2352",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_31",
+    "offset": 0
+   },
+   "output_chars": 4642
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 0
+   },
+   "output_chars": 4227
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_29",
+    "offset": 0
+   },
+   "output_chars": 4508
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_profiles WHERE customer_reference='user_288' OR email LIKE '%lopez%' OR full_name LIKE '%pez%' OR phone LIKE '%706601698%' OR email_hash LIKE '6a53b0e4%' OR resource_id IN ('account_2352','account_7177','account_731','account_8914')"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%user_288%' OR record_json LIKE '%lopez%' OR record_json LIKE '%706601698%' OR record_json LIKE '%6a53b0e4%' OR resource_id IN ('account_2352','account_7177','account_731','account_8914','analytics_2322','search_3144','data_flow_179')"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 6000
+   },
+   "output_chars": 3856
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-11T00:00:00Z",
+    "end": "2026-05-29T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31213
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-11T08:00:00Z",
+    "end": "2026-05-12T10:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 9707
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lopez",
+    "limit": 100
+   },
+   "output_chars": 6399
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "288",
+    "limit": 100
+   },
+   "output_chars": 8556
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "706601698",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6a53b0e4",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_3144",
+    "limit": 100
+   },
+   "output_chars": 1381
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_179",
+    "limit": 100
+   },
+   "output_chars": 1422
+  }
+ ]
+}

@@ -1,0 +1,413 @@
+{
+ "case_id": "case_77",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_9334",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_91"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5425",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_91"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_008",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": "evidence_91"
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_7773",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": "evidence_91"
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_7303",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": "evidence_91"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_77",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_8754",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_54",
+    "reason": "Primary profile for user_75 reported deleted by activity_3302 (workflow claim). Failover replica snapshot captured 2026-09-02 contains no row for user_75, the request email, or account_8754, so the profile is absent at audit_at.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_9334",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_91",
+    "reason": "Live profile lookup by the request email at 2026-09-11T06:31:32Z returned 0 rows / HTTP 404. Failover replica (evidence_54) also has no row for this subject.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_008",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "TREATED",
+    "evidence_id": "evidence_91",
+    "reason": "Support ticket is linked to this subject by customer_reference=user_75. Direct identifiers (requester name, email, phone) are null at audit_at, so only the stable internal reference remains; conversation is shared order/agent context and must be retained, so redacted state satisfies the rule. Candidate was in a shared batch run, but usable evidence ties it to user_75.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_5425",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_91",
+    "reason": "ACCOUNT_DELETION_RECORDED audit record with subject_reference=user_75, retention_until=2031-12-31, still within retention at audit_at, so it is retained and verified as present.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_7303",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "BLOCKED",
+    "evidence_id": "evidence_91",
+    "reason": "Restore policy read at 2026-09-11T06:05:20Z shows archive_present=true, restore_allowed=false, customer_reference=user_75. Restore of the subject's data is blocked.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_7773",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "DISABLED",
+    "evidence_id": "evidence_91",
+    "reason": "customer_events_connector config for customer_reference=user_75 read at 2026-09-11T05:08:27Z shows enabled=false, last_delivery_status=stopped. It cannot recreate the subject's data.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_5859",
+    "reason": "Linked only via the shared deletion batch run (activity_3305, shared with case_78/79/92). The only usable analytics read (evidence_91, rb-072541-024) has customer_reference, email, phone and email_hash all null with only an audience cohort, so it cannot be attributed to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "kabelo.d759483@zoho.com (data_flow_5200, search_3773)",
+    "reason": "Email kabelo.d759483@zoho.com is not in the subject's identifier list and no usable evidence links it to user_75 or the request email; name similarity alone is not a match. Not attributed to this subject."
+   },
+   {
+    "resource_id": "audit_record_1734, audit_record_5710 and other ACCOUNT_DELETION_RECORDED rows",
+    "reason": "Subject references belong to other users (user_77, user_71, etc.), not user_75."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to remove their own account and the personal information linked to it, including copies within scope, and requests confirmation afterward. This is a clear deletion request for the person's own data.",
+   "summary: Subject user_75 / kabelo-nkosi@gmail.com. The primary and failover account profiles are absent (account_8754, account_9334). The support ticket support_008 is only customer_reference-linked (TREATED, to be retained as a redacted message). The security audit record is retained until 2031. The backup archive restore is blocked. The customer_events connector is disabled. The analytics profile was rejected as unattributable from the shared batch run. No active connector, export, search entry, or marketing profile was found for the subject in the evidence.",
+   "attribution rule A: dropped account_8754 (only linked via a run shared with ['case_78', 'case_79', 'case_92'])"
+  ],
+  "usage": [
+   {
+    "case_id": "case_77",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1062,
+    "output_tokens": 93,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_77",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 589,
+    "cache_creation_input_tokens": 5630,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_77",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 641,
+    "cache_creation_input_tokens": 2441,
+    "cache_read_input_tokens": 10501
+   },
+   {
+    "case_id": "case_77",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1237,
+    "cache_creation_input_tokens": 7048,
+    "cache_read_input_tokens": 12942
+   },
+   {
+    "case_id": "case_77",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2522,
+    "cache_creation_input_tokens": 7803,
+    "cache_read_input_tokens": 19990
+   },
+   {
+    "case_id": "case_77",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 265,
+    "cache_creation_input_tokens": 17286,
+    "cache_read_input_tokens": 27793
+   },
+   {
+    "case_id": "case_77",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1481,
+    "cache_creation_input_tokens": 302,
+    "cache_read_input_tokens": 45079
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kabelo-nkosi@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 663
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_75",
+    "limit": 100
+   },
+   "output_chars": 2833
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4e602b65eb0e38cfb613cfd714129e5687549e05eb60fedd72fa0e403f8f5158",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kabelo nkosi",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27729298219",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27729298720",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8754"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9334"
+   },
+   "output_chars": 2088
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5859"
+   },
+   "output_chars": 2129
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5425"
+   },
+   "output_chars": 1595
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_7303"
+   },
+   "output_chars": 2155
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_7773"
+   },
+   "output_chars": 2193
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_008"
+   },
+   "output_chars": 2086
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_91",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nkosi",
+    "limit": 100
+   },
+   "output_chars": 5330
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Kabelo",
+    "limit": 100
+   },
+   "output_chars": 5228
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_008",
+    "limit": 100
+   },
+   "output_chars": 1271
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8754",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_91",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_7773",
+    "limit": 100
+   },
+   "output_chars": 1375
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT * FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 811
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "customer_events_connector",
+    "limit": 50
+   },
+   "output_chars": 14520
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ACCOUNT_DELETION_RECORDED",
+    "limit": 50
+   },
+   "output_chars": 16839
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT resource_id, user_id, email, account_status FROM customer_profiles_failover_replica WHERE user_id='user_75' OR email LIKE 'kabelo%' OR resource_id IN ('account_8754','account_9334')"
+   },
+   "output_chars": 78
+  }
+ ]
+}

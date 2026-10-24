@@ -1,0 +1,288 @@
+{
+ "case_id": "case_506",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1361",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_47"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_506",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_1361",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_47",
+    "reason": "Security audit event account_deletion_reviewed (automated_privacy_workflow) whose subject_reference is user_504, the subject's user_id. It is present in the reporting replica and primary table at audit_at (2026-02-08T07:00:00Z). The record holds only a pseudonymous user_id reference, no direct identifiers. No retention_until is shown in the supplied evidence, and the record is a deletion-review audit that the policy retains. Report as PRESENT for retention verification, not for deletion.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "user_504 account/profile (account_service)",
+    "reason": "No account, profile, or customer_reference record for user_504, the subject's email, the email hash, or the phone appears in any usable evidence. Searches for the email, Molefe, and the phone found nothing. Nothing to classify under USER_PROFILE, MARKETING_PROFILE, or other categories."
+   },
+   {
+    "resource_id": "search/analytics/export/support/backup/connector records",
+    "reason": "Searched all usable snapshots and logs for the subject's email, hash, phone, name and user_504. None of these records reference the subject. The records shown in evidence_62, evidence_49 and evidence_48 belong to other customers and were not attributed to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete this account and its personal data, with a confirmation on completion. This is a direct erasure request for their own account and data.",
+   "summary: The subject has no live account, search, analytics, export, support, backup or connector records in usable evidence. Their only linked record is audit_record_1361, a security audit event tied to user_504 and present at audit_at. It is retained under SECURITY_AUDIT_LOG, so the case has no deletion targets beyond confirming retention. The workflow's PARTIALLY_COMPLETE claim is not reflected in any observed stored personal data for this subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_506",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1064,
+    "output_tokens": 84,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_506",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 316,
+    "cache_creation_input_tokens": 773,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_506",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 448,
+    "cache_creation_input_tokens": 2292,
+    "cache_read_input_tokens": 5644
+   },
+   {
+    "case_id": "case_506",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 383,
+    "cache_creation_input_tokens": 6750,
+    "cache_read_input_tokens": 7936
+   },
+   {
+    "case_id": "case_506",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 485,
+    "cache_creation_input_tokens": 6876,
+    "cache_read_input_tokens": 14686
+   },
+   {
+    "case_id": "case_506",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 688,
+    "cache_creation_input_tokens": 9452,
+    "cache_read_input_tokens": 21562
+   },
+   {
+    "case_id": "case_506",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1413,
+    "cache_creation_input_tokens": 3254,
+    "cache_read_input_tokens": 31014
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1361"
+   },
+   "output_chars": 2237
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ayanda.molefe@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_504",
+    "limit": 50
+   },
+   "output_chars": 1836
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Molefe",
+    "limit": 50
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "user_504",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 5000
+   },
+   "output_chars": 4615
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 5000
+   },
+   "output_chars": 4654
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 6000
+   },
+   "output_chars": 4467
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": null
+   },
+   "output_chars": 618
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_reporting_replica"
+   },
+   "output_chars": 8756
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 9500
+   },
+   "output_chars": 1192
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 10000
+   },
+   "output_chars": 4594
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 12000
+   },
+   "output_chars": 4459
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, collection_name, record_json FROM customer_data_reporting_replica WHERE record_json LIKE '%504%' OR record_json LIKE '%olefe%' OR record_json LIKE '%ayanda%' OR record_json LIKE '%27729049490%' OR record_json LIKE '%ac6efb%'"
+   },
+   "output_chars": 384
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 18000
+   },
+   "output_chars": 3615
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 14000
+   },
+   "output_chars": 1128
+  }
+ ]
+}

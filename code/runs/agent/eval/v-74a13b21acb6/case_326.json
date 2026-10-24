@@ -1,0 +1,496 @@
+{
+ "case_id": "case_326",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_3785",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1219",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_305",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_2468",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_2894",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": "evidence_73"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_326",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_3785",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_73",
+    "reason": "Profile lookup by the subject's current email HYUNWOO.KANG94@GMAIL.COM returned 404 / rows=0 at 2026-05-09T09:32:04Z (trace rb-093204-020). Account_service snapshot evidence_72 (2026-05-04) also covers account_service and has no row for this profile. Profile is gone; the workflow's activity_1593 FAILED claim is not relied on.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1219",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_73",
+    "reason": "Security audit record with subject_reference=user_324, event SUBJECT_REQUEST_AUDITED, retention_until 2033-12-31, which is after audit_at. Within retention, so it is retained and verified as PRESENT.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_2894",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "BLOCKED",
+    "evidence_id": "evidence_73",
+    "reason": "Restore policy read at 2026-05-09T09:33:04Z shows archive_present=true, restore_allowed=false, customer_reference=user_324 for archive/customer-data/backup_2894.tar.zst. The archive still holds the subject's data but restore is blocked, so it is BLOCKED.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_2468",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "DISABLED",
+    "evidence_id": "evidence_73",
+    "reason": "Connector search_profile_indexer for customer_reference user_324 read at 2026-05-09T07:47:14Z shows enabled=false, last_delivery_status=stopped. The connector cannot recreate the subject's data now, so it is DISABLED. The activity_1599 SUCCESS claim is not relied on.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_305",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "TREATED",
+    "evidence_id": "evidence_73",
+    "reason": "Support ticket read at 2026-05-09T10:09:26Z shows only customer_reference=user_324 remaining; requester_name, requester_email and requester_phone are all null. This is a stable internal reference only, so the record is TREATED (redacted). The conversation is kept as a shared-context record. The activity_1598 claim is not relied on.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_206",
+    "reason": "Linked only through the deletion-worker batch run shared with other requests (case_313, case_327, case_328, case_342). No identifier, user_id or other usable evidence ties it to this subject. It is absent from the latest inventory snapshot evidence_72, and activity_1594 is a workflow claim only. Not attributable, so rejected."
+   },
+   {
+    "resource_id": "account_8264",
+    "reason": "Linked only through the shared batch run (activity_1602). No usable evidence ties it to this subject. Absent from the latest inventory snapshot evidence_72. Not attributable, so rejected."
+   },
+   {
+    "resource_id": "analytics_2072",
+    "reason": "Shared-run candidate. The only observation (evidence_73, rb-103302-032) is an identity-free analytics profile with customer_reference, email, phone and email_hash all null and audience_cohort=mobile_browser. Cannot be attributed to the subject, so rejected."
+   },
+   {
+    "resource_id": "analytics_9681",
+    "reason": "Shared-run candidate. The only observation (evidence_73, rb-102323-028) is an identity-free analytics profile with all identifiers null. Cannot be attributed to the subject, so rejected."
+   },
+   {
+    "resource_id": "audit_record_1219",
+    "reason": "Not rejected; listed above as a retained SECURITY_AUDIT_LOG fact."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for the account tied to their address to be erased, including data linked through current or earlier identifiers, which is erasure of the person's own personal data. The request for confirmation on completion is a follow-up on the same deletion and does not change the classification.",
+   "summary: Subject user_324 (HYUNWOO.KANG94@GMAIL.COM). Account_3785 is absent (404 lookup, evidence_73). Restricted records: audit_record_1219 is retained within its 2033 retention period; backup_2894 restore is blocked; data_flow_2468 connector is disabled; support_305 is redacted to user_324 only. Four shared-run candidates (account_206, account_8264, analytics_2072, analytics_9681) carry no identity linking them to this subject and were rejected. No email/phone/hash-based search hits remain for the subject in usable evidence beyond account_3785. Workflow claims (activity_1593, 1594, 1596, 1597, 1598, 1599, 1601, 1602) were checked against direct observations, not relied on."
+  ],
+  "usage": [
+   {
+    "case_id": "case_326",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1051,
+    "output_tokens": 115,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_326",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 727,
+    "cache_creation_input_tokens": 3410,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_326",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1089,
+    "cache_creation_input_tokens": 10383,
+    "cache_read_input_tokens": 8281
+   },
+   {
+    "case_id": "case_326",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 823,
+    "cache_creation_input_tokens": 6938,
+    "cache_read_input_tokens": 18664
+   },
+   {
+    "case_id": "case_326",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2105,
+    "cache_creation_input_tokens": 14310,
+    "cache_read_input_tokens": 25602
+   },
+   {
+    "case_id": "case_326",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2455,
+    "cache_creation_input_tokens": 7020,
+    "cache_read_input_tokens": 39912
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_206"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3785"
+   },
+   "output_chars": 2084
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8264"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2072"
+   },
+   "output_chars": 2133
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9681"
+   },
+   "output_chars": 2133
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1219"
+   },
+   "output_chars": 1600
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_2894"
+   },
+   "output_chars": 2143
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_2468"
+   },
+   "output_chars": 2197
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_305"
+   },
+   "output_chars": 2093
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hyunwoo.kang",
+    "limit": 50
+   },
+   "output_chars": 655
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_324",
+    "limit": 50
+   },
+   "output_chars": 2837
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_72",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hyunwoo.kang@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821024114559",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kang",
+    "limit": 50
+   },
+   "output_chars": 2419
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0ccabf0231a8f3f28bf808081156ddd5480d1ad6f833df6da237cead9558bb9a",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "9a49b47ca6b5045c0e975214b1838343697fcdd5ad3a024ff29c5cd7db0d2dcf",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_206",
+    "limit": 50
+   },
+   "output_chars": 656
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_72",
+    "offset": 2000
+   },
+   "output_chars": 4251
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_72",
+    "offset": 4000
+   },
+   "output_chars": 2323
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 2000
+   },
+   "output_chars": 4231
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 4000
+   },
+   "output_chars": 4231
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 6000
+   },
+   "output_chars": 4232
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 8000
+   },
+   "output_chars": 4232
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 10000
+   },
+   "output_chars": 3834
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 12000
+   },
+   "output_chars": 1824
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hyunwoo",
+    "limit": 50
+   },
+   "output_chars": 650
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hyun-woo",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kang94",
+    "limit": 50
+   },
+   "output_chars": 649
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_150",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_305",
+    "limit": 50
+   },
+   "output_chars": 1273
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_2468",
+    "limit": 50
+   },
+   "output_chars": 1374
+  }
+ ]
+}

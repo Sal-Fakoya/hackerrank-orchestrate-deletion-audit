@@ -1,0 +1,327 @@
+{
+ "case_id": "case_75",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_8673",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_91"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_8673",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7491",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_8673",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_75",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "backup_8673",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_91",
+    "reason": "Backup archive archive/customer-data/backup_8673.tar.zst is in the backup_service with archive_present=true and restore_allowed=true, and its restore-policy readback (trace rb-052244-007, 2026-09-11T05:22:44Z, before audit_at) shows the subject's email n.nwosu16@gmail.com. The subject's data can still be restored, so restore must be blocked. The workflow's activity_3365 CHECK_RESTORE_ACCESS SUCCESS is only a claim and is consistent with this observation.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "user_73",
+    "reason": "Subject user_id: no usable evidence mentions it as a resource (search returned zero hits); not a separate governed record."
+   },
+   {
+    "resource_id": "activity_3365",
+    "reason": "Workflow activity claim, not a resource; used only as corroboration for backup_8673."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to delete this account and its personal data under the standard deletion procedure, which is an erasure request for their own data; the verification sentence does not change that.",
+   "summary: Searched all subject identifiers (user_73, email n.nwosu16@gmail.com, hash, phone 2348033406727, name nneka nwosu). Only one record in the episode references the subject: backup_8673, a restorable backup archive containing the subject's email (evidence_91, observed 2026-09-11 before audit_at). No search index, analytics, account, support, export, or connector records tied to this subject were found; hits for the 'nwosu' and 'nneka' substrings belonged to other customers (Ikenna Nwosu, Nneka Okeke, Adaeze Nwosu, Nneka Adeyemi) and were rejected. Reported PARTIALLY_COMPLETE status is consistent with the still-restorable backup. Recommend restore blocking for backup_8673 and confirming no other records exist; identifier coverage was limited to exact-match and substring searches.",
+   "future verification added for audit_record_7491 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_75",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 91,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_75",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 424,
+    "cache_creation_input_tokens": 4934,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_75",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 535,
+    "cache_creation_input_tokens": 2766,
+    "cache_read_input_tokens": 9805
+   },
+   {
+    "case_id": "case_75",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 317,
+    "cache_creation_input_tokens": 4504,
+    "cache_read_input_tokens": 12571
+   },
+   {
+    "case_id": "case_75",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 705,
+    "cache_creation_input_tokens": 12927,
+    "cache_read_input_tokens": 17075
+   },
+   {
+    "case_id": "case_75",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 651,
+    "cache_creation_input_tokens": 14890,
+    "cache_read_input_tokens": 30002
+   },
+   {
+    "case_id": "case_75",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1460,
+    "cache_creation_input_tokens": 3270,
+    "cache_read_input_tokens": 44892
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_73",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "n.nwosu16@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 797
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nwosu",
+    "limit": 100
+   },
+   "output_chars": 3781
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8ca376e3791ac4677c6d2bd00b4723cb5a104158035008b9de28337b8b759940",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348033406727",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_8673"
+   },
+   "output_chars": 2229
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nneka",
+    "limit": 100
+   },
+   "output_chars": 4902
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nwosu16",
+    "limit": 100
+   },
+   "output_chars": 785
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_73",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "backup_8673",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 356
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-18T00:00:00Z",
+    "end": "2026-09-11T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31218
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "user_73"
+   },
+   "output_chars": 136
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_73",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8ca376e3",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "deletion_worker",
+    "limit": 100
+   },
+   "output_chars": 30624
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348033406727",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "n.nwosu",
+    "limit": 100
+   },
+   "output_chars": 785
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_91",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "backup_8673",
+    "limit": 100
+   },
+   "output_chars": 1410
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2026-08-19",
+    "limit": 100
+   },
+   "output_chars": 50
+  }
+ ]
+}

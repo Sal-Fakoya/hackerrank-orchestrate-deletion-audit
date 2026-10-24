@@ -1,0 +1,518 @@
+{
+ "case_id": "case_103",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9522",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_10"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_103",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_9522",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_10",
+    "reason": "Security audit event 'account_deletion_reviewed' with subject_reference user_101 (the subject's user_id) is present in both the primary table and read replica at audit_at (evidence_10, captured 2026-08-27T12:00:00Z). No retention_until is shown for this specific row; the observed retention periods for comparable security audit rows are 2031-2034, and the record was created during this request, so it is treated as within retention and retained. Retain, do not delete.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_9102",
+    "reason": "Linked only through batch run activity_3323 (deletion worker, reported PARTIAL). That run is shared with case_19 (e.varga90@yahoo.com). No usable evidence ties account_9102 to this subject's email, hash, phone, name or user_101. Not attributable to this subject, so rejected. Its own deletion claim is not verified."
+   },
+   {
+    "resource_id": "account_2373",
+    "reason": "Linked only through batch run activity_3324, shared with case_19. No evidence links it to this subject. Rejected as belonging to another request; the 'absent' workflow claim is not used."
+   },
+   {
+    "resource_id": "account_4070",
+    "reason": "Linked only through batch run activity_3322, shared with case_19. No evidence links it to this subject. Rejected as belonging to another request; the 'absent' workflow claim is not used."
+   },
+   {
+    "resource_id": "analytics_3264",
+    "reason": "Linked only through batch run activity_3326, shared with case_19. Its record in evidence_10 is an all-null analytics profile (email, email_hash, phone and user_id all null) with no subject reference. An identity-free record in a shared run cannot be attributed to this subject, so rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their email address and asks for records covered by the request to be treated accordingly, which is erasure of their own account and personal data.",
+   "summary: Subject mandla.m4548@outlook.com (user_101). No direct identifier match for the email, hash or phone in any evidence. The only record tied to user_101 is audit_record_9522 (security audit, retained). The four batch-run candidates (account_2373, account_4070, account_9102, analytics_3264) are linked only through a deletion-worker run shared with case_19, and no evidence ties them to this subject, so they were rejected. Workflow COMPLETE is not supported for any in-scope user-owned data, but no in-scope deletable resource was found beyond the retained audit record. The no-hit result for identifiers is noted as a limit of the search index."
+  ],
+  "usage": [
+   {
+    "case_id": "case_103",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 92,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_103",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 482,
+    "cache_creation_input_tokens": 4655,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_103",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 681,
+    "cache_creation_input_tokens": 7024,
+    "cache_read_input_tokens": 9526
+   },
+   {
+    "case_id": "case_103",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 493,
+    "cache_creation_input_tokens": 14675,
+    "cache_read_input_tokens": 16550
+   },
+   {
+    "case_id": "case_103",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1234,
+    "cache_creation_input_tokens": 8606,
+    "cache_read_input_tokens": 31225
+   },
+   {
+    "case_id": "case_103",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 998,
+    "cache_creation_input_tokens": 1750,
+    "cache_read_input_tokens": 39831
+   },
+   {
+    "case_id": "case_103",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1004,
+    "cache_creation_input_tokens": 5649,
+    "cache_read_input_tokens": 41581
+   },
+   {
+    "case_id": "case_103",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 808,
+    "cache_creation_input_tokens": 5415,
+    "cache_read_input_tokens": 47230
+   },
+   {
+    "case_id": "case_103",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 738,
+    "cache_creation_input_tokens": 3838,
+    "cache_read_input_tokens": 52645
+   },
+   {
+    "case_id": "case_103",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 361,
+    "cache_creation_input_tokens": 5081,
+    "cache_read_input_tokens": 56483
+   },
+   {
+    "case_id": "case_103",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 798,
+    "cache_creation_input_tokens": 2748,
+    "cache_read_input_tokens": 61564
+   },
+   {
+    "case_id": "case_103",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2356,
+    "cache_creation_input_tokens": 17223,
+    "cache_read_input_tokens": 64312
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9102"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2373"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4070"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3264"
+   },
+   "output_chars": 3707
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_9522"
+   },
+   "output_chars": 2630
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mandla",
+    "limit": 100
+   },
+   "output_chars": 1445
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_101",
+    "limit": 100
+   },
+   "output_chars": 1806
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mandla.m4548@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 64
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "742359c95b526d935d8d47066794f11096e8fc0d3d2aa8efd76c503e1019d2f2",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27725993929",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "molefe",
+    "limit": 100
+   },
+   "output_chars": 2596
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-16T00:00:00Z",
+    "end": "2026-08-27T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31358
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-18T00:00:00Z",
+    "end": "2026-08-20T00:00:00Z",
+    "limit": 30
+   },
+   "output_chars": 9350
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_10",
+    "offset": 0
+   },
+   "output_chars": 4560
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_12",
+    "offset": 0
+   },
+   "output_chars": 4651
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "m4548",
+    "limit": 100
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Mandla Molefe",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_10",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_19",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9102",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_10",
+    "offset": 2000
+   },
+   "output_chars": 4542
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2373",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4070",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_3264",
+    "limit": 50
+   },
+   "output_chars": 2890
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_9522",
+    "limit": 50
+   },
+   "output_chars": 1815
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "ANALYTICS_PROFILE"
+   },
+   "output_chars": 147
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_10",
+    "offset": 4000
+   },
+   "output_chars": 4477
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_87",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 9,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_87",
+    "offset": 2000
+   },
+   "output_chars": 4175
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_87",
+    "sql": "SELECT * FROM security_audit_records"
+   },
+   "output_chars": 327
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention_until",
+    "limit": 100
+   },
+   "output_chars": 35293
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 100
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "e.varga90",
+    "limit": 100
+   },
+   "output_chars": 49
+  }
+ ]
+}

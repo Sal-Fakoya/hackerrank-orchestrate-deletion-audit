@@ -1,0 +1,428 @@
+{
+ "case_id": "case_224",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_1140",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_80"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_1140",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6515",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_1140",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_224",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "data_flow_1140",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_80",
+    "reason": "support_profile_sync connector data_flow_1140 is enabled (enabled=true, last delivery 'delivered' at 2026-06-28T06:17:24Z) and its customer_email is neel.singh@outlook.com, the subject's email. An active connector can copy or recreate the subject's data, so it must be disabled. The workflow's activity_2409 'remains enabled' check is consistent with this but evidence_80 is the direct observation.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_392",
+    "reason": "Only linked through the deletion-worker batch run activity_2406, which was shared with case_225 and case_226. The only observation is an identity-free 404 profile lookup (evidence_80); nothing ties it to user_222 or neel.singh. Cannot be attributed to this subject, so rejected."
+   },
+   {
+    "resource_id": "account_669",
+    "reason": "Only linked through shared batch run activity_2404 (shared with case_225/case_226). Only observation is an identity-free 404 lookup in evidence_80; no evidence ties it to this subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "account_7605",
+    "reason": "Only linked through shared batch run activity_2403 (shared with other requests). Only evidence is the workflow's DELETE claim; no identity-bearing observation ties it to the subject. Rejected as unattributable."
+   },
+   {
+    "resource_id": "analytics_2501",
+    "reason": "Linked only through shared batch run activity_2407 (shared with case_225/case_226). Profile in evidence_80 is all-null (no email, hash, phone, or customer reference), so it cannot be attributed to the subject. Rejected."
+   },
+   {
+    "resource_id": "analytics_8127",
+    "reason": "Linked only through shared batch run activity_2408 (shared with other requests). Profile in evidence_80 is all-null with no subject reference; cannot be attributed to the subject. Rejected."
+   },
+   {
+    "resource_id": "search_4894",
+    "reason": "Downstream search index repopulated by data_flow_8346 (activity_2548), a different connector with no evidence linking it to neel.singh or user_222. The subject's connector data_flow_1140 does not reference it. Not attributed to the subject; rejected (flag for follow-up if data_flow_8346 is later tied to this subject)."
+   },
+   {
+    "resource_id": "backup_6564",
+    "reason": "References user_229, a different customer; no link to user_222 or neel.singh."
+   },
+   {
+    "resource_id": "data_flow_2576",
+    "reason": "References user_229 (different customer), not this subject."
+   },
+   {
+    "resource_id": "data_flow_2516",
+    "reason": "Connector carries mariam.najjar@gmail.com, a different customer."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to permanently delete the account tied to their email address and to verify the records before confirming completion, which is an erasure request including a follow-up verification, so it authorizes deletion.",
+   "summary: Subject neel.singh@outlook.com / user_222 has one in-scope resource: connector data_flow_1140 (support_profile_sync), still enabled with the subject's email at 2026-06-28T06:25:56Z, so the workflow's COMPLETE claim is not supported: the data flow must be disabled to stop re-copying the subject's data. The account and analytics candidates came only from the shared deletion-worker batch run and carry no identifiers tying them to this subject, so they were rejected rather than counted. No direct identifier (phone, email hash, user_222 name) appears in any other usable evidence.",
+   "future verification added for audit_record_6515 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_224",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 99,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_224",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 338,
+    "cache_creation_input_tokens": 3568,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_224",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 451,
+    "cache_creation_input_tokens": 2863,
+    "cache_read_input_tokens": 8439
+   },
+   {
+    "case_id": "case_224",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1149,
+    "cache_creation_input_tokens": 6718,
+    "cache_read_input_tokens": 11302
+   },
+   {
+    "case_id": "case_224",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 435,
+    "cache_creation_input_tokens": 13812,
+    "cache_read_input_tokens": 18020
+   },
+   {
+    "case_id": "case_224",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 727,
+    "cache_creation_input_tokens": 6155,
+    "cache_read_input_tokens": 31832
+   },
+   {
+    "case_id": "case_224",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 313,
+    "cache_creation_input_tokens": 9547,
+    "cache_read_input_tokens": 37987
+   },
+   {
+    "case_id": "case_224",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1314,
+    "cache_creation_input_tokens": 2639,
+    "cache_read_input_tokens": 47534
+   },
+   {
+    "case_id": "case_224",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1492,
+    "cache_creation_input_tokens": 1853,
+    "cache_read_input_tokens": 50173
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "neel.singh@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 844
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_222",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "neel singh",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 8000
+   },
+   "output_chars": 1030
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_1140"
+   },
+   "output_chars": 2281
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_392"
+   },
+   "output_chars": 2111
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_669"
+   },
+   "output_chars": 2111
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7605"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2501"
+   },
+   "output_chars": 2264
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_8127"
+   },
+   "output_chars": 2264
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919865010962",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "d7d75b201f9e0609ee1ea10dc645219c4a4ea933e3b2417c9fcedea3eb14db1d",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-16T00:00:00Z",
+    "end": "2026-06-28T07:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31355
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-16T00:00:00Z",
+    "end": "2026-06-17T12:00:00Z",
+    "limit": 60
+   },
+   "output_chars": 8836
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_1140",
+    "limit": 50
+   },
+   "output_chars": 1463
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_229",
+    "limit": 50
+   },
+   "output_chars": 3166
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "neel",
+    "limit": 50
+   },
+   "output_chars": 3081
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "singh",
+    "limit": 50
+   },
+   "output_chars": 5454
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_profile_sync",
+    "limit": 50
+   },
+   "output_chars": 9142
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_4894",
+    "limit": 50
+   },
+   "output_chars": 1279
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4894"
+   },
+   "output_chars": 2036
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_8346"
+   },
+   "output_chars": 1496
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7605"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "neel.singh",
+    "limit": 50
+   },
+   "output_chars": 832
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+919865010962",
+    "limit": 20
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "DATA_FLOW"
+   },
+   "output_chars": 148
+  }
+ ]
+}

@@ -1,0 +1,541 @@
+{
+ "case_id": "case_180",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "export_service",
+   "resource_id": "export_7156",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_84"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_5570",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_84"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1391",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_84"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_2609",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_84"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "export_service",
+   "resource_id": "export_7156",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_5570",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2609",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1391",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "export_service",
+   "resource_id": "export_7156",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5570",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2207",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2609",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_1391",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_180",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "analytics_1391",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_84",
+    "reason": "Behavioral analytics profile still holds the subject's email aasante4311@fastmail.com (direct identifier) at audit_at, so it is still attributable and must be anonymized. The workflow's PARTIAL anonymize claim (activity_2554) does not prove the change.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "export_7156",
+    "system_id": "export_service",
+    "category": "USER_EXPORT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_84",
+    "reason": "Customer export object exports/export_7156/customer_data.zip is still registered with owner_email aasante4311@fastmail.com at audit_at. Must be deleted; the PARTIAL delete claim (activity_2547) is contradicted by the stored row.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_5570",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_84",
+    "reason": "Search document in customer_directory_v3 still exposes email aasante4311@fastmail.com at audit_at. Must be deleted; the PARTIAL claim (activity_2550) is contradicted by the stored row.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_2609",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_84",
+    "reason": "Support record still has requester_email aasante4311@fastmail.com. The excerpt is a generic 'Customer contacted support about account access.' with no shared order or agent context, so the REDACT retention condition does not hold and the record must be removed rather than redacted. The REDACT PARTIAL claim (activity_2553) is contradicted by the stored row.",
+    "condition_met": false
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3482",
+    "reason": "Linked only through deletion-worker batch run activity_2543, which is shared with case_179 and case_181. No usable evidence ties this account to the subject (no email, hash, phone, or user_178 match). The account_service inventory at evidence_84 has no such row. Not attributed to this subject."
+   },
+   {
+    "resource_id": "account_5309",
+    "reason": "Linked only through shared batch run activity_2544 (shared with case_179 and case_181). No usable evidence ties it to this subject. Rejected."
+   },
+   {
+    "resource_id": "account_9876",
+    "reason": "Linked only through shared batch run activity_2545 (shared with case_179 and case_181). No usable evidence ties it to this subject. Rejected."
+   },
+   {
+    "resource_id": "data_flow_8346",
+    "reason": "Active search_profile_indexer connector for naledi.k2230@zoho.com (evidence_84), which belongs to case_181, not this subject. Not attributed to case_180."
+   },
+   {
+    "resource_id": "search_4894",
+    "reason": "Index entry for naledi.k2230@zoho.com (evidence_84), another request's subject. Not attributed to case_180."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to permanently delete the account associated with their email address and requests a confirmation after completion; this is a direct account and data erasure request by the account holder.",
+   "summary: Subject user_178 (aasante4311@fastmail.com) has four records still present at audit_at 2026-07-23 in the primary inventory snapshot evidence_84 (captured 2026-07-23T11:43:30Z): analytics_1391 (anonymize), export_7156 (delete), search_5570 (delete), support_2609 (generic support record with requester email; delete). The workflow's COMPLETE and PARTIAL/SUCCESS deletion claims are contradicted by these stored rows. No account_service profile, active connector, restorable backup, or retained audit/legal hold tied to the subject was found; the three batch-run account candidates are in a run shared with other requests and were rejected. Replica evidence_20 has no subject rows. No email-delivery, legal-hold, or backup record for this subject surfaced in search.",
+   "future verification added for audit_record_2207 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_180",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 91,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_180",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 666,
+    "cache_creation_input_tokens": 4061,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_180",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 762,
+    "cache_creation_input_tokens": 11031,
+    "cache_read_input_tokens": 8932
+   },
+   {
+    "case_id": "case_180",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 409,
+    "cache_creation_input_tokens": 15030,
+    "cache_read_input_tokens": 19963
+   },
+   {
+    "case_id": "case_180",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 373,
+    "cache_creation_input_tokens": 9679,
+    "cache_read_input_tokens": 34993
+   },
+   {
+    "case_id": "case_180",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1313,
+    "cache_creation_input_tokens": 18925,
+    "cache_read_input_tokens": 44672
+   },
+   {
+    "case_id": "case_180",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1476,
+    "cache_creation_input_tokens": 2843,
+    "cache_read_input_tokens": 63597
+   },
+   {
+    "case_id": "case_180",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 381,
+    "cache_creation_input_tokens": 2948,
+    "cache_read_input_tokens": 66440
+   },
+   {
+    "case_id": "case_180",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1174,
+    "cache_creation_input_tokens": 1262,
+    "cache_read_input_tokens": 69388
+   },
+   {
+    "case_id": "case_180",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2241,
+    "cache_creation_input_tokens": 2760,
+    "cache_read_input_tokens": 70650
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3482"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5309"
+   },
+   "output_chars": 1481
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9876"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1391"
+   },
+   "output_chars": 2169
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_7156"
+   },
+   "output_chars": 2110
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5570"
+   },
+   "output_chars": 2149
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2609"
+   },
+   "output_chars": 2176
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aasante4311",
+    "limit": 50
+   },
+   "output_chars": 2699
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_178",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "akosua",
+    "limit": 50
+   },
+   "output_chars": 6773
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233246380551",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "bbdf73e045932f95e2aea643c5c86186db3133d6ecc8fc7b3bbb9abeb06e70f7",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "asante",
+    "limit": 50
+   },
+   "output_chars": 3352
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-25T00:00:00Z",
+    "end": "2026-07-23T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31515
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-25T00:00:00Z",
+    "end": "2026-06-28T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 17515
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 6000
+   },
+   "output_chars": 1226
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fastmail",
+    "limit": 50
+   },
+   "output_chars": 38783
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_178",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT 'conn' t, resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status, updated_at FROM connector_subscriptions UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email, archive_key, restore_allowed, '', updated_at FROM backup_restore_entries UNION ALL SELECT 'sec', resource_id, subject_reference, event_code, retention_until, 0, '', updated_at FROM security_audit_records UNION ALL SELECT 'profile', resource_id, customer_reference, email, full_name, 0, account_status, updated_at FROM customer_profiles"
+   },
+   "output_chars": 1124
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_790"
+   },
+   "output_chars": 1967
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "data_flow_8346",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 337
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4894"
+   },
+   "output_chars": 2703
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT resource_id, updated_at, substr(record_json,1,300) FROM customer_data_read_replica WHERE record_json LIKE '%aasante%' OR resource_id IN ('analytics_1391','export_7156','search_5570','support_2609','account_3482','account_5309','account_9876') OR record_json LIKE '%user_178%'"
+   },
+   "output_chars": 83
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT * FROM customer_data_read_replica LIMIT 3"
+   },
+   "output_chars": 1516
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_2609",
+    "limit": 50
+   },
+   "output_chars": 1355
+  },
+  {
+   "turn": 8,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_7156"
+   },
+   "output_chars": 2110
+  }
+ ]
+}

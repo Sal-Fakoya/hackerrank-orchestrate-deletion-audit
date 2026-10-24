@@ -1,0 +1,466 @@
+{
+ "case_id": "case_99",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_7804",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_7804",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_7804",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_99",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "backup_7804",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_89",
+    "reason": "Export captured 2026-09-01T05:33:16Z (inside request window, before audit_at) shows archive/customer-data/backup_7804.tar.zst with customer_email i.horvat72@gmail.com (the request email) and restore_allowed=true. The restore path for this subject's data is still open, so the archive must be blocked from restore. The workflow's CHECK_RESTORE_ACCESS claim (activity_3142) agrees but is not needed as proof.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1034",
+    "reason": "Linked only through shared deletion run batch activity_3136 (shared with case_100 and case_98). No usable evidence ties this account to i.horvat72 or user_97; the only record is the workflow's ABSENT claim, which is not an observation. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_7927",
+    "reason": "Linked only through shared deletion run batch activity_3135 (shared with other requests). No usable evidence ties it to this subject; only the workflow ABSENT claim exists. Not attributable."
+   },
+   {
+    "resource_id": "account_9511",
+    "reason": "Linked only through shared deletion run batch activity_3137 (shared with other requests). No usable evidence ties it to this subject; only the workflow ABSENT claim exists. Not attributable."
+   },
+   {
+    "resource_id": "legal_hold_668",
+    "reason": "Linked only through shared deletion run activity_3138 (shared with case_100 and case_98). The legal retention register (evidence_27) does not reference this hold or this subject. No evidence ties it to i.horvat72; it is not this subject's governed record."
+   },
+   {
+    "resource_id": "account_6452",
+    "reason": "Its subject_reference nhorvat1713@gmail.com is a different email from the request email and does not match any subject identifier. Its deletion activity (activity_2876) is dated 2026-07-19, before this request window, so it belongs to an earlier episode or another customer."
+   },
+   {
+    "resource_id": "search_4464",
+    "reason": "Tied to nhorvat1713@gmail.com, a different identifier not in the subject's list. The related records predate the request window (activity_2880, 2026-07-19). Not this subject's record."
+   },
+   {
+    "resource_id": "support_2716",
+    "reason": "Tied to nhorvat1713@gmail.com, a different identifier not in the subject's list. The related records predate the request window (activity_2877, 2026-07-19). Not this subject's record."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to permanently delete the account tied to their email address and to confirm the outcome, which is an explicit request for account and personal data erasure.",
+   "summary: Searches on the request email, the email local part, the name, phone, hash and user_97 found only one usable record tied to this subject: backup_7804 (archive containing i.horvat72@gmail.com, restore_allowed=true at 2026-09-01), which is still RESTORABLE and needs restore blocked. The workflow's account candidates, the legal hold, and the nhorvat1713 records were rejected because they are not attributable to this subject (shared deletion run without a tie, or a different email from an earlier July episode). No usable evidence in the window shows the subject's primary account, search, support, analytics or export records; the workflow's COMPLETE claim is not relied on."
+  ],
+  "usage": [
+   {
+    "case_id": "case_99",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 87,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_99",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 447,
+    "cache_creation_input_tokens": 4855,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_99",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 494,
+    "cache_creation_input_tokens": 4609,
+    "cache_read_input_tokens": 9726
+   },
+   {
+    "case_id": "case_99",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 766,
+    "cache_creation_input_tokens": 5291,
+    "cache_read_input_tokens": 14335
+   },
+   {
+    "case_id": "case_99",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 672,
+    "cache_creation_input_tokens": 12183,
+    "cache_read_input_tokens": 19626
+   },
+   {
+    "case_id": "case_99",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 892,
+    "cache_creation_input_tokens": 20127,
+    "cache_read_input_tokens": 31809
+   },
+   {
+    "case_id": "case_99",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1871,
+    "cache_creation_input_tokens": 5206,
+    "cache_read_input_tokens": 51936
+   },
+   {
+    "case_id": "case_99",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 617,
+    "cache_creation_input_tokens": 4092,
+    "cache_read_input_tokens": 57142
+   },
+   {
+    "case_id": "case_99",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1571,
+    "cache_creation_input_tokens": 1752,
+    "cache_read_input_tokens": 61234
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "i.horvat72@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 820
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_97",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Horvat",
+    "limit": 100
+   },
+   "output_chars": 7771
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48652320608",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "20a81f9cdf05dbd47c0de097966d2d876d74dfee490cb176018bbac915bd8316",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1034"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7927"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9511"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_7804"
+   },
+   "output_chars": 2248
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_668"
+   },
+   "output_chars": 1455
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nhorvat1713@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2003
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_12",
+    "offset": 0
+   },
+   "output_chars": 4651
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_10",
+    "offset": 0
+   },
+   "output_chars": 4560
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "i.horvat",
+    "limit": 100
+   },
+   "output_chars": 5828
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "iulia",
+    "limit": 100
+   },
+   "output_chars": 9030
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "652 320",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_97",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-05T00:00:00Z",
+    "end": "2026-09-01T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31240
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-07T04:00:00Z",
+    "end": "2026-08-07T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 3232
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6452"
+   },
+   "output_chars": 2116
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4464"
+   },
+   "output_chars": 2115
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2716"
+   },
+   "output_chars": 2160
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nasser.mariam88@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2557
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "maja.eriksen86@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 853
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1034",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold_668",
+    "limit": 100
+   },
+   "output_chars": 636
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "horvat72",
+    "limit": 100
+   },
+   "output_chars": 808
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48652320608",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "backup_7804",
+    "limit": 100
+   },
+   "output_chars": 1432
+  }
+ ]
+}

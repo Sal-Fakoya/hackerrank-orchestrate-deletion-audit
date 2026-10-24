@@ -1,0 +1,532 @@
+{
+ "case_id": "case_334",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_7348",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_72"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_214",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_72"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_7348",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_214",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_7348",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_8558",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_214",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_334",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_7348",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_72",
+    "reason": "customer_directory_v3 search document in customer_data_inventory capture at 2026-05-04T09:41:47Z still holds the subject's exact email elsayed.salma@icloud.com. The 2026-04-15 deletion activity (activity_1453) reported FAILED, so the index entry was not removed. Rule is DELETE (always).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_214",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_72",
+    "reason": "support_records row at 2026-05-04T09:41:47Z still shows requester_email elsayed.salma@icloud.com on a delivery-details support conversation that carries order context to be retained. The 2026-04-15 redact activity (activity_1456) reported FAILED. Rule is REDACT, since direct identifiers remain visible.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2475",
+    "reason": "Linked to the deletion run and carries a different customer's email a.ionescu1879@yahoo.com, not this subject's identifiers."
+   },
+   {
+    "resource_id": "search_5970",
+    "reason": "Linked to the shared deletion run, but holds a.ionescu1879@yahoo.com, which belongs to another customer."
+   },
+   {
+    "resource_id": "search_3773",
+    "reason": "Holds kabelo.d759483@zoho.com, another customer's email. Its connector-repopulated record is not this subject's."
+   },
+   {
+    "resource_id": "account_141",
+    "reason": "404 identity-free lookup keyed on yelsayed5095@fastmail.com, a different address. Not this subject."
+   },
+   {
+    "resource_id": "account_2480",
+    "reason": "Lookup keyed on salma.hamdan@outlook.com, a different person's email, with a 404 result."
+   },
+   {
+    "resource_id": "search_2843",
+    "reason": "Query keyed on salma.hamdan.jr@outlook.com, a different person. Not this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks the shop to remove their own account and the personal information linked to it, which is erasure of their own account and data. The request to complete the identity review and send a short confirmation is ancillary and does not change the classification.",
+   "summary: Subject elsayed.salma@icloud.com (user_332). Only two resources tie to this subject in evidence: search_7348 (search index, direct email) and support_214 (support requester email). Both remain PRESENT in the latest 2026-05-04 inventory capture (evidence_72), contradicting the workflow's COMPLETE claim; the deletion activities for both reported FAILED. No account, analytics, marketing, export, backup or connector records tied to this subject's email, hash, phone or user_332 were found. Other resources in the run belong to other customers and were rejected.",
+   "future verification added for audit_record_8558 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_334",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 108,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_334",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 354,
+    "cache_creation_input_tokens": 2200,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_334",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 467,
+    "cache_creation_input_tokens": 4559,
+    "cache_read_input_tokens": 7071
+   },
+   {
+    "case_id": "case_334",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 790,
+    "cache_creation_input_tokens": 15429,
+    "cache_read_input_tokens": 11630
+   },
+   {
+    "case_id": "case_334",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 904,
+    "cache_creation_input_tokens": 4736,
+    "cache_read_input_tokens": 27059
+   },
+   {
+    "case_id": "case_334",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1239,
+    "cache_creation_input_tokens": 2789,
+    "cache_read_input_tokens": 31795
+   },
+   {
+    "case_id": "case_334",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 635,
+    "cache_creation_input_tokens": 2643,
+    "cache_read_input_tokens": 34584
+   },
+   {
+    "case_id": "case_334",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 621,
+    "cache_creation_input_tokens": 14398,
+    "cache_read_input_tokens": 37227
+   },
+   {
+    "case_id": "case_334",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1295,
+    "cache_creation_input_tokens": 8999,
+    "cache_read_input_tokens": 51625
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "elsayed.salma@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 1417
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_332",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Salma",
+    "limit": 100
+   },
+   "output_chars": 3208
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_7348"
+   },
+   "output_chars": 2147
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_214"
+   },
+   "output_chars": 2168
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "88bdf57133e2534cda08a82c76abc0c79d2751a8d8d2900473ced2336a6df7f8",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971503731228",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "el-sayed",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "elsayed",
+    "limit": 100
+   },
+   "output_chars": 1951
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "deletion",
+    "limit": 100
+   },
+   "output_chars": 30989
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_69",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_38",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": null
+   },
+   "output_chars": 618
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": null
+   },
+   "output_chars": 618
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM customer_analytics_profiles UNION ALL SELECT resource_id, customer_reference, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles WHERE 0"
+   },
+   "output_chars": 401
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM connector_subscriptions"
+   },
+   "output_chars": 604
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM backup_restore_entries"
+   },
+   "output_chars": 233
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM customer_profiles"
+   },
+   "output_chars": 250
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM customer_search_documents"
+   },
+   "output_chars": 835
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM security_audit_records"
+   },
+   "output_chars": 436
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM support_records"
+   },
+   "output_chars": 551
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM customer_exports"
+   },
+   "output_chars": 120
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%salma%' OR record_json LIKE '%332%' OR record_json LIKE '%icloud%' OR record_json LIKE '%elsayed%' OR record_json LIKE '%1228%'"
+   },
+   "output_chars": 672
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_replica_eu_west WHERE record_json LIKE '%salma%' OR record_json LIKE '%332%' OR record_json LIKE '%icloud%' OR record_json LIKE '%elsayed%' OR record_json LIKE '%1228%'"
+   },
+   "output_chars": 672
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_replica_ap_south WHERE record_json LIKE '%salma%' OR record_json LIKE '%332%' OR record_json LIKE '%icloud%' OR record_json LIKE '%elsayed%' OR record_json LIKE '%1228%'"
+   },
+   "output_chars": 672
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_reporting_replica WHERE record_json LIKE '%salma%' OR record_json LIKE '%332%' OR record_json LIKE '%icloud%' OR record_json LIKE '%elsayed%' OR record_json LIKE '%1228%'"
+   },
+   "output_chars": 356
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 377
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-12T00:00:00Z",
+    "end": "2026-05-04T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31137
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_7348",
+    "limit": 50
+   },
+   "output_chars": 1329
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_214",
+    "limit": 50
+   },
+   "output_chars": 1348
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-12T00:00:00Z",
+    "end": "2026-04-16T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 20960
+  }
+ ]
+}

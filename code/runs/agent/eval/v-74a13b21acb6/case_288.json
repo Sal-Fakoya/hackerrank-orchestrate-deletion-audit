@@ -1,0 +1,564 @@
+{
+ "case_id": "case_288",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "export_service",
+   "resource_id": "export_7906",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_76"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "export_service",
+   "resource_id": "export_7906",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "export_service",
+   "resource_id": "export_7906",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_288",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "export_7906",
+    "system_id": "export_service",
+    "category": "USER_EXPORT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_76",
+    "reason": "Export metadata read at 2026-05-29T05:49:15Z (trace rb-054915-007, after requested_at and before audit_at) shows export_7906 available=true with owner_email mrodrigues956378@fastmail.com and object exports/export_7906/customer_data.zip. USER_EXPORT is always DELETE. The workflow's activity_1909 PARTIAL result is only a claim and is superseded by this direct observation.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4232",
+    "reason": "Only linked through the shared batch_run activity_1898 (shared with case_273, 274, 287, 289, 302). No usable evidence ties it to user_286, the subject's emails, hashes or phone. The only observation is the workflow's PARTIAL claim, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_4485",
+    "reason": "Only linked through the shared batch_run activity_1901 (shared with other customers). No evidence ties it to this subject. The SUCCESS/absent claim is not used for attribution."
+   },
+   {
+    "resource_id": "account_6575",
+    "reason": "Only linked through the shared batch_run activity_1904 (shared with other customers). No evidence ties it to this subject. The absent claim is not used for attribution."
+   },
+   {
+    "resource_id": "account_6988",
+    "reason": "Only linked through the shared batch_run activity_1899 (shared with other customers). No evidence ties it to this subject. The FAILED/present claim is not used for attribution."
+   },
+   {
+    "resource_id": "legal_hold_1745",
+    "reason": "Only linked through the shared batch_run activity_1902 (shared with other customers). The legal retention register (evidence_27) lists only disputed-order records for other users (user_08, user_12, user_17, user_21, user_24, user_29) and no hold for this subject. No evidence ties legal_hold_1745 to this subject, so it is not a retained record of this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Portuguese): The customer explicitly requests permanent deletion of the account associated with their email, and asks the shop to check current and previous identifiers as part of the privacy process and confirm the result. This is a request to erase the person's own account and data.",
+   "summary: Subject mrodrigues956378@fastmail.com (user_286). Only one subject-attributable resource was found: export_7906 (USER_EXPORT), which is still PRESENT per a 2026-05-29 direct metadata read (evidence_76) with the subject's owner_email, so it must be deleted. Searches of the historical email, hashes, phone, name and user_id found no profile, search, analytics, support, connector, backup or replica records for this subject in the latest snapshots (evidence_29 replicas 2026-05-19, evidence_75 inventory 2026-05-24). The account_* and legal_hold candidates come from a batch run shared with other customers and have no attributing evidence, so they were rejected. Absence of other subject records is noted but not separately submitted as facts because no in-scope evidence mentioned them."
+  ],
+  "usage": [
+   {
+    "case_id": "case_288",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1083,
+    "output_tokens": 112,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_288",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 435,
+    "cache_creation_input_tokens": 3519,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_288",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 394,
+    "cache_creation_input_tokens": 1004,
+    "cache_read_input_tokens": 8390
+   },
+   {
+    "case_id": "case_288",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 661,
+    "cache_creation_input_tokens": 4842,
+    "cache_read_input_tokens": 9394
+   },
+   {
+    "case_id": "case_288",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 491,
+    "cache_creation_input_tokens": 3566,
+    "cache_read_input_tokens": 14236
+   },
+   {
+    "case_id": "case_288",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 903,
+    "cache_creation_input_tokens": 1342,
+    "cache_read_input_tokens": 17802
+   },
+   {
+    "case_id": "case_288",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 982,
+    "cache_creation_input_tokens": 3534,
+    "cache_read_input_tokens": 19144
+   },
+   {
+    "case_id": "case_288",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 884,
+    "cache_creation_input_tokens": 7560,
+    "cache_read_input_tokens": 22678
+   },
+   {
+    "case_id": "case_288",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 609,
+    "cache_creation_input_tokens": 1103,
+    "cache_read_input_tokens": 30238
+   },
+   {
+    "case_id": "case_288",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 795,
+    "cache_creation_input_tokens": 2053,
+    "cache_read_input_tokens": 31341
+   },
+   {
+    "case_id": "case_288",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 697,
+    "cache_creation_input_tokens": 15069,
+    "cache_read_input_tokens": 33394
+   },
+   {
+    "case_id": "case_288",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1052,
+    "cache_creation_input_tokens": 825,
+    "cache_read_input_tokens": 48463
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mrodrigues956378@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 725
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_286",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mrodrigues9563@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 67
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Mariana Rodrigues",
+    "limit": 100
+   },
+   "output_chars": 57
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5541940152754",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4232"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4485"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6575"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6988"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_7906"
+   },
+   "output_chars": 2139
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_1745"
+   },
+   "output_chars": 1465
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 129
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 421
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_profiles WHERE 1=1 LIMIT 50"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_search_documents LIMIT 50"
+   },
+   "output_chars": 715
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_exports LIMIT 50"
+   },
+   "output_chars": 238
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rodrigues",
+    "limit": 100
+   },
+   "output_chars": 2439
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "269961334d53cf2e12380de98d9ccc70035e782cb164eb2e0deb1d4d70b1a9f6",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "41b9d56f025767260dcf20efd8ef2bbfed75e9008e238411cf3e90937fddf554",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4232",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold_1745",
+    "limit": 100
+   },
+   "output_chars": 641
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "export_7906",
+    "limit": 100
+   },
+   "output_chars": 1318
+  },
+  {
+   "turn": 6,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_76",
+    "trace_id": "rb-054915-007"
+   },
+   "output_chars": 496
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 0
+   },
+   "output_chars": 4227
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_30",
+    "offset": 0
+   },
+   "output_chars": 4242
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT name, sql FROM sqlite_master"
+   },
+   "output_chars": 1196
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT 'primary' t, resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%rodrigues%' OR record_json LIKE '%user_286%' OR record_json LIKE '%956378%' OR record_json LIKE '%9563%' OR record_json LIKE '%5541940152754%' OR record_json LIKE '%269961%' OR record_json LIKE '%41b9d5%' OR resource_id IN ('account_4232','account_4485','account_6575','account_6988','export_7906','legal_hold_1745') UNION ALL SELECT 'ap', resource_id, origin_system, collection_name, record_json FROM customer_data_replica_ap_south WHERE record_json LIKE '%rodrigues%' OR record_json LIKE '%user_286%' OR record_json LIKE '%956378%' OR record_json LIKE '%5541940152754%' OR record_json LIKE '%269961%' OR resource_id IN ('account_4232','account_4485','account_6575','account_6988','export_7906','legal_hold_1745') UNION ALL SELECT 'eu', resource_id, origin_system, collection_name, record_json FROM customer_data_replica_eu_west WHERE record_json LIKE '%rodrigues%' OR record_json LIKE '%user_286%' OR record_json LIKE '%956378%' OR record_json LIKE '%5541940152754%' OR record_json LIKE '%269961%' OR resource_id IN ('account_4232','account_4485','account_6575','account_6988','export_7906','legal_hold_1745')"
+   },
+   "output_chars": 96
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM support_records LIMIT 50"
+   },
+   "output_chars": 564
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM customer_analytics_profiles LIMIT 50"
+   },
+   "output_chars": 692
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM connector_subscriptions LIMIT 50"
+   },
+   "output_chars": 603
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM backup_restore_entries LIMIT 50"
+   },
+   "output_chars": 233
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_75",
+    "sql": "SELECT * FROM security_audit_records LIMIT 50"
+   },
+   "output_chars": 548
+  },
+  {
+   "turn": 9,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-12T00:00:00Z",
+    "end": "2026-05-29T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31213
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mrodrigues",
+    "limit": 100
+   },
+   "output_chars": 706
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mariana",
+    "limit": 100
+   },
+   "output_chars": 2855
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_172",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 10,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "USER_EXPORT"
+   },
+   "output_chars": 106
+  }
+ ]
+}

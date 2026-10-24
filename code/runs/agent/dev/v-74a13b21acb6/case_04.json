@@ -1,0 +1,231 @@
+{
+ "case_id": "case_04",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_04",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [],
+  "rejected": [
+   {
+    "resource_id": "analytics_901",
+    "reason": "Only link is the deletion-worker run activity_3463 (ANONYMIZE_RECORD, reported SUCCESS). The current analytics record (evidence_56, captured 2026-09-07) has user_id, email, phone and email_hash all null, and holds only aggregate metrics and purchase/view events for an unnamed profile. No usable evidence ties it to user_04, the email, hash, phone or name. It is an identity-free record reached only through a worker run that is not shown to be limited to this request, so it cannot be attributed to the subject and is rejected. The workflow's SUCCESS claim is not relied on."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer states they are deleting their own account and asks that nothing in analytics still point back to them, which is a request to erase their personal data. Keeping anonymous statistics does not negate the erasure of identifiable data.",
+   "summary: No resource in usable evidence links to the subject (user_04, thandiwe.n@gmail.com, hash f730ef..., phone 27716845928, name Thandiwe Ndlovu). Searches on every identifier and on 'thandiwe' and 'ndlovu' returned only other people's records (e.g. thandiwe.n5276@outlook.com, ndlovu.ayanda78@gmail.com, lindiwe.ndlovu94@gmail.com), which are not this subject. The only candidate, analytics_901, is an identity-free analytics profile linked only through the deletion-worker run, so it is rejected. No in-scope governed facts are submitted. The workflow's COMPLETE claim is not verified by any direct observation of the subject's data, and the lack of any linked records should be confirmed by the owners before closure."
+  ],
+  "usage": [
+   {
+    "case_id": "case_04",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1042,
+    "output_tokens": 105,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_04",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 326,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 9669
+   },
+   {
+    "case_id": "case_04",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 514,
+    "cache_creation_input_tokens": 1654,
+    "cache_read_input_tokens": 9669
+   },
+   {
+    "case_id": "case_04",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 468,
+    "cache_creation_input_tokens": 14143,
+    "cache_read_input_tokens": 11323
+   },
+   {
+    "case_id": "case_04",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 647,
+    "cache_creation_input_tokens": 1740,
+    "cache_read_input_tokens": 25466
+   },
+   {
+    "case_id": "case_04",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 453,
+    "cache_creation_input_tokens": 749,
+    "cache_read_input_tokens": 27206
+   },
+   {
+    "case_id": "case_04",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 848,
+    "cache_creation_input_tokens": 4014,
+    "cache_read_input_tokens": 27955
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thandiwe.n@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 60
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_04",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Thandiwe Ndlovu",
+    "limit": 100
+   },
+   "output_chars": 55
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_901"
+   },
+   "output_chars": 2496
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "analytics_901",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 374
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-25T00:00:00Z",
+    "end": "2026-09-07T10:20:00Z",
+    "limit": 100
+   },
+   "output_chars": 31354
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_56",
+    "offset": 0
+   },
+   "output_chars": 1716
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_3463",
+    "limit": 50
+   },
+   "output_chars": 717
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_901",
+    "limit": 50
+   },
+   "output_chars": 1679
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f730ef60615bde7a8f5ee21138637b4e9d4094855fbb02da6afcdba9c076281f",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27716845928",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "shared_with",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thandiwe",
+    "limit": 50
+   },
+   "output_chars": 2860
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ndlovu",
+    "limit": 50
+   },
+   "output_chars": 4613
+  }
+ ]
+}

@@ -1,0 +1,416 @@
+{
+ "case_id": "case_306",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_8250",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_29"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_450",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_29"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_8250",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_450",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_8250",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9051",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_450",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_306",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_8250",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_29",
+    "reason": "Search index document customer_directory_v3 for user_304 still exposes display name Freja Lund and email flund2105@gmail.com in the primary table and in the ap_south and eu_west regional replicas as of 2026-05-19T06:00:00Z. The activity_1770 SUCCESS claim is contradicted by this stored-state observation. Must be deleted from primary and all replicas.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_450",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_29",
+    "reason": "Support conversation CS-4450 (subject_reference user_304) still contains the subject's email flund2105@gmail.com in the primary and both replicas. The message also carries shared order context (affected order: Ceramic coffee set, delivery update), which must be retained, so the rule is REDACT, not DELETE. activity_1767 REDACT SUCCESS is a claim contradicted by this observation.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_9051",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_29",
+    "reason": "Security audit event account_deletion_reviewed for subject_reference user_304 is present in primary and replicas at 2026-05-19T06:00:00Z. It is a privacy-workflow audit record within its retention period, so it is retained and reported as PRESENT for verification.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_6680",
+    "reason": "Linked only through the deletion-worker batch run activity_1764 (shared with case_305 and case_307). The only evidence is a FAILED activity claim; no usable evidence captured in the window ties account_6680 to user_304 or flund2105@gmail.com. Shared-run record without attributable identity, so rejected."
+   },
+   {
+    "resource_id": "account_7248",
+    "reason": "Linked only through the shared batch run activity_1763 (shared with case_305 and case_307). The only evidence is a SUCCESS/absent activity claim; no usable evidence ties account_7248 to this subject, so it cannot be attributed and is rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer asks to close their own account and process erasure of the associated personal data, including account records, which is a deletion request for their own data.",
+   "summary: Subject user_304 (flund2105@gmail.com). Confirmed present, in-scope records at audit_at from evidence_29 (2026-05-19 regional replica capture): search_8250 (search index entry, still present in primary and two replicas, must be deleted), support_450 (support conversation with shared order context, present with direct identifiers, must be redacted), audit_record_9051 (security audit event, retained). The workflow's COMPLETE status and SUCCESS claims for search_8250 and support_450 are contradicted by stored-state evidence. Two account_service candidates from the shared batch run were rejected for lack of attributable evidence. No USER_PROFILE, email delivery, analytics, telemetry, export, marketing, backup, or active data-flow record linked to this subject was found in usable evidence; the data-flow and backup checks were not tied to this subject. Remaining residual risk: replicas and any unlisted copies should be checked during verification."
+  ],
+  "usage": [
+   {
+    "case_id": "case_306",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1052,
+    "output_tokens": 77,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_306",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 423,
+    "cache_creation_input_tokens": 2711,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_306",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 554,
+    "cache_creation_input_tokens": 19900,
+    "cache_read_input_tokens": 7582
+   },
+   {
+    "case_id": "case_306",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 481,
+    "cache_creation_input_tokens": 8618,
+    "cache_read_input_tokens": 27482
+   },
+   {
+    "case_id": "case_306",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 568,
+    "cache_creation_input_tokens": 6087,
+    "cache_read_input_tokens": 36100
+   },
+   {
+    "case_id": "case_306",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 596,
+    "cache_creation_input_tokens": 1088,
+    "cache_read_input_tokens": 42187
+   },
+   {
+    "case_id": "case_306",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 770,
+    "cache_creation_input_tokens": 9950,
+    "cache_read_input_tokens": 43275
+   },
+   {
+    "case_id": "case_306",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2397,
+    "cache_creation_input_tokens": 14984,
+    "cache_read_input_tokens": 53225
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "flund2105@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 5189
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_304",
+    "limit": 50
+   },
+   "output_chars": 7867
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "freja lund",
+    "limit": 50
+   },
+   "output_chars": 2542
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-05T00:00:00Z",
+    "end": "2026-05-19T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30939
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6680"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7248"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_8250"
+   },
+   "output_chars": 3977
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_450"
+   },
+   "output_chars": 4154
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_9051"
+   },
+   "output_chars": 3570
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-05T00:00:00Z",
+    "end": "2026-05-06T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 3391
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-07T00:00:00Z",
+    "end": "2026-05-08T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 6956
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_29",
+    "offset": 0
+   },
+   "output_chars": 4508
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6680",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7248",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_29",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%user_304%' OR record_json LIKE '%flund%' OR record_json LIKE '%account_6680%' OR record_json LIKE '%account_7248%' OR record_json LIKE '%0155a5ec%' OR record_json LIKE '%46707982417%' OR record_json LIKE '%Freja%'"
+   },
+   "output_chars": 988
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%user_304%' OR record_json LIKE '%flund%' OR record_json LIKE '%account_6680%' OR record_json LIKE '%account_7248%' OR record_json LIKE '%0155a5ec%' OR record_json LIKE '%46707982417%' OR record_json LIKE '%Freja%'"
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0155a5ec12b8d7a94b96df59e7aa6168711f046e69ca6b007208714acebd5620",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46707982417",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lund",
+    "limit": 50
+   },
+   "output_chars": 17545
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "CS-4450",
+    "limit": 50
+   },
+   "output_chars": 2683
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "freja",
+    "limit": 50
+   },
+   "output_chars": 4061
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Ceramic coffee set",
+    "limit": 50
+   },
+   "output_chars": 17926
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_30",
+    "offset": 0
+   },
+   "output_chars": 4242
+  }
+ ]
+}

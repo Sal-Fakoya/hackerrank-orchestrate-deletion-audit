@@ -1,0 +1,491 @@
+{
+ "case_id": "case_357",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_8105",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_33"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_6828",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_33"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_8105",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_6828",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8105",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_6828",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_350",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_357",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_8105",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Customer profile for user_355 (a.lefevre74@yahoo.com, Arthur Lefèvre, +33 6 10 19 61 86) still exists in customer_data_replica_eu_west at 2026-04-24T08:00:00Z, so the primary deletion (activity_1235 SUCCESS) is contradicted for the replica copy. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_6828",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "customer_directory_v3 search document for user_355 (email a.lefevre74@yahoo.com, display name Arthur Lefèvre) remains in customer_data_primary, customer_data_replica_eu_west and customer_data_replica_ap_south at 2026-04-24T08:00:00Z. The deletion result (activity_1244 FAILED) confirms it was not removed. Must be deleted from the index and all replicas.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_350",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_33",
+    "reason": "Security audit event account_deletion_reviewed for subject_reference user_355 is present in primary and both replicas at 2026-04-24T08:00:00Z. It is a 2026 privacy-workflow audit event, within the retention periods seen on comparable security audit records (retention_until 2031+). Retain it as a security audit record; it contains only the stable user_id reference and no direct identifiers.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "arthur.c5444@outlook.com records (search_901, account_5293, analytics_7818, support_5361)",
+    "reason": "Different person (arthur.c5444@outlook.com, customer_reference null); not linked to user_355, a.lefevre74@yahoo.com or the subject's phones/hash."
+   },
+   {
+    "resource_id": "search_7293 / export_4664",
+    "reason": "Records for HLEFEVRE4815@fastmail.com, a different surname-matching customer; no link to the subject's identifiers."
+   }
+  ],
+  "notes": [
+   "intent: deletion (French): The customer asks for permanent deletion of the account associated with their email address, including current and previous identifiers, and asks for confirmation of the result. This is a request for erasure of the person's own account and data, written in French.",
+   "summary: Subject user_355 (a.lefevre74@yahoo.com). Workflow claimed COMPLETE and reported account_8105 absent, but the regional replica snapshot at audit_at (evidence_33) still shows the account profile in customer_data_replica_eu_west, the search document search_6828 in primary and two replicas, and the security audit record audit_record_350 (retained). Account profile and search entry need deletion, audit record is retained. No secondary identifier, support, analytics, export, backup or data-flow record linked to the subject was found in usable evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_357",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1094,
+    "output_tokens": 103,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_357",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 303,
+    "cache_creation_input_tokens": 2135,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_357",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 533,
+    "cache_creation_input_tokens": 7742,
+    "cache_read_input_tokens": 7006
+   },
+   {
+    "case_id": "case_357",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 552,
+    "cache_creation_input_tokens": 7217,
+    "cache_read_input_tokens": 14748
+   },
+   {
+    "case_id": "case_357",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 805,
+    "cache_creation_input_tokens": 16539,
+    "cache_read_input_tokens": 21965
+   },
+   {
+    "case_id": "case_357",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 659,
+    "cache_creation_input_tokens": 9760,
+    "cache_read_input_tokens": 38504
+   },
+   {
+    "case_id": "case_357",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 753,
+    "cache_creation_input_tokens": 5531,
+    "cache_read_input_tokens": 48264
+   },
+   {
+    "case_id": "case_357",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 479,
+    "cache_creation_input_tokens": 8392,
+    "cache_read_input_tokens": 53795
+   },
+   {
+    "case_id": "case_357",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1782,
+    "cache_creation_input_tokens": 2057,
+    "cache_read_input_tokens": 62187
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8105"
+   },
+   "output_chars": 2977
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a.lefevre74@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 3451
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_355",
+    "limit": 50
+   },
+   "output_chars": 6112
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lefèvre",
+    "limit": 50
+   },
+   "output_chars": 3437
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0157f987b0fb5373a6b73db252169d109ab242f289c875be2509112ad1694927",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33610196186",
+    "limit": 50
+   },
+   "output_chars": 929
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33697471688",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_13",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a.lefevre",
+    "limit": 50
+   },
+   "output_chars": 3439
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Arthur",
+    "limit": 50
+   },
+   "output_chars": 9469
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "user_355",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-29T00:00:00Z",
+    "end": "2026-04-24T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31106
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_6828"
+   },
+   "output_chars": 3988
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_350"
+   },
+   "output_chars": 3547
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_33",
+    "offset": 0
+   },
+   "output_chars": 4551
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_38",
+    "offset": 0
+   },
+   "output_chars": 4579
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0157f987b0fb5373a6b73db252169d109ab242f289c875be2509112ad1694927",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0157f987",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "697471688",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Lefevre",
+    "limit": 50
+   },
+   "output_chars": 4743
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8105",
+    "limit": 50
+   },
+   "output_chars": 2153
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_6828",
+    "limit": 50
+   },
+   "output_chars": 3171
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6288"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 20
+   },
+   "output_chars": 14601
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 20
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_350",
+    "limit": 50
+   },
+   "output_chars": 2728
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_350",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_8105",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 674
+  }
+ ]
+}

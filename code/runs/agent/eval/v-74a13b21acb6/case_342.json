@@ -1,0 +1,428 @@
+{
+ "case_id": "case_342",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_3399",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_72"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3399",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4058",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3399",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_342",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "support_3399",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_72",
+    "reason": "Support record still shows the subject's direct identifier (requester_email cnavarro7189@gmail.com) at 2026-05-04T08:08:25Z, per the latest inventory snapshot. The conversation holds no shared order or agent context, but the rule is REDACT for SUPPORT_MESSAGE, so the record is PRESENT and must be redacted. The deletion_worker REDACT activity (activity_1600) reported FAILED and is not proof of state.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_206",
+    "reason": "Only linked through batch_run activity_1594 (deletion-worker run shared with case_313, case_326, case_327, case_328). No usable evidence ties this account to the subject's email, hash, phone or user_340. Latest account_service snapshot evidence_72 (2026-05-04) does not contain it. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_3785",
+    "reason": "Only linked through batch_run activity_1593 (shared run with other cases). No evidence ties it to this subject's identifiers. Latest account_service snapshot evidence_72 does not contain it. Not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (Spanish): The customer asks for permanent deletion of the account tied to their email, including current and past identifiers, and asks for confirmation of the result. This is a direct erasure request for the person's own account and data.",
+   "summary: Subject footprint is limited to support_3399 (SUPPORT_MESSAGE, still holding cnavarro7189@gmail.com at audit_at, so it must be redacted). No search hits for user_340, the subject's phone numbers or email hash, or the name except support_3399. Both account candidates were from shared deletion-worker runs with other customers and could not be attributed; they were rejected. Workflow PARTIALLY_COMPLETE claims are not relied on.",
+   "future verification added for audit_record_4058 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_342",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1081,
+    "output_tokens": 101,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_342",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 450,
+    "cache_creation_input_tokens": 2484,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_342",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 612,
+    "cache_creation_input_tokens": 3553,
+    "cache_read_input_tokens": 7355
+   },
+   {
+    "case_id": "case_342",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 781,
+    "cache_creation_input_tokens": 4128,
+    "cache_read_input_tokens": 10908
+   },
+   {
+    "case_id": "case_342",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1485,
+    "cache_creation_input_tokens": 12111,
+    "cache_read_input_tokens": 15036
+   },
+   {
+    "case_id": "case_342",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 810,
+    "cache_creation_input_tokens": 14252,
+    "cache_read_input_tokens": 27147
+   },
+   {
+    "case_id": "case_342",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1034,
+    "cache_creation_input_tokens": 2344,
+    "cache_read_input_tokens": 41399
+   },
+   {
+    "case_id": "case_342",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1503,
+    "cache_creation_input_tokens": 7573,
+    "cache_read_input_tokens": 43743
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_206"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3785"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3399"
+   },
+   "output_chars": 2175
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "cnavarro7189@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 747
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_340",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "navarro",
+    "limit": 100
+   },
+   "output_chars": 732
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "85a211bec208d769b481ab64c7a0fc3a15dea56ac8699bffd3dadbc642e627c9",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34617660989",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34755377597",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "camila",
+    "limit": 100
+   },
+   "output_chars": 6200
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "cnavarro",
+    "limit": 100
+   },
+   "output_chars": 733
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_342",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_72",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_33",
+    "offset": 0
+   },
+   "output_chars": 4551
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE email LIKE '%navarro%' OR full_name LIKE '%amila%' OR customer_reference='user_340' OR resource_id IN ('account_206','account_3785') UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE email LIKE '%navarro%' OR display_name LIKE '%amila%' OR customer_reference='user_340' UNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort FROM customer_analytics_profiles WHERE email LIKE '%navarro%' OR customer_reference='user_340' UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE requester_email LIKE '%navarro%' OR customer_reference='user_340' OR requester_name LIKE '%amila%' UNION ALL SELECT 'exports', resource_id, customer_reference, owner_phone, owner_email, object_key, NULL, updated_at FROM customer_exports WHERE owner_email LIKE '%navarro%' OR customer_reference='user_340' UNION ALL SELECT 'connectors', resource_id, customer_reference, connector_name, customer_email, enabled, last_delivery_status, updated_at FROM connector_subscriptions WHERE customer_email LIKE '%navarro%' OR customer_reference='user_340' UNION ALL SELECT 'backup', resource_id, customer_reference, archive_key, customer_email, restore_allowed, NULL, updated_at FROM backup_restore_entries WHERE customer_email LIKE '%navarro%' OR customer_reference='user_340' UNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, NULL, NULL, updated_at FROM security_audit_records WHERE subject_reference='user_340'\"}"
+   },
+   "output_chars": 40
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_206",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 345
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-24T00:00:00Z",
+    "end": "2026-05-04T10:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31137
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE email LIKE '%navarro%' OR full_name LIKE '%amila%' OR customer_reference='user_340' OR resource_id IN ('account_206','account_3785')"
+   },
+   "output_chars": 125
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE requester_email LIKE '%navarro%' OR customer_reference='user_340' OR requester_name LIKE '%amila%'"
+   },
+   "output_chars": 290
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_206",
+    "limit": 50
+   },
+   "output_chars": 656
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3785",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_3399",
+    "limit": 50
+   },
+   "output_chars": 1355
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "seoyeon.l7538@zoho.com",
+    "limit": 50
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-24T00:00:00Z",
+    "end": "2026-04-27T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 10552
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  }
+ ]
+}

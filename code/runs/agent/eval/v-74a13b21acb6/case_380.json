@@ -1,0 +1,276 @@
+{
+ "case_id": "case_380",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4001",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_70"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4489",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_70"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_380",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4001",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_70",
+    "reason": "Primary profile for rohan.jain@outlook.com. Readback trace rb-044532-015 at 2026-04-14T04:45:32Z looked up the subject's email and got rows=0, http 404, so the profile is gone at audit_at. The deletion run activity_1032 (SUCCESS) is only a claim. The run was shared with case_381, but this lookup ties the record to this subject by email. Regional replica and snapshot evidence (evidence_38, evidence_40, evidence_68) also lack it.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_4489",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_70",
+    "reason": "Security audit record with subject_reference=user_378 (trace rb-050254-018, 2026-04-14T05:02:54Z). Its retention_until is 2033-12-31, after audit_at, so the retention condition holds and the record is retained and verified as present.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_9326",
+    "reason": "Linked only through deletion run activity_1033, which is shared with case_381 (n.torres30@yahoo.com). The only observation (evidence_70, trace rb-045402-016) has customer_reference, email, phone and email_hash all null, with only an audience_cohort of mobile_browser. Nothing ties it to rohan.jain or user_378, so it cannot be attributed to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer states they no longer use the account and asks for it to be permanently deleted, which is a clear request to erase their account and personal data. The vague phrase about applying correct treatment to covered records does not change this; it is consistent with erasure and the request is the customer's own.",
+   "summary: Case case_380 (rohan.jain@outlook.com, user_378). The primary account profile account_4001 is absent at audit_at, confirmed by a 404 lookup on the subject's email (evidence_70). The security audit record audit_record_4489 references user_378 and is within its 2033 retention period, so it is retained. analytics_9326 was rejected because it is identity-free and sits in a run shared with case_381. Searches on the subject's email, hash, phone, user_id and name found no other records. The workflow's COMPLETE claim is not relied on."
+  ],
+  "usage": [
+   {
+    "case_id": "case_380",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 121,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_380",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 456,
+    "cache_creation_input_tokens": 1960,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_380",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 775,
+    "cache_creation_input_tokens": 3931,
+    "cache_read_input_tokens": 6831
+   },
+   {
+    "case_id": "case_380",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 519,
+    "cache_creation_input_tokens": 14440,
+    "cache_read_input_tokens": 10762
+   },
+   {
+    "case_id": "case_380",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 504,
+    "cache_creation_input_tokens": 5276,
+    "cache_read_input_tokens": 25202
+   },
+   {
+    "case_id": "case_380",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1760,
+    "cache_creation_input_tokens": 3161,
+    "cache_read_input_tokens": 30478
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4001"
+   },
+   "output_chars": 2090
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9326"
+   },
+   "output_chars": 2133
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4489"
+   },
+   "output_chars": 1600
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rohan.jain@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 663
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_378",
+    "limit": 50
+   },
+   "output_chars": 771
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Rohan Jain",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "9ba1c5f7d14e5af7224e110703a78ff7cebd2a4fd08ece51cf9085b32ffe3606",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919821100875",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rohan",
+    "limit": 50
+   },
+   "output_chars": 2310
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-17T00:00:00Z",
+    "end": "2026-04-14T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30947
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-18T05:00:00Z",
+    "end": "2026-03-18T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 973
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jain",
+    "limit": 50
+   },
+   "output_chars": 2830
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4001",
+    "limit": 50
+   },
+   "output_chars": 1263
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_9326",
+    "limit": 50
+   },
+   "output_chars": 1311
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_380",
+    "limit": 50
+   },
+   "output_chars": 48
+  }
+ ]
+}

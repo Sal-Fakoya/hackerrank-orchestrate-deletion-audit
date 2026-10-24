@@ -1,0 +1,358 @@
+{
+ "case_id": "case_318",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_5472",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_74"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_7995",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_74"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_5472",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_7995",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5472",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6708",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_7995",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_318",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_5472",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_74",
+    "reason": "Search index document for the subject's current email mrousseau7133@gmail.com is still returned by a query at 2026-05-14T10:43:56Z (export captured 2026-05-14T11:44:54Z). DELETE required. The deletion worker's FAILED result (activity_1523) is a claim and does not prove absence.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_7995",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_74",
+    "reason": "Support ticket still exposes requester_email mrousseau7133@gmail.com (observed 2026-05-14T10:50:39Z). The conversation is a customer support exchange about delivery details that carries order context, so it must be redacted, not deleted. The REDACT attempt (activity_1521) is reported FAILED and is a claim.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1530",
+    "reason": "Linked only through deletion-worker batch run activity_1516, which is shared with case_317, case_319 and case_332. No usable evidence ties this account to user_316 or the subject's email/hash/phone. Not attributable to this subject; rejected."
+   },
+   {
+    "resource_id": "account_1972",
+    "reason": "Linked only through shared batch run activity_1514 (shared with case_317, case_319, case_332). No usable evidence ties it to this subject; rejected."
+   },
+   {
+    "resource_id": "account_2088",
+    "reason": "Linked only through shared batch run activity_1515. The only later observation is an identity-free 404 profile lookup (evidence_74), which cannot be attributed to this subject in a shared run; rejected."
+   },
+   {
+    "resource_id": "analytics_2601",
+    "reason": "Linked only through shared batch run activity_1518 (shared with other requests). Its profile in evidence_74 has all identifiers null (cohort returning_customer only), so it cannot be attributed to the subject; rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (French): The customer asks for permanent deletion of the account tied to their email address, including current and former identifiers, and asks for confirmation of the outcome. This is an erasure request for the person's own account and data.",
+   "summary: Subject identifiers (email mrousseau7133@gmail.com, user_316, name, hash, phone) were searched. Only two in-scope resources still expose subject data as of audit_at: search_5472 (search index entry with the subject's email, PRESENT) and support_7995 (support ticket with the subject's requester email, PRESENT; redact). The workflow's COMPLETE claim and the SUCCESS/FAILED activity claims are not relied on. Candidate accounts and analytics profile were in a run shared with other customers with no tie to the subject, so they were rejected. No user_316 profile, marketing, export, tombstone, email-log, backup or data-flow record linked to this subject was found in usable evidence; the hash and phone returned no matches. Backup and connector hits in evidence_74 belong to other customers.",
+   "future verification added for audit_record_6708 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_318",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1094,
+    "output_tokens": 99,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_318",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 597,
+    "cache_creation_input_tokens": 2834,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_318",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 596,
+    "cache_creation_input_tokens": 7766,
+    "cache_read_input_tokens": 7705
+   },
+   {
+    "case_id": "case_318",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 415,
+    "cache_creation_input_tokens": 17207,
+    "cache_read_input_tokens": 15471
+   },
+   {
+    "case_id": "case_318",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1332,
+    "cache_creation_input_tokens": 7725,
+    "cache_read_input_tokens": 32678
+   },
+   {
+    "case_id": "case_318",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1655,
+    "cache_creation_input_tokens": 5564,
+    "cache_read_input_tokens": 40403
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mrousseau7133@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2557
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_316",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "manon rousseau",
+    "limit": 100
+   },
+   "output_chars": 54
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1530"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1972"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2088"
+   },
+   "output_chars": 2121
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2601"
+   },
+   "output_chars": 2274
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5472"
+   },
+   "output_chars": 3134
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_7995"
+   },
+   "output_chars": 2337
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "db775804e712b727356744045db6c43f8fd5de06660a31f5ef7064de31db1691",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33694912619",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "316",
+    "limit": 100
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rousseau",
+    "limit": 100
+   },
+   "output_chars": 3848
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-18T00:00:00Z",
+    "end": "2026-05-14T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30985
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-18T00:00:00Z",
+    "end": "2026-04-21T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 13158
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mrousseau",
+    "limit": 100
+   },
+   "output_chars": 2543
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "manon",
+    "limit": 100
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "7133",
+    "limit": 100
+   },
+   "output_chars": 2538
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 2400
+   },
+   "output_chars": 4613
+  }
+ ]
+}

@@ -1,0 +1,403 @@
+{
+ "case_id": "case_373",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_7859",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_70"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_2984",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_70"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_2984",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_7859",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8684",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_7859",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9163",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_2984",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_373",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_8684",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_69",
+    "reason": "Primary profile account_8684 was submitted for deletion (activity_1156, workflow claim). Snapshot evidence_69 (account_service scope, captured 2026-04-04, after the 2026-03-27 deletion) does not contain account_8684, so the record is absent at audit_at. Linked to the subject through the request's own deletion-worker run.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_7859",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_70",
+    "reason": "Index query at 2026-04-14T04:38:41Z (trace rb-043841-014, evidence_70) returned a hit in customer_directory_v3 for sami.h267897@zoho.com (total_hits=1). The entry still exposes the subject's email, so deletion is still required. The deletion worker's final result was PARTIAL (activity_1158), and the entry was repopulated by data_flow_2984 (activity_1157).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_2984",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_70",
+    "reason": "Connector config read at 2026-04-14T03:27:15Z (trace rb-032715-004, evidence_70) shows customer_events_connector enabled=true, last_delivery_status=delivered, customer_email=sami.h267897@zoho.com. It can copy or recreate the subject's data into search_7859, so it must be disabled.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "search_2294_placeholder_none",
+    "reason": "No candidate rejected; placeholder not a real resource."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer states they no longer use the account and asks for it to be permanently deleted, which is a request for erasure of their own account and personal data. The vague phrase about applying correct treatment to covered records does not change this; the core request is deletion and a confirmation on completion.",
+   "summary: Three resources tied to sami.h267897@zoho.com. account_8684 (USER_PROFILE) is absent per evidence_69, but the subject's connector data_flow_2984 is ACTIVE and has already repopulated search_7859, which is still PRESENT with the subject's email in the search index (evidence_70). Historical email, hashes, phone and user_id produced no further evidence. No backups, exports, analytics, support, email-log or marketing records for this subject were found in usable evidence. Actions needed: delete search_7859, disable data_flow_2984, and verify absence of account_8684 after the connector is disabled.",
+   "future verification added for audit_record_9163 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_373",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 120,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_373",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 396,
+    "cache_creation_input_tokens": 1990,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_373",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 332,
+    "cache_creation_input_tokens": 1307,
+    "cache_read_input_tokens": 6861
+   },
+   {
+    "case_id": "case_373",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 702,
+    "cache_creation_input_tokens": 15759,
+    "cache_read_input_tokens": 8168
+   },
+   {
+    "case_id": "case_373",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 549,
+    "cache_creation_input_tokens": 11707,
+    "cache_read_input_tokens": 23927
+   },
+   {
+    "case_id": "case_373",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2379,
+    "cache_creation_input_tokens": 9497,
+    "cache_read_input_tokens": 35634
+   },
+   {
+    "case_id": "case_373",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1244,
+    "cache_creation_input_tokens": 3702,
+    "cache_read_input_tokens": 45131
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sami.h267897@zoho.com",
+    "limit": 50
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_371",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sami.h2678@zoho.com",
+    "limit": 50
+   },
+   "output_chars": 59
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sami haddad",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971559183715",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8684"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_2984"
+   },
+   "output_chars": 2250
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_7859"
+   },
+   "output_chars": 2758
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-24T00:00:00Z",
+    "end": "2026-04-14T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30947
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2b7bd7a306d3ca25380d65849dc09cef4533f6a2b3568193ba896ad5a9056ad7",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "c1d3c9dd899fe99579afe5f8c30db889613826f42c828e9eabd372fff55e3211",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "haddad",
+    "limit": 50
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sami",
+    "limit": 50
+   },
+   "output_chars": 3123
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-24T00:00:00Z",
+    "end": "2026-03-28T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 23235
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_70",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_36",
+    "offset": 0
+   },
+   "output_chars": 4724
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_38",
+    "offset": 0
+   },
+   "output_chars": 4579
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_8684",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "data_flow_2984",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 337
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "search_7859",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 664
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "h267897",
+    "limit": 50
+   },
+   "output_chars": 1522
+  }
+ ]
+}

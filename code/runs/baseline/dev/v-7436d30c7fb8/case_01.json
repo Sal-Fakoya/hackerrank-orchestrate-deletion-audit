@@ -1,0 +1,38 @@
+{
+ "case_id": "case_01",
+ "mode": "baseline",
+ "judge_version": "7436d30c7fb8",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_001",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "activity_3342"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_01",
+  "mode": "baseline",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_001",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "activity_3342",
+    "reason": "DELETE_RECORD SUCCESS",
+    "condition_met": true
+   }
+  ],
+  "rejected": [],
+  "notes": [],
+  "usage": []
+ },
+ "transcript": []
+}

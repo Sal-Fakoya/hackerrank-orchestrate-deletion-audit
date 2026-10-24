@@ -1,0 +1,363 @@
+{
+ "case_id": "case_300",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "export_service",
+   "resource_id": "export_6623",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_75"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_4299",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_75"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "export_service",
+   "resource_id": "export_6623",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_4299",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "export_service",
+   "resource_id": "export_6623",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_4299",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_300",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "export_6623",
+    "system_id": "export_service",
+    "category": "USER_EXPORT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_75",
+    "reason": "Customer export object exports/export_6623/customer_data.zip has owner_email jpark4591@fastmail.com (exact match to the request email) in the 2026-05-24 inventory capture, which is before audit_at. USER_EXPORT is always DELETE. Linked to the subject by direct email match, not to the shared batch run.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_4299",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_75",
+    "reason": "customer_directory_v3 search document search_4299 still exposes email jpark4591@fastmail.com in the 2026-05-24 capture before audit_at. The deletion worker reported PARTIAL (activity_1631), which is a claim, not proof of removal. Always DELETE.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1618",
+    "reason": "Linked only through deletion-worker run activity_1625, which is shared with case_299 and case_301. No usable evidence ties account_1618 to user_298 or the request email. The absent hint is only a workflow claim. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_7249",
+    "reason": "Linked only through shared batch run activity_1624 (shared with case_299 and case_301). No evidence ties it to this subject. The absent hint is a workflow claim only."
+   },
+   {
+    "resource_id": "account_9993",
+    "reason": "Linked only through shared batch run activity_1626 (shared with case_299 and case_301). No evidence ties it to this subject. The absent hint is a workflow claim only."
+   },
+   {
+    "resource_id": "analytics_1733",
+    "reason": "Linked only through shared batch run activity_1627. The only observation (evidence_75) is an identity-free analytics profile with all identifiers null and no customer_reference, so it cannot be attributed to this subject in a shared run."
+   }
+  ],
+  "notes": [
+   "intent: deletion (ko): The customer requests permanent deletion of the account linked to their email address, which is erasure of their own account and data. The additional asks to review current and previous identifiers and confirm the result are part of the same erasure request and do not change the classification.",
+   "summary: Subject identifiers (jpark4591@fastmail.com, user_298, hash, phone, name) were searched. Only export_6623 and search_4299 carry the subject's email in the 2026-05-24 inventory capture (evidence_75), and both are PRESENT despite the PARTIAL deletion claims. No user_298, name, phone or hash matches exist in any evidence. The three account candidates and analytics_1733 come only from the shared deletion run and are not attributable to this subject, so they were rejected. No support, backup, connector or secondary-identifier records tie to this subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_300",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1097,
+    "output_tokens": 110,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_300",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 427,
+    "cache_creation_input_tokens": 3007,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_300",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 418,
+    "cache_creation_input_tokens": 1306,
+    "cache_read_input_tokens": 7878
+   },
+   {
+    "case_id": "case_300",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 806,
+    "cache_creation_input_tokens": 5447,
+    "cache_read_input_tokens": 9184
+   },
+   {
+    "case_id": "case_300",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 795,
+    "cache_creation_input_tokens": 15696,
+    "cache_read_input_tokens": 14631
+   },
+   {
+    "case_id": "case_300",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 126,
+    "cache_creation_input_tokens": 5489,
+    "cache_read_input_tokens": 30327
+   },
+   {
+    "case_id": "case_300",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2114,
+    "cache_creation_input_tokens": 2124,
+    "cache_read_input_tokens": 35816
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jpark4591@fastmail.com",
+    "limit": 50
+   },
+   "output_chars": 1360
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_298",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ji-hoon park",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fe59b5c94bd44b91074e005f5828893a5f19910f2855699af8a3a51d9c7aea15",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821058637465",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_6623"
+   },
+   "output_chars": 2113
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4299"
+   },
+   "output_chars": 2152
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1733"
+   },
+   "output_chars": 2139
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1618"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7249"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9993"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jpark",
+    "limit": 50
+   },
+   "output_chars": 1343
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4591",
+    "limit": 50
+   },
+   "output_chars": 2358
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "298",
+    "limit": 50
+   },
+   "output_chars": 14874
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1618",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-26T00:00:00Z",
+    "end": "2026-04-29T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 14625
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_32",
+    "offset": 0
+   },
+   "output_chars": 1701
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 3000
+   },
+   "output_chars": 3850
+  }
+ ]
+}

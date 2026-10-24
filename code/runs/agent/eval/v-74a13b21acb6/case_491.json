@@ -1,0 +1,396 @@
+{
+ "case_id": "case_491",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_7455",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_64"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7073",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_64"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_491",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_7455",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_64",
+    "reason": "Direct lookup at 2026-02-18T07:28:11Z by the subject's current email chioma-oladipo@proton.me (trace rb-072811-016) returned rows=0, HTTP 404, so the primary profile no longer exists at audit_at. Linked to this subject by that exact email. The workflow's SUCCESS claim (activity_369) is consistent but was not relied on alone. No copy seen in later usable evidence.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_7073",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_64",
+    "reason": "Security audit record references subject_reference=user_489 (event SUBJECT_REQUEST_AUDITED) and is readable at 2026-02-18T07:57:31Z (trace rb-075731-019) with retention_until=2033-12-31, which is after audit_at. Retain as required by policy; no deletion of the audit trail.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3119",
+    "reason": "Linked only through the deletion-worker run activity_371 (batch run shared with case_492, eamponsah5039@fastmail.com). No usable evidence ties this account to chioma-oladipo@proton.me, user_489 or the phone/hash. Its only observations are workflow activity claims (activity_371, activity_379). Attributed to another customer's request; rejected as not this subject's."
+   },
+   {
+    "resource_id": "account_5934",
+    "reason": "Linked only through the deletion-worker run activity_370 (batch run shared with case_492). No usable evidence ties it to this subject; the only observation is a workflow activity claim (FAILED, activity_370). Rejected as belonging to another customer's shared run."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for permanent deletion of their account and review of identifiers connected to it, which is erasure of their own account and personal data. Requesting a short confirmation on completion does not change that.",
+   "summary: Subject user_489 / chioma-oladipo@proton.me. account_7455 (USER_PROFILE) is absent per a direct 404 lookup on 2026-02-18 (evidence_64), so compliant. audit_record_7073 (SECURITY_AUDIT_LOG) references user_489 and is within its 2033 retention, so retained. account_3119 and account_5934 were in a run shared with case_492 and have no usable evidence linking them to this subject, so rejected. Searches for the subject's phone, email hash, and name found no other records, and no active data flows or restorable backups tied to this subject appeared in usable evidence. Other subjects' records (analytics_1575, export_6406, search_9733, support_6737, eamponsah5039@fastmail.com) are not in scope."
+  ],
+  "usage": [
+   {
+    "case_id": "case_491",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1061,
+    "output_tokens": 101,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_491",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 430,
+    "cache_creation_input_tokens": 1114,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_491",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 422,
+    "cache_creation_input_tokens": 1608,
+    "cache_read_input_tokens": 5985
+   },
+   {
+    "case_id": "case_491",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 579,
+    "cache_creation_input_tokens": 15934,
+    "cache_read_input_tokens": 7593
+   },
+   {
+    "case_id": "case_491",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 505,
+    "cache_creation_input_tokens": 9131,
+    "cache_read_input_tokens": 23527
+   },
+   {
+    "case_id": "case_491",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 566,
+    "cache_creation_input_tokens": 5847,
+    "cache_read_input_tokens": 32658
+   },
+   {
+    "case_id": "case_491",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 425,
+    "cache_creation_input_tokens": 2670,
+    "cache_read_input_tokens": 38505
+   },
+   {
+    "case_id": "case_491",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1013,
+    "cache_creation_input_tokens": 5199,
+    "cache_read_input_tokens": 41175
+   },
+   {
+    "case_id": "case_491",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1887,
+    "cache_creation_input_tokens": 3181,
+    "cache_read_input_tokens": 46374
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chioma-oladipo@proton.me",
+    "limit": 50
+   },
+   "output_chars": 667
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_489",
+    "limit": 50
+   },
+   "output_chars": 771
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Oladipo",
+    "limit": 50
+   },
+   "output_chars": 650
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348034089448",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f565f5e9ff2159e379a3fddf4fff819ac29105589a1a3a536ee7eda44ebb7a42",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3119"
+   },
+   "output_chars": 1947
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5934"
+   },
+   "output_chars": 1336
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7455"
+   },
+   "output_chars": 1941
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_7073"
+   },
+   "output_chars": 1460
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-30T00:00:00Z",
+    "end": "2026-02-18T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31183
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chioma",
+    "limit": 50
+   },
+   "output_chars": 649
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_491",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_492",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-30T00:00:00Z",
+    "end": "2026-01-31T23:59:59Z",
+    "limit": 200
+   },
+   "output_chars": 12284
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 5,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_64",
+    "trace_id": "rb-072811-016"
+   },
+   "output_chars": 400
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 4500
+   },
+   "output_chars": 1167
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_47",
+    "offset": 0
+   },
+   "output_chars": 4507
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 5500
+   },
+   "output_chars": 4232
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "eamponsah5039@fastmail.com",
+    "limit": 50
+   },
+   "output_chars": 2799
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3119",
+    "limit": 50
+   },
+   "output_chars": 1268
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5934",
+    "limit": 50
+   },
+   "output_chars": 657
+  }
+ ]
+}

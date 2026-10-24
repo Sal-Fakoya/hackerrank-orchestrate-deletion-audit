@@ -1,0 +1,494 @@
+{
+ "case_id": "case_548",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_3745",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_52"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_3745",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6970",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_3745",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_548",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "tombstone_3745",
+    "system_id": "identity_service",
+    "category": "ACCOUNT_TOMBSTONE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "Identity tombstone for user_548 still exposes name 'Sofía Fernández', email fernandez.sofia@icloud.com, phone +34 668 324 642 and the email hash on both primary and failover replica rows captured at audit_at. Account is DELETED, so the rule requires REDACT of the direct identifiers; the workflow's FAILED REDACT result (activity_3670) is a claim and is contradicted by the stored row.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6970",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_548 is present in the failover replica and primary at audit_at. It is a deletion-review event from this request window and no expiry or retention-end evidence for it was found, so it is retained within the retention period and must be verified as retained, not deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_294",
+    "reason": "Linked only through deletion-worker batch activity_3657, which was shared with case_21, case_23, case_536, case_546 and case_547. No usable evidence ties this account to user_548 or fernandez.sofia@icloud.com; the only snapshot evidence (evidence_92, evidence_02) does not contain it. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_410",
+    "reason": "Linked only through shared batch run activity_3662 (other customers' requests). No identifier or user_548 link in any usable evidence; not attributable to this subject."
+   },
+   {
+    "resource_id": "account_6440",
+    "reason": "Linked only through shared batch run activity_3661. Its only direct observation (evidence_92) is an identity-free 404 lookup in a shared run, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_7015",
+    "reason": "Linked only through shared batch run activity_3660 (other customers' requests). No usable evidence ties it to this subject."
+   },
+   {
+    "resource_id": "account_8832",
+    "reason": "Linked only through shared batch run activity_3658 (other customers' requests). No usable evidence ties it to this subject."
+   },
+   {
+    "resource_id": "account_9155",
+    "reason": "Linked only through shared batch run activity_3663 (other customers' requests). No usable evidence ties it to this subject."
+   },
+   {
+    "resource_id": "analytics_5335",
+    "reason": "Linked only through shared batch run activity_3665. Every usable observation (evidence_92, evidence_02) is an all-null analytics profile with no email, hash, phone, customer_reference or user_id, so it is identity-free and cannot be attributed to this subject in a shared run."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to permanently delete the account associated with their email address and erase the associated data, which is a deletion request. The added asks to complete the review and report back do not change this.",
+   "summary: Subject user_548 (fernandez.sofia@icloud.com) has two records in scope: tombstone_3745 (identity tombstone still holding name, email, phone and hash, so it needs redaction; workflow REDACT FAILED is confirmed by stored data in evidence_52) and audit_record_6970 (security deletion-review audit event, retained within its retention period). Searches by email, hash, phone, name variants and user_548 found no other copies (no search index, cache, support, export, marketing, analytics, backup or data-flow record tied to this subject). All batch-run candidates from the shared deletion run were rejected as unattributable to this subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_548",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1050,
+    "output_tokens": 94,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_548",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 718,
+    "cache_creation_input_tokens": 6663,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_548",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 947,
+    "cache_creation_input_tokens": 11987,
+    "cache_read_input_tokens": 11534
+   },
+   {
+    "case_id": "case_548",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 984,
+    "cache_creation_input_tokens": 7036,
+    "cache_read_input_tokens": 23521
+   },
+   {
+    "case_id": "case_548",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 738,
+    "cache_creation_input_tokens": 17818,
+    "cache_read_input_tokens": 30557
+   },
+   {
+    "case_id": "case_548",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 833,
+    "cache_creation_input_tokens": 5984,
+    "cache_read_input_tokens": 48375
+   },
+   {
+    "case_id": "case_548",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1081,
+    "cache_creation_input_tokens": 4774,
+    "cache_read_input_tokens": 54359
+   },
+   {
+    "case_id": "case_548",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1952,
+    "cache_creation_input_tokens": 31802,
+    "cache_read_input_tokens": 59133
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fernandez.sofia@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 1946
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_548",
+    "limit": 100
+   },
+   "output_chars": 3712
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_294"
+   },
+   "output_chars": 1483
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_410"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6440"
+   },
+   "output_chars": 2124
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7015"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8832"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9155"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5335"
+   },
+   "output_chars": 3342
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6970"
+   },
+   "output_chars": 2661
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "tombstone_3745"
+   },
+   "output_chars": 2806
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33f407a3689b1b57bdb15b492e565867a507c27ce066c1d6a584f03f4dbb5565",
+    "limit": 100
+   },
+   "output_chars": 1984
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34668324642",
+    "limit": 100
+   },
+   "output_chars": 1931
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Fernández",
+    "limit": 100
+   },
+   "output_chars": 3644
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sofia",
+    "limit": 100
+   },
+   "output_chars": 5137
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_92",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_54",
+    "offset": 0
+   },
+   "output_chars": 2330
+  },
+  {
+   "turn": 3,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-02T12:00:00Z",
+    "end": "2026-09-20T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_6970",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-05T00:00:00Z",
+    "end": "2026-09-06T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 7667
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_6970",
+    "limit": 50
+   },
+   "output_chars": 1839
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tombstone_3745",
+    "limit": 50
+   },
+   "output_chars": 2560
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_52",
+    "offset": 0
+   },
+   "output_chars": 4456
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_51",
+    "offset": 0
+   },
+   "output_chars": 2266
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "icloud.com",
+    "limit": 100
+   },
+   "output_chars": 38091
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Fernandez",
+    "limit": 100
+   },
+   "output_chars": 6049
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "668 324",
+    "limit": 100
+   },
+   "output_chars": 1927
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_548",
+    "limit": 100
+   },
+   "output_chars": 3712
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "deleted_customer_references",
+    "limit": 100
+   },
+   "output_chars": 15710
+  }
+ ]
+}

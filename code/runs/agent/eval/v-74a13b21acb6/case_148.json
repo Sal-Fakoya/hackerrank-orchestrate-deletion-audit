@@ -1,0 +1,359 @@
+{
+ "case_id": "case_148",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_7239",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_86"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_5716",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_86"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_7239",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_5716",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_7239",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_5716",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_148",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_7239",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_86",
+    "reason": "Search index document exposes the subject's email CARTER.AMELIA92@GMAIL.COM (direct identifier, no customer_reference). Latest observation 2026-08-07T07:41:04Z, before audit_at. The deletion worker's FAILED claim (activity_2954) does not prove absence. Rule is Always -> DELETE.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_5716",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_86",
+    "reason": "Support ticket with requester_email CARTER.AMELIA92@GMAIL.COM still visible (direct identifier) as of 2026-08-07T07:41:04Z. Message excerpt is generic ('Customer contacted support about account access.') with no agent, order or shared customer context, so the REDACT condition does not hold. The deletion worker's REDACT FAILED claim (activity_2952) is not proof of state.",
+    "condition_met": false
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_9191",
+    "reason": "Linked only through deletion-worker batch activity_2949, which is shared with case_146 and case_147 (other customers). No usable evidence content ties account_9191 to user_146 or to this subject's email, phone, hash or name. Latest snapshots covering account_service (evidence_86, evidence_15) lack it, so it is absent, but it cannot be attributed to this subject and is not reported as in scope."
+   },
+   {
+    "resource_id": "data_flow_4889",
+    "reason": "Connector customer_events_connector references aditi.patel@gmail.com, a different customer. Not this subject's data flow."
+   },
+   {
+    "resource_id": "data_flow_7253",
+    "reason": "Connector search_profile_indexer references gabriel.c7146@zoho.com, a different customer."
+   },
+   {
+    "resource_id": "data_flow_4629",
+    "reason": "Connector subject_selector amelia.parker@gmail.com, a different customer (Amelia Parker, not Amelia Carter)."
+   },
+   {
+    "resource_id": "backup_4244",
+    "reason": "Backup entry references l.fernandez84@gmail.com, a different customer (case_147), not this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks the shop to remove their account and the personal information linked to it, which is erasure of their own account and personal data. The request to review eligible data and send a confirmation does not change this.",
+   "summary: Subject identifiers (CARTER.AMELIA92@GMAIL.COM, user_146, name, phone, hashes) match only two live records: search_7239 (search index entry, PRESENT) and support_5716 (support ticket with requester email, PRESENT; no shared context so REDACT condition not met). The workflow's account_9191 profile was in a batch shared with other customers and no evidence ties it to this subject, so it is rejected. No active connector or restorable backup was found tied to this subject. Other 'amelia'/'carter' hits belong to different customers."
+  ],
+  "usage": [
+   {
+    "case_id": "case_148",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1062,
+    "output_tokens": 99,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_148",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 492,
+    "cache_creation_input_tokens": 4237,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_148",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 692,
+    "cache_creation_input_tokens": 12081,
+    "cache_read_input_tokens": 9108
+   },
+   {
+    "case_id": "case_148",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 753,
+    "cache_creation_input_tokens": 2215,
+    "cache_read_input_tokens": 21189
+   },
+   {
+    "case_id": "case_148",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 800,
+    "cache_creation_input_tokens": 10904,
+    "cache_read_input_tokens": 23404
+   },
+   {
+    "case_id": "case_148",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1885,
+    "cache_creation_input_tokens": 5002,
+    "cache_read_input_tokens": 34308
+   },
+   {
+    "case_id": "case_148",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1439,
+    "cache_creation_input_tokens": 2072,
+    "cache_read_input_tokens": 39310
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_146",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "carter",
+    "limit": 100
+   },
+   "output_chars": 7257
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "amelia",
+    "limit": 100
+   },
+   "output_chars": 11057
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9191"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_7239"
+   },
+   "output_chars": 3133
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_5716"
+   },
+   "output_chars": 2329
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "carter.amelia92@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2564
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "carter.amelia@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1a0f5a81c1dee63624bac89b8a0d6b94fe613445953360cf90ddd33632221318",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "41d2a764b95cc6d4338a1a87ffdadacea2b51a0d3793c3a0ffd125f5dfdaf334",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "447700900146",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Amelia Carter",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_9191",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_232",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_2949",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "146",
+    "limit": 100
+   },
+   "output_chars": 21508
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_15",
+    "offset": 0
+   },
+   "output_chars": 4513
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SUPPORT_MESSAGE"
+   },
+   "output_chars": 188
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SEARCH_INDEX_ENTRY"
+   },
+   "output_chars": 113
+  }
+ ]
+}

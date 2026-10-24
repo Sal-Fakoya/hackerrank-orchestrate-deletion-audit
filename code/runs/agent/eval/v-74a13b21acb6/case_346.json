@@ -1,0 +1,310 @@
+{
+ "case_id": "case_346",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1700",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_71"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_346",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_1700",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_71",
+    "reason": "Security audit record ACCOUNT_DELETION_RECORDED with subject_reference user_344 (the subject's user_id), observed 2026-04-29T07:50:23Z. retention_until 2031-12-31 is after audit_at, so the retention condition holds; record is retained and reported as PRESENT.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_486",
+    "reason": "Linked only via batch_run activity_1491 (deletion run shared with case_344 and case_345). No usable evidence ties this account to user_344, the subject email, hash or phone. Its PARTIAL/present status is only a workflow claim. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_5214",
+    "reason": "Linked only via shared batch run activity_1492. Current observation (evidence_71) is an identity-free 404 profile lookup with null profile, so it cannot be attributed to this subject. Rejected."
+   },
+   {
+    "resource_id": "account_8834",
+    "reason": "Linked only via shared batch run activity_1490. Current observation (evidence_71) is an identity-free 404 profile lookup with null profile, so it cannot be attributed to this subject. Rejected."
+   },
+   {
+    "resource_id": "analytics_3990",
+    "reason": "Linked only via shared batch run activity_1493. Analytics profile in evidence_71 has all identifiers null and no customer_reference, so it is identity-free and cannot be attributed to this subject. Rejected."
+   },
+   {
+    "resource_id": "analytics_7102",
+    "reason": "Linked only via shared batch run activity_1494. Analytics profile in evidence_71 has all identifiers null and no customer_reference, so it is identity-free and cannot be attributed to this subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer states they no longer use the account and asks for it to be permanently deleted under the personal-data deletion procedure, which is an erasure request for their own account and data. The request to confirm when review is complete is a follow-up on the same deletion and does not change the classification.",
+   "summary: Subject user_344 (stojanovic.marek@icloud.com). Searches on the user_id, email, name, phone and email hash found only one record tied to the subject: audit_record_1700 (security audit log, retention until 2031, so retained). The five batch-run candidates are shared with other requests and carry no identity linking them to this subject, so they were rejected. No subject-linked user profile, search, support, export, connector or backup records were found in the evidence window."
+  ],
+  "usage": [
+   {
+    "case_id": "case_346",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 120,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_346",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 848,
+    "cache_creation_input_tokens": 2537,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_346",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 710,
+    "cache_creation_input_tokens": 7046,
+    "cache_read_input_tokens": 7408
+   },
+   {
+    "case_id": "case_346",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 298,
+    "cache_creation_input_tokens": 3911,
+    "cache_read_input_tokens": 14454
+   },
+   {
+    "case_id": "case_346",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1359,
+    "cache_creation_input_tokens": 14688,
+    "cache_read_input_tokens": 18365
+   },
+   {
+    "case_id": "case_346",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1375,
+    "cache_creation_input_tokens": 24245,
+    "cache_read_input_tokens": 33053
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_344",
+    "limit": 100
+   },
+   "output_chars": 811
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "stojanovic.marek@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 67
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "stojanovi",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48555962450",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "3cd818c23625e61fe0b24a32523cb6b30418a8cc73d8f1baeb0bfed79abf4c28",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_486"
+   },
+   "output_chars": 1483
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5214"
+   },
+   "output_chars": 2123
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8834"
+   },
+   "output_chars": 2123
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3990"
+   },
+   "output_chars": 2267
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7102"
+   },
+   "output_chars": 2267
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1700"
+   },
+   "output_chars": 1642
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "marek",
+    "limit": 100
+   },
+   "output_chars": 1685
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_486",
+    "limit": 100
+   },
+   "output_chars": 656
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 2400
+   },
+   "output_chars": 4619
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-15T00:00:00Z",
+    "end": "2026-04-29T09:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31082
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "icloud",
+    "limit": 100
+   },
+   "output_chars": 41373
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Stojanovi",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-04-15T00:00:00Z",
+    "end": "2026-04-19T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 6860
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-18T07:00:00Z",
+    "end": "2026-04-18T09:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 1599
+  }
+ ]
+}

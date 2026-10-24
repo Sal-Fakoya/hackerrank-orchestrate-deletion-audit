@@ -1,0 +1,555 @@
+{
+ "case_id": "case_511",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_1035",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_47"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_1035",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_1035",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "legal_service",
+   "resource_id": "legal_hold_4887",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4883",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_511",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_1035",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_47",
+    "reason": "Customer profile for user_509 (Nicolás Fernández, nicolas.f550081@outlook.com, +34 733 038 927) still exists in the customer_data_reporting_replica at 2026-02-08T07:00:00Z with direct identifiers. The primary table no longer holds this row, so the replica copy is live and must be deleted. Deletion activity_262 (PARTIAL) and replication activity_271 are workflow claims and do not prove absence.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_4883",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_47",
+    "reason": "Security audit event account_deletion_reviewed for subject_reference user_509 is present in both primary and replica at audit_at. No supplied retention expiry for this record appears in evidence, so it stays within retention and must be retained (not deleted).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "legal_hold_4887",
+    "system_id": "legal_service",
+    "category": "LEGAL_HOLD_RECORD",
+    "state": "PRESENT",
+    "evidence_id": "evidence_47",
+    "reason": "Retained order record ORD-20264887 (payment dispute and tax record) for user_509 is present with retained_until 2033-12-31, so the legal hold is active at audit_at and the record must be retained.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3479",
+    "reason": "Linked only through batch_run activity_266, a run shared with other requests (case_494-510). Not present in any usable snapshot covering account_service and no evidence ties it to user_509 or the request email. Unattributable, so rejected."
+   },
+   {
+    "resource_id": "account_6049",
+    "reason": "Linked only through shared batch_run activity_263 (other cases' emails). No usable snapshot or identifier evidence links it to this subject; the snapshots that cover account_service do not contain it. Rejected as not attributable."
+   },
+   {
+    "resource_id": "account_6623",
+    "reason": "Linked only through shared batch_run activity_261 (other cases). No subject identifier evidence; absent from snapshots covering account_service. Rejected as not attributable."
+   },
+   {
+    "resource_id": "account_9784",
+    "reason": "Linked only through shared batch_run activity_265 (other cases). No subject identifier evidence; absent from snapshots covering account_service. Rejected as not attributable."
+   },
+   {
+    "resource_id": "data_flow_8899",
+    "reason": "Connector status activity only; no evidence links its subject_selector to this subject. Not attributed to this deletion subject."
+   },
+   {
+    "resource_id": "data_flow_3755",
+    "reason": "Connector status activity only; no evidence links it to this subject."
+   },
+   {
+    "resource_id": "data_flow_4612",
+    "reason": "Connector status activity only; no evidence links it to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to begin the deletion process for the account tied to their email address, handle copies within the deletion's scope, and confirm the result, which is a request to erase the person's own account and personal data.",
+   "summary: Subject user_509 (nicolas.f550081@outlook.com). Only account_1035 is a live profile: still present with PII in the reporting replica at audit_at (primary row gone, replica copy remains), so it must be deleted. audit_record_4883 (security audit, retained) and legal_hold_4887 (active hold to 2033, retained) are retained-and-present. Batch-linked accounts account_3479/6049/6623/9784 are from a run shared with other customers and have no subject-linking evidence, so they are rejected. No search index, cache, export, backup, support, or analytics records tied to this subject were found in usable evidence. Workflow PARTIALLY_COMPLETE is consistent with the replica still holding the profile."
+  ],
+  "usage": [
+   {
+    "case_id": "case_511",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 101,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_511",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 351,
+    "cache_creation_input_tokens": 1727,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_511",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 567,
+    "cache_creation_input_tokens": 15339,
+    "cache_read_input_tokens": 6598
+   },
+   {
+    "case_id": "case_511",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 484,
+    "cache_creation_input_tokens": 7033,
+    "cache_read_input_tokens": 21937
+   },
+   {
+    "case_id": "case_511",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 403,
+    "cache_creation_input_tokens": 8914,
+    "cache_read_input_tokens": 28970
+   },
+   {
+    "case_id": "case_511",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 418,
+    "cache_creation_input_tokens": 832,
+    "cache_read_input_tokens": 37884
+   },
+   {
+    "case_id": "case_511",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 890,
+    "cache_creation_input_tokens": 993,
+    "cache_read_input_tokens": 38716
+   },
+   {
+    "case_id": "case_511",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 971,
+    "cache_creation_input_tokens": 3405,
+    "cache_read_input_tokens": 39709
+   },
+   {
+    "case_id": "case_511",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 559,
+    "cache_creation_input_tokens": 5043,
+    "cache_read_input_tokens": 43114
+   },
+   {
+    "case_id": "case_511",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1069,
+    "cache_creation_input_tokens": 2605,
+    "cache_read_input_tokens": 48157
+   },
+   {
+    "case_id": "case_511",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1887,
+    "cache_creation_input_tokens": 2806,
+    "cache_read_input_tokens": 50762
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_509",
+    "limit": 50
+   },
+   "output_chars": 4396
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nicolas.f550081@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 957
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-20T00:00:00Z",
+    "end": "2026-02-08T07:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1035"
+   },
+   "output_chars": 2551
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3479"
+   },
+   "output_chars": 1196
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6049"
+   },
+   "output_chars": 1197
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6623"
+   },
+   "output_chars": 1196
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9784"
+   },
+   "output_chars": 1196
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4883"
+   },
+   "output_chars": 2237
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_4887"
+   },
+   "output_chars": 2406
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Fernández",
+    "limit": 50
+   },
+   "output_chars": 939
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f550081",
+    "limit": 50
+   },
+   "output_chars": 937
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_47",
+    "offset": 0
+   },
+   "output_chars": 4507
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%user_509%' OR record_json LIKE '%f550081%' OR record_json LIKE '%733038927%' OR record_json LIKE '%733 038 927%' OR record_json LIKE '%Fern%' OR record_json LIKE '%nicolas.f5500%'"
+   },
+   "output_chars": 698
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_reporting_replica WHERE record_json LIKE '%user_509%' OR record_json LIKE '%f550081%' OR record_json LIKE '%733%038%927%' OR record_json LIKE '%Fern%' OR record_json LIKE '%nicolas%' OR record_json LIKE '%fcd3f65f%' OR record_json LIKE '%ffcccdd8%'"
+   },
+   "output_chars": 1003
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE resource_id LIKE 'account_%' AND (record_json LIKE '%nicol%' OR record_json LIKE '%user_50%' OR record_json LIKE '%fernandez%')"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at FROM customer_data_reporting_replica WHERE resource_id IN ('account_3479','account_6049','account_6623','account_9784','account_1035','audit_record_4883','legal_hold_4887')"
+   },
+   "output_chars": 350
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fcd3f65f30c54b0be9a7ca24054c364b7f3a5586b11f1132d4ae20e9c31b84d3",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ffcccdd81c7d5fbfe33fd37d71d01bc80b52049f246c0914f3d1ef8af4856e56",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nicolas.f5500@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 65
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "733038927",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_509",
+    "limit": 50
+   },
+   "output_chars": 4396
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 4000
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 6000
+   },
+   "output_chars": 4655
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "LEGAL_HOLD_RECORD"
+   },
+   "output_chars": 137
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_4883",
+    "limit": 50
+   },
+   "output_chars": 1845
+  },
+  {
+   "turn": 8,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_4883",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 8,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "legal_hold_4887",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 317
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1035",
+    "limit": 50
+   },
+   "output_chars": 2160
+  },
+  {
+   "turn": 9,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_8899"
+   },
+   "output_chars": 1219
+  },
+  {
+   "turn": 9,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_3755"
+   },
+   "output_chars": 1219
+  },
+  {
+   "turn": 9,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_4612"
+   },
+   "output_chars": 1219
+  }
+ ]
+}

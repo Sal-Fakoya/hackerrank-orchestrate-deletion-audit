@@ -1,0 +1,631 @@
+{
+ "case_id": "case_17",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "backup_service",
+   "resource_id": "backup_3245",
+   "operation": "REPORT_RESTORE_RISK",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_01"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_3245",
+   "operation": "BLOCK_RESTORE",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4092",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_6523",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1797",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_3245",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_17",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4092",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_01",
+    "reason": "In-window profile lookup keyed on the subject's email (trace tr-4708586, 2026-09-15 11:51) returned 404 from the primary route after retry, so the profile no longer exists. account_4092 was submitted in deletion run activity_3383 (reported FAILED, a workflow claim), and that run is shared with case_15; it is still attributed here because the subject's own email lookup resolved to this resource. Compliant as ABSENT; keep verifying because the run also serves another customer.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "account_6523",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_92",
+    "reason": "The subject's email lookup in the earlier case_46 episode (evidence_67, 2026-03-10) resolved to account_6523 with 404. In-window, deletion worker activity_3850 (2026-09-15 09:56) submitted it, and the 2026-09-15 11:44 account_service export does not list it. ABSENT; the deletion claim is supported by the export rather than the SUCCESS label alone.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1797",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_01",
+    "reason": "Security audit record with correlation_key user_17 read successfully on 2026-09-15 (trace tr-6639210, integrity passed). No supplied retention end date for this record shows it has expired, so the RETAIN rule applies and the record stays available (PRESENT).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_3245",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "RESTORABLE",
+    "evidence_id": "evidence_01",
+    "reason": "Restore policy check for the subject's key (trace tr-8210651, 2026-09-15 11:54) returned restore_candidate eligible=true, deletion_block=false. The archive can still restore the subject's personal profile, which the customer does not want. Restore must be blocked, while the backup itself can be retained.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "tombstone_17",
+    "reason": "ACCOUNT_TOMBSTONE linked to user_17 and the subject's email (activity_4011) comes only from the earlier case_46 episode (2026-03-10). No evidence captured between this request (2026-08-19) and audit_at mentions it, so it is out of this episode's scope. Not counted as a current fact."
+   },
+   {
+    "resource_id": "user_17 customer reference registry record (evidence_42)",
+    "reason": "Customer reference image from 2026-03-10, which is before this request and belongs to the earlier case_46 episode. Not in scope."
+   },
+   {
+    "resource_id": "ORD-20264319 / legal register row (evidence_27)",
+    "reason": "Chargeback row for user_17 in the May 2026 finance register. It is not captured in this request's window and no in-window evidence mentions it, so it does not count as an active legal hold for this episode."
+   },
+   {
+    "resource_id": "analytics_5886 / search_7672 (leonie-moreau@gmail.com, evidence_86)",
+    "reason": "Records belong to a different person (Leonie Moreau, a different email) and were captured before the request. Attribution fails the exact-match identifier test."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to permanently close their own account and that backups must not be able to restore their personal profile, which is a request for erasure of their own account and personal data. Allowing backups to be retained if required does not negate the deletion request.",
+   "summary: Case case_17 (leonie.g9352@outlook.com, user_17). In-window evidence ties four resources to this subject: account_4092 and account_6523 (user profiles, both ABSENT), audit_record_1797 (security audit log, retained, PRESENT), and backup_3245 (backup archive that is still RESTORABLE and must be blocked). The request's identifiers do not appear in any in-window search-index, support, analytics, export or connector record, and no ACTIVE data flow was tied to this subject. tombstone_17 and other user_17 records appear only in the earlier case_46 window and are excluded. Caveat: account_4092 was processed in a run shared with case_15; it is attributed through the subject's email lookup."
+  ],
+  "usage": [
+   {
+    "case_id": "case_17",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1040,
+    "output_tokens": 107,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_17",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 453,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 10273
+   },
+   {
+    "case_id": "case_17",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 586,
+    "cache_creation_input_tokens": 3830,
+    "cache_read_input_tokens": 10273
+   },
+   {
+    "case_id": "case_17",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 676,
+    "cache_creation_input_tokens": 9701,
+    "cache_read_input_tokens": 14103
+   },
+   {
+    "case_id": "case_17",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 447,
+    "cache_creation_input_tokens": 4440,
+    "cache_read_input_tokens": 23804
+   },
+   {
+    "case_id": "case_17",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 439,
+    "cache_creation_input_tokens": 3673,
+    "cache_read_input_tokens": 28244
+   },
+   {
+    "case_id": "case_17",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 553,
+    "cache_creation_input_tokens": 12845,
+    "cache_read_input_tokens": 31917
+   },
+   {
+    "case_id": "case_17",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3052,
+    "cache_creation_input_tokens": 1985,
+    "cache_read_input_tokens": 44762
+   },
+   {
+    "case_id": "case_17",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2429,
+    "cache_creation_input_tokens": 6393,
+    "cache_read_input_tokens": 46747
+   },
+   {
+    "case_id": "case_17",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 585,
+    "cache_creation_input_tokens": 5234,
+    "cache_read_input_tokens": 53140
+   },
+   {
+    "case_id": "case_17",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 4010,
+    "cache_creation_input_tokens": 18037,
+    "cache_read_input_tokens": 58374
+   },
+   {
+    "case_id": "case_17",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2718,
+    "cache_creation_input_tokens": 9672,
+    "cache_read_input_tokens": 76411
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "leonie.g9352@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 3210
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_17",
+    "limit": 100
+   },
+   "output_chars": 3568
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "léonie girard",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33650561706",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "54cf4f530165a1f0cff508db09db2df1414e78cba6e83adb0e298515176b0989",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "tombstone_17"
+   },
+   "output_chars": 863
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4092"
+   },
+   "output_chars": 2478
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6523"
+   },
+   "output_chars": 2096
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1797"
+   },
+   "output_chars": 1416
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_3245"
+   },
+   "output_chars": 2483
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "g9352",
+    "limit": 100
+   },
+   "output_chars": 3191
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "girard",
+    "limit": 100
+   },
+   "output_chars": 6815
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_01",
+    "offset": 0
+   },
+   "output_chars": 4241
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_51",
+    "offset": 0
+   },
+   "output_chars": 2266
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 4,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_01",
+    "trace_id": "tr-4708586"
+   },
+   "output_chars": 1117
+  },
+  {
+   "turn": 4,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_01",
+    "trace_id": "tr-8210651"
+   },
+   "output_chars": 1107
+  },
+  {
+   "turn": 4,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_01",
+    "trace_id": "tr-6639210"
+   },
+   "output_chars": 322
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_01",
+    "offset": 2000
+   },
+   "output_chars": 4248
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-19T00:00:00Z",
+    "end": "2026-09-15T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30969
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-22T10:00:00Z",
+    "end": "2026-08-22T13:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 2885
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "tombstone_17",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 363
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_1797",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Leonie",
+    "limit": 100
+   },
+   "output_chars": 5640
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "650561706",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_15",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tombstone_17",
+    "limit": 100
+   },
+   "output_chars": 617
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_3383",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ORD-20264319",
+    "limit": 50
+   },
+   "output_chars": 1300
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_1797",
+    "limit": 50
+   },
+   "output_chars": 590
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ORD-20263245",
+    "limit": 50
+   },
+   "output_chars": 1004
+  },
+  {
+   "turn": 8,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 100
+   },
+   "output_chars": 35939
+  },
+  {
+   "turn": 9,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "LEGAL_HOLD_RECORD"
+   },
+   "output_chars": 137
+  },
+  {
+   "turn": 9,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "BACKUP_ARCHIVE"
+   },
+   "output_chars": 132
+  },
+  {
+   "turn": 9,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "9352",
+    "limit": 50
+   },
+   "output_chars": 3190
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Léonie",
+    "limit": 50
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "leonie.g",
+    "limit": 50
+   },
+   "output_chars": 3194
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6523",
+    "limit": 50
+   },
+   "output_chars": 1265
+  },
+  {
+   "turn": 10,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_92",
+    "offset": 0
+   },
+   "output_chars": 4638
+  }
+ ]
+}

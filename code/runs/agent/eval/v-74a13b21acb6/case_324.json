@@ -1,0 +1,495 @@
+{
+ "case_id": "case_324",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_1242",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4466",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_7249",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4769",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_6458",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": "evidence_73"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_324",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_1242",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_73",
+    "reason": "Lookup keyed by the subject's email lmolefe4647@fastmail.com on 2026-05-09 (trace rb-090726-015) returned 404 with rows=0, so the profile no longer exists. Compliant for a DELETE category. Its earlier deletion activity (activity_1641) is only a workflow claim.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_4466",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_73",
+    "reason": "Security audit record references subject user_322 (IDENTITY_CHANGE_RECORDED) and is readable on 2026-05-09. retention_until=2034-09-30, so it is within the retention period and must be retained (verified as PRESENT).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_6458",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "BLOCKED",
+    "evidence_id": "evidence_73",
+    "reason": "Restore policy read on 2026-05-09 (trace rb-083631-013) shows archive_present=true, restore_allowed=false for customer_reference user_322. Restore of the subject's data is blocked, so the backup is retained as BLOCKED.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_4769",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "DISABLED",
+    "evidence_id": "evidence_73",
+    "reason": "Connector search_profile_indexer config read on 2026-05-09 (trace rb-081345-005) shows enabled=false, last_delivery_status=stopped, customer_reference user_322. The flow cannot recreate the subject's data.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_7249",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "TREATED",
+    "evidence_id": "evidence_73",
+    "reason": "Support ticket read on 2026-05-09 (trace rb-102819-029) shows customer_reference user_322 only; requester_name, requester_email and requester_phone are all null. Only the stable internal reference remains, so the REDACT requirement is met.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2595",
+    "reason": "Linked only through the deletion-worker run activity_1640, which is shared with case_323 and case_325. No usable evidence in the window ties account_2595 to this subject; no lookup or snapshot references it. Rejected as not attributable to this subject."
+   },
+   {
+    "resource_id": "analytics_136",
+    "reason": "Linked only through the shared batch run activity_1642. The only readback (evidence_73, rb-093016-018) is an identity-free profile with all identifiers null and audience_cohort=mobile_browser. It cannot be attributed to this subject, so it is rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests permanent account deletion and asks that copies within scope be handled, with a confirmation once complete. This is a clear erasure request for their own account and data.",
+   "summary: Subject user_322 / lmolefe4647@fastmail.com. Verified from the 2026-05-09 readback logs (evidence_73): account_1242 is absent (email lookup 404). Audit record audit_record_4466 is present and must be retained (retention to 2034). backup_6458 is restore-blocked. data_flow_4769 is disabled. support_7249 is treated (only user_322 remains). Rejected account_2595 and analytics_136 as unattributable shared-run candidates. Snapshots (evidence_72) contain no other rows for user_322, and no hits for the phone, hash, or name Lindiwe Molefe (the only \"Lindiwe\" hits belong to another customer). Workflow COMPLETE claims were not relied on."
+  ],
+  "usage": [
+   {
+    "case_id": "case_324",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1063,
+    "output_tokens": 93,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_324",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 644,
+    "cache_creation_input_tokens": 2789,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_324",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 886,
+    "cache_creation_input_tokens": 8949,
+    "cache_read_input_tokens": 7660
+   },
+   {
+    "case_id": "case_324",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 598,
+    "cache_creation_input_tokens": 15311,
+    "cache_read_input_tokens": 16609
+   },
+   {
+    "case_id": "case_324",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 616,
+    "cache_creation_input_tokens": 4844,
+    "cache_read_input_tokens": 31920
+   },
+   {
+    "case_id": "case_324",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 739,
+    "cache_creation_input_tokens": 1347,
+    "cache_read_input_tokens": 36764
+   },
+   {
+    "case_id": "case_324",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2988,
+    "cache_creation_input_tokens": 2382,
+    "cache_read_input_tokens": 38111
+   },
+   {
+    "case_id": "case_324",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1788,
+    "cache_creation_input_tokens": 5389,
+    "cache_read_input_tokens": 40493
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1242"
+   },
+   "output_chars": 2084
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2595"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_136"
+   },
+   "output_chars": 2125
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4466"
+   },
+   "output_chars": 1601
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_6458"
+   },
+   "output_chars": 2143
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_4769"
+   },
+   "output_chars": 2197
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_7249"
+   },
+   "output_chars": 2101
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lmolefe4647@fastmail.com",
+    "limit": 50
+   },
+   "output_chars": 667
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_322",
+    "limit": 50
+   },
+   "output_chars": 2841
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "molefe",
+    "limit": 50
+   },
+   "output_chars": 649
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-27T00:00:00Z",
+    "end": "2026-05-09T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31274
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27728047471",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f077cd09e816d61f0f5de774ac0c841068b0072858e2adbb64a37b926dab2243",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Lindiwe",
+    "limit": 50
+   },
+   "output_chars": 1715
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_2595",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_136",
+    "limit": 50
+   },
+   "output_chars": 1303
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_33",
+    "sql": null
+   },
+   "output_chars": 757
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_71",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-29T09:00:00Z",
+    "end": "2026-04-29T11:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 2809
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents UNION ALL SELECT 'analytics', resource_id, customer_reference, audience_cohort, email, phone, email_hash, updated_at FROM customer_analytics_profiles UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records UNION ALL SELECT 'conn', resource_id, customer_reference, connector_name, customer_email, enabled, last_delivery_status, updated_at FROM connector_subscriptions UNION ALL SELECT 'backup', resource_id, customer_reference, archive_key, customer_email, restore_allowed, updated_at FROM backup_restore_entries UNION ALL SELECT 'audit', resource_id, subject_reference, event_code, retention_until, updated_at FROM security_audit_records"
+   },
+   "output_chars": 101
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles"
+   },
+   "output_chars": 212
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents"
+   },
+   "output_chars": 835
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT resource_id, customer_reference, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles"
+   },
+   "output_chars": 401
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records"
+   },
+   "output_chars": 551
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status, updated_at FROM connector_subscriptions"
+   },
+   "output_chars": 604
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT resource_id, subject_reference, event_code, retention_until, updated_at FROM security_audit_records"
+   },
+   "output_chars": 436
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lmolefe",
+    "limit": 50
+   },
+   "output_chars": 650
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "728047471",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_322",
+    "limit": 50
+   },
+   "output_chars": 2841
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_324",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-27T11:00:00Z",
+    "end": "2026-05-09T11:00:00Z",
+    "limit": 5
+   },
+   "output_chars": 1695
+  }
+ ]
+}

@@ -1,0 +1,548 @@
+{
+ "case_id": "case_98",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3165",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3165",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_3165",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_98",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "data_flow_3165",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_89",
+    "reason": "Connector analytics_identity_bridge (data_flow_3165) is enabled, last delivery 'delivered', and its exported record carries the subject's email maja.eriksen86@gmail.com as of 2026-09-01T03:43:18Z. It can keep copying or recreating the subject's data, so it must be disabled. The workflow's CHECK_DATA_FLOW claim (activity_3141) that it 'remains enabled' is consistent but is not the proof here; the direct export is.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1034",
+    "reason": "Only linked to the deletion-worker batch run activity_3136, which was shared with case_99 and case_100. No usable evidence ties this account to maja.eriksen86 or user_96; the DELETE_RECORD SUCCESS and absent hint are workflow claims. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_7927",
+    "reason": "Only linked to shared batch run activity_3135 (shared with case_99 and case_100). No evidence ties it to this subject; not attributable."
+   },
+   {
+    "resource_id": "account_9511",
+    "reason": "Only linked to shared batch run activity_3137 (shared with case_99 and case_100). No evidence ties it to this subject; not attributable."
+   },
+   {
+    "resource_id": "legal_hold_668",
+    "reason": "Linked only via shared batch run activity_3138 (shared with case_99 and case_100). The May 2026 legal retention register (evidence_27) does not list legal_hold_668 and nothing ties it to this subject. Not in scope for this subject."
+   },
+   {
+    "resource_id": "backup_7804",
+    "reason": "Restore entry in evidence_89 carries customer_email i.horvat72@gmail.com, which belongs to another request (case_99), not to this subject. Not attributable to maja.eriksen86 despite the restore-access check in activity_3142."
+   },
+   {
+    "resource_id": "support_1630",
+    "reason": "Support ticket in evidence_89 has requester_email nasser.mariam88@gmail.com, which belongs to another request (case_100). Not this subject's record."
+   },
+   {
+    "resource_id": "search_018",
+    "reason": "Search document in evidence_89 matches nasser.mariam88@gmail.com (another request's subject). Not this subject's record."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests permanent account deletion and inclusion of associated records, which is erasure of the person's own account and personal data; the request for confirmation is a follow-up on the same deletion and does not change the classification.",
+   "summary: Searches for the subject's emails, email hashes, phone, user_id user_96 and name found only one resource tied to maja.eriksen86: data_flow_3165 (analytics_identity_bridge connector), which is still enabled and delivering as of 2026-09-01 (evidence_89), so it must be disabled. The three account candidates, the legal hold, and the backup/support/search hits belong to other shared runs or other subjects and were rejected. No subject-owned search index, cache, profile, analytics, or export records were found in usable evidence; the workflow's COMPLETE claim is not supported because the active connector remains."
+  ],
+  "usage": [
+   {
+    "case_id": "case_98",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 107,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_98",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 568,
+    "cache_creation_input_tokens": 4926,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_98",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 740,
+    "cache_creation_input_tokens": 4910,
+    "cache_read_input_tokens": 9797
+   },
+   {
+    "case_id": "case_98",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 669,
+    "cache_creation_input_tokens": 7236,
+    "cache_read_input_tokens": 14707
+   },
+   {
+    "case_id": "case_98",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 498,
+    "cache_creation_input_tokens": 6532,
+    "cache_read_input_tokens": 21943
+   },
+   {
+    "case_id": "case_98",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 551,
+    "cache_creation_input_tokens": 2449,
+    "cache_read_input_tokens": 28475
+   },
+   {
+    "case_id": "case_98",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 338,
+    "cache_creation_input_tokens": 15023,
+    "cache_read_input_tokens": 30924
+   },
+   {
+    "case_id": "case_98",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1309,
+    "cache_creation_input_tokens": 4512,
+    "cache_read_input_tokens": 45947
+   },
+   {
+    "case_id": "case_98",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 322,
+    "cache_creation_input_tokens": 3457,
+    "cache_read_input_tokens": 50459
+   },
+   {
+    "case_id": "case_98",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 575,
+    "cache_creation_input_tokens": 850,
+    "cache_read_input_tokens": 53916
+   },
+   {
+    "case_id": "case_98",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1408,
+    "cache_creation_input_tokens": 728,
+    "cache_read_input_tokens": 54766
+   },
+   {
+    "case_id": "case_98",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1427,
+    "cache_creation_input_tokens": 7122,
+    "cache_read_input_tokens": 55494
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "maja.eriksen86@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 853
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_96",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "maja eriksen",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1034"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7927"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9511"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_3165"
+   },
+   "output_chars": 2288
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_668"
+   },
+   "output_chars": 1455
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "maja.eriksen@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1d4f8cdcb5b9be2e4f7328c895e3ae296356f1ecc71224d3adec7001c69d373a",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "cc009487604f6f57b71e79b264f5b95432d2dfcf9b0ea02f95116e97a0eb2cc2",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46705640930",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "maja",
+    "limit": 100
+   },
+   "output_chars": 10694
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "eriksen",
+    "limit": 100
+   },
+   "output_chars": 2788
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "None",
+    "event_type": "None",
+    "start": "2026-08-06T00:00:00Z",
+    "end": "2026-09-01T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_14",
+    "offset": 0
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 4000
+   },
+   "output_chars": 4611
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "data_flow_3165",
+    "event_type": "None",
+    "start": "2026-08-01T00:00:00Z",
+    "end": "2026-09-01T06:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "activity_3135",
+    "event_type": "None",
+    "start": "2026-08-06T00:00:00Z",
+    "end": "2026-09-01T06:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-06T00:00:00Z",
+    "end": "2026-09-01T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31240
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 8000
+   },
+   "output_chars": 1735
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_87",
+    "sql": "SELECT * FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 2406
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-06T05:00:00Z",
+    "end": "2026-08-07T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 5067
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_7804"
+   },
+   "output_chars": 2248
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_1630"
+   },
+   "output_chars": 2326
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT resource_id, email, email_hash, phone, full_name, customer_reference, account_status FROM customer_profiles WHERE email LIKE '%eriksen%' OR full_name LIKE '%Eriksen%' OR email_hash LIKE '1d4f%' OR email_hash LIKE 'cc00%' OR phone LIKE '%705640930%' OR customer_reference='user_96'"
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_87",
+    "sql": "SELECT 'profile' t, resource_id, email, email_hash, phone, full_name, customer_reference, account_status FROM customer_profiles WHERE email LIKE '%eriksen%' OR full_name LIKE '%Eriksen%' OR customer_reference='user_96' OR phone LIKE '%705640930%' UNION ALL SELECT 'search', resource_id, email, email_hash, phone, display_name, customer_reference, index_name FROM customer_search_documents WHERE email LIKE '%eriksen%' OR display_name LIKE '%Eriksen%' OR customer_reference='user_96'"
+   },
+   "output_chars": 130
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT * FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 793
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_read_replica WHERE record_json LIKE '%eriksen%' OR record_json LIKE '%user_96%' OR record_json LIKE '%705640930%' OR record_json LIKE '%1d4f8%' OR record_json LIKE '%cc0094%' OR record_json LIKE '%maja%'"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 9,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_87",
+    "sql": "SELECT 'p', resource_id, email, email_hash, phone, full_name, customer_reference FROM customer_profiles WHERE email LIKE '%maja%' OR full_name LIKE '%maja%' OR customer_reference LIKE '%96%' UNION ALL SELECT 's', resource_id, email, email_hash, phone, display_name, customer_reference FROM customer_search_documents WHERE email LIKE '%maja%' OR display_name LIKE '%maja%' OR email_hash IS NOT NULL UNION ALL SELECT 'e', resource_id, owner_email, NULL, owner_phone, object_key, customer_reference FROM customer_exports WHERE owner_email LIKE '%maja%'"
+   },
+   "output_chars": 114
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_3165",
+    "limit": 50
+   },
+   "output_chars": 1470
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_identity_bridge",
+    "limit": 50
+   },
+   "output_chars": 10125
+  },
+  {
+   "turn": 10,
+   "tool": "search_evidence",
+   "input": {
+    "query": "i.horvat72@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 820
+  }
+ ]
+}

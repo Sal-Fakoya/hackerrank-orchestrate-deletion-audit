@@ -1,0 +1,449 @@
+{
+ "case_id": "case_232",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_9862",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_80"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9862",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7757",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9862",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_232",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "support_9862",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_80",
+    "reason": "Support ticket record exported 2026-06-28T06:25:56Z (before audit_at) still exposes requester_email gyasi.efua@gmail.com, a direct identifier of the subject. It is linked directly to the subject's email and is a support conversation with delivery context, so it must be redacted rather than deleted. The workflow REDACT claim (activity_2309) reported FAILED and is not relied on.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1956",
+    "reason": "Linked only through deletion-worker batch run activity_2306, which is shared with other requests (case_215, case_216, case_217, case_230, case_231). No usable evidence ties this account to the subject's email, hash, phone or user_230. Not attributable to this subject; not included."
+   },
+   {
+    "resource_id": "account_7324",
+    "reason": "Linked only through shared batch run activity_2300. Its only observation (evidence_80) is an identity-free 404 lookup in a shared run, so it cannot be attributed to the subject. Not included."
+   },
+   {
+    "resource_id": "account_8165",
+    "reason": "Linked only through shared batch run activity_2298 (shared with other cases). No evidence ties it to this subject. Not included."
+   },
+   {
+    "resource_id": "account_8936",
+    "reason": "Linked only through shared batch run activity_2299 (shared with other cases). No evidence ties it to this subject. Not included."
+   },
+   {
+    "resource_id": "account_9682",
+    "reason": "Linked only through shared batch run activity_2304 (shared with other cases). No evidence ties it to this subject. Not included."
+   },
+   {
+    "resource_id": "analytics_1544",
+    "reason": "Linked only through shared batch run activity_2301. Its profile in evidence_80 has all-null identifiers (general_shopper cohort), so it is identity-free and cannot be attributed to the subject in a shared run. Not included."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to close their account and process the associated personal-data deletion, which is erasure of their own data and account. The request for a confirmation afterward does not change this.",
+   "summary: Subject gyasi.efua@gmail.com (user_230). Only one resource is positively tied to the subject in the episode window: support_9862 (support ticket with the subject's requester_email, present at 2026-06-28T06:15Z), which needs REDACT. The batch-run candidates (account_1956, account_7324, account_8165, account_8936, account_9682, analytics_1544) were linked only through a deletion run shared with other requests and carry no subject identifiers, so they were rejected. No secondary identifiers, backups, connectors or exports tied to the subject were found by searching the email, hash, phones, user_id and name. The workflow COMPLETE claim is not supported for support_9862, which is still present with the subject's email.",
+   "future verification added for audit_record_7757 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_232",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 92,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_232",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 475,
+    "cache_creation_input_tokens": 4032,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_232",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 576,
+    "cache_creation_input_tokens": 15489,
+    "cache_read_input_tokens": 8903
+   },
+   {
+    "case_id": "case_232",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 687,
+    "cache_creation_input_tokens": 8323,
+    "cache_read_input_tokens": 24392
+   },
+   {
+    "case_id": "case_232",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1413,
+    "cache_creation_input_tokens": 9889,
+    "cache_read_input_tokens": 32715
+   },
+   {
+    "case_id": "case_232",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 314,
+    "cache_creation_input_tokens": 11088,
+    "cache_read_input_tokens": 42604
+   },
+   {
+    "case_id": "case_232",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 462,
+    "cache_creation_input_tokens": 343,
+    "cache_read_input_tokens": 53692
+   },
+   {
+    "case_id": "case_232",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 523,
+    "cache_creation_input_tokens": 1790,
+    "cache_read_input_tokens": 54035
+   },
+   {
+    "case_id": "case_232",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1427,
+    "cache_creation_input_tokens": 3265,
+    "cache_read_input_tokens": 55825
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "gyasi.efua@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 903
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_230",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-08T00:00:00Z",
+    "end": "2026-06-28T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31355
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 4000
+   },
+   "output_chars": 4615
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1956"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7324"
+   },
+   "output_chars": 2120
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8165"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8936"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9682"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1544"
+   },
+   "output_chars": 2261
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_9862"
+   },
+   "output_chars": 2328
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "efua gyasi",
+    "limit": 100
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46ebec8a58e51d5dcfa8229221a6af5e9052e10a9e076165367c7d4d1d281788",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233246430035",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233249837846",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-08T00:00:00Z",
+    "end": "2026-06-12T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 22298
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-06-08T00:00:00Z",
+    "end": "2026-06-28T07:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 22804
+  },
+  {
+   "turn": 4,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_25",
+    "trace_id": "activity_2298"
+   },
+   "output_chars": 68
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM customer_profiles; SELECT * FROM customer_search_documents; SELECT * FROM support_records; SELECT * FROM customer_analytics_profiles; SELECT * FROM connector_subscriptions; SELECT * FROM customer_exports"
+   },
+   "output_chars": 58
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM customer_profiles"
+   },
+   "output_chars": 364
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM customer_search_documents"
+   },
+   "output_chars": 836
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM support_records"
+   },
+   "output_chars": 556
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM customer_analytics_profiles"
+   },
+   "output_chars": 513
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM connector_subscriptions"
+   },
+   "output_chars": 265
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "gyasi",
+    "limit": 100
+   },
+   "output_chars": 3426
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "efua",
+    "limit": 100
+   },
+   "output_chars": 887
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_20",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_9862",
+    "limit": 50
+   },
+   "output_chars": 1513
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+{
+  "exported_at": "2026-09-14T09:00:00Z",
+  "source": "security_audit_service",
+  "collection": "security_audit_records",
+  "note": "SYNTHETIC evidence for custom evaluation case custom_11 only; never part of a real run.",
+  "records": [
+    {
+      "resource_id": "audit_record_99001",
+      "subject_reference": "user_15",
+      "event_code": "MARKETING_CONSENT_RECORDED",
+      "recorded_at": "2019-06-30T10:00:00Z",
+      "retention_until": "2026-06-30T23:59:59Z"
+    },
+    {
+      "resource_id": "audit_record_1596",
+      "subject_reference": "user_15",
+      "event_code": "SUBJECT_REQUEST_AUDITED",
+      "recorded_at": "2026-08-22T11:05:00Z",
+      "retention_until": "2033-08-22T23:59:59Z"
+    }
+  ]
+}

@@ -1,0 +1,206 @@
+{
+ "case_id": "case_245",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_4010",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_78"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_4010",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_4010",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_245",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "analytics_4010",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_78",
+    "reason": "Customer analytics profile in customer_analytics_profiles (captured 2026-06-18T11:44:03Z, before audit_at) still holds the subject's direct email nana-appiah@gmail.com, so it remains attributable to the user and must be anonymized. The workflow's ANONYMIZE_RECORD activity (activity_2243) reported FAILED, consistent with the row still being present. No other in-episode evidence links to this subject.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "search_8417",
+    "reason": "Indexes appiah.ama80@icloud.com, a different email from the subject's current or historical identifiers; no link to this subject found."
+   },
+   {
+    "resource_id": "account_7503",
+    "reason": "Lookup key appiah.ama80@icloud.com, a different person's email; not this subject."
+   },
+   {
+    "resource_id": "data_flow_6953",
+    "reason": "Connector references kofi.appiah96@outlook.com, a different person; not this subject."
+   },
+   {
+    "resource_id": "search_2591",
+    "reason": "Record belongs to Nana Addo (nana.a7986@zoho.com, user_503), a different person."
+   },
+   {
+    "resource_id": "data_flow_5281",
+    "reason": "Connector subject_selector is nana.a7986@zoho.com, a different person."
+   },
+   {
+    "resource_id": "account_2854",
+    "reason": "Nana Mensah (n.mensah16@gmail.com, user_373), a different person."
+   },
+   {
+    "resource_id": "data_flow_2439",
+    "reason": "Connector subject selector user_275, a different customer; no link to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete this account and its personal data, and to handle copies within scope of the deletion, which is a request for erasure of their own data.",
+   "summary: Only one resource in this episode is linked to the subject: analytics_4010 (ANALYTICS_PROFILE), still PRESENT with the subject's direct email at audit_at, so it needs anonymization. Searches on the subject's email, user_243, name, phone and email hash found no other in-episode records. Similar-name records (appiah.ama80, kofi.appiah96, Nana Addo, Nana Mensah) belong to other people and were rejected."
+  ],
+  "usage": [
+   {
+    "case_id": "case_245",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1061,
+    "output_tokens": 86,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_245",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 430,
+    "cache_creation_input_tokens": 3048,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_245",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 394,
+    "cache_creation_input_tokens": 1031,
+    "cache_read_input_tokens": 7919
+   },
+   {
+    "case_id": "case_245",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1315,
+    "cache_creation_input_tokens": 10124,
+    "cache_read_input_tokens": 8950
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nana-appiah@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 716
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_243",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nana appiah",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233244460431",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "907194c8e56b7c083d7eec62f2ea2b0d1ee0ce99b14acaaf4d547511b4f1515d",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4010"
+   },
+   "output_chars": 2167
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "appiah",
+    "limit": 100
+   },
+   "output_chars": 4719
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nana",
+    "limit": 100
+   },
+   "output_chars": 4876
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "243",
+    "limit": 100
+   },
+   "output_chars": 9175
+  }
+ ]
+}

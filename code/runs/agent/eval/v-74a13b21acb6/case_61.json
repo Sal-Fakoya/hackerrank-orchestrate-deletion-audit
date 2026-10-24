@@ -1,0 +1,474 @@
+{
+ "case_id": "case_61",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "object_storage",
+   "resource_id": "object_19",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "activity_4007"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "object_storage",
+   "resource_id": "object_19",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "object_storage",
+   "resource_id": "object_19",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_887",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_2055",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_61",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "object_19",
+    "system_id": "object_storage",
+    "category": "SUPPORT_ATTACHMENT",
+    "state": "PRESENT",
+    "evidence_id": "activity_4007",
+    "reason": "Attachment delivery_confirmation_19.pdf was confirmed by the data catalog on 2026-02-13 (after the request, before audit_at) as belonging only to priya.raman@gmail.com and user_07, with no other subject linked. The attachment therefore still exists and must be deleted. Note: the object storage screenshot evidence_46 has no readable content, so existence rests on the catalog observation.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_887",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "ABSENT",
+    "evidence_id": "evidence_63",
+    "reason": "The deletion run activity_531 reported FAILED and the workflow claims present, but that is a claim. The search_service snapshot captured 2026-02-13T07:43:27Z (inside the request window, before audit_at) covers search_service and contains no search_887 entry or any entry for this subject. Record is absent at audit_at. Linked only through the deletion worker run, with no shared-run evidence tying it to another customer.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_2055",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_63",
+    "reason": "The deletion run activity_529 reported FAILED (claim, shown as present). The support_platform snapshot captured 2026-02-13T07:43:27Z covers support_platform and its support_records table does not contain support_2055 or any record for this subject. Record is absent at audit_at. The exact support record type could not be read from the evidence; the category is a best judgement and the state is ABSENT, so no remaining personal data was observed.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "user_07 / account profile",
+    "reason": "No account profile for priya.raman, the user_07 id, the phone or the email hash appears in any usable snapshot captured in the request window (evidence_63 customer_profiles lists other customers only), so no USER_PROFILE resource is in scope at audit_at."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests permanent deletion of their account and asks the shop to verify the connected records and confirm the final outcome, which is a follow-up on the erasure request and falls under deletion.",
+   "summary: Subject priya.raman (user_07). Three candidates reviewed. object_19 is a subject-only support attachment still present (DELETE needed). search_887 and support_2055 were reported FAILED/present by workflow, but the 2026-02-13 snapshot (evidence_63) lacks them, so they are absent at audit_at. No other subject records were found by email, user_id, name, phone, or hash searches. The pre-request snapshots (evidence_47, evidence_49, evidence_62) predate the window and show no subject records. Caveat: the object storage screenshot (evidence_46) has no readable content, and the support_2055 record type is unknown."
+  ],
+  "usage": [
+   {
+    "case_id": "case_61",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 100,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_61",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 409,
+    "cache_creation_input_tokens": 992,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_61",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 474,
+    "cache_creation_input_tokens": 3035,
+    "cache_read_input_tokens": 5863
+   },
+   {
+    "case_id": "case_61",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 729,
+    "cache_creation_input_tokens": 8314,
+    "cache_read_input_tokens": 8898
+   },
+   {
+    "case_id": "case_61",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 893,
+    "cache_creation_input_tokens": 9321,
+    "cache_read_input_tokens": 17212
+   },
+   {
+    "case_id": "case_61",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1138,
+    "cache_creation_input_tokens": 2814,
+    "cache_read_input_tokens": 26533
+   },
+   {
+    "case_id": "case_61",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1717,
+    "cache_creation_input_tokens": 8353,
+    "cache_read_input_tokens": 29347
+   },
+   {
+    "case_id": "case_61",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1592,
+    "cache_creation_input_tokens": 2713,
+    "cache_read_input_tokens": 37700
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "object_19"
+   },
+   "output_chars": 772
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_887"
+   },
+   "output_chars": 1329
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_2055"
+   },
+   "output_chars": 1345
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "priya.raman@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 683
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_07",
+    "limit": 50
+   },
+   "output_chars": 669
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "priya",
+    "limit": 50
+   },
+   "output_chars": 667
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 2,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": null
+   },
+   "output_chars": 618
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-11T00:00:00Z",
+    "end": "2026-02-14T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 16800
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT 'profiles' t, * FROM customer_profiles UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents UNION ALL SELECT 'analytics', resource_id, customer_reference, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles"
+   },
+   "output_chars": 101
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT 'support' t, * FROM support_records UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email, archive_key, restore_allowed, updated_at FROM backup_restore_entries UNION ALL SELECT 'connector', resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status FROM connector_subscriptions UNION ALL SELECT 'sec', resource_id, subject_reference, event_code, retention_until, updated_at, NULL FROM security_audit_records"
+   },
+   "output_chars": 101
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT 'primary' src, resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary UNION ALL SELECT 'replica', resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_reporting_replica"
+   },
+   "output_chars": 17626
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_profiles"
+   },
+   "output_chars": 362
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_search_documents"
+   },
+   "output_chars": 604
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_analytics_profiles"
+   },
+   "output_chars": 383
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM support_records"
+   },
+   "output_chars": 434
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM backup_restore_entries"
+   },
+   "output_chars": 242
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM connector_subscriptions"
+   },
+   "output_chars": 268
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM security_audit_records"
+   },
+   "output_chars": 550
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_exports"
+   },
+   "output_chars": 120
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 377
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "object_19",
+    "limit": 50
+   },
+   "output_chars": 671
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_887",
+    "limit": 50
+   },
+   "output_chars": 651
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_2055",
+    "limit": 50
+   },
+   "output_chars": 665
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2055",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Raman",
+    "limit": 50
+   },
+   "output_chars": 667
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919876573142",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "284c7b87b8237e241293c9e81c8f0bef10c4dc1dffefb382c45107ea40c39668",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "object_19",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 423
+  }
+ ]
+}

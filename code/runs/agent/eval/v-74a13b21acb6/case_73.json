@@ -1,0 +1,422 @@
+{
+ "case_id": "case_73",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_6070",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_91"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5710",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_91"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_73",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_6070",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_91",
+    "reason": "Subject's primary profile. Live lookup on the subject's exact email (ana.k6978@zoho.com) at 2026-09-11T06:55:19Z returned 404 with rows=0 (trace rb-065519-019). The deletion worker's SUCCESS claim in activity_3419 is consistent but was not relied on. Absent, so compliant for a DELETE category.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_5710",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_91",
+    "reason": "Security audit record for the subject's account deletion (subject_reference=user_71, event ACCOUNT_DELETION_RECORDED) still exists at 2026-09-11T07:28:48Z with retention_until=2031-12-31, which is after audit_at. Retain as PRESENT for retention verification.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_1161",
+    "reason": "Linked only via the shared deletion batch run activity_3420 (shared with other cases). The only observation, evidence_91 (rb-062236-015), is an identity-free profile: customer_reference, email, phone and email_hash are all null and the cohort is general_shopper. Nothing ties it to this subject, so it cannot be attributed and is rejected."
+   },
+   {
+    "resource_id": "analytics_9500",
+    "reason": "Linked only via the shared deletion batch run activity_3416 (shared with other cases). The only observation, evidence_08 line 15, shows result=ANONYMIZED with an empty subject_reference and no identifier, so it cannot be attributed to this subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to permanently delete the account associated with their email address and to apply appropriate treatment to covered records, which is erasure of their own account and personal data. The request to confirm completion is a follow-up on the same deletion, so it is still a deletion request.",
+   "summary: Subject user_71 / ana.k6978@zoho.com. account_6070 is absent at audit_at (live 404 on the subject's exact email, evidence_91). audit_record_5710 is a security audit record for the subject's deletion, within retention until 2031, so it is retained. The two analytics candidates from the shared run are identity-free and were rejected. Searches for the subject's email hash, phone, name and variant emails found no other records. The files I checked (failover replica, inventory, snapshot bundles, connector configs, exports) showed no remaining subject records or active data flows tied to this subject. The workflow COMPLETE claim was not accepted as proof."
+  ],
+  "usage": [
+   {
+    "case_id": "case_73",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1052,
+    "output_tokens": 122,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_73",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 501,
+    "cache_creation_input_tokens": 5308,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_73",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 653,
+    "cache_creation_input_tokens": 6417,
+    "cache_read_input_tokens": 10179
+   },
+   {
+    "case_id": "case_73",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 501,
+    "cache_creation_input_tokens": 2940,
+    "cache_read_input_tokens": 16596
+   },
+   {
+    "case_id": "case_73",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 878,
+    "cache_creation_input_tokens": 16927,
+    "cache_read_input_tokens": 19536
+   },
+   {
+    "case_id": "case_73",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1578,
+    "cache_creation_input_tokens": 16709,
+    "cache_read_input_tokens": 36463
+   },
+   {
+    "case_id": "case_73",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1155,
+    "cache_creation_input_tokens": 23919,
+    "cache_read_input_tokens": 53172
+   },
+   {
+    "case_id": "case_73",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1148,
+    "cache_creation_input_tokens": 2465,
+    "cache_read_input_tokens": 77091
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6070"
+   },
+   "output_chars": 2084
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_1161"
+   },
+   "output_chars": 2130
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9500"
+   },
+   "output_chars": 2000
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5710"
+   },
+   "output_chars": 1595
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ana.k6978@zoho.com",
+    "limit": 100
+   },
+   "output_chars": 655
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_71",
+    "limit": 100
+   },
+   "output_chars": 770
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Kowalski",
+    "limit": 100
+   },
+   "output_chars": 3226
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "610d46e321a3c56b74d24553d3c8699379e47d52d811e0d491a01b31482f0b33",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48572027769",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ana kowalski",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k6978",
+    "limit": 100
+   },
+   "output_chars": 642
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6070",
+    "limit": 100
+   },
+   "output_chars": 1259
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_1161",
+    "limit": 100
+   },
+   "output_chars": 1312
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_9500",
+    "limit": 100
+   },
+   "output_chars": 1182
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-21T00:00:00Z",
+    "end": "2026-09-11T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31218
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_57",
+    "offset": 0
+   },
+   "output_chars": 1061
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 0
+   },
+   "output_chars": 4397
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_54",
+    "offset": 0
+   },
+   "output_chars": 2330
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-21T00:00:00Z",
+    "end": "2026-08-25T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 24756
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_88",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_12",
+    "offset": 0
+   },
+   "output_chars": 4651
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zoho.com",
+    "limit": 100
+   },
+   "output_chars": 37791
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6070",
+    "limit": 100
+   },
+   "output_chars": 1251
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ana.k",
+    "limit": 100
+   },
+   "output_chars": 642
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "export_7107",
+    "limit": 50
+   },
+   "output_chars": 626
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_8998"
+   },
+   "output_chars": 1445
+  }
+ ]
+}

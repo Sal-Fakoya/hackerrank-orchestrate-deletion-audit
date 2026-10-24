@@ -1,0 +1,367 @@
+{
+ "case_id": "case_304",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4759",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_29"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_304",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_4759",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_29",
+    "reason": "Security audit event account_deletion_reviewed carries subject_reference user_302 (the subject's user_id) and is present in the primary and all regional replicas at 2026-05-19T06:00:00Z, inside this request's window. No retention end date showing expiry is supplied, so it is treated as within retention and retained (verify presence only). No legal hold is linked to it.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4771",
+    "reason": "Linked only through deletion-worker batch run activity_1820, which is shared with case_303 (j.castillo4893@gmail.com). No usable evidence ties account_4771 to user_302 or to this subject; it is absent from the account_service snapshots that were captured. Attribution to this subject is not supported, so it is rejected."
+   },
+   {
+    "resource_id": "account_7907",
+    "reason": "Linked only through deletion-worker batch run activity_1819, shared with case_303 (j.castillo4893@gmail.com). No usable evidence ties account_7907 to user_302 or to this subject, so it is rejected as belonging to another request's subject."
+   },
+   {
+    "resource_id": "search_6505",
+    "reason": "Search index document holds email walker.charlotte.jr@gmail.com, which is a different address from the subject's walker.charlotte@gmail.com. It has no customer_reference or display name and nothing links it to user_302, so it is not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to remove their own account and the personal information linked to it, which is erasure of their own account and personal data. The request for confirmation on completion does not change this.",
+   "summary: Subject user_302 (walker.charlotte@gmail.com). Only subject-linked usable record found is audit_record_4759 (security audit, subject_reference user_302, present at audit_at, retained). Candidate accounts account_4771 and account_7907 were only linked through a batch run shared with case_303 and have no tie to this subject; rejected. No primary account, search, cache, export, or marketing record for user_302 was found in usable evidence, and no active data flow or restorable backup tied to this subject was identified."
+  ],
+  "usage": [
+   {
+    "case_id": "case_304",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 91,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_304",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 416,
+    "cache_creation_input_tokens": 2613,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_304",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 697,
+    "cache_creation_input_tokens": 4783,
+    "cache_read_input_tokens": 7484
+   },
+   {
+    "case_id": "case_304",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 442,
+    "cache_creation_input_tokens": 13894,
+    "cache_read_input_tokens": 12267
+   },
+   {
+    "case_id": "case_304",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 956,
+    "cache_creation_input_tokens": 11367,
+    "cache_read_input_tokens": 26161
+   },
+   {
+    "case_id": "case_304",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 620,
+    "cache_creation_input_tokens": 6668,
+    "cache_read_input_tokens": 37528
+   },
+   {
+    "case_id": "case_304",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 514,
+    "cache_creation_input_tokens": 4984,
+    "cache_read_input_tokens": 44196
+   },
+   {
+    "case_id": "case_304",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1222,
+    "cache_creation_input_tokens": 23361,
+    "cache_read_input_tokens": 49180
+   },
+   {
+    "case_id": "case_304",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 976,
+    "cache_creation_input_tokens": 5670,
+    "cache_read_input_tokens": 72541
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "walker.charlotte@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 66
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_302",
+    "limit": 50
+   },
+   "output_chars": 2735
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "charlotte walker",
+    "limit": 50
+   },
+   "output_chars": 56
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4771"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7907"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4759"
+   },
+   "output_chars": 3570
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4771",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7907",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a60efa094a22f64e9b2d5e76d3fcd46956ba89e9cc7f2bb29867d47c355c457c",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "447700900302",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-07T00:00:00Z",
+    "end": "2026-05-19T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30939
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "walker",
+    "limit": 50
+   },
+   "output_chars": 6367
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-07T00:00:00Z",
+    "end": "2026-05-10T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 19796
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_29",
+    "offset": 0
+   },
+   "output_chars": 4508
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "walker.charlotte.jr@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 2540
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "charlotte",
+    "limit": 50
+   },
+   "output_chars": 5102
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_29",
+    "offset": 4000
+   },
+   "output_chars": 4515
+  },
+  {
+   "turn": 5,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_73",
+    "trace_id": "rb-104353"
+   },
+   "output_chars": 472
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_31",
+    "offset": 0
+   },
+   "output_chars": 4642
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 36791
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold",
+    "limit": 50
+   },
+   "output_chars": 11978
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "302",
+    "limit": 50
+   },
+   "output_chars": 9556
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_4759",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 24
+  }
+ ]
+}

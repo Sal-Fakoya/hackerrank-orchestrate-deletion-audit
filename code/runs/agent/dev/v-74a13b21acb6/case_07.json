@@ -1,0 +1,518 @@
+{
+ "case_id": "case_07",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_001",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_58"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_001",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_007",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_001",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_07",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_007",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_54",
+    "reason": "Subject's account profile (user_07, linked via the reported deletion run activity_3590). The deletion worker's SUCCESS is only a claim, but the failover replica/primary capture of account_service at 2026-09-02T23:00Z (after the 2026-09-01T19:28Z deletion) lists no account_007 row, so the profile is absent at audit_at.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_001",
+    "system_id": "support_platform",
+    "category": "SUPPORT_ATTACHMENT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_58",
+    "reason": "Customer-uploaded file delivery_address_correction.pdf on ticket CS-4827 (support_001), uploader 'customer', containing only Priya Raman's name, priya.raman@gmail.com, phone and order ORD-20264827; no other subject is linked. Still present at audit_at (captured 2026-09-12T07:30Z). Must be deleted. The file is a delivery-address correction, not an identity document; no identity document for this subject was found in the evidence.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "object_19",
+    "reason": "delivery_confirmation_19.pdf in object storage tied to user_07 only by activity_4007 captured 2026-02-13, inside the earlier case_61 window; no usable evidence captured between requested_at 2026-08-31 and audit_at mentions it, so it is out of this request's episode."
+   },
+   {
+    "resource_id": "account_7204",
+    "reason": "Different person (Priya Ramanathan, p.ramanathan@gmail.com, user_7204, +91 90000 82014); no match on the subject's email, phone, hash or user_id."
+   },
+   {
+    "resource_id": "search_1874",
+    "reason": "Index entry for g.silva76.jr@gmail.com, a different email from another subject; not linked to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to delete their own account and the identity document they sent to support, which is erasure of their own account and personal data.",
+   "summary: Subject priya.raman@gmail.com (user_07). Two in-scope resources: account_007 (USER_PROFILE) is absent at audit_at per the 2026-09-02 failover/primary capture after the deletion run; support_001 (SUPPORT_ATTACHMENT, CS-4827, customer-only file with the subject's name, email and phone) is still present and must be deleted. No search-index, analytics, export, connector, backup, or replica copies tied to this subject were found in evidence captured during the request window. object_19 belongs to the earlier case_61 episode and was rejected. The customer's 'identity document' was not located as a distinct record; the only support upload found is the delivery-address correction file."
+  ],
+  "usage": [
+   {
+    "case_id": "case_07",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1033,
+    "output_tokens": 74,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_07",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 374,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 9904
+   },
+   {
+    "case_id": "case_07",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 583,
+    "cache_creation_input_tokens": 4584,
+    "cache_read_input_tokens": 9904
+   },
+   {
+    "case_id": "case_07",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 456,
+    "cache_creation_input_tokens": 14423,
+    "cache_read_input_tokens": 14488
+   },
+   {
+    "case_id": "case_07",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1049,
+    "cache_creation_input_tokens": 6689,
+    "cache_read_input_tokens": 28911
+   },
+   {
+    "case_id": "case_07",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 714,
+    "cache_creation_input_tokens": 5872,
+    "cache_read_input_tokens": 35600
+   },
+   {
+    "case_id": "case_07",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 537,
+    "cache_creation_input_tokens": 2269,
+    "cache_read_input_tokens": 41472
+   },
+   {
+    "case_id": "case_07",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1044,
+    "cache_creation_input_tokens": 6918,
+    "cache_read_input_tokens": 43741
+   },
+   {
+    "case_id": "case_07",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 926,
+    "cache_creation_input_tokens": 6999,
+    "cache_read_input_tokens": 50659
+   },
+   {
+    "case_id": "case_07",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3052,
+    "cache_creation_input_tokens": 7318,
+    "cache_read_input_tokens": 57658
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_007"
+   },
+   "output_chars": 1499
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_001"
+   },
+   "output_chars": 2339
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "priya.raman@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1878
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_07",
+    "limit": 100
+   },
+   "output_chars": 669
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "priya raman",
+    "limit": 100
+   },
+   "output_chars": 2416
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "object_19",
+    "limit": 100
+   },
+   "output_chars": 671
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_007",
+    "limit": 100
+   },
+   "output_chars": 674
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "284c7b87b8237e241293c9e81c8f0bef10c4dc1dffefb382c45107ea40c39668",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919876573142",
+    "limit": 100
+   },
+   "output_chars": 1239
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-31T00:00:00Z",
+    "end": "2026-09-12T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31113
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_58",
+    "offset": 0
+   },
+   "output_chars": 1085
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-31T11:00:00Z",
+    "end": "2026-09-02T00:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 13349
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_3590",
+    "limit": 50
+   },
+   "output_chars": 676
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_90",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_57",
+    "sql": null
+   },
+   "output_chars": 469
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_56",
+    "offset": 0
+   },
+   "output_chars": 1716
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_57",
+    "sql": "select * from search_documents_primary"
+   },
+   "output_chars": 396
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": null
+   },
+   "output_chars": 640
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_87",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": null
+   },
+   "output_chars": 608
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_13",
+    "sql": null
+   },
+   "output_chars": 65
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "select * from customer_profiles_failover_replica"
+   },
+   "output_chars": 626
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_87",
+    "sql": "select 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status from customer_profiles union all select 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name from customer_search_documents union all select 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at from support_records"
+   },
+   "output_chars": 1360
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "select * from customer_data_read_replica"
+   },
+   "output_chars": 11035
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "object_19"
+   },
+   "output_chars": 772
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_91",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_09",
+    "offset": 0
+   },
+   "output_chars": 1354
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 0
+   },
+   "output_chars": 4397
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "raman",
+    "limit": 100
+   },
+   "output_chars": 3262
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "priya",
+    "limit": 100
+   },
+   "output_chars": 7086
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "CS-4827",
+    "limit": 100
+   },
+   "output_chars": 1520
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ORD-20264827",
+    "limit": 100
+   },
+   "output_chars": 1017
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_7",
+    "limit": 100
+   },
+   "output_chars": 46
+  }
+ ]
+}

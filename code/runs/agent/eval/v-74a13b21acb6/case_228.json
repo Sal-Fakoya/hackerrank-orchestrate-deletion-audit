@@ -1,0 +1,405 @@
+{
+ "case_id": "case_228",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "export_service",
+   "resource_id": "export_3210",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_80"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_7054",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_80"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "export_service",
+   "resource_id": "export_3210",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_7054",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "export_service",
+   "resource_id": "export_3210",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_7054",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5029",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_228",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "export_3210",
+    "system_id": "export_service",
+    "category": "USER_EXPORT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_80",
+    "reason": "Export object exports/export_3210/customer_data.zip is still stored with owner_email mnystrom4423@fastmail.com (the request email), observed 2026-06-28T04:04:21Z in the 2026-06-28 export capture, after the 2026-06-14 deletion worker result (PARTIAL, activity_2362) which is only a claim. USER_EXPORT is always DELETE, so the export must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_7054",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_80",
+    "reason": "Search index document search_7054 in customer_directory_v3 still exposes email mnystrom4423@fastmail.com (query hit observed 2026-06-28T03:46:57Z in evidence_80). The 2026-06-14 PARTIAL deletion result (activity_2365) is a workflow claim only. SEARCH_INDEX_ENTRY is always DELETE.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_6674",
+    "reason": "Linked only through the deletion-worker batch run activity_2353, which is shared with case_213, case_214, case_227 and case_229 (other customers' emails). No usable evidence ties account_6674 to user_226 or the request email; the subject identifiers never appear with it. Not attributable to this subject, so rejected. Latest account_service snapshots (evidence_80 2026-06-28, evidence_78 2026-06-18) do not contain it."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to permanently delete the account associated with their email address, which is an erasure request for their own account; the request to confirm completion is a follow-up within the same deletion request.",
+   "summary: Subject mnystrom4423@fastmail.com (user_226). Only two resources in this episode are provably the subject's: export_3210 (USER_EXPORT) and search_7054 (SEARCH_INDEX_ENTRY), both still PRESENT with the subject's email as of the 2026-06-28 capture (evidence_80), despite the workflow's COMPLETE claim and PARTIAL results. account_6674 was rejected because it is only tied to a shared batch run with other customers. No active connector, backup, replica or legal hold tied to the subject's identifiers was found in the window; no user_226, name or phone/hash matches exist in the evidence.",
+   "future verification added for audit_record_5029 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_228",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 96,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_228",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 419,
+    "cache_creation_input_tokens": 3301,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_228",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 306,
+    "cache_creation_input_tokens": 1799,
+    "cache_read_input_tokens": 8172
+   },
+   {
+    "case_id": "case_228",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 518,
+    "cache_creation_input_tokens": 3630,
+    "cache_read_input_tokens": 9971
+   },
+   {
+    "case_id": "case_228",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 536,
+    "cache_creation_input_tokens": 7636,
+    "cache_read_input_tokens": 13601
+   },
+   {
+    "case_id": "case_228",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 603,
+    "cache_creation_input_tokens": 20953,
+    "cache_read_input_tokens": 21237
+   },
+   {
+    "case_id": "case_228",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 924,
+    "cache_creation_input_tokens": 7081,
+    "cache_read_input_tokens": 42190
+   },
+   {
+    "case_id": "case_228",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2652,
+    "cache_creation_input_tokens": 5572,
+    "cache_read_input_tokens": 49271
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mnystrom4423@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 2507
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_226",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "maja nyström",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46700235904",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "329131385c818fe84837fba275531c6642c447064f809e1c5124a8407f32a170",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6674"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_3210"
+   },
+   "output_chars": 2267
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_7054"
+   },
+   "output_chars": 3131
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_6674",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 346
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_78",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 0
+   },
+   "output_chars": 4519
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4423",
+    "limit": 100
+   },
+   "output_chars": 3201
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nystrom",
+    "limit": 100
+   },
+   "output_chars": 4848
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "maja",
+    "limit": 100
+   },
+   "output_chars": 9083
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-12T00:00:00Z",
+    "end": "2026-06-28T07:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31355
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6674"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_79",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_76",
+    "offset": 0
+   },
+   "output_chars": 4227
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_77",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 2500
+   },
+   "output_chars": 4616
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_78",
+    "offset": 2500
+   },
+   "output_chars": 3534
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-06-14T06:00:00Z",
+    "end": "2026-06-14T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 2306
+  }
+ ]
+}

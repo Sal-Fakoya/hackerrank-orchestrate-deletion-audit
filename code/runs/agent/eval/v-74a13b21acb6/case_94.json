@@ -1,0 +1,489 @@
+{
+ "case_id": "case_94",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_7631",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_7691",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_7631",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_7691",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_7631",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_7691",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_94",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_7631",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_89",
+    "reason": "Search index document search_7631 exposes the subject's email mehta.neel82@icloud.com (exact match on query and hit, observed 2026-09-01T02:59:37Z, inside the request window). Reported FAILED deletion (activity_3230) does not prove absence. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_7691",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_89",
+    "reason": "Support ticket support_7691 is a support conversation whose requester_email is the subject's mehta.neel82@icloud.com (observed 2026-09-01T03:57:56Z). Still exposes the direct identifier. Reported FAILED redaction (activity_3232) is a claim. Treated as a conversation with support-agent context to be retained in redacted form.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4037",
+    "reason": "Only linked through deletion run activity_3227, which is shared with case_93 (t.lima5881@yahoo.com). No usable evidence ties account_4037 to user_92 or any subject identifier. Rejected as another customer's record, not attributable to this subject."
+   },
+   {
+    "resource_id": "account_4421",
+    "reason": "Deletion run activity_3228 and replication checkpoint activity_3231 are in the shared run. The profile in evidence_89 carries t.lima5881@yahoo.com (case_93), not the subject's identifiers."
+   },
+   {
+    "resource_id": "search_2016",
+    "reason": "Search document belongs to Daniel Carter (user_107, daniel.c2062@zoho.com) per evidence_10. Repopulated by data_flow_9949, which is also another customer's flow. Not this subject's data."
+   },
+   {
+    "resource_id": "data_flow_9949",
+    "reason": "Connector subscription_selector is daniel.c2062@zoho.com (another customer, evidence_10). Not linked to this subject, so not a recreation risk for this request."
+   },
+   {
+    "resource_id": "data_flow_047",
+    "reason": "Connector support_profile_sync carries t.lima5881@yahoo.com (case_93 subject), not the requester's identifiers (evidence_89)."
+   },
+   {
+    "resource_id": "search_1310",
+    "reason": "Search document for t.lima5881@yahoo.com (case_93), not the subject (evidence_89)."
+   },
+   {
+    "resource_id": "support_1824",
+    "reason": "Support ticket for t.lima5881@yahoo.com (case_93), not the subject (evidence_89)."
+   },
+   {
+    "resource_id": "backup_7421",
+    "reason": "Backup entry keyed to d.mehta76@gmail.com, a different identifier not in the subject's list (evidence_74/evidence_30). Not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to close the account and have its associated personal data deleted, which is erasure of their own data. The request for a review and confirmation is an additional ask and does not negate the deletion request.",
+   "summary: Subject user_92 (mehta.neel82@icloud.com). Two in-scope records are still present at audit_at: search_7631 (search index, exposes email) and support_7691 (support ticket with requester email). Both are shown by the 2026-09-01 export (evidence_89), so the workflow's FAILED results are not proof of removal. account_4037, the only primary profile candidate, is tied only to a run shared with case_93 and has no evidence linking it to this subject, so it was rejected. No subject records were found in replicas, inventories, backups, connectors, or exports. Remaining candidates belong to other customers. Note: no active data flow is attributable to this subject; the active flows found belong to other customers."
+  ],
+  "usage": [
+   {
+    "case_id": "case_94",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 100,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_94",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 434,
+    "cache_creation_input_tokens": 4665,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_94",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 447,
+    "cache_creation_input_tokens": 1801,
+    "cache_read_input_tokens": 9536
+   },
+   {
+    "case_id": "case_94",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 452,
+    "cache_creation_input_tokens": 16128,
+    "cache_read_input_tokens": 11337
+   },
+   {
+    "case_id": "case_94",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 595,
+    "cache_creation_input_tokens": 9345,
+    "cache_read_input_tokens": 27465
+   },
+   {
+    "case_id": "case_94",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 482,
+    "cache_creation_input_tokens": 7480,
+    "cache_read_input_tokens": 36810
+   },
+   {
+    "case_id": "case_94",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 884,
+    "cache_creation_input_tokens": 2518,
+    "cache_read_input_tokens": 44290
+   },
+   {
+    "case_id": "case_94",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1890,
+    "cache_creation_input_tokens": 6520,
+    "cache_read_input_tokens": 46808
+   },
+   {
+    "case_id": "case_94",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 986,
+    "cache_creation_input_tokens": 8847,
+    "cache_read_input_tokens": 53328
+   },
+   {
+    "case_id": "case_94",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2106,
+    "cache_creation_input_tokens": 4014,
+    "cache_read_input_tokens": 62175
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mehta.neel82@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 2554
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_92",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mehta.neel@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 61
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "neel mehta",
+    "limit": 100
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919580162924",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4037"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_7631"
+   },
+   "output_chars": 3124
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_7691"
+   },
+   "output_chars": 2324
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-09T00:00:00Z",
+    "end": "2026-09-01T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31240
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-10T00:00:00Z",
+    "end": "2026-08-14T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 21406
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_3227",
+    "limit": 50
+   },
+   "output_chars": 662
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4421"
+   },
+   "output_chars": 2899
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2016"
+   },
+   "output_chars": 3673
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_9949"
+   },
+   "output_chars": 3139
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 5,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_67",
+    "trace_id": "activity_3227"
+   },
+   "output_chars": 68
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "b5b178db77ed5befe93e33f859d72b6031f667ab08beccbfcb642ae0163cf0aa",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fa93cbb41d3f3dc6a7075ee5db30009d5841bc04961a58056a6db7cec4d0e256",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4037",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mehta",
+    "limit": 50
+   },
+   "output_chars": 4810
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "neel",
+    "limit": 50
+   },
+   "output_chars": 6389
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_09",
+    "offset": 0
+   },
+   "output_chars": 1354
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_88",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_12",
+    "offset": 0
+   },
+   "output_chars": 4651
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_87",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_252",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_253",
+    "limit": 20
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "t.lima5881@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 4136
+  },
+  {
+   "turn": 8,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_7691"
+   },
+   "output_chars": 2324
+  }
+ ]
+}

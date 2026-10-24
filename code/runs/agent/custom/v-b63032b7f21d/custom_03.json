@@ -1,0 +1,30 @@
+{
+ "case_id": "custom_03",
+ "mode": "agent",
+ "judge_version": "b63032b7f21d",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "custom_03",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: account_support (en): The customer asks to update the delivery address and to delete one saved payment card while explicitly keeping the account. Deleting a single saved card is an account edit, not erasure of the person's personal data or account, so this is not a deletion authorization."
+  ],
+  "usage": [
+   {
+    "case_id": "custom_03",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1003,
+    "output_tokens": 112,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

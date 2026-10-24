@@ -1,0 +1,409 @@
+{
+ "case_id": "case_313",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7020",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_74"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_313",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_7020",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_74",
+    "reason": "Security audit record for subject_reference user_311 (the subject's only identifier found in evidence). It was observed 2026-05-14, inside the request window, and retention_until 2034-09-30 is after audit_at, so the retention condition holds. Retain and verify it is available.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_206",
+    "reason": "Linked only through deletion-worker batch activity_1594, whose shared_with list names other requests' customers. No usable evidence ties account_206 to user_311 or this email. Activity PARTIAL claim is not proof of state. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_8264",
+    "reason": "Linked only through shared batch activity_1602. The only observation (evidence_74) is an identity-free 404 lookup with no profile, so it cannot be attributed to this subject. Rejected as unattributable, although it reads as absent."
+   },
+   {
+    "resource_id": "analytics_2072",
+    "reason": "Shared-run batch candidate (activity_1597). Its only observations (evidence_31, evidence_73) show an all-null analytics profile with no user_id, email, phone, or hash. Cannot be attributed to the subject."
+   },
+   {
+    "resource_id": "analytics_6099",
+    "reason": "Shared-run batch candidate (activity_1603). Its profile in evidence_74 is all-null (no customer_reference, email, phone, or hash). Cannot be attributed to the subject."
+   },
+   {
+    "resource_id": "analytics_9681",
+    "reason": "Shared-run batch candidate (activity_1596). Its profile in evidence_31 and evidence_73 is all-null (user_id null, no identifiers). Cannot be attributed to the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete the account and its personal data, which is erasure of their own data; the additional request to check connected records and confirm completion is part of the same deletion request.",
+   "summary: Subject identifiers (email seoyeon.l7538@zoho.com, phone, hash, name seo-yeon lim) do not appear in any usable evidence. The only tie to user_311 is audit_record_7020 (evidence_74, 2026-05-14), a security audit record within retention, which is retained as PRESENT. All other candidates come from a shared deletion-worker batch with other customers' requests and carry no subject-specific identity, so they were rejected. Among the rejected candidates, account_8264 reads as absent, but it cannot be attributed to this subject. No user profile, search, support, export, connector, backup, or tombstone record for this subject was found in evidence. Because this subject's identifiers are not evidenced, the \"no other records\" conclusion is limited to what the search tool could match."
+  ],
+  "usage": [
+   {
+    "case_id": "case_313",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 93,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_313",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 460,
+    "cache_creation_input_tokens": 3036,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_313",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 369,
+    "cache_creation_input_tokens": 1118,
+    "cache_read_input_tokens": 7907
+   },
+   {
+    "case_id": "case_313",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 580,
+    "cache_creation_input_tokens": 6903,
+    "cache_read_input_tokens": 9025
+   },
+   {
+    "case_id": "case_313",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 182,
+    "cache_creation_input_tokens": 17706,
+    "cache_read_input_tokens": 15928
+   },
+   {
+    "case_id": "case_313",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 574,
+    "cache_creation_input_tokens": 4024,
+    "cache_read_input_tokens": 33634
+   },
+   {
+    "case_id": "case_313",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 494,
+    "cache_creation_input_tokens": 1764,
+    "cache_read_input_tokens": 37658
+   },
+   {
+    "case_id": "case_313",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1549,
+    "cache_creation_input_tokens": 5308,
+    "cache_read_input_tokens": 39422
+   },
+   {
+    "case_id": "case_313",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2010,
+    "cache_creation_input_tokens": 22198,
+    "cache_read_input_tokens": 44730
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "seoyeon.l7538@zoho.com",
+    "limit": 100
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_311",
+    "limit": 100
+   },
+   "output_chars": 810
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "seo-yeon lim",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821060547162",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "dbb011e9a94504769080a98f9c8401d9cb66fed5de8ab5bfe5f6bdb6cdebd4a0",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_206"
+   },
+   "output_chars": 1481
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8264"
+   },
+   "output_chars": 2121
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2072"
+   },
+   "output_chars": 3268
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6099"
+   },
+   "output_chars": 2270
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9681"
+   },
+   "output_chars": 3212
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_7020"
+   },
+   "output_chars": 1644
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_31",
+    "offset": 0
+   },
+   "output_chars": 4642
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-23T12:00:00Z",
+    "end": "2026-05-14T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30985
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_74",
+    "offset": 2500
+   },
+   "output_chars": 4617
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_31",
+    "offset": 6000
+   },
+   "output_chars": 4643
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "seoyeon",
+    "limit": 100
+   },
+   "output_chars": 1397
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "l7538",
+    "limit": 100
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "seo-yeon",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_311",
+    "limit": 100
+   },
+   "output_chars": 810
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-26T09:00:00Z",
+    "end": "2026-04-26T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 4085
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-23T12:00:00Z",
+    "end": "2026-04-26T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 7796
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Lim",
+    "limit": 100
+   },
+   "output_chars": 2001
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "7162",
+    "limit": 100
+   },
+   "output_chars": 44
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zoho.com",
+    "limit": 100
+   },
+   "output_chars": 38326
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_206",
+    "limit": 100
+   },
+   "output_chars": 656
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Seo",
+    "limit": 100
+   },
+   "output_chars": 3165
+  }
+ ]
+}

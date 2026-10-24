@@ -1,0 +1,535 @@
+{
+ "case_id": "case_547",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7352",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_52"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "identity_service",
+   "resource_id": "tombstone_8774",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": "evidence_52"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_547",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "tombstone_8774",
+    "system_id": "identity_service",
+    "category": "ACCOUNT_TOMBSTONE",
+    "state": "TREATED",
+    "evidence_id": "evidence_52",
+    "reason": "Failover replica row (captured 2026-09-20T12:00:00Z, the same time as audit_at) shows deleted_customer_references tombstone for subject_reference user_547 with name, email, phone and email_hash all null. Only the stable internal user_id remains, so the redaction condition is already satisfied (TREATED). Workflow claim activity_3664 is not relied on.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_7352",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_52",
+    "reason": "Security audit event account_deletion_reviewed for subject_reference user_547 is present in the primary and failover replica at 2026-09-20T12:00:00Z. No retention_until appears in the record. Comparable deletion-audit records carry retention to 2031 or later, so the record is treated as within its retention period and must be retained (PRESENT). No legal hold was found for this subject.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_294",
+    "reason": "Linked only through deletion-worker batch activity_3657 (DELETE_RECORD PARTIAL, a workflow claim). The batch was shared with other requests (case_21, case_23, case_536, case_546, case_548). No usable evidence ties account_294 to user_547, the request email, phone or hash, and no snapshot shows its stored state. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_410",
+    "reason": "Linked only through shared batch activity_3662 (workflow claim). Shared run with other cases; no evidence ties it to user_547 or to the subject's identifiers. Not attributable."
+   },
+   {
+    "resource_id": "account_6440",
+    "reason": "Linked only through shared batch activity_3661 (SUCCESS claim). The only usable observation is evidence_92, a 404 identity-free profile lookup in a shared run, which cannot be attributed to this subject. Rejected."
+   },
+   {
+    "resource_id": "account_7015",
+    "reason": "Linked only through shared batch activity_3660 (workflow claim). Shared run with other cases; no evidence ties it to this subject. Not attributable."
+   },
+   {
+    "resource_id": "account_8832",
+    "reason": "Linked only through shared batch activity_3658 (workflow claim). Shared run with other cases; no evidence ties it to this subject. Not attributable."
+   },
+   {
+    "resource_id": "account_9155",
+    "reason": "Linked only through shared batch activity_3663 (workflow claim). Shared run with other cases; no evidence ties it to this subject. Not attributable."
+   },
+   {
+    "resource_id": "analytics_5335",
+    "reason": "Linked only through shared batch activity_3665. Its usable snapshots (evidence_92, evidence_02) show an all-null analytics profile with no email, hash, phone, customer_reference or user_id. It is an identity-free record in a shared run and cannot be attributed to user_547. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to permanently delete the account associated with their email address and to process it under the personal-data deletion procedure, which is erasure of the person's own account and data. The request does not negate or withdraw deletion and involves no third party.",
+   "summary: Subject user_547 (a.patel22@yahoo.com) has two resources tied to it by usable evidence: tombstone_8774 (already TREATED, with only the user_id left) and audit_record_7352 (a security audit record that must be retained). Five account_service candidates and analytics_5335 were linked only through a deletion batch shared with other requests, and no usable evidence ties them to this subject, so they were rejected. No email, hash, phone, legal hold, backup, export or active connector for this subject was found in the evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_547",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 113,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_547",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 785,
+    "cache_creation_input_tokens": 6775,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_547",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 614,
+    "cache_creation_input_tokens": 10887,
+    "cache_read_input_tokens": 11646
+   },
+   {
+    "case_id": "case_547",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 804,
+    "cache_creation_input_tokens": 9958,
+    "cache_read_input_tokens": 22533
+   },
+   {
+    "case_id": "case_547",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 908,
+    "cache_creation_input_tokens": 3111,
+    "cache_read_input_tokens": 32491
+   },
+   {
+    "case_id": "case_547",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1388,
+    "cache_creation_input_tokens": 16014,
+    "cache_read_input_tokens": 35602
+   },
+   {
+    "case_id": "case_547",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1450,
+    "cache_creation_input_tokens": 9010,
+    "cache_read_input_tokens": 51616
+   },
+   {
+    "case_id": "case_547",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 644,
+    "cache_creation_input_tokens": 18060,
+    "cache_read_input_tokens": 60626
+   },
+   {
+    "case_id": "case_547",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1492,
+    "cache_creation_input_tokens": 2723,
+    "cache_read_input_tokens": 78686
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a.patel22@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 59
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_547",
+    "limit": 100
+   },
+   "output_chars": 3474
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Ananya Patel",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_294"
+   },
+   "output_chars": 1483
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_410"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6440"
+   },
+   "output_chars": 2124
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7015"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8832"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9155"
+   },
+   "output_chars": 1487
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5335"
+   },
+   "output_chars": 3342
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_7352"
+   },
+   "output_chars": 2661
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "tombstone_8774"
+   },
+   "output_chars": 2555
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_92",
+    "offset": 0
+   },
+   "output_chars": 4638
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_02",
+    "offset": 0
+   },
+   "output_chars": 4657
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_52",
+    "offset": 0
+   },
+   "output_chars": 4456
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_93",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_51",
+    "offset": 0
+   },
+   "output_chars": 2266
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0a2dc8163cec749b62977904aca1d8e380cafa3ce71631625d135108de661263",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919000447450",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_294",
+    "limit": 100
+   },
+   "output_chars": 656
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_410",
+    "limit": 100
+   },
+   "output_chars": 655
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7015",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8832",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9155",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6440",
+    "limit": 100
+   },
+   "output_chars": 1297
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-03T00:00:00Z",
+    "end": "2026-09-20T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30917
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_58",
+    "offset": 0
+   },
+   "output_chars": 1085
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_61",
+    "offset": 0
+   },
+   "output_chars": 2054
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "patel",
+    "limit": 100
+   },
+   "output_chars": 8990
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_7352",
+    "limit": 100
+   },
+   "output_chars": 1839
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tombstone_8774",
+    "limit": 100
+   },
+   "output_chars": 2309
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-09-05T10:00:00Z",
+    "end": "2026-09-05T12:00:00Z",
+    "limit": 50
+   },
+   "output_chars": 1965
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "ACCOUNT_TOMBSTONE"
+   },
+   "output_chars": 212
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention_until",
+    "limit": 50
+   },
+   "output_chars": 35387
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a.patel22",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow",
+    "limit": 5
+   },
+   "output_chars": 4172
+  }
+ ]
+}

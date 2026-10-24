@@ -1,0 +1,307 @@
+{
+ "case_id": "case_398",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7361",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_69"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_398",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_7361",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_69",
+    "reason": "Security audit row PRIVACY_REQUEST_ACCEPTED with subject_reference user_396 (the subject's user_id) captured 2026-04-04 within the request episode, retention_until 2032-06-30 is after audit_at, so the record is within its retention period and must be retained (verified as PRESENT).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1140",
+    "reason": "Linked only through deletion-worker batch run activity_939, which is shared with case_399 and case_400. No usable evidence (identifier, user_id, snapshot row) ties account_1140 to user_396 or the request email; the only snapshot evidence is activity claims. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_2138",
+    "reason": "Linked only through shared batch run activity_937 (shared with case_399 and case_400). No evidence ties it to this subject's identifiers; not attributable."
+   },
+   {
+    "resource_id": "account_928",
+    "reason": "Linked only through shared batch run activity_940 (shared with case_399 and case_400). No evidence ties it to this subject; its absent hint is a workflow claim and the record is not attributable."
+   },
+   {
+    "resource_id": "analytics_4455",
+    "reason": "Linked only through shared batch run activity_941. The only direct observation (evidence_69) shows an identity-free analytics profile with all-null email, phone, email_hash and customer_reference, so it cannot be attributed to the subject in a run shared with other customers."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for the account associated with their address to be erased and for records covered by the request to be treated accordingly, which is an erasure request for their own account and personal data. The request for a confirmation afterward does not change that.",
+   "summary: Subject user_396 / nadia.popescu@gmail.com. The only evidence tied to this subject in the request episode is audit_record_7361 (security audit row referencing user_396, retained until 2032, so RETAIN and PRESENT). The four candidates from the shared deletion batch run (case_399/case_400) have no identifying evidence linking them to this subject and were rejected. No other subject-linked resources (profile, search, export, support, backup, connector) were found by email, hash, phone, name, or user_id searches. The workflow's deletion claims for the shared-run accounts were not treated as proof of subject data."
+  ],
+  "usage": [
+   {
+    "case_id": "case_398",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1054,
+    "output_tokens": 104,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_398",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 375,
+    "cache_creation_input_tokens": 2049,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_398",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 415,
+    "cache_creation_input_tokens": 13386,
+    "cache_read_input_tokens": 6920
+   },
+   {
+    "case_id": "case_398",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 773,
+    "cache_creation_input_tokens": 4252,
+    "cache_read_input_tokens": 20306
+   },
+   {
+    "case_id": "case_398",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 308,
+    "cache_creation_input_tokens": 3268,
+    "cache_read_input_tokens": 24558
+   },
+   {
+    "case_id": "case_398",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 512,
+    "cache_creation_input_tokens": 5542,
+    "cache_read_input_tokens": 27826
+   },
+   {
+    "case_id": "case_398",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1741,
+    "cache_creation_input_tokens": 2489,
+    "cache_read_input_tokens": 33368
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nadia.popescu@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 63
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_396",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 1,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-09T00:00:00Z",
+    "end": "2026-04-04T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31632
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1140"
+   },
+   "output_chars": 1491
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2138"
+   },
+   "output_chars": 1491
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_928"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_4455"
+   },
+   "output_chars": 2135
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_7361"
+   },
+   "output_chars": 1498
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Nadia Popescu",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "popescu",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5999ac6c8574153b0d6805e4ac9ac737f22fc4010a47496e67571a23bfed467b",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48822014905",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_398",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_69",
+    "offset": 2500
+   },
+   "output_chars": 3467
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-09T11:00:00Z",
+    "end": "2026-03-10T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 4701
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_7361",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  }
+ ]
+}

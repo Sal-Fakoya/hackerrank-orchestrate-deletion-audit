@@ -1,0 +1,442 @@
+{
+ "case_id": "case_86",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_8473",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_08"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5580",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_08"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_86",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_8473",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_08",
+    "reason": "Subject's primary profile (email marek.zielinski@gmail.com). Search-index diagnostic shows FOUND at 2026-08-31T07:00:00Z (seq 1) and NOT_FOUND at 2026-09-06T07:00:00Z (seq 8), the latest observation at audit_at. Deletion activity_3413 is only a workflow claim. Attributed by direct email match, not by the shared run. Snapshots covering account_service (evidence_54, evidence_89, evidence_10, evidence_12, evidence_87) also lack it, and no other copy was found.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_5580",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_08",
+    "reason": "Security audit record whose subject_reference is user_84, the subject's own user_id. Still FOUND in security_service at 2026-09-06T07:00:00Z. No retention_until value is visible for it and no retention expiry is documented, so the retention condition is treated as met and the record is retained, not deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_9500",
+    "reason": "Linked only through the deletion-worker run activity_3416, which is shared with other requests (case_102, case_73, case_87, case_88). The only lookup (evidence_08 line 15) shows ANONYMIZED with an empty subject_reference and no identifiers, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_8476 / export_9388 / search_1429 / support_193 (nzielinski0123@fastmail.com)",
+    "reason": "Different person: nzielinski0123@fastmail.com is not an exact match to marek.zielinski@gmail.com or any historical identifier. Matched only on the surname 'Zielinski' and a display name of Nadia Zieliński."
+   },
+   {
+    "resource_id": "account_6654 / search_3426 / search_8332 (i.zielinski8281@yahoo.com)",
+    "reason": "Different person: the email i.zielinski8281@yahoo.com does not exactly match any subject identifier. Matched only on the surname."
+   },
+   {
+    "resource_id": "analytics_3181, analytics_6499, analytics_8539, backup_4689, data_flow_2085, data_flow_7535, data_flow_9927, data_flow_8899, search_3759, account_585, search_7660",
+    "reason": "Belong to other customers (their own emails, names or customer_references). No link to user_84 or marek.zielinski@gmail.com."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their email address and asks that connected identifiers be reviewed as part of that erasure, plus confirmation of the outcome. This is a request to erase the person's own account and personal data.",
+   "summary: Subject marek.zielinski@gmail.com (user_84). The primary account_8473 profile is ABSENT at audit_at per the latest search-index lookup (evidence_08, 2026-09-06), and no replica or snapshot copy was found. The security audit record audit_record_5580 (user_84) is still PRESENT and is retained because its retention expiry is not shown. The shared-run analytics record analytics_9500 is rejected as unattributable. No subject-linked DATA_FLOW, backup, support, export, or marketing records were found. The phone and hash searches returned no hits. Deletion is therefore not fully complete for account_8473's downstream copies, but none remain at audit_at."
+  ],
+  "usage": [
+   {
+    "case_id": "case_86",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 111,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_86",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 386,
+    "cache_creation_input_tokens": 5013,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_86",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 574,
+    "cache_creation_input_tokens": 3910,
+    "cache_read_input_tokens": 9884
+   },
+   {
+    "case_id": "case_86",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 683,
+    "cache_creation_input_tokens": 21368,
+    "cache_read_input_tokens": 13794
+   },
+   {
+    "case_id": "case_86",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1507,
+    "cache_creation_input_tokens": 6224,
+    "cache_read_input_tokens": 35162
+   },
+   {
+    "case_id": "case_86",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1157,
+    "cache_creation_input_tokens": 3724,
+    "cache_read_input_tokens": 41386
+   },
+   {
+    "case_id": "case_86",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 534,
+    "cache_creation_input_tokens": 2940,
+    "cache_read_input_tokens": 45110
+   },
+   {
+    "case_id": "case_86",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 354,
+    "cache_creation_input_tokens": 711,
+    "cache_read_input_tokens": 48050
+   },
+   {
+    "case_id": "case_86",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1396,
+    "cache_creation_input_tokens": 17162,
+    "cache_read_input_tokens": 48761
+   },
+   {
+    "case_id": "case_86",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1626,
+    "cache_creation_input_tokens": 8866,
+    "cache_read_input_tokens": 65923
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8473"
+   },
+   "output_chars": 2468
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9500"
+   },
+   "output_chars": 1999
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5580"
+   },
+   "output_chars": 1366
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "marek.zielinski@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 1046
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_84",
+    "limit": 100
+   },
+   "output_chars": 541
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 0
+   },
+   "output_chars": 4397
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aeabe5076650f618e86b4224382a0f242dc8b5a9da2112aafc41c84464c5b6ae",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48702823880",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Zielinski",
+    "limit": 100
+   },
+   "output_chars": 12674
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-23T00:00:00Z",
+    "end": "2026-09-06T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31419
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 2000
+   },
+   "output_chars": 4401
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "marek",
+    "limit": 100
+   },
+   "output_chars": 2668
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "702823880",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8473",
+    "limit": 100
+   },
+   "output_chars": 1643
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Marek",
+    "limit": 100
+   },
+   "output_chars": 2668
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "analytics_9500",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 324
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_90",
+    "sql": "SELECT * FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 2406
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_5580",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_90",
+    "sql": "SELECT 'sec' t, resource_id, subject_reference, event_code, retention_until, updated_at FROM security_audit_records WHERE subject_reference LIKE '%user_84%' OR resource_id='audit_record_5580' UNION ALL SELECT 'prof', resource_id, customer_reference, full_name||'|'||email||'|'||phone, account_status, updated_at FROM customer_profiles WHERE email LIKE '%zielinski%' OR customer_reference='user_84' OR resource_id='account_8473' UNION ALL SELECT 'snap', origin_system, captured_at, '', '', '' FROM snapshot_scope"
+   },
+   "output_chars": 176
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_89",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 65
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_5580",
+    "limit": 50
+   },
+   "output_chars": 551
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 35472
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "LEGAL_HOLD_RECORD"
+   },
+   "output_chars": 137
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+48 702",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "zieli",
+    "limit": 50
+   },
+   "output_chars": 16065
+  }
+ ]
+}

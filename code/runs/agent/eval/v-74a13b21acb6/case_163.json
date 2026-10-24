@@ -1,0 +1,360 @@
+{
+ "case_id": "case_163",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_4289",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_85"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_4509",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_85"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_4289",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_4509",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4289",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_4509",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1053",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_163",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4289",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_85",
+    "reason": "Latest direct observation at 2026-07-28T04:17:33Z (trace rb-041733-011, before audit_at) shows account_service returned rows=1 HTTP 200 for lookup key erik.h9688@outlook.com, with the email still on the profile. The deletion worker's DELETE_RECORD (activity_2891, SUCCESS) is only a workflow claim and is contradicted by this readback. The replication checkpoint (activity_2892) is a claim too and does not change the primary-profile state. Attributed to subject by exact email match.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_4509",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_85",
+    "reason": "Direct index query at 2026-07-28T05:44:17Z (trace rb-054417-022) returned result=hit, total_hits=1, index customer_directory_v3, with email=erik.h9688@outlook.com. The DELETE_RECORD activity_2893 (SUCCESS) is a workflow claim that the stored index entry contradicts. Attributed by exact email match.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "activity_2892",
+    "reason": "Replication checkpoint activity for account_4289; it is an activity claim, not a separate data resource, and the same copy is covered by the account_4289 fact."
+   },
+   {
+    "resource_id": "activity_2891",
+    "reason": "Deletion-worker submission activity for account_4289; a workflow claim that is contradicted by the direct readback in evidence_85, so it is not a resource fact."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks the shop to permanently delete the account associated with their email address and to confirm completion. The follow-up to check linked records is part of the same erasure request, so this authorizes deletion.",
+   "summary: Subject erik.h9688@outlook.com (user_161). Two in-scope resources are still present at audit_at 2026-07-28T06:00:00Z: account_4289 (USER_PROFILE, primary profile still exposes the email) and search_4509 (SEARCH_INDEX_ENTRY, customer_directory_v3 hit on the email). Both are contradicted by the workflow's reported SUCCESS claims, so the COMPLETE status is not supported. No other copies were found: searches for user_161, the name, the phone, the email hash, and the h9688 fragment returned nothing beyond these two. No DATA_FLOW, support, analytics, export or backup records were linked to this subject. The copy in account_replication_cluster is treated as the same account_4289 record and is not counted separately.",
+   "future verification added for audit_record_1053 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_163",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 102,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_163",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 388,
+    "cache_creation_input_tokens": 3839,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_163",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 530,
+    "cache_creation_input_tokens": 3464,
+    "cache_read_input_tokens": 8710
+   },
+   {
+    "case_id": "case_163",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 688,
+    "cache_creation_input_tokens": 13839,
+    "cache_read_input_tokens": 12174
+   },
+   {
+    "case_id": "case_163",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 772,
+    "cache_creation_input_tokens": 4315,
+    "cache_read_input_tokens": 26013
+   },
+   {
+    "case_id": "case_163",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1318,
+    "cache_creation_input_tokens": 30513,
+    "cache_read_input_tokens": 30328
+   },
+   {
+    "case_id": "case_163",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1298,
+    "cache_creation_input_tokens": 3394,
+    "cache_read_input_tokens": 60841
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4289"
+   },
+   "output_chars": 2810
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4509"
+   },
+   "output_chars": 2196
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "erik.h9688@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 1502
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_161",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "erik holm",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "h9688",
+    "limit": 100
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46709141974",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4325bcdca4604bae79c349e9e5ce7e9b680a8d4a5dd17a426cbae338dbaaca78",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-17T00:00:00Z",
+    "end": "2026-07-28T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31279
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "erik",
+    "limit": 100
+   },
+   "output_chars": 4313
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Holm",
+    "limit": 100
+   },
+   "output_chars": 44
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4289",
+    "limit": 100
+   },
+   "output_chars": 1991
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_4509",
+    "limit": 100
+   },
+   "output_chars": 1383
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "outlook.com",
+    "limit": 100
+   },
+   "output_chars": 37283
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "replication",
+    "limit": 100
+   },
+   "output_chars": 28177
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_16",
+    "limit": 100
+   },
+   "output_chars": 606
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4670914",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_85",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_84",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  }
+ ]
+}

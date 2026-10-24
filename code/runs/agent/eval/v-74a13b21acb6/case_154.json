@@ -1,0 +1,396 @@
+{
+ "case_id": "case_154",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_1446",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_15"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_1446",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_1446",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2580",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_154",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_1446",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_15",
+    "reason": "Search index document in customer_directory_v3 still exposes display_name 'Kofi Boateng', email boateng.kofi@icloud.com and customer_reference user_152 in both primary and read-replica tables at audit_at (2026-08-02T07:00:00Z). The workflow's DELETE_RECORD result (activity_2814, FAILED) is a claim; the stored row is still present, so the index entry must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_2580",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_15",
+    "reason": "Security audit event account_deletion_reviewed for subject_reference user_152 is present in security_audit_events at audit_at. No retention_until or expiry is supplied for this record and no evidence shows the retention period has ended, so it is retained (only the subject reference is internal; no direct identifiers).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "audit_record_4199",
+    "reason": "Subject reference is user_153, a different customer; not linked to this subject."
+   },
+   {
+    "resource_id": "audit_record_5652",
+    "reason": "Subject reference is user_151, a different customer."
+   },
+   {
+    "resource_id": "audit_record_5890",
+    "reason": "Subject reference is user_154, a different customer."
+   },
+   {
+    "resource_id": "analytics_2008",
+    "reason": "Linked to user_159 and noah-sullivan@gmail.com, a different customer; no link to user_152 or the subject's identifiers."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer asks for the account to be permanently deleted and for connected identifiers to be reviewed as part of that erasure, with a confirmation once complete. This is a clear deletion request for the person's own account and data.",
+   "summary: Searched the subject's email, user_id user_152, name, phone and email hash across all usable evidence. Only two resources mention the subject: search_1446 (search index entry, still PRESENT on primary and replica at audit_at despite a FAILED deletion claim; must be DELETED) and audit_record_2580 (security audit event referencing user_152, no expired retention evidence, RETAIN). No support records, exports, analytics profiles, connectors, backups or account profile rows were linked to the subject's identifiers in usable evidence. The subject's email hash and phone returned no matches."
+  ],
+  "usage": [
+   {
+    "case_id": "case_154",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1061,
+    "output_tokens": 104,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_154",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 453,
+    "cache_creation_input_tokens": 3971,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_154",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 384,
+    "cache_creation_input_tokens": 3775,
+    "cache_read_input_tokens": 8842
+   },
+   {
+    "case_id": "case_154",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 691,
+    "cache_creation_input_tokens": 15422,
+    "cache_read_input_tokens": 12617
+   },
+   {
+    "case_id": "case_154",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 597,
+    "cache_creation_input_tokens": 5241,
+    "cache_read_input_tokens": 28039
+   },
+   {
+    "case_id": "case_154",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 343,
+    "cache_creation_input_tokens": 5388,
+    "cache_read_input_tokens": 33280
+   },
+   {
+    "case_id": "case_154",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 647,
+    "cache_creation_input_tokens": 2504,
+    "cache_read_input_tokens": 38668
+   },
+   {
+    "case_id": "case_154",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 676,
+    "cache_creation_input_tokens": 21310,
+    "cache_read_input_tokens": 41172
+   },
+   {
+    "case_id": "case_154",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1557,
+    "cache_creation_input_tokens": 2272,
+    "cache_read_input_tokens": 62482
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "boateng.kofi@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 1703
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_152",
+    "limit": 100
+   },
+   "output_chars": 3448
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Kofi Boateng",
+    "limit": 100
+   },
+   "output_chars": 1692
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233242647521",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a5c1ef606638c2a1b6148f3a9002bf89885077e8ce736d8bdeb5be231500f730",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_1446"
+   },
+   "output_chars": 3114
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_2580"
+   },
+   "output_chars": 2630
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-11T00:00:00Z",
+    "end": "2026-08-02T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31136
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "boateng",
+    "limit": 100
+   },
+   "output_chars": 5512
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "kofi",
+    "limit": 100
+   },
+   "output_chars": 3687
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a5c1ef606638c2a1b6148f3a9002bf89885077e8ce736d8bdeb5be231500f730",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+233242647521",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "user_152",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_17",
+    "offset": 0
+   },
+   "output_chars": 4642
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_15",
+    "offset": 0
+   },
+   "output_chars": 4513
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "boateng.kofi",
+    "limit": 100
+   },
+   "output_chars": 1692
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "icloud",
+    "limit": 100
+   },
+   "output_chars": 39078
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_152",
+    "limit": 100
+   },
+   "output_chars": 3448
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2426475",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_2580",
+    "limit": 50
+   },
+   "output_chars": 1815
+  }
+ ]
+}

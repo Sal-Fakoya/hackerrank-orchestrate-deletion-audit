@@ -1,0 +1,289 @@
+{
+ "case_id": "case_183",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3262",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_83"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_183",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_3262",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_83",
+    "reason": "Security audit record (IDENTITY_CHANGE_RECORDED, observed 2026-07-18T08:12:52Z) carries subject_reference user_181, the subject's only stable user_id. retention_until 2034-09-30 is still in force at audit_at, so the record is retained and is reported as PRESENT for retention verification.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4854",
+    "reason": "Only links to the subject are the deletion-worker run activity_2729, which is shared with case_184 (pereira.beatriz@gmail.com). The only observation, evidence_83, is an identity-free 404 profile lookup with profile null, so it cannot be attributed to this subject. Rejected as belonging to another request's run."
+   },
+   {
+    "resource_id": "account_9620",
+    "reason": "Only links are the shared deletion-worker run activity_2728 (shared with case_184) and its SUCCESS claim. No usable evidence ties account_9620 to s.jung68@gmail.com or user_181. Rejected as not attributable to this subject; the absent state in evidence_83 is noted but the resource is not this subject's."
+   }
+  ],
+  "notes": [
+   "intent: deletion (ko): The customer asks for permanent deletion of the account linked to their email address, which is erasure of their own account and personal data. The additional request to review current and previous identifiers and confirm the result is a follow-up on the same erasure request and does not change the classification.",
+   "summary: Searched the subject's email, email hash, phone, user_181 and name. Only one resource in this episode is attributable to the subject: audit_record_3262, a security audit record that references user_181 and is retained under a 2034 retention period (RETAIN, condition met). No user profile, marketing, analytics, search, cache, support, export, or email records mention the subject's identifiers in the usable evidence. The two account candidates come from a deletion run shared with case_184 and have no evidence tying them to this subject, so they were rejected. No active data flow or restorable backup referencing the subject was found."
+  ],
+  "usage": [
+   {
+    "case_id": "case_183",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1097,
+    "output_tokens": 116,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_183",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 407,
+    "cache_creation_input_tokens": 3787,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_183",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 632,
+    "cache_creation_input_tokens": 11136,
+    "cache_read_input_tokens": 8658
+   },
+   {
+    "case_id": "case_183",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 622,
+    "cache_creation_input_tokens": 13692,
+    "cache_read_input_tokens": 19794
+   },
+   {
+    "case_id": "case_183",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1194,
+    "cache_creation_input_tokens": 13234,
+    "cache_read_input_tokens": 33486
+   },
+   {
+    "case_id": "case_183",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1527,
+    "cache_creation_input_tokens": 3512,
+    "cache_read_input_tokens": 46720
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "s.jung68@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 58
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_181",
+    "limit": 100
+   },
+   "output_chars": 810
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jung",
+    "limit": 100
+   },
+   "output_chars": 16330
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4854"
+   },
+   "output_chars": 2114
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9620"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_3262"
+   },
+   "output_chars": 1634
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6be63fb740c737f2314590c448a26c83a32d33d9033d0b634b66bcc81be8d4ec",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821002104604",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "seo-yeon",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9620",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-07T00:00:00Z",
+    "end": "2026-07-18T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31447
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-07T00:00:00Z",
+    "end": "2026-07-10T23:59:59Z",
+    "limit": 60
+   },
+   "output_chars": 14945
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_82",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 0
+   },
+   "output_chars": 4505
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jung68",
+    "limit": 100
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_184",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_2728",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 2500
+   },
+   "output_chars": 4622
+  }
+ ]
+}

@@ -1,0 +1,470 @@
+{
+ "case_id": "case_261",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_3150",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_6781",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_3150",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_6781",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_3150",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_6781",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "legal_service",
+   "resource_id": "legal_hold_8017",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3335",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_261",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_3150",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Primary customer profile for user_259 (y.park50@yahoo.com, Yu-na Park, phone +82 10 1182 9176) is still present with ACTIVE status in the 2026-06-13 read-replica capture at audit_at. The deletion worker's SUCCESS claim (activity_1938) and the replication PARTIAL checkpoint (activity_1943) do not override this direct observation.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_6781",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Customer search document in customer_directory_v3 still exposes display name Yu-na Park, email y.park50@yahoo.com and customer_reference user_259 at audit_at (evidence_24, primary and read replica). The deletion result for search_6781 was FAILED (activity_1944), consistent with the record still existing.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_3335",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Security audit event account_deletion_reviewed referencing subject user_259 is present at audit_at. It was created during this request window and no retention_until value for it is shown, but nothing indicates the retention period has ended, so it is retained and verified as PRESENT.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "legal_hold_8017",
+    "system_id": "legal_service",
+    "category": "LEGAL_HOLD_RECORD",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Retained order record ORD-20268017 for subject user_259 (payment_dispute_and_tax_record, retained_until 2033-12-31) is present at audit_at and is retained under the legal retention rule. Although it is linked to the shared batch run activity_1942 (case_260), evidence_24 ties it directly to user_259. The supplied retention register (evidence_27) does not list this order, so the hold rests on the record's own retention metadata.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_5053",
+    "reason": "Linked only through the batch run activity_1941, which is shared with case_260 (daichi.takahashi@outlook.com). In evidence_24 the record has user_id, email, phone and email_hash all null and no reference to user_259, so nothing ties it to this subject. It is an identity-free record in a shared run and cannot be attributed."
+   }
+  ],
+  "notes": [
+   "intent: deletion (ko): The customer requests permanent deletion of the account linked to their email address, which is erasure of their own account and personal data. The additional request to review current and previous identifiers and confirm the result does not negate the deletion request.",
+   "summary: Subject user_259 (y.park50@yahoo.com) has two DELETE-type resources still present at audit_at: account_3150 (ACTIVE profile in the read replica) and search_6781 (search document). The workflow's SUCCESS and FAILED claims are contradicted by evidence_24. Two retained records are present and governed by retention: audit_record_3335 (security audit) and legal_hold_8017 (retained order record). analytics_5053 was rejected because it is an identity-free record from a shared batch run. No backups, data flows, tombstones, or support/marketing/export records tied to user_259 were found in the usable evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_261",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1097,
+    "output_tokens": 104,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_261",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 429,
+    "cache_creation_input_tokens": 3207,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_261",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 449,
+    "cache_creation_input_tokens": 6088,
+    "cache_read_input_tokens": 8078
+   },
+   {
+    "case_id": "case_261",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 417,
+    "cache_creation_input_tokens": 14912,
+    "cache_read_input_tokens": 14166
+   },
+   {
+    "case_id": "case_261",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 705,
+    "cache_creation_input_tokens": 15008,
+    "cache_read_input_tokens": 29078
+   },
+   {
+    "case_id": "case_261",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 874,
+    "cache_creation_input_tokens": 4981,
+    "cache_read_input_tokens": 44086
+   },
+   {
+    "case_id": "case_261",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1537,
+    "cache_creation_input_tokens": 3059,
+    "cache_read_input_tokens": 49067
+   },
+   {
+    "case_id": "case_261",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2558,
+    "cache_creation_input_tokens": 19564,
+    "cache_read_input_tokens": 52126
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "y.park50@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 2538
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_259",
+    "limit": 100
+   },
+   "output_chars": 5926
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "340d2666baa2e94b3c1facfe3bc7442c3bdcf8117f0a353cb0a5ba588f0e199f",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821011829176",
+    "limit": 100
+   },
+   "output_chars": 904
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yu-na park",
+    "limit": 100
+   },
+   "output_chars": 2530
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3150"
+   },
+   "output_chars": 2957
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5053"
+   },
+   "output_chars": 3796
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_3335"
+   },
+   "output_chars": 2641
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_8017"
+   },
+   "output_chars": 3103
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_6781"
+   },
+   "output_chars": 3111
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "park",
+    "limit": 100
+   },
+   "output_chars": 15735
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 0
+   },
+   "output_chars": 4519
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-15T00:00:00Z",
+    "end": "2026-06-13T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 30902
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "y.park50",
+    "limit": 100
+   },
+   "output_chars": 2528
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1182 9176",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Yu-na",
+    "limit": 100
+   },
+   "output_chars": 2525
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ORD-20268017",
+    "limit": 100
+   },
+   "output_chars": 1688
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3150",
+    "limit": 100
+   },
+   "output_chars": 2127
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_261",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 5,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_8519"
+   },
+   "output_chars": 2315
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "legal_hold_8017",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 318
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "analytics_5053",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 324
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_3335",
+    "limit": 50
+   },
+   "output_chars": 1815
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 36583
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_3335",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "search_6781",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 348
+  }
+ ]
+}

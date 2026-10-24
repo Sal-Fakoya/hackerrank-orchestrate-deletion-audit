@@ -1,0 +1,403 @@
+{
+ "case_id": "case_430",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_5292",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_68"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_430",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_5292",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_68",
+    "reason": "Security audit record with subject_reference user_428 (the subject's user_id), captured 2026-03-20T07:23:49Z within the request window. retention_until 2034-09-30 is after audit_at, so the retention condition holds and the record must be retained (reported as PRESENT for verification).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_563",
+    "reason": "Only linked via deletion-worker batch run activity_850 (reported FAILED, a claim), whose run is shared with case_428 and case_429. No usable evidence (no snapshot, export, or log) mentions account_563 or ties it to user_428 or yoon.jihoon@icloud.com; not attributable to this subject."
+   },
+   {
+    "resource_id": "account_9975",
+    "reason": "Only linked via deletion-worker batch run activity_851 and replication activity_861 (workflow claims), shared with case_428 and case_429. No usable record evidence mentions account_9975 or ties it to this subject's identifiers; search_9975 is an unrelated index id with no link. Not attributable to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to close their own account and process the associated personal-data deletion, and to verify the connected records, which is a follow-up on the same erasure request. This authorizes deletion.",
+   "summary: Subject identifiers (email, hash, phone, name) return no usable evidence. The only subject-linked record is audit_record_5292 (subject_reference user_428), a security audit record within retention until 2034, so it is retained. Both batch-run candidates (account_563, account_9975) are shared with other requests and have no evidence tying them to this subject, so they were rejected. No copies, connectors, backups, or exports tied to this subject were found in usable evidence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_430",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 98,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_430",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 429,
+    "cache_creation_input_tokens": 1630,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_430",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 305,
+    "cache_creation_input_tokens": 1078,
+    "cache_read_input_tokens": 6501
+   },
+   {
+    "case_id": "case_430",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 607,
+    "cache_creation_input_tokens": 15220,
+    "cache_read_input_tokens": 7579
+   },
+   {
+    "case_id": "case_430",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 685,
+    "cache_creation_input_tokens": 11247,
+    "cache_read_input_tokens": 22799
+   },
+   {
+    "case_id": "case_430",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 633,
+    "cache_creation_input_tokens": 9628,
+    "cache_read_input_tokens": 34046
+   },
+   {
+    "case_id": "case_430",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1999,
+    "cache_creation_input_tokens": 2782,
+    "cache_read_input_tokens": 43674
+   },
+   {
+    "case_id": "case_430",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 857,
+    "cache_creation_input_tokens": 9282,
+    "cache_read_input_tokens": 46456
+   },
+   {
+    "case_id": "case_430",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 819,
+    "cache_creation_input_tokens": 2409,
+    "cache_read_input_tokens": 55738
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yoon.jihoon@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 62
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_428",
+    "limit": 100
+   },
+   "output_chars": 810
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ji-hoon yoon",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821026869320",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "db60e5653df2de8b84e177af1b3a110e46c61abe2d5d0f652463c65e88754532",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_563"
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9975"
+   },
+   "output_chars": 2092
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5292"
+   },
+   "output_chars": 1639
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 200
+   },
+   "output_chars": 31308
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "yoon",
+    "limit": 100
+   },
+   "output_chars": 44
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jihoon",
+    "limit": 100
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_563",
+    "limit": 100
+   },
+   "output_chars": 652
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9975",
+    "limit": 100
+   },
+   "output_chars": 1267
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-03-02T00:00:00Z",
+    "end": "2026-03-06T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 24303
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_45",
+    "offset": 0
+   },
+   "output_chars": 4669
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_66",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_67",
+    "offset": 0
+   },
+   "output_chars": 755
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_66",
+    "sql": "SELECT * FROM customer_profiles WHERE resource_id IN ('account_563','account_9975') OR customer_reference='user_428' OR email LIKE '%yoon%' OR full_name LIKE '%yoon%'"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%user_428%' OR record_json LIKE '%yoon%' OR record_json LIKE '%account_563%' OR record_json LIKE '%account_9975%' OR record_json LIKE '%821026869320%'"
+   },
+   "output_chars": 91
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_68",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_41",
+    "offset": 0
+   },
+   "output_chars": 4394
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_44",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_46",
+    "offset": 0
+   },
+   "output_chars": 194
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_9975"
+   },
+   "output_chars": 1457
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_5292"
+   },
+   "output_chars": 1639
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  }
+ ]
+}

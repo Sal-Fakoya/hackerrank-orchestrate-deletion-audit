@@ -1,0 +1,30 @@
+{
+ "case_id": "case_536",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "NOT_APPLICABLE",
+ "steps": [],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_536",
+  "mode": "agent",
+  "deletion_requested": false,
+  "facts": [],
+  "rejected": [],
+  "notes": [
+   "intent: account_support (English): The customer asks for help resetting a login because they cannot access their profile, and explicitly says not to close the account. This is account-access help with the account kept, not a deletion request."
+  ],
+  "usage": [
+   {
+    "case_id": "case_536",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1029,
+    "output_tokens": 91,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   }
+  ]
+ },
+ "transcript": []
+}

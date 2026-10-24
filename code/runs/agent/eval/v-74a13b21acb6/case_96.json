@@ -1,0 +1,459 @@
+{
+ "case_id": "case_96",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "export_service",
+   "resource_id": "export_8827",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_5672",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "export_service",
+   "resource_id": "export_8827",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_5672",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "export_service",
+   "resource_id": "export_8827",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5672",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_96",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "export_8827",
+    "system_id": "export_service",
+    "category": "USER_EXPORT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_89",
+    "reason": "Export object exports/export_8827/customer_data.zip still carries owner_email smorgan9115@fastmail.com as observed at 2026-09-01T05:02:19Z (audit_at 2026-09-01T06:00Z). Requires DELETE. The deletion worker's PARTIAL claim (activity_3192) does not prove removal.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_5672",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_89",
+    "reason": "Search index customer_directory document search_5672 still returns email smorgan9115@fastmail.com for query smorgan9115@fastmail.com (observed 2026-09-01T03:05:19Z). Requires DELETE; the PARTIAL deletion claim (activity_3194) is not proof of removal.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4176",
+    "reason": "Linked only via the deletion-worker batch run activity_3188 (FAILED claim), which is shared with case_95 and case_97. No usable evidence ties this account to user_94 or the request email. The 2026-09-01 account_service export (evidence_89) and later snapshots do not contain it. Not attributable to this subject."
+   },
+   {
+    "resource_id": "account_5815",
+    "reason": "Linked only via the shared batch run activity_3187 (shared with case_95 and case_97). No identity evidence ties it to this subject; the workflow FAILED claim is not proof. Not attributable."
+   },
+   {
+    "resource_id": "account_6813",
+    "reason": "Shared batch run activity_3186. The only direct observation is an identity-free 404 profile lookup (evidence_89, profile null), which cannot be attributed to this subject in a run shared with other customers."
+   },
+   {
+    "resource_id": "analytics_9103",
+    "reason": "Shared batch run activity_3189. The only observation (evidence_89) is an all-null analytics profile (mobile_browser cohort, no email, hash, phone or customer reference). Identity-free in a shared run, so it cannot be attributed to the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to close their account and process the associated personal-data deletion, and to review data eligible for deletion or de-identification. This is a request for erasure of their own account and personal data, not a negated or third-party request.",
+   "summary: Subject smorgan9115@fastmail.com / user_94 has two verified in-scope records still present at audit_at 2026-09-01T06:00Z: export_8827 (USER_EXPORT, owner email present) and search_5672 (SEARCH_INDEX_ENTRY, email present), both proven by evidence_89. Both need DELETE, and the workflow's PARTIAL claims do not prove removal. Searches for user_94, the email hash, the phone and the name found no further subject records in the inventory, replica, regional or read-replica snapshots. Four batch-linked candidates were rejected as not attributable to this subject (shared run, no identity evidence). No data-flow, backup or connector record was tied to this subject (connectors and backups in evidence_89 belong to other customers)."
+  ],
+  "usage": [
+   {
+    "case_id": "case_96",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1063,
+    "output_tokens": 108,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_96",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 653,
+    "cache_creation_input_tokens": 4869,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_96",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 682,
+    "cache_creation_input_tokens": 7749,
+    "cache_read_input_tokens": 9740
+   },
+   {
+    "case_id": "case_96",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 939,
+    "cache_creation_input_tokens": 4558,
+    "cache_read_input_tokens": 17489
+   },
+   {
+    "case_id": "case_96",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 444,
+    "cache_creation_input_tokens": 14119,
+    "cache_read_input_tokens": 22047
+   },
+   {
+    "case_id": "case_96",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1082,
+    "cache_creation_input_tokens": 2326,
+    "cache_read_input_tokens": 36166
+   },
+   {
+    "case_id": "case_96",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 925,
+    "cache_creation_input_tokens": 4071,
+    "cache_read_input_tokens": 38492
+   },
+   {
+    "case_id": "case_96",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 697,
+    "cache_creation_input_tokens": 1866,
+    "cache_read_input_tokens": 42563
+   },
+   {
+    "case_id": "case_96",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2063,
+    "cache_creation_input_tokens": 14969,
+    "cache_read_input_tokens": 44429
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "smorgan9115@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 2502
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_94",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sophie morgan",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4176"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5815"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6813"
+   },
+   "output_chars": 2112
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9103"
+   },
+   "output_chars": 2260
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_8827"
+   },
+   "output_chars": 2263
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5672"
+   },
+   "output_chars": 3128
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "c037c6954e96fb11b8e23e9a7f72e22a89f04f8f477286615271ec73e70ca870",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "447700900094",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "smorgan",
+    "limit": 100
+   },
+   "output_chars": 2485
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4176",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5815",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-07T00:00:00Z",
+    "end": "2026-09-01T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31240
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 5
+   },
+   "output_chars": 1527
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_96",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch",
+    "limit": 100
+   },
+   "output_chars": 1036
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-10T04:50:00Z",
+    "end": "2026-08-10T07:30:00Z",
+    "limit": 100
+   },
+   "output_chars": 3242
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": null
+   },
+   "output_chars": 608
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_87",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_12",
+    "offset": 0
+   },
+   "output_chars": 4651
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_87",
+    "sql": "select 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status from customer_profiles union all select 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name from customer_search_documents union all select 'analytics', resource_id, customer_reference, null, email, phone, email_hash, audience_cohort from customer_analytics_profiles union all select 'exports', resource_id, customer_reference, null, owner_email, owner_phone, object_key, null from customer_exports union all select 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, null from support_records union all select 'connector', resource_id, customer_reference, connector_name, customer_email, enabled, last_delivery_status, null from connector_subscriptions union all select 'backup', resource_id, customer_reference, archive_key, customer_email, restore_allowed, null, null from backup_restore_entries"
+   },
+   "output_chars": 2019
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "select 'primary' src, resource_id, origin_system, collection_name, record_json from customer_data_primary where record_json like '%morgan%' or record_json like '%user_94%' or record_json like '%9115%' or record_json like '%447700900094%' or record_json like '%c037c695%' union all select 'replica', resource_id, origin_system, collection_name, record_json from customer_data_read_replica where record_json like '%morgan%' or record_json like '%user_94%' or record_json like '%9115%' or record_json like '%447700900094%' or record_json like '%c037c695%'"
+   },
+   "output_chars": 98
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "morgan",
+    "limit": 100
+   },
+   "output_chars": 12338
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Sophie",
+    "limit": 100
+   },
+   "output_chars": 11249
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4421",
+    "limit": 20
+   },
+   "output_chars": 2085
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  }
+ ]
+}

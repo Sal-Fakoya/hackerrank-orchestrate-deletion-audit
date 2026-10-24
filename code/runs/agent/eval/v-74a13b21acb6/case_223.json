@@ -1,0 +1,382 @@
+{
+ "case_id": "case_223",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_5479",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_80"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_8764",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_80"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_5479",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_8764",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_5479",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_8764",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_234",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_223",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_5479",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_80",
+    "reason": "Primary profile still returns HTTP 200 with the subject's email thiago.s4828@outlook.com at 2026-06-28T04:18:09Z, after the reported DELETE_RECORD (activity_2448, reported PARTIAL). Direct observation overrides the workflow claim. Replication checkpoint activity_2449 shows the record was synced to the replication cluster, so copies may remain.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_8764",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_80",
+    "reason": "Search query for thiago.s4828@outlook.com at 2026-06-28T06:14:36Z still returns document search_8764 with the subject's email. The reported DELETE_RECORD SUCCESS (activity_2451) is contradicted by this direct observation.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_8011",
+    "reason": "Belongs to a different customer (thiago-nascimento@gmail.com, user_351). No link to the subject's email, phone, hash or user_221."
+   },
+   {
+    "resource_id": "search_495",
+    "reason": "Search document for thiago-nascimento@gmail.com / user_351, a different person. Name match is only partial ('Thiago Nascimento' vs 'thiago souza')."
+   },
+   {
+    "resource_id": "support_2406",
+    "reason": "Support conversation for user_351 (thiago-nascimento@gmail.com), a different customer."
+   },
+   {
+    "resource_id": "data_flow_3180",
+    "reason": "Active connector whose subject_selector is thiago-nascimento@gmail.com (user_351). It does not copy this subject's data, so it is not in scope for this request."
+   },
+   {
+    "resource_id": "search_4894",
+    "reason": "Repopulated by data_flow_8346 from an unrelated connector. No evidence ties its contents to this subject's identifiers."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to erase the account linked to their email address, including information linked through current or earlier identifiers. This is a request for erasure of the person's own account and personal data, so it authorizes deletion.",
+   "summary: Subject footprint is limited to account_5479 (account profile) and search_8764 (search index entry). Both were submitted for deletion, but evidence_80 (captured 2026-06-28, before audit_at) shows both still hold the subject's email, so both are PRESENT and need deletion. Account replication (activity_2449) may hold copies. No active data flow, support, analytics or export record was found for thiago.s4828@outlook.com, user_221, the phone, or the email hash. The Thiago Nascimento records belong to a different customer. The workflow's PARTIALLY_COMPLETE/SUCCESS claims are not supported by direct observation.",
+   "future verification added for audit_record_234 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_223",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1049,
+    "output_tokens": 102,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_223",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 355,
+    "cache_creation_input_tokens": 3189,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_223",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 730,
+    "cache_creation_input_tokens": 10651,
+    "cache_read_input_tokens": 8060
+   },
+   {
+    "case_id": "case_223",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 516,
+    "cache_creation_input_tokens": 15167,
+    "cache_read_input_tokens": 18711
+   },
+   {
+    "case_id": "case_223",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 970,
+    "cache_creation_input_tokens": 9998,
+    "cache_read_input_tokens": 33878
+   },
+   {
+    "case_id": "case_223",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 417,
+    "cache_creation_input_tokens": 6085,
+    "cache_read_input_tokens": 43876
+   },
+   {
+    "case_id": "case_223",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1366,
+    "cache_creation_input_tokens": 3957,
+    "cache_read_input_tokens": 49961
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thiago.s4828@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 2532
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_221",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thiago",
+    "limit": 100
+   },
+   "output_chars": 13704
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5479"
+   },
+   "output_chars": 2911
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_8764"
+   },
+   "output_chars": 3127
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5551927104321",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fa164e0e5128c5d7876060d47c08177683feb40f6d995534923a3ae86aca6050",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Souza",
+    "limit": 50
+   },
+   "output_chars": 1345
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "s4828",
+    "limit": 50
+   },
+   "output_chars": 2513
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-17T00:00:00Z",
+    "end": "2026-06-28T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31355
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-17T00:00:00Z",
+    "end": "2026-06-21T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 17857
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_2448",
+    "limit": 20
+   },
+   "output_chars": 662
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5479",
+    "limit": 50
+   },
+   "output_chars": 2089
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_8764",
+    "limit": 50
+   },
+   "output_chars": 2314
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_79",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 0
+   },
+   "output_chars": 4635
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "thiago.s4828",
+    "limit": 50
+   },
+   "output_chars": 2520
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_80",
+    "offset": 4000
+   },
+   "output_chars": 4615
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4894"
+   },
+   "output_chars": 2036
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_8346"
+   },
+   "output_chars": 1496
+  }
+ ]
+}

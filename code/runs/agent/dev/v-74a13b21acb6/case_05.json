@@ -1,0 +1,326 @@
+{
+ "case_id": "case_05",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_005",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_54"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_005",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_005",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_05",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_005",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_54",
+    "reason": "Failover replica table customer_profiles_failover_replica (captured 2026-09-02T23:00Z, before audit_at) still holds account_005 for user_05 with the subject's full name, email leila.haddad@yahoo.com and phone, status ACTIVE. The primary table in the same capture no longer has account_005, so the workflow's DELETE SUCCESS (activity_3482) is contradicted for the replica copy. The replica copy must be deleted. The replication checkpoint activity_3483 shows the replica was synced from account_service, so the copy is a live replication target.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_824 / analytics_901 (evidence_56)",
+    "reason": "Records in the analytics report belong to other users (user_824 and an identity-free profile); no link to user_05 or the subject's email, phone or hash."
+   },
+   {
+    "resource_id": "search_7859 (evidence_35)",
+    "reason": "Matched only on the surname 'Haddad'; the record belongs to Sami Haddad (user_371, different email). Not this subject."
+   },
+   {
+    "resource_id": "search_428 / search_1874 (evidence_09)",
+    "reason": "Search hits for g.silva76 emails and user_13, not linked to this subject."
+   },
+   {
+    "resource_id": "data_flow / backup / analytics candidates in evidence_08 and evidence_13",
+    "reason": "Referenced only for other subjects' identifiers; no evidence ties them to user_05 or leila.haddad@yahoo.com."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer says they already deleted the account but their email is still recognized and asks to remove any remaining copy of their profile. This is a follow-up to a deletion that appears partial, which invokes the right to erasure of their own personal data.",
+   "summary: Subject user_05 (leila.haddad@yahoo.com). Only one resource of this subject is found in evidence: account_005. The primary account_service copy is absent (per evidence_54 primary table and the deletion claim), but a failover replica copy remains PRESENT and ACTIVE, with email, phone and name, captured 2026-09-02, after the deletion. The workflow's COMPLETE status is contradicted. No search-index, analytics, email, export, or backup record linked to this subject was found in the usable evidence; searches by email, hash, phone, user_id, name and 'leila' returned only evidence_54."
+  ],
+  "usage": [
+   {
+    "case_id": "case_05",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1046,
+    "output_tokens": 109,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_05",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 309,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 9666
+   },
+   {
+    "case_id": "case_05",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 477,
+    "cache_creation_input_tokens": 2744,
+    "cache_read_input_tokens": 9666
+   },
+   {
+    "case_id": "case_05",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 544,
+    "cache_creation_input_tokens": 14459,
+    "cache_read_input_tokens": 12410
+   },
+   {
+    "case_id": "case_05",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 824,
+    "cache_creation_input_tokens": 3172,
+    "cache_read_input_tokens": 26869
+   },
+   {
+    "case_id": "case_05",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 581,
+    "cache_creation_input_tokens": 7780,
+    "cache_read_input_tokens": 30041
+   },
+   {
+    "case_id": "case_05",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1292,
+    "cache_creation_input_tokens": 1388,
+    "cache_read_input_tokens": 37821
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_005"
+   },
+   "output_chars": 2810
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "leila.haddad@yahoo.com",
+    "limit": 100
+   },
+   "output_chars": 762
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_05",
+    "limit": 100
+   },
+   "output_chars": 747
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Leila Haddad",
+    "limit": 100
+   },
+   "output_chars": 752
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "62667ed065b846a842474f916da51b658edb0f9754ab2da6bf38e68779ff0d08",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "212648271593",
+    "limit": 100
+   },
+   "output_chars": 752
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_005",
+    "limit": 100
+   },
+   "output_chars": 1996
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-27T00:00:00Z",
+    "end": "2026-09-08T13:40:00Z",
+    "limit": 200
+   },
+   "output_chars": 31386
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "haddad",
+    "limit": 100
+   },
+   "output_chars": 1561
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_05",
+    "limit": 100
+   },
+   "output_chars": 747
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_54",
+    "offset": 0
+   },
+   "output_chars": 2330
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_005",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 700
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_08",
+    "offset": 0
+   },
+   "output_chars": 4397
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_56",
+    "offset": 0
+   },
+   "output_chars": 1716
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_42",
+    "offset": 0
+   },
+   "output_chars": 1577
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_09",
+    "offset": 0
+   },
+   "output_chars": 1354
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "leila",
+    "limit": 100
+   },
+   "output_chars": 745
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "62667ed0",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+212",
+    "limit": 100
+   },
+   "output_chars": 744
+  }
+ ]
+}

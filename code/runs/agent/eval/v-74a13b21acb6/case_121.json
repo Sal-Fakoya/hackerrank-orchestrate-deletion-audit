@@ -1,0 +1,270 @@
+{
+ "case_id": "case_121",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_081",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_88"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2103",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_88"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_121",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_081",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_88",
+    "reason": "Primary profile account_081 was linked to this subject by a direct lookup on the subject's email nicolas.n7090@zoho.com. The 2026-08-22 10:21Z account_service lookup returned rows=0 / HTTP 404, before audit_at, so the profile is absent. The deletion worker's SUCCESS claim (activity_2977) is consistent but was not relied on.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_2103",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_88",
+    "reason": "Security audit record references the subject's user_119 (event IDENTITY_CHANGE_RECORDED) and is readable at audit_at. Its retention_until is 2034-09-30, so it is within the retention period and must be retained, not deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_8058",
+    "reason": "Linked only through the deletion-worker run activity_2976, which is shared with other requests (case_119, case_120). No usable evidence ties this record to the subject's email, user_id, hash or phone, and the 'present' hint is only a workflow claim, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_8656",
+    "reason": "Linked only through the deletion-worker run activity_2975, which is shared with other requests (case_119, case_120). No usable evidence ties this record to this subject; the 'absent' SUCCESS claim is unverified and the record cannot be attributed."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for permanent account deletion and for connected identifiers to be reviewed as part of that request; the verification sentence does not change this, so it is a deletion request.",
+   "summary: Subject nicolas.n7090@zoho.com (user_119). account_081 is the subject's primary profile, linked by a direct email lookup, and is now absent (404 at 2026-08-22 10:21Z, evidence_88). audit_record_2103 references user_119 and is a security audit log retained until 2034, so it is present and retained. account_8058 and account_8656 were only in the shared batch run with other customers and have no attributable evidence, so they were rejected. Searches for the subject's hash, phone, and name variants, and for connector or data-flow references, returned no further subject records."
+  ],
+  "usage": [
+   {
+    "case_id": "case_121",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 95,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_121",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 445,
+    "cache_creation_input_tokens": 4520,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_121",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 694,
+    "cache_creation_input_tokens": 4227,
+    "cache_read_input_tokens": 9391
+   },
+   {
+    "case_id": "case_121",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1143,
+    "cache_creation_input_tokens": 15888,
+    "cache_read_input_tokens": 13618
+   },
+   {
+    "case_id": "case_121",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2095,
+    "cache_creation_input_tokens": 4168,
+    "cache_read_input_tokens": 29506
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_081"
+   },
+   "output_chars": 2068
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8058"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8656"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_2103"
+   },
+   "output_chars": 1596
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nicolas.n7090@zoho.com",
+    "limit": 100
+   },
+   "output_chars": 659
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_119",
+    "limit": 100
+   },
+   "output_chars": 772
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "17c4c6cbea1250372313571553480005b4b1b87605bf4e8b74e45f75bbba1db7",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34698242741",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "navarro",
+    "limit": 100
+   },
+   "output_chars": 4090
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8058",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_8656",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-24T00:00:00Z",
+    "end": "2026-08-22T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31379
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "n7090",
+    "limit": 100
+   },
+   "output_chars": 642
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nicolas",
+    "limit": 100
+   },
+   "output_chars": 2886
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_119",
+    "limit": 100
+   },
+   "output_chars": 772
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_081",
+    "limit": 100
+   },
+   "output_chars": 1254
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": "DELETE_RECORD",
+    "start": "2026-07-27T09:40:00Z",
+    "end": "2026-07-27T10:30:00Z",
+    "limit": 50
+   },
+   "output_chars": 994
+  }
+ ]
+}

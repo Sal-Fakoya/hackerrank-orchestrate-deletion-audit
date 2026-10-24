@@ -1,0 +1,319 @@
+{
+ "case_id": "case_74",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4595",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_91"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4595",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7778",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4595",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_74",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "data_flow_4595",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_91",
+    "reason": "Connector data_flow_4595 (connector_name support_profile_sync) is linked directly to the subject: its config read at 2026-09-11T05:44:07Z (trace rb-054407-010, captured 2026-09-11T07:42:53Z, before audit_at) shows customer_email=salma.mansour@gmail.com, enabled=true, last_delivery_status=delivered. An active connector can keep copying or recreating the subject's data, so it must be disabled. The workflow's CHECK_DATA_FLOW claim (activity_3368) agrees it is enabled, and no DISABLE action for it appears in the activity log.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "search_2843 / account_2480 / search_7348 / support_214 / account_2255 / account_3119 / search_5052 / search_4027 / support_3772 / analytics_1103 / analytics_514 / support_7208 / backup_7804 / search_5672",
+    "reason": "Belong to other people (salma.hamdan, elsayed.salma, zayd/yasmine mansour, katarina, yuna, smorgan, i.horvat, etc.). Matched only on partial names or other emails; the exact subject identifiers (email, email hash, phone, user_72, full name) do not appear on them."
+   },
+   {
+    "resource_id": "analytics_5859 / analytics_5059 / analytics_2176 / analytics_1161 / analytics_6980 / analytics_6402",
+    "reason": "Identity-free analytics profiles (customer_reference, email, phone and hash all null) seen in readback logs. They carry no link to the subject and cannot be attributed to this request, so they are rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for permanent deletion of the account for their email address and erasure under the personal-data deletion procedure, with a confirmation afterward. This is a clear deletion request for the person's own account and data.",
+   "summary: Subject identifiers (salma.mansour@gmail.com, its hash, phone 971505799364, user_72, name 'Salma Mansour') were searched across all usable evidence. The only record tied to this subject in the request window is data_flow_4595, a support_profile_sync connector that was still enabled and delivering at 2026-09-11T05:44Z (evidence_91), so it is ACTIVE and must be disabled. No other user profile, search entry, support record, export, analytics, backup or marketing record matching the subject was found. Searches on user_72, the full name, the hash and the phone returned no hits. The workflow's deletion claims were not used as proof.",
+   "future verification added for audit_record_7778 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_74",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 106,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_74",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 329,
+    "cache_creation_input_tokens": 4930,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_74",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 502,
+    "cache_creation_input_tokens": 1855,
+    "cache_read_input_tokens": 9801
+   },
+   {
+    "case_id": "case_74",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 590,
+    "cache_creation_input_tokens": 22766,
+    "cache_read_input_tokens": 11656
+   },
+   {
+    "case_id": "case_74",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 642,
+    "cache_creation_input_tokens": 15729,
+    "cache_read_input_tokens": 34422
+   },
+   {
+    "case_id": "case_74",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 388,
+    "cache_creation_input_tokens": 7146,
+    "cache_read_input_tokens": 50151
+   },
+   {
+    "case_id": "case_74",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1539,
+    "cache_creation_input_tokens": 9412,
+    "cache_read_input_tokens": 57297
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_4595"
+   },
+   "output_chars": 2251
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "salma.mansour@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 815
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_72",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Salma Mansour",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "salma",
+    "limit": 100
+   },
+   "output_chars": 6377
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f8de08ac2adb79e272590a64382e246528d6547f1a9ce4299c6f0024d5f02f80",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971505799364",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "mansour",
+    "limit": 100
+   },
+   "output_chars": 5861
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "72",
+    "limit": 100
+   },
+   "output_chars": 35900
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "data_flow_4595",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 360
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-20T00:00:00Z",
+    "end": "2026-09-11T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31218
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_91",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_88",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_85",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_14",
+    "offset": 0
+   },
+   "output_chars": 1477
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_91",
+    "offset": 2900
+   },
+   "output_chars": 4233
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_profile_sync",
+    "limit": 100
+   },
+   "output_chars": 14350
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_4595",
+    "limit": 100
+   },
+   "output_chars": 1433
+  }
+ ]
+}

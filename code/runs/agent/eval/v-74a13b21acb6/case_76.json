@@ -1,0 +1,310 @@
+{
+ "case_id": "case_76",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_9746",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_91"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9746",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6766",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_9746",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_76",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "support_9746",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_91",
+    "reason": "Support ticket record for support_9746 still exposes the subject's direct identifier (requester_email=osei.ama@gmail.com) at 2026-09-11T05:10:36Z, per service readback trace rb-051036-005. The workflow's REDACT_RECORD (activity_3366) reported FAILED, so the redaction did not complete. The record is linked to the subject's email, so it is in scope and must be redacted, not deleted, because the policy requires retaining the shared conversation context. Note: the readback shows customer_reference=null and requester_name=null, so the remaining identifier is the email.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "search_5296",
+    "reason": "Search index entry for a different customer (Adwoa Osei, aosei1993@gmail.com, user_256). Surname match only; not the subject's email or user_id."
+   },
+   {
+    "resource_id": "support_3834",
+    "reason": "Support conversation for user_256 (aosei1993@gmail.com). Different customer; not linked to the subject identifiers."
+   },
+   {
+    "resource_id": "support_4665",
+    "reason": "Attachment uploaded by yaw-osei@proton.me; different person, no subject identifier match."
+   },
+   {
+    "resource_id": "search_8417",
+    "reason": "Matched only the 'ama' substring (appiah.ama80@icloud.com); different customer."
+   },
+   {
+    "resource_id": "account_7503",
+    "reason": "Lookup for appiah.ama80@icloud.com; different customer, not the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to remove their own account and the personal information linked to it, including data linked through current or earlier identifiers. This is a clear erasure request for the person's own data.",
+   "summary: Subject osei.ama@gmail.com (user_74, Ama Osei) has one linked resource in the request window: support_9746 (support_platform). Its ticket readback at 2026-09-11 still shows requester_email equal to the subject's email, so it is PRESENT and must be redacted (SUPPORT_MESSAGE, REDACT). The workflow claim that the redaction succeeded is not supported: activity_3366 reports FAILED. No other records were found for the subject's current or historical identifiers (user_74, email, email hash, phone, name). Searches for the hash and phone returned nothing. Other candidate hits belonged to different customers and were rejected. No profile, export, search, analytics, connector, or backup records for this subject appear in the evidence, so the facts above cover only support_9746.",
+   "future verification added for audit_record_6766 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_76",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1059,
+    "output_tokens": 93,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_76",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 508,
+    "cache_creation_input_tokens": 4929,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_76",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 800,
+    "cache_creation_input_tokens": 2058,
+    "cache_read_input_tokens": 9800
+   },
+   {
+    "case_id": "case_76",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 667,
+    "cache_creation_input_tokens": 7775,
+    "cache_read_input_tokens": 11858
+   },
+   {
+    "case_id": "case_76",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 920,
+    "cache_creation_input_tokens": 26485,
+    "cache_read_input_tokens": 19633
+   },
+   {
+    "case_id": "case_76",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1060,
+    "cache_creation_input_tokens": 1669,
+    "cache_read_input_tokens": 46118
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "osei.ama@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 702
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_74",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Ama Osei",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233249010733",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "c68d117e3474e6a2e8818d6cc1ad40db9ac0f6b8020e224a5fe4829e1343612b",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_9746"
+   },
+   "output_chars": 2129
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_56",
+    "offset": 0
+   },
+   "output_chars": 1716
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_57",
+    "offset": 0
+   },
+   "output_chars": 1061
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_54",
+    "offset": 0
+   },
+   "output_chars": 2330
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_91",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "osei",
+    "limit": 100
+   },
+   "output_chars": 4835
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ama",
+    "limit": 100
+   },
+   "output_chars": 17685
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_9746",
+    "limit": 100
+   },
+   "output_chars": 1314
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "74",
+    "limit": 100
+   },
+   "output_chars": 31854
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "support_9746",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 354
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_28",
+    "offset": 0
+   },
+   "output_chars": 1536
+  }
+ ]
+}

@@ -1,0 +1,442 @@
+{
+ "case_id": "case_254",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3011",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_6233",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_6233",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3011",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3011",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9256",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_6233",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_254",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_3011",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "customer_directory_v3 document for user_252 still carries display_name 'Linnea Johansson' and email linnea.johansson@gmail.com in both primary and read-replica tables at audit_at (2026-06-13T11:00:00Z). The deletion worker's DELETE_RECORD (activity_2029) reported FAILED, so the entry is still present and must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_6233",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_24",
+    "reason": "Connector customer-events-to-warehouse-2 (continuous_sync to customer_analytics_warehouse) has subject_selector linnea.johansson@gmail.com and enabled=true in primary and replica at audit_at. The workflow's CHECK_DATA_FLOW (activity_2027) confirmed it still enabled, so it can keep copying or recreating the subject's data and must be disabled.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_9256",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "security_audit_events row for account_deletion_reviewed with subject_reference user_252 is present in primary and replica at audit_at. It is a recent (June 2026) audit event with no retention end before audit_at shown, so it is retained as a security audit record and is not a deletion target.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "backup_2427",
+    "reason": "Backup catalog entry linked to K.KOWALSKI36@GMAIL.COM, a different customer. It is not this subject's data; its restore_allowed status is not attributable to linnea.johansson."
+   },
+   {
+    "resource_id": "account_6473",
+    "reason": "Only appears in a February 2026 lookup for andersson.linnea@icloud.com (404, outside this request window and a different email with no tie to the subject). Not attributable to this subject."
+   },
+   {
+    "resource_id": "data_flow_9556",
+    "reason": "Heartbeat in February 2026 for andersson.linnea@icloud.com, a different identifier and outside this request window. Not attributable to this subject."
+   },
+   {
+    "resource_id": "analytics_9920",
+    "reason": "Feb 2026 analytics match on andersson.linnea@icloud.com, a different email address than the request email; outside the request window and not tied to this subject."
+   },
+   {
+    "resource_id": "support_3982",
+    "reason": "Feb 2026 support match on andersson.linnea@icloud.com, a different email address; outside the request window and not tied to this subject."
+   },
+   {
+    "resource_id": "search_2715",
+    "reason": "Feb 2026 search hit on andersson.linnea@icloud.com, a different email address; outside the request window and not tied to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for permanent account deletion for their own email address and asks the shop to verify the linked records before confirming completion; this is a request to erase the person's own account and personal data.",
+   "summary: Three subject-linked resources found in evidence_24 at audit_at: search_3011 (search index entry, present, still needs deletion; the deletion attempt FAILED), data_flow_6233 (connector with subject selector, ACTIVE, must be disabled), and audit_record_9256 (retained security audit event, present). No account profile, support, analytics, marketing, export, or backup record for user_252 or linnea.johansson@gmail.com was found in usable evidence in the request window. The backup_2427 candidate belongs to another customer and was rejected. The workflow's PARTIALLY_COMPLETE claim is consistent with the search index still present and the connector still active."
+  ],
+  "usage": [
+   {
+    "case_id": "case_254",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 93,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_254",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 431,
+    "cache_creation_input_tokens": 3023,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_254",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 443,
+    "cache_creation_input_tokens": 4518,
+    "cache_read_input_tokens": 7894
+   },
+   {
+    "case_id": "case_254",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 630,
+    "cache_creation_input_tokens": 7403,
+    "cache_read_input_tokens": 12412
+   },
+   {
+    "case_id": "case_254",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 410,
+    "cache_creation_input_tokens": 20276,
+    "cache_read_input_tokens": 19815
+   },
+   {
+    "case_id": "case_254",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 493,
+    "cache_creation_input_tokens": 12796,
+    "cache_read_input_tokens": 40091
+   },
+   {
+    "case_id": "case_254",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 778,
+    "cache_creation_input_tokens": 6150,
+    "cache_read_input_tokens": 52887
+   },
+   {
+    "case_id": "case_254",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 495,
+    "cache_creation_input_tokens": 23213,
+    "cache_read_input_tokens": 59037
+   },
+   {
+    "case_id": "case_254",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2458,
+    "cache_creation_input_tokens": 4779,
+    "cache_read_input_tokens": 82250
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "linnea.johansson@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 3376
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_252",
+    "limit": 100
+   },
+   "output_chars": 3462
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Linnea Johansson",
+    "limit": 100
+   },
+   "output_chars": 1710
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46700089139",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0c0aa639cc9aab38ad115e9eccba6207edce45d8bf440f7a522dcd386177f4e4",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_9256"
+   },
+   "output_chars": 2641
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_6233"
+   },
+   "output_chars": 3164
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3011"
+   },
+   "output_chars": 3139
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 0
+   },
+   "output_chars": 4519
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "linnea",
+    "limit": 100
+   },
+   "output_chars": 7654
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "johansson",
+    "limit": 100
+   },
+   "output_chars": 4876
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0c0aa639",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "700089139",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "deletion_worker",
+    "limit": 100
+   },
+   "output_chars": 30663
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-22T00:00:00Z",
+    "end": "2026-06-13T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30902
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_9256",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-22T00:00:00Z",
+    "end": "2026-05-24T23:59:59Z",
+    "limit": 200
+   },
+   "output_chars": 13982
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_2427"
+   },
+   "output_chars": 3032
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "customer-events-to-warehouse-2",
+    "limit": 50
+   },
+   "output_chars": 4200
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "security_audit_events",
+    "limit": 5
+   },
+   "output_chars": 4486
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 36583
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 6000
+   },
+   "output_chars": 4514
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 13000
+   },
+   "output_chars": 4481
+  }
+ ]
+}

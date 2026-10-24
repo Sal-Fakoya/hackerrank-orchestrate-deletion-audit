@@ -1,0 +1,647 @@
+{
+ "case_id": "case_514",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2715",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_48"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_9920",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_48"
+  },
+  {
+   "step_no": 3,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_3982",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_48"
+  },
+  {
+   "step_no": 4,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9556",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_48"
+  },
+  {
+   "step_no": 5,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9556",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2715",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3982",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "REMEDIATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_9920",
+   "operation": "ANONYMIZE_RECORD",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_6473",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 10,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2715",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 11,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1967",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 12,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3982",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 13,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_9920",
+   "operation": "VERIFY_RECORD_ANONYMIZED",
+   "state": "ANONYMIZED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 14,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9556",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_514",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_6473",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_48",
+    "reason": "Profile lookup keyed on the subject's exact email (andersson.linnea@icloud.com, trace tr-1678603) returned account_6473 with HTTP 404 / rows=0 at 2026-02-03T05:53:45Z, so the profile no longer exists in account_service. Workflow activity_121 (PARTIAL) is a claim only. Although the account was in the shared batch run with case_513, the lookup by this subject's email ties it to this subject. Compliant (ABSENT); still verify no replica copy.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_9920",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_48",
+    "reason": "Analytics identity scan (trace tr-9394312, 2026-02-03T05:56:22Z) matched the subject's email as a direct identifier on analytics_9920 in the primary pool. Record is still attributable to the user, so it must be anonymized. Activity_130 reported FAILED (claim).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1967",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_48",
+    "reason": "Security audit record for subject_ref user_512 read successfully with integrity check passed (trace tr-6100318, 2026-02-03T05:52:46Z). No retention end-date for this record appears in the evidence, so it is treated as within the retention period and retained; verify retention_until.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_9556",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_48",
+    "reason": "Connector heartbeat (trace tr-6616525, 2026-02-03T05:54:19Z) shows enabled=true, scheduler_registered=true, last_run=success, with correlation_key equal to the subject's email. It can keep copying or recreating the subject's data and must be disabled. Activity_131 SUCCESS is a stale claim.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_2715",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_48",
+    "reason": "Index query on customer_directory_v3 for the subject's exact email returned a hit on search_2715 at 2026-02-03T05:59:24Z (trace tr-2128459). Still present; activity_127 FAILED is a claim.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_3982",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_48",
+    "reason": "Support message scan (trace tr-2266561, 2026-02-03T05:58:59Z) found the subject's exact email in support_3982 as a direct identifier. It is a conversation record, so it should be redacted rather than deleted, retaining shared order/agent context. Activity_129 FAILED is a claim.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1334",
+    "reason": "Matched m.moreau38@yahoo.com in a run shared with case_513; no evidence ties it to this subject."
+   },
+   {
+    "resource_id": "search_4739",
+    "reason": "Matched m.moreau38@yahoo.com (other customer, case_513); not this subject."
+   },
+   {
+    "resource_id": "support_4533",
+    "reason": "Attachment matched katarina-ionescu@proton.me, a different customer; not this subject."
+   },
+   {
+    "resource_id": "data_flow_2263",
+    "reason": "Connector subject_selector is chevalier.hugo@icloud.com, another customer's data; not this subject."
+   },
+   {
+    "resource_id": "data_flow_6588",
+    "reason": "Connector subject_selector is farah.s8042@zoho.com, another customer; not this subject."
+   },
+   {
+    "resource_id": "data_flow_6987",
+    "reason": "Connector for user_530, another customer; not this subject."
+   },
+   {
+    "resource_id": "search_8587",
+    "reason": "Downstream resource of data_flow_173 with no link to this subject's identifiers in usable evidence."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to begin the deletion process for the account tied to their email address and to apply the appropriate treatment to covered records, which is a request for erasure of their own account and personal data.",
+   "summary: Subject user_512 (andersson.linnea@icloud.com). Six in-scope resources found, all from the 2026-02-03 central observability export (evidence_48). account_6473 is ABSENT (404 on the subject's email lookup). Still present: analytics_9920 (direct identifier, anonymize), search_2715 (index hit, delete), support_3982 (message with direct identifier, redact), audit_record_1967 (retained, retention end not evidenced). data_flow_9556 is ACTIVE and must be disabled. Workflow PARTIALLY_COMPLETE claims are contradicted by direct observations. No backups, exports, marketing profiles, or email logs matched the subject's identifiers in usable evidence. Candidates from other customers were rejected."
+  ],
+  "usage": [
+   {
+    "case_id": "case_514",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1053,
+    "output_tokens": 97,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_514",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 496,
+    "cache_creation_input_tokens": 928,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_514",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 739,
+    "cache_creation_input_tokens": 10338,
+    "cache_read_input_tokens": 5799
+   },
+   {
+    "case_id": "case_514",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 334,
+    "cache_creation_input_tokens": 7515,
+    "cache_read_input_tokens": 16137
+   },
+   {
+    "case_id": "case_514",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 677,
+    "cache_creation_input_tokens": 6509,
+    "cache_read_input_tokens": 23652
+   },
+   {
+    "case_id": "case_514",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 767,
+    "cache_creation_input_tokens": 18270,
+    "cache_read_input_tokens": 30161
+   },
+   {
+    "case_id": "case_514",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2052,
+    "cache_creation_input_tokens": 5172,
+    "cache_read_input_tokens": 48431
+   },
+   {
+    "case_id": "case_514",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 399,
+    "cache_creation_input_tokens": 9875,
+    "cache_read_input_tokens": 53603
+   },
+   {
+    "case_id": "case_514",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 702,
+    "cache_creation_input_tokens": 1487,
+    "cache_read_input_tokens": 63478
+   },
+   {
+    "case_id": "case_514",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2302,
+    "cache_creation_input_tokens": 3957,
+    "cache_read_input_tokens": 64965
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6473"
+   },
+   "output_chars": 1959
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "andersson.linnea@icloud.com",
+    "limit": 50
+   },
+   "output_chars": 4363
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_512",
+    "limit": 50
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9920"
+   },
+   "output_chars": 2106
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1967"
+   },
+   "output_chars": 1364
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_9556"
+   },
+   "output_chars": 1655
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2715"
+   },
+   "output_chars": 1770
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3982"
+   },
+   "output_chars": 2107
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "linnea andersson",
+    "limit": 50
+   },
+   "output_chars": 56
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46704978029",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "a84ee47ab3844671edf66b28f2824308b363fe216d1d498944bd51967954cfa8",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 6000
+   },
+   "output_chars": 4467
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 12000
+   },
+   "output_chars": 4459
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 6000
+   },
+   "output_chars": 4655
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 6000
+   },
+   "output_chars": 4607
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 18000
+   },
+   "output_chars": 3615
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 3000
+   },
+   "output_chars": 4618
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 12000
+   },
+   "output_chars": 3326
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-12T00:00:00Z",
+    "end": "2026-02-03T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31052
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-15T04:00:00Z",
+    "end": "2026-01-15T08:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 3590
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "andersson",
+    "limit": 50
+   },
+   "output_chars": 4345
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6473",
+    "limit": 50
+   },
+   "output_chars": 1568
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_513",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_1967",
+    "limit": 50
+   },
+   "output_chars": 972
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_3982",
+    "limit": 50
+   },
+   "output_chars": 1715
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "m.moreau38@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 1518
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "icloud.com",
+    "limit": 50
+   },
+   "output_chars": 12080
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46 70 497",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 7,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_48",
+    "trace_id": "tr-2266561"
+   },
+   "output_chars": 1162
+  },
+  {
+   "turn": 7,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_48",
+    "trace_id": "tr-6100318"
+   },
+   "output_chars": 703
+  },
+  {
+   "turn": 7,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SUPPORT_MESSAGE"
+   },
+   "output_chars": 188
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "linnea",
+    "limit": 50
+   },
+   "output_chars": 4342
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 20
+   },
+   "output_chars": 2339
+  }
+ ]
+}

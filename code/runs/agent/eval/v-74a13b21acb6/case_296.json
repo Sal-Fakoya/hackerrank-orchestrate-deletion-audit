@@ -1,0 +1,450 @@
+{
+ "case_id": "case_296",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_9631",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_75"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_085",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_75"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_085",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_9631",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_9631",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_085",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_296",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_9631",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_75",
+    "reason": "Latest usable inventory capture (2026-05-24T06:39:55Z, before audit_at) shows customer_directory_v3 row search_9631 still holding the subject's exact email adaeze.nwosu@outlook.com. The deletion worker's DELETE result (activity_1682) was FAILED, and the row was never removed. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_085",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_75",
+    "reason": "Connector subscription analytics_identity_bridge is enabled=1 with last_delivery_status=delivered at 2026-05-24T04:46:36Z and is keyed on the subject's email adaeze.nwosu@outlook.com. It can keep copying or recreating the subject's data and must be disabled.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4267",
+    "reason": "Linked only through batch_run:activity_1668, which is shared with case_297, case_298, case_311 and case_312. No usable evidence ties this account to user_294 or the subject's email, name, phone or hash. The only observations are workflow activity rows. Not attributable to this subject, so rejected."
+   },
+   {
+    "resource_id": "account_4880",
+    "reason": "Linked only through shared batch_run:activity_1670 (other requests' emails in shared_with). No usable evidence ties it to this subject; the absent hint is only a workflow claim. Rejected as not attributable."
+   },
+   {
+    "resource_id": "account_6023",
+    "reason": "Linked only through shared batch_run:activity_1666 (other requests' emails in shared_with). No usable evidence ties it to this subject. Rejected as not attributable."
+   },
+   {
+    "resource_id": "analytics_7164",
+    "reason": "Shared-run candidate (batch_run:activity_1671). The evidence_75 profile is identity-free (email, hash, phone, customer_reference all null; general_shopper cohort), so it cannot be attributed to the subject. Rejected."
+   },
+   {
+    "resource_id": "backup_7308",
+    "reason": "Linked to user_295 (customer_reference), a different customer, and not to user_294 or the subject's email. Not this subject's record, so rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to erase the account linked to their email address and to confirm completion; this is a deletion request for the person's own account and data, and the follow-up confirmation request is part of the same erasure.",
+   "summary: Subject adaeze.nwosu@outlook.com / user_294. Two resources are attributable to the subject by direct evidence in evidence_75 (captured 2026-05-24, before audit_at): search_9631 is a PRESENT customer search document with the subject's email, and data_flow_085 is an ACTIVE, enabled connector keyed on the subject's email that can recreate data. Candidates in the shared deletion batch (account_4267, account_4880, account_6023, analytics_7164) were rejected because no usable evidence ties them to this subject. backup_7308 belongs to user_295. Searches for the subject's phone, hash and user_294 found no further records."
+  ],
+  "usage": [
+   {
+    "case_id": "case_296",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1049,
+    "output_tokens": 98,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_296",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 533,
+    "cache_creation_input_tokens": 3136,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_296",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 752,
+    "cache_creation_input_tokens": 6301,
+    "cache_read_input_tokens": 8007
+   },
+   {
+    "case_id": "case_296",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 905,
+    "cache_creation_input_tokens": 3705,
+    "cache_read_input_tokens": 14308
+   },
+   {
+    "case_id": "case_296",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 389,
+    "cache_creation_input_tokens": 17916,
+    "cache_read_input_tokens": 18013
+   },
+   {
+    "case_id": "case_296",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 532,
+    "cache_creation_input_tokens": 3802,
+    "cache_read_input_tokens": 35929
+   },
+   {
+    "case_id": "case_296",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 817,
+    "cache_creation_input_tokens": 2468,
+    "cache_read_input_tokens": 39731
+   },
+   {
+    "case_id": "case_296",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1658,
+    "cache_creation_input_tokens": 21076,
+    "cache_read_input_tokens": 42199
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "adaeze.nwosu@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 1366
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_294",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4267"
+   },
+   "output_chars": 1486
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4880"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6023"
+   },
+   "output_chars": 1485
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_7164"
+   },
+   "output_chars": 2136
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_085"
+   },
+   "output_chars": 2137
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_9631"
+   },
+   "output_chars": 2153
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "adaeze",
+    "limit": 100
+   },
+   "output_chars": 2165
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "nwosu",
+    "limit": 100
+   },
+   "output_chars": 3041
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348035829349",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "38f51e7e0b98d58a2160cddd7f41152580c9d2ff94b149bafea469396c24c254",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4267",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_296",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_29",
+    "offset": 0
+   },
+   "output_chars": 4508
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-30T00:00:00Z",
+    "end": "2026-05-24T07:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31412
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_75",
+    "offset": 2000
+   },
+   "output_chars": 4250
+  },
+  {
+   "turn": 4,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_7308"
+   },
+   "output_chars": 2035
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_4267",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4880",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6023",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_9631",
+    "limit": 50
+   },
+   "output_chars": 1329
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_7164",
+    "limit": 50
+   },
+   "output_chars": 1308
+  },
+  {
+   "turn": 5,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_73",
+    "trace_id": "activity_1668"
+   },
+   "output_chars": 68
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "adaeze.nwosu",
+    "limit": 100
+   },
+   "output_chars": 1354
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Adaeze Nwosu",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "outlook.com",
+    "limit": 100
+   },
+   "output_chars": 41828
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348035829349",
+    "limit": 100
+   },
+   "output_chars": 53
+  }
+ ]
+}

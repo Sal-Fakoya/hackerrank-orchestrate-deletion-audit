@@ -1,0 +1,366 @@
+{
+ "case_id": "case_454",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_892",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_43"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_892",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_892",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2775",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_454",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_892",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Search index document in customer_directory_v3 still holds display name 'Lindiwe Masuku', the subject's email masuku.lindiwe@icloud.com and customer_reference user_452 in both the primary table and the reporting replica as of 2026-03-05T12:00:00Z (audit_at). The deletion worker's FAILED result (activity_573) is a claim and is contradicted by this direct observation. Must be deleted (rule: SEARCH_INDEX_ENTRY always DELETE).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_2775",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Security audit event account_deletion_reviewed for subject_reference user_452 is present in security_audit_events (primary and replica) at audit_at. It records the privacy-workflow review of this deletion; no expired retention period is shown in the evidence, so it is within the retention period and must be retained (verify retention, no deletion).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_8403",
+    "reason": "Analytics row for user_459 / jules-fournier@gmail.com; different subject, not linked to user_452 or this request's identifiers."
+   },
+   {
+    "resource_id": "audit_record_1171",
+    "reason": "Security audit event for user_455, a different subject."
+   },
+   {
+    "resource_id": "audit_record_1369",
+    "reason": "Security audit event for user_458, a different subject."
+   },
+   {
+    "resource_id": "account_3183",
+    "reason": "Customer profile for user_451 (Kojo Gyasi), a different subject."
+   },
+   {
+    "resource_id": "analytics_1126",
+    "reason": "Anonymous analytics report with null user_id/email/phone/hash; no link to the subject and no identity-bearing content."
+   },
+   {
+    "resource_id": "analytics_5221",
+    "reason": "Anonymous analytics report with null identifiers; not attributable to the subject."
+   },
+   {
+    "resource_id": "analytics_6750",
+    "reason": "Anonymous analytics report with null identifiers; not attributable to the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for permanent deletion of their account and asks for a short confirmation when complete, which is a request for erasure of their own account and data.",
+   "summary: Subject user_452 (masuku.lindiwe@icloud.com, Lindiwe Masuku, phone 27722165277). Searches on email, user_id, name, surname, phone and email hash found only two subject-linked resources. search_892 is still PRESENT with direct identifiers in the primary and replica at audit_at (the workflow's FAILED/COMPLETE claims don't prove absence) and must be deleted. audit_record_2775 is a security audit record referencing user_452 that is within retention (no expiry shown), so it is retained. No backups, exports, connectors, support records, or account profile for the subject were found in usable evidence captured in the request window; the absence of a primary account profile is not directly observed in any usable snapshot, so no ACCOUNT_TOMBSTONE/USER_PROFILE facts were submitted."
+  ],
+  "usage": [
+   {
+    "case_id": "case_454",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1063,
+    "output_tokens": 86,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_454",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 440,
+    "cache_creation_input_tokens": 1227,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_454",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 589,
+    "cache_creation_input_tokens": 6388,
+    "cache_read_input_tokens": 6098
+   },
+   {
+    "case_id": "case_454",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 462,
+    "cache_creation_input_tokens": 19139,
+    "cache_read_input_tokens": 12486
+   },
+   {
+    "case_id": "case_454",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 600,
+    "cache_creation_input_tokens": 2215,
+    "cache_read_input_tokens": 31625
+   },
+   {
+    "case_id": "case_454",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 625,
+    "cache_creation_input_tokens": 3045,
+    "cache_read_input_tokens": 33840
+   },
+   {
+    "case_id": "case_454",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 545,
+    "cache_creation_input_tokens": 3247,
+    "cache_read_input_tokens": 36885
+   },
+   {
+    "case_id": "case_454",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1213,
+    "cache_creation_input_tokens": 615,
+    "cache_read_input_tokens": 40132
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "masuku.lindiwe@icloud.com",
+    "limit": 100
+   },
+   "output_chars": 1733
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_452",
+    "limit": 100
+   },
+   "output_chars": 3506
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Lindiwe Masuku",
+    "limit": 100
+   },
+   "output_chars": 1722
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27722165277",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_892"
+   },
+   "output_chars": 3144
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_2775"
+   },
+   "output_chars": 2670
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-01T00:00:00Z",
+    "end": "2026-03-05T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31158
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_63",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "masuku",
+    "limit": 100
+   },
+   "output_chars": 1714
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "93cf683a70e84593dc7ff80aa6d3f72c89c78728f39f8025b0ccf7a72a9fd28c",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+27722165277",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lindiwe",
+    "limit": 50
+   },
+   "output_chars": 1715
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "search_892",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 345
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_2775",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 10000
+   },
+   "output_chars": 4555
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%user_452%' OR record_json LIKE '%masuku%' OR record_json LIKE '%27722165277%'"
+   },
+   "output_chars": 688
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  }
+ ]
+}

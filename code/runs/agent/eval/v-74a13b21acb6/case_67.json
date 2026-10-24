@@ -1,0 +1,368 @@
+{
+ "case_id": "case_67",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_9079",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_93"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_9079",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_9079",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2877",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_67",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_9079",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_93",
+    "reason": "Latest usable inventory capture (2026-09-16T08:37:39Z) shows customer_profiles row account_9079 still holding the subject's email rafael.r9464@outlook.com with status DELETION_PENDING, not removed. Workflow claim activity_3641 (SUCCESS/absent) is contradicted by this direct observation. Must be deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1602",
+    "reason": "Only linked via the deletion-worker run activity_3638, which is shared with case_65, case_66 and case_82. No usable evidence ties this resource to the subject's identifiers (email, hash, phone, user_65, name); the only record is a workflow activity claim. Cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_5488",
+    "reason": "Only linked via shared batch run activity_3640 (shared with case_65, case_66, case_82). No usable evidence contains subject identifiers for this resource; attribution not supported."
+   },
+   {
+    "resource_id": "analytics_2176",
+    "reason": "Linked only via shared batch run activity_3634. Identity-free analytics profile (customer_reference, email, phone, email_hash all null in evidence_91 and evidence_07) in a run shared with other customers; cannot be attributed to the subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests permanent account deletion and asks that it be applied across all covered systems, which is erasure of their own account and data.",
+   "summary: Subject rafael.r9464@outlook.com (user_65). Only account_9079 is tied to the subject by identifier; its latest observation (evidence_93, 2026-09-16) still shows the email with DELETION_PENDING status, contradicting the workflow's SUCCESS claim. Three shared-run candidates (account_1602, account_5488, analytics_2176) have no subject-linking evidence and were rejected. Searches for the subject's phones, email hash, name and audit id found no further records. The replication checkpoint (activity_3646) has no captured copy evidence, so no replica facts were added. The request is not complete: account_9079 must be deleted.",
+   "future verification added for audit_record_2877 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_67",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1056,
+    "output_tokens": 81,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_67",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 445,
+    "cache_creation_input_tokens": 5780,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_67",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 595,
+    "cache_creation_input_tokens": 5009,
+    "cache_read_input_tokens": 10651
+   },
+   {
+    "case_id": "case_67",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 489,
+    "cache_creation_input_tokens": 3137,
+    "cache_read_input_tokens": 15660
+   },
+   {
+    "case_id": "case_67",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 801,
+    "cache_creation_input_tokens": 14740,
+    "cache_read_input_tokens": 18797
+   },
+   {
+    "case_id": "case_67",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2136,
+    "cache_creation_input_tokens": 5617,
+    "cache_read_input_tokens": 33537
+   },
+   {
+    "case_id": "case_67",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1523,
+    "cache_creation_input_tokens": 25520,
+    "cache_read_input_tokens": 39154
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1602"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5488"
+   },
+   "output_chars": 1489
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9079"
+   },
+   "output_chars": 2758
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2176"
+   },
+   "output_chars": 3259
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rafael.r9464@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 716
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_65",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1c86a759340536c9f0c6704b74d4c92fef91d948b75a966aa48120b9da3a3305",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5531912195573",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5551938920043",
+    "limit": 100
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rafael rodrigues",
+    "limit": 100
+   },
+   "output_chars": 56
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_266",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_93",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_93",
+    "offset": 2900
+   },
+   "output_chars": 2892
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_9079",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 674
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-01T00:00:00Z",
+    "end": "2026-09-16T09:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30930
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9079",
+    "limit": 100
+   },
+   "output_chars": 1927
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_65",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rafael",
+    "limit": 100
+   },
+   "output_chars": 2947
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "r9464",
+    "limit": 100
+   },
+   "output_chars": 697
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-04T00:00:00Z",
+    "end": "2026-09-04T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 5334
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "rodrigues",
+    "limit": 100
+   },
+   "output_chars": 5104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "outlook.com",
+    "limit": 100
+   },
+   "output_chars": 38492
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_54",
+    "offset": 0
+   },
+   "output_chars": 2330
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_92",
+    "offset": 0
+   },
+   "output_chars": 4638
+  }
+ ]
+}

@@ -1,0 +1,430 @@
+{
+ "case_id": "case_504",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "export_service",
+   "resource_id": "export_3120",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_47"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "export_service",
+   "resource_id": "export_3120",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "export_service",
+   "resource_id": "export_3120",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3733",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_504",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "export_3120",
+    "system_id": "export_service",
+    "category": "USER_EXPORT",
+    "state": "PRESENT",
+    "evidence_id": "evidence_47",
+    "reason": "Customer export job whose owner_email is oeze0067@fastmail.com (exact subject email). Present in customer_data_primary and the reporting replica at 2026-02-08T07:00:00Z, download_available=true, expires 2026-03-10. Created 2026-01-28, inside the request window. Rule USER_EXPORT is Always -> DELETE. Workflow activity_340 PARTIAL is only a claim.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_3733",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_47",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_502 (the subject's user_id), present in primary and replica at audit_at. It is the deletion-review audit record for this request. No retention_until expiry is supplied for this record, so it is treated as within retention and RETAIN (verify only). Not deletable under the current rule.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_5394",
+    "reason": "Linked only through deletion-worker batch run activity_333, which is shared with case_503 and case_505. No usable evidence ties this account to user_502 or oeze0067@fastmail.com (no identifier match in any snapshot, export, or search). Activity SUCCESS/absent is only a workflow claim. Cannot be attributed to this subject; rejected."
+   },
+   {
+    "resource_id": "account_7244",
+    "reason": "Linked only through shared batch run activity_335 (shared with case_503 and case_505). No usable evidence attributes it to user_502 or the subject's email/phone/hash. Only a workflow claim of present; rejected as not belonging to this subject."
+   },
+   {
+    "resource_id": "account_8136",
+    "reason": "Linked only through shared batch run activity_334 (shared with case_503 and case_505). No usable evidence attributes it to user_502 or the subject's identifiers. Only a workflow claim of present; rejected as not belonging to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to delete this account and its personal data, which is a direct erasure request for their own account and data. The request is in English and contains no negation or third-party element.",
+   "summary: Subject user_502 (oeze0067@fastmail.com). Two in-scope records are verified: export_3120 (USER_EXPORT, PRESENT in primary and replica at audit_at, must be deleted) and audit_record_3733 (SECURITY_AUDIT_LOG, PRESENT, retained). The three account_service candidates come only from a deletion batch run shared with other requests (case_503, case_505) and have no identity tie to this subject, so they are rejected. No USER_PROFILE/secondary identifier, search, cache, support, analytics, marketing, email, backup, or DATA_FLOW record was found tied to this subject's identifiers. Note the subject's own account record is not visible in any usable evidence, so account deletion status cannot be verified from this data. No active connector references the subject's email or user_id (data_flow_2893 disabled; others belong to other subjects)."
+  ],
+  "usage": [
+   {
+    "case_id": "case_504",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1061,
+    "output_tokens": 91,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_504",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 471,
+    "cache_creation_input_tokens": 1067,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_504",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 615,
+    "cache_creation_input_tokens": 6251,
+    "cache_read_input_tokens": 5938
+   },
+   {
+    "case_id": "case_504",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 413,
+    "cache_creation_input_tokens": 19455,
+    "cache_read_input_tokens": 12189
+   },
+   {
+    "case_id": "case_504",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 503,
+    "cache_creation_input_tokens": 9522,
+    "cache_read_input_tokens": 31644
+   },
+   {
+    "case_id": "case_504",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1409,
+    "cache_creation_input_tokens": 3664,
+    "cache_read_input_tokens": 41166
+   },
+   {
+    "case_id": "case_504",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1368,
+    "cache_creation_input_tokens": 4875,
+    "cache_read_input_tokens": 44830
+   },
+   {
+    "case_id": "case_504",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 989,
+    "cache_creation_input_tokens": 1971,
+    "cache_read_input_tokens": 49705
+   },
+   {
+    "case_id": "case_504",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1404,
+    "cache_creation_input_tokens": 3070,
+    "cache_read_input_tokens": 51676
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "oeze0067@fastmail.com",
+    "limit": 50
+   },
+   "output_chars": 1875
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_502",
+    "limit": 50
+   },
+   "output_chars": 1836
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7244"
+   },
+   "output_chars": 1197
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8136"
+   },
+   "output_chars": 1197
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5394"
+   },
+   "output_chars": 1196
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_3733"
+   },
+   "output_chars": 2237
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_3120"
+   },
+   "output_chars": 2863
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 0
+   },
+   "output_chars": 4648
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_48",
+    "offset": 0
+   },
+   "output_chars": 4450
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Obinna Eze",
+    "limit": 50
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348031270461",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-27T00:00:00Z",
+    "end": "2026-02-08T07:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31485
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 5000
+   },
+   "output_chars": 4654
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 5000
+   },
+   "output_chars": 4615
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-27T00:00:00Z",
+    "end": "2026-01-30T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 12973
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT * FROM sqlite_master"
+   },
+   "output_chars": 1006
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 9000
+   },
+   "output_chars": 1733
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_49",
+    "offset": 10000
+   },
+   "output_chars": 4594
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "cb86b5f1d23cad9999ef69d4ba25b7b1feddb18e0ee0a56e6e10fff146835e52",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "eze",
+    "limit": 50
+   },
+   "output_chars": 1857
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-27T00:00:00Z",
+    "end": "2026-02-08T07:00:00Z",
+    "limit": 20
+   },
+   "output_chars": 6083
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_primary WHERE resource_id IN ('audit_record_3733','export_3120') OR record_json LIKE '%user_502%' OR record_json LIKE '%oeze%'"
+   },
+   "output_chars": 839
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "USER_EXPORT"
+   },
+   "output_chars": 106
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 4200
+   },
+   "output_chars": 4621
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "data_flow_2893",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 325
+  }
+ ]
+}

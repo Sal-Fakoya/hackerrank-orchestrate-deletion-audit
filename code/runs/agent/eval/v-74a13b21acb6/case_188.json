@@ -1,0 +1,594 @@
+{
+ "case_id": "case_188",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_3223",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_83"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_707",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_83"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_707",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_3223",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_3223",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_707",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_188",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_3223",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_83",
+    "reason": "Latest observation (search query on manon.dubois88@outlook.com at 2026-07-18T09:40:08Z, exported 2026-07-18T10:43:35Z) returns a customer_directory_v3 document holding the subject's current email. The deletion activity (activity_2650) reported FAILED and is only a claim. Index entry still exposes the subject's email and must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_707",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_83",
+    "reason": "Connector search_profile_indexer (enabled=true, last_delivery_status=delivered, observed 2026-07-18T10:25:35Z) has customer_email manon.dubois88@outlook.com. It can keep copying or recreating the subject's data into search, so it must be disabled. The connector check in activity_2648 is a claim only.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_246",
+    "reason": "Linked only through deletion batch run activity_2642, which is shared with other requests (case_173, 174, 175, 189, 190). No usable evidence ties this account to the subject. The 2026-07-18 account_service export (evidence_83) does not contain it. The 'present' hint is a workflow claim only."
+   },
+   {
+    "resource_id": "account_6554",
+    "reason": "Linked only through shared batch run activity_2641 (other requests' emails listed). No evidence ties it to this subject. Not in the 2026-07-18 account_service export (evidence_83). 'Present' is a workflow claim only."
+   },
+   {
+    "resource_id": "account_796",
+    "reason": "Linked only through shared batch run activity_2638 (other requests' emails listed). No evidence ties it to this subject. Not in the 2026-07-18 account_service export (evidence_83). 'Present' is a workflow claim only."
+   },
+   {
+    "resource_id": "account_7063",
+    "reason": "Linked only through shared batch run activity_2636. The only observation (evidence_83, 404 profile lookup) is identity-free, so it cannot be attributed to the subject. Rejected."
+   },
+   {
+    "resource_id": "analytics_8767",
+    "reason": "Linked only through shared batch run activity_2639. Its profile in evidence_83 has all identifiers null (email, email_hash, phone, customer_reference), so it cannot be attributed to the subject. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer states they no longer use the account and asks for it to be permanently deleted, which is a request for account closure and erasure of their own personal data. Asking to follow retention requirements and confirm the result does not negate the deletion request.",
+   "summary: Subject manon.dubois88@outlook.com (user_186). Two subject-linked resources survive at audit_at, both shown by the 2026-07-18 service export (evidence_83): search_3223 still returns the subject's email from the customer search index (PRESENT, so it must be deleted), and data_flow_707 is an enabled search_profile_indexer connector carrying the subject's email (ACTIVE, so it must be disabled). The workflow's deletion claims for the search entry (FAILED) and the connector check are not reliable. Candidates from the shared deletion batch run with no subject-linking evidence were rejected. No direct identifiers for the subject were found in the primary profile, replica, or inventory snapshots checked (07-03 inventory, 07-08 read replica)."
+  ],
+  "usage": [
+   {
+    "case_id": "case_188",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 109,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_188",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 606,
+    "cache_creation_input_tokens": 4482,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_188",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 836,
+    "cache_creation_input_tokens": 8357,
+    "cache_read_input_tokens": 9353
+   },
+   {
+    "case_id": "case_188",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 392,
+    "cache_creation_input_tokens": 3752,
+    "cache_read_input_tokens": 17710
+   },
+   {
+    "case_id": "case_188",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1526,
+    "cache_creation_input_tokens": 14871,
+    "cache_read_input_tokens": 21462
+   },
+   {
+    "case_id": "case_188",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 738,
+    "cache_creation_input_tokens": 5874,
+    "cache_read_input_tokens": 36333
+   },
+   {
+    "case_id": "case_188",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 933,
+    "cache_creation_input_tokens": 6128,
+    "cache_read_input_tokens": 42207
+   },
+   {
+    "case_id": "case_188",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 974,
+    "cache_creation_input_tokens": 2982,
+    "cache_read_input_tokens": 48335
+   },
+   {
+    "case_id": "case_188",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1445,
+    "cache_creation_input_tokens": 5966,
+    "cache_read_input_tokens": 51317
+   },
+   {
+    "case_id": "case_188",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2129,
+    "cache_creation_input_tokens": 7413,
+    "cache_read_input_tokens": 57283
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_246"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6554"
+   },
+   "output_chars": 1481
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7063"
+   },
+   "output_chars": 2114
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_796"
+   },
+   "output_chars": 1476
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_8767"
+   },
+   "output_chars": 2264
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_707"
+   },
+   "output_chars": 2279
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_3223"
+   },
+   "output_chars": 3133
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "manon",
+    "limit": 50
+   },
+   "output_chars": 2491
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_186",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "manon.dubois@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 64
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33694525955",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "88c523df2ec49d44f2739531bff93858e976666d95dcbc601c461b90a208da74",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f703057a0eaee8fbb53471fa73d9f5cd415680fa1d44141ee7af073d1ce0aca5",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_188",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_214",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 5000
+   },
+   "output_chars": 4618
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-02T00:00:00Z",
+    "end": "2026-07-18T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31447
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "manon dubois",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": null
+   },
+   "output_chars": 608
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-03T09:00:00Z",
+    "end": "2026-07-03T13:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 6736
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT 'search' t, resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents UNION ALL SELECT 'conn', resource_id, customer_reference, connector_name, customer_email, enabled, last_delivery_status, updated_at FROM connector_subscriptions UNION ALL SELECT 'backup', resource_id, customer_reference, archive_key, customer_email, restore_allowed, updated_at FROM backup_restore_entries UNION ALL SELECT 'analytics', resource_id, customer_reference, email, phone, email_hash, audience_cohort FROM customer_analytics_profiles UNION ALL SELECT 'export', resource_id, customer_reference, object_key, owner_email, owner_phone, updated_at FROM customer_exports UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt FROM support_records UNION ALL SELECT 'audit', resource_id, subject_reference, event_code, retention_until, updated_at FROM security_audit_records"
+   },
+   "output_chars": 101
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT resource_id, origin_system, collection_name, record_json, updated_at FROM customer_data_read_replica"
+   },
+   "output_chars": 10993
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT * FROM customer_search_documents"
+   },
+   "output_chars": 718
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT * FROM connector_subscriptions"
+   },
+   "output_chars": 365
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT * FROM backup_restore_entries"
+   },
+   "output_chars": 233
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT * FROM customer_analytics_profiles"
+   },
+   "output_chars": 581
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT * FROM customer_exports"
+   },
+   "output_chars": 241
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT * FROM support_records"
+   },
+   "output_chars": 842
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT * FROM security_audit_records"
+   },
+   "output_chars": 663
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_81",
+    "sql": "SELECT * FROM customer_profiles"
+   },
+   "output_chars": 139
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_82",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_21",
+    "offset": 0
+   },
+   "output_chars": 4449
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_19",
+    "offset": 0
+   },
+   "output_chars": 1517
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "dubois",
+    "limit": 50
+   },
+   "output_chars": 7322
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "manon.dubois88",
+    "limit": 50
+   },
+   "output_chars": 2500
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "694525955",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "88c523df",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_186",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_3223",
+    "limit": 50
+   },
+   "output_chars": 2320
+  }
+ ]
+}

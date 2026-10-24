@@ -1,0 +1,640 @@
+{
+ "case_id": "case_33",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "export_service",
+   "resource_id": "export_1842",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "activity_4009"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "export_service",
+   "resource_id": "export_1842",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "analytics_platform",
+   "resource_id": "analytics_2713",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "export_service",
+   "resource_id": "export_1842",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_5261",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_8678",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3155",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 8,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_3586",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 9,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_8486",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_33",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "export_1842",
+    "system_id": "export_service",
+    "category": "USER_EXPORT",
+    "state": "PRESENT",
+    "evidence_id": "activity_4009",
+    "reason": "Customer data export NST-2026-0718-1842 was linked by the data catalog to ingrid.dahl@outlook.com and user_18 at 2026-07-18T11:07:01Z, after the request. The subject's statement NST-2026-0718-1842 is in evidence_18 (2026-07-18). No later observation shows it deleted, so it is still present and must be deleted (USER_EXPORT is always DELETE).",
+    "condition_met": true
+   },
+   {
+    "resource_id": "analytics_2713",
+    "system_id": "analytics_platform",
+    "category": "ANALYTICS_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_83",
+    "reason": "Linked only through deletion run activity_2857, which reported FAILED. It is in the candidate list, not in the request evidence. The latest analytics_platform export at 2026-07-18T10:43:35Z (evidence_83, post-run) does not contain analytics_2713, so it is absent at audit_at. No shared_with list was visible for this run, so it is treated as this request's run.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_5261",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "ABSENT",
+    "evidence_id": "evidence_83",
+    "reason": "Linked only through deletion run activity_2852, which reported FAILED. The latest search_service export at 2026-07-18T10:43:35Z (evidence_83) does not contain search_5261, so it is absent at audit_at. No shared_with list was visible for this run.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_8678",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "ABSENT",
+    "evidence_id": "evidence_83",
+    "reason": "Linked only through deletion run activity_2853, which reported FAILED. The latest search_service export at 2026-07-18T10:43:35Z (evidence_83) does not contain search_8678, so it is absent at audit_at. No shared_with list was visible for this run.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_3155",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_83",
+    "reason": "Linked only through deletion run activity_2854, which reported FAILED. The latest support_platform export at 2026-07-18T10:43:35Z (evidence_83) does not contain support_3155, so it is absent at audit_at. No shared_with list was visible for this run.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_3586",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_83",
+    "reason": "Linked only through deletion run activity_2856, which reported FAILED. The latest support_platform export at 2026-07-18T10:43:35Z (evidence_83) does not contain support_3586, so it is absent at audit_at. No shared_with list was visible for this run.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "export_1260",
+    "reason": "Export for this subject (customer_export_1260.zip, linked to ingrid.dahl@outlook.com and user_18 by activity_4004 on 2026-06-18) belongs to the earlier request case_52 (window 2026-06-16 to 2026-06-19). No usable evidence captured in this request's window (2026-07-16 to 2026-07-19) mentions it, so it is out of this episode's scope."
+   },
+   {
+    "resource_id": "account_923",
+    "reason": "Deletion-run activity (activity_2834, activity_2836) is shared-run activity with no identity content linking it to this subject. The only evidence is the workflow's PARTIAL claim, so it cannot be attributed to ingrid.dahl or user_18."
+   },
+   {
+    "resource_id": "account_6372",
+    "reason": "Only activity_2833 (workflow PARTIAL claim) mentions it. There is no identity content linking it to this subject, so it cannot be attributed."
+   },
+   {
+    "resource_id": "account_4854",
+    "reason": "404 profile lookup in evidence_83 with no identity content; not attributable to this subject."
+   },
+   {
+    "resource_id": "export_5351",
+    "reason": "Export belongs to a different owner (mnovak939594@fastmail.com) per evidence_81 and evidence_65; not this subject."
+   },
+   {
+    "resource_id": "export_2705",
+    "reason": "Export belongs to a different owner (eokafor9339@fastmail.com) per evidence_83; not this subject."
+   },
+   {
+    "resource_id": "backup_3010",
+    "reason": "Backup entry is for customer user_189, not this subject; no backup of user_18 was found in any usable evidence."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to close their own account and process erasure of the associated personal data, including copies within scope; the request for confirmation is a follow-up on the same deletion and does not negate it.",
+   "summary: Subject ingrid.dahl@outlook.com / user_18. The only resource I could tie to this subject in the request window is export_1842 (USER_EXPORT), which is still PRESENT: the data catalog linked it to the subject at 2026-07-18T11:07, after the workflow's COMPLETE claim. Five deletion-run candidates (analytics_2713, search_5261, search_8678, support_3155, support_3586) are ABSENT in the latest post-run export (evidence_83). Their attribution rests only on the reported run, because no shared_with list was visible. The subject's own account/primary profile, the identifier hash, and the phone were not observed in any usable evidence. export_1260 belongs to the earlier case_52 and is out of scope. No legal hold or active data flow for this subject was found. The workflow's COMPLETE status is contradicted by the live export_1842.",
+   "future verification added for audit_record_8486 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_33",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 98,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_33",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 628,
+    "cache_creation_input_tokens": 3892,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_33",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 609,
+    "cache_creation_input_tokens": 8467,
+    "cache_read_input_tokens": 8763
+   },
+   {
+    "case_id": "case_33",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 774,
+    "cache_creation_input_tokens": 7465,
+    "cache_read_input_tokens": 17230
+   },
+   {
+    "case_id": "case_33",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 651,
+    "cache_creation_input_tokens": 10462,
+    "cache_read_input_tokens": 24695
+   },
+   {
+    "case_id": "case_33",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2225,
+    "cache_creation_input_tokens": 10090,
+    "cache_read_input_tokens": 35157
+   },
+   {
+    "case_id": "case_33",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3360,
+    "cache_creation_input_tokens": 6041,
+    "cache_read_input_tokens": 45247
+   },
+   {
+    "case_id": "case_33",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 217,
+    "cache_creation_input_tokens": 5901,
+    "cache_read_input_tokens": 51288
+   },
+   {
+    "case_id": "case_33",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1613,
+    "cache_creation_input_tokens": 711,
+    "cache_read_input_tokens": 57189
+   },
+   {
+    "case_id": "case_33",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1843,
+    "cache_creation_input_tokens": 17513,
+    "cache_read_input_tokens": 57900
+   },
+   {
+    "case_id": "case_33",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3463,
+    "cache_creation_input_tokens": 3452,
+    "cache_read_input_tokens": 75413
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2713"
+   },
+   "output_chars": 1508
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "export_1842"
+   },
+   "output_chars": 1437
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_5261"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_8678"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3155"
+   },
+   "output_chars": 1489
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_3586"
+   },
+   "output_chars": 1489
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ingrid.dahl@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 3951
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_18",
+    "limit": 100
+   },
+   "output_chars": 2351
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Ingrid Dahl",
+    "limit": 100
+   },
+   "output_chars": 1004
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "0649eddaba37af918d82b64da379e6623d34cf290b2a26ecbe53bafc1484f8af",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "46707873930",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-16T00:00:00Z",
+    "end": "2026-07-19T13:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 16813
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_19",
+    "offset": 0
+   },
+   "output_chars": 1517
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_82",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_20",
+    "offset": 0
+   },
+   "output_chars": 4505
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_81",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "dahl",
+    "limit": 100
+   },
+   "output_chars": 7272
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ingrid",
+    "limit": 100
+   },
+   "output_chars": 10664
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "shared_with",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "NST-2026-0718-1842",
+    "limit": 100
+   },
+   "output_chars": 1583
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_5261",
+    "limit": 50
+   },
+   "output_chars": 659
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_8678",
+    "limit": 50
+   },
+   "output_chars": 659
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_3155",
+    "limit": 50
+   },
+   "output_chars": 668
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "support_3586",
+    "limit": 50
+   },
+   "output_chars": 668
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_2713",
+    "limit": 50
+   },
+   "output_chars": 685
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "export_1842",
+    "limit": 50
+   },
+   "output_chars": 621
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 2500
+   },
+   "output_chars": 4622
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 5000
+   },
+   "output_chars": 4618
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-16T00:00:00Z",
+    "end": "2026-07-19T13:00:00Z",
+    "limit": 5
+   },
+   "output_chars": 1618
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 9900
+   },
+   "output_chars": 1177
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 8,
+   "tool": "search_evidence",
+   "input": {
+    "query": "deletion_worker",
+    "limit": 50
+   },
+   "output_chars": 30677
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_21",
+    "offset": 0
+   },
+   "output_chars": 4449
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_923",
+    "limit": 20
+   },
+   "output_chars": 1265
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_6372",
+    "limit": 20
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 9,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal hold",
+    "limit": 20
+   },
+   "output_chars": 50
+  }
+ ]
+}

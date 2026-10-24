@@ -1,0 +1,586 @@
+{
+ "case_id": "case_48",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2127",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_94"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_7759",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_94"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_7759",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2127",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2127",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_7759",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_48",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_2127",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_94",
+    "reason": "Live index query at 2026-09-26T09:58:35Z (trace rb-095835-022, before audit_at) returned a hit in customer_directory_v3 for lnajjar900380@fastmail.com (the request email). The index entry still exposes the subject's direct identifier, so it must be deleted. The workflow's activity_3810 PARTIAL result is only a claim.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_7759",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_94",
+    "reason": "Connector config read at 2026-09-26T09:33:53Z (trace rb-093353-016) shows enabled=true, last_delivery_status=delivered, connector_name=search_profile_indexer, customer_email=lnajjar900380@fastmail.com. The active connector can copy or recreate the subject's search data and must be disabled. The workflow's activity_3806 SUCCESS check is only a claim.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_4248",
+    "reason": "Candidate linked only through the deletion-worker run activity_3801, which was shared with other requests (case_11, case_47, case_49). No usable evidence ties account_4248 to user_46 or the request email or name. No snapshot or lookup mentions it. Not attributable to this subject, so rejected. Its activity_3801 'absent' hint is a workflow claim and is not used."
+   },
+   {
+    "resource_id": "search_459",
+    "reason": "Linked to tunde.c692281@zoho.com (another subject, evidence_94 trace rb-103856-028), not to this subject. Its upstream connector data_flow_1043 is also tied to that other subject (trace rb-094641-019)."
+   },
+   {
+    "resource_id": "data_flow_1043",
+    "reason": "Connector configured for tunde.c692281@zoho.com (evidence_94 trace rb-094641-019). Not this subject's data flow."
+   },
+   {
+    "resource_id": "user_46 / subject identifiers",
+    "reason": "Searches for user_46, laila najjar, phone 971550865116, both email hashes and lnajjar9003@fastmail.com returned no usable records. No additional subject footprint was found in the snapshots, exports, support, analytics, backup or marketing evidence."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to erase the account linked to their email address and to handle copies within the deletion scope, which is a request for erasure of their own account and personal data; the confirmation request is part of the same deletion.",
+   "summary: Subject lnajjar900380@fastmail.com (user_46). Two in-scope resources are still live as of audit_at. search_2127 (SEARCH_INDEX_ENTRY) is PRESENT in customer_directory_v3 per the 2026-09-26 readback, so the workflow's PARTIAL result is not complete. data_flow_7759 (DATA_FLOW) is ACTIVE, with enabled=true and delivered as of 2026-09-26, so it can recreate the subject's search entry and must be disabled. account_4248 was rejected: its only link is a shared deletion-worker run with other customers and no evidence ties it to this subject. Other candidates (search_459, data_flow_1043) belong to a different subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_48",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1052,
+    "output_tokens": 100,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 468,
+    "cache_creation_input_tokens": 6009,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 736,
+    "cache_creation_input_tokens": 4045,
+    "cache_read_input_tokens": 10880
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 734,
+    "cache_creation_input_tokens": 13570,
+    "cache_read_input_tokens": 14925
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 800,
+    "cache_creation_input_tokens": 25989,
+    "cache_read_input_tokens": 28495
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 810,
+    "cache_creation_input_tokens": 3131,
+    "cache_read_input_tokens": 54484
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 951,
+    "cache_creation_input_tokens": 2602,
+    "cache_read_input_tokens": 57615
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1890,
+    "cache_creation_input_tokens": 3016,
+    "cache_read_input_tokens": 60217
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 442,
+    "cache_creation_input_tokens": 4320,
+    "cache_read_input_tokens": 63233
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 148,
+    "cache_creation_input_tokens": 2506,
+    "cache_read_input_tokens": 67553
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 318,
+    "cache_creation_input_tokens": 587,
+    "cache_read_input_tokens": 70059
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_11",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 674,
+    "cache_creation_input_tokens": 1201,
+    "cache_read_input_tokens": 70646
+   },
+   {
+    "case_id": "case_48",
+    "call": "turn_12",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1537,
+    "cache_creation_input_tokens": 20328,
+    "cache_read_input_tokens": 71847
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4248"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_7759"
+   },
+   "output_chars": 2264
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2127"
+   },
+   "output_chars": 2210
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lnajjar900380@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 1558
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_46",
+    "limit": 100
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lnajjar9003@fastmail.com",
+    "limit": 100
+   },
+   "output_chars": 64
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "laila najjar",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "971550865116",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "02ea464491aac58431e227ad72ec2fdca67b10b9150bd398f7d43baf182eaf94",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6cb13bdeecbaf6ab97d48ae18847593b577b6ca949aba51ab0769c6d276fa8b5",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4248",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-10T00:00:00Z",
+    "end": "2026-09-26T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30600
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "najjar",
+    "limit": 100
+   },
+   "output_chars": 9715
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lnajjar",
+    "limit": 100
+   },
+   "output_chars": 1539
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "deletion_worker",
+    "limit": 100
+   },
+   "output_chars": 30644
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-09-10T00:00:00Z",
+    "end": "2026-09-13T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 16000
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "900380",
+    "limit": 100
+   },
+   "output_chars": 2663
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lnajjar9003",
+    "limit": 100
+   },
+   "output_chars": 1543
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Laila",
+    "limit": 100
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_4248",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_05",
+    "sql": null
+   },
+   "output_chars": 608
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": null
+   },
+   "output_chars": 640
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_93",
+    "sql": null
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_57",
+    "sql": null
+   },
+   "output_chars": 469
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_52",
+    "sql": null
+   },
+   "output_chars": 616
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_93",
+    "sql": "SELECT 'profile' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status, updated_at FROM customer_profiles UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name, updated_at FROM customer_search_documents UNION ALL SELECT 'analytics', resource_id, customer_reference, NULL, email, phone, email_hash, audience_cohort, updated_at FROM customer_analytics_profiles UNION ALL SELECT 'connector', resource_id, customer_reference, connector_name, customer_email, enabled, last_delivery_status, NULL, updated_at FROM connector_subscriptions UNION ALL SELECT 'export', resource_id, customer_reference, owner_email, owner_phone, object_key, NULL, NULL, updated_at FROM customer_exports UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email, archive_key, restore_allowed, NULL, NULL, updated_at FROM backup_restore_entries UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, NULL, updated_at FROM support_records UNION ALL SELECT 'audit', resource_id, subject_reference, event_code, retention_until, NULL, NULL, NULL, updated_at FROM security_audit_records"
+   },
+   "output_chars": 2423
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_57",
+    "sql": "SELECT * FROM search_documents_primary"
+   },
+   "output_chars": 396
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_54",
+    "sql": "SELECT 'failover' t, * FROM customer_profiles_failover_replica UNION ALL SELECT 'primary', * FROM customer_profiles_primary"
+   },
+   "output_chars": 1100
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_459"
+   },
+   "output_chars": 2748
+  },
+  {
+   "turn": 7,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_1043"
+   },
+   "output_chars": 2250
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_299",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_300",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_46",
+    "limit": 50
+   },
+   "output_chars": 47
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_94",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 8,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "account_4248",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 347
+  },
+  {
+   "turn": 9,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_94",
+    "offset": 11000
+   },
+   "output_chars": 960
+  },
+  {
+   "turn": 10,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_94",
+    "offset": 10000
+   },
+   "output_chars": 1966
+  },
+  {
+   "turn": 11,
+   "tool": "search_evidence",
+   "input": {
+    "query": "865116",
+    "limit": 50
+   },
+   "output_chars": 46
+  },
+  {
+   "turn": 11,
+   "tool": "search_evidence",
+   "input": {
+    "query": "fastmail",
+    "limit": 100
+   },
+   "output_chars": 41718
+  }
+ ]
+}

@@ -1,0 +1,474 @@
+{
+ "case_id": "case_453",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_3183",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_43"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_1317",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_43"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_3183",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_1317",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_3183",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_1317",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_3600",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_453",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_3183",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Customer profile for user_451 (k.gyasi98@yahoo.com, Kojo Gyasi, +233 24 797 9252) with account_status ACTIVE still exists in the reporting replica at audit_at (evidence_43, captured 2026-03-05T12:00:00Z). The deletion worker's SUCCESS claim (activity_567) is contradicted by this direct observation. DELETE required.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_1317",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Search document in customer_directory_v3 carrying display_name Kojo Gyasi, email k.gyasi98@yahoo.com and customer_reference user_451 is present in both the primary and reporting replica tables at audit_at (evidence_43). The deletion worker reported FAILED (activity_574). DELETE required.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_3600",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "account_deletion_reviewed security audit event referencing subject user_451, created by the privacy workflow for this deletion and present at audit_at (evidence_43). No retention expiry before audit_at is recorded, so it is within retention and must be retained, not deleted. It holds only a stable user_id reference and no direct identifiers.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [],
+  "notes": [
+   "intent: deletion (English): The customer asks to close their own account and process the associated personal-data deletion, which is erasure of their own data; the request for a review notice does not change that.",
+   "summary: Subject user_451 (k.gyasi98@yahoo.com). Three in-scope resources were confirmed present at audit_at via the 2026-03-05 reporting replica/primary capture (evidence_43): the ACTIVE customer profile account_3183 (USER_PROFILE, delete), the customer_directory_v3 search document search_1317 (SEARCH_INDEX_ENTRY, delete), and the retained security audit event audit_record_3600 (SECURITY_AUDIT_LOG, retain). The workflow's COMPLETE claim is contradicted: the account and search document still exist, and the search delete reported FAILED. No other subject records (analytics, support, exports, backups, connectors, marketing, email logs) were found by searching the email, hash, phone, user_id, and name; the phone and hash searches matched only account_3183 or nothing. Snapshots from before audit_at that cover these systems do not contain the subject's records, but they predate the state shown in evidence_43, so they were not used as proof of absence."
+  ],
+  "usage": [
+   {
+    "case_id": "case_453",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 83,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_453",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 306,
+    "cache_creation_input_tokens": 1267,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_453",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 623,
+    "cache_creation_input_tokens": 6147,
+    "cache_read_input_tokens": 6138
+   },
+   {
+    "case_id": "case_453",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 594,
+    "cache_creation_input_tokens": 17428,
+    "cache_read_input_tokens": 12285
+   },
+   {
+    "case_id": "case_453",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 457,
+    "cache_creation_input_tokens": 5528,
+    "cache_read_input_tokens": 29713
+   },
+   {
+    "case_id": "case_453",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 616,
+    "cache_creation_input_tokens": 6922,
+    "cache_read_input_tokens": 35241
+   },
+   {
+    "case_id": "case_453",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 378,
+    "cache_creation_input_tokens": 1828,
+    "cache_read_input_tokens": 42163
+   },
+   {
+    "case_id": "case_453",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 488,
+    "cache_creation_input_tokens": 696,
+    "cache_read_input_tokens": 43991
+   },
+   {
+    "case_id": "case_453",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 463,
+    "cache_creation_input_tokens": 660,
+    "cache_read_input_tokens": 44687
+   },
+   {
+    "case_id": "case_453",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 840,
+    "cache_creation_input_tokens": 1105,
+    "cache_read_input_tokens": 45347
+   },
+   {
+    "case_id": "case_453",
+    "call": "turn_10",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2174,
+    "cache_creation_input_tokens": 12153,
+    "cache_read_input_tokens": 46452
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3183"
+   },
+   "output_chars": 2969
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_451",
+    "limit": 50
+   },
+   "output_chars": 4374
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "k.gyasi98@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 2595
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "gyasi",
+    "limit": 50
+   },
+   "output_chars": 2581
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_1317"
+   },
+   "output_chars": 3139
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_3600"
+   },
+   "output_chars": 2670
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233247979252",
+    "limit": 50
+   },
+   "output_chars": 928
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1e1c1100b9d21f17e0e5f8cd55b8e5bc5975235a88ee597447bbd878f331002a",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Kojo",
+    "limit": 50
+   },
+   "output_chars": 2580
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-12T00:00:00Z",
+    "end": "2026-03-05T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31158
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3183",
+    "limit": 50
+   },
+   "output_chars": 2145
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_1317",
+    "limit": 50
+   },
+   "output_chars": 2316
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_3600",
+    "limit": 50
+   },
+   "output_chars": 1845
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_451",
+    "limit": 50
+   },
+   "output_chars": 4374
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_44",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_64",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_43",
+    "sql": "SELECT 'p' AS t, resource_id, origin_system, collection_name, record_json FROM customer_data_primary WHERE record_json LIKE '%451%' OR lower(record_json) LIKE '%gyasi%' OR record_json LIKE '%233247979252%' OR record_json LIKE '%797 9252%' OR record_json LIKE '%1e1c1100%' UNION ALL SELECT 'r', resource_id, origin_system, collection_name, record_json FROM customer_data_reporting_replica WHERE record_json LIKE '%451%' OR lower(record_json) LIKE '%gyasi%' OR record_json LIKE '%797 9252%' OR record_json LIKE '%1e1c1100%'"
+   },
+   "output_chars": 1592
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT name FROM sqlite_master"
+   },
+   "output_chars": 841
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT 'profiles' t, * FROM customer_profiles WHERE lower(cast(rowid as text)) <> '' AND (rowid IS NOT NULL) LIMIT 0"
+   },
+   "output_chars": 144
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 377
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT 'profiles', * FROM customer_profiles WHERE customer_reference LIKE '%451%' OR lower(full_name) LIKE '%gyasi%' OR lower(email) LIKE '%gyasi%' OR phone LIKE '%9252%' OR email_hash LIKE '1e1c%' UNION ALL SELECT 'search', resource_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL FROM customer_search_documents WHERE 0"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 7,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_47",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 95
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM customer_search_documents LIMIT 50"
+   },
+   "output_chars": 604
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM backup_restore_entries LIMIT 50"
+   },
+   "output_chars": 242
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_63",
+    "sql": "SELECT * FROM connector_subscriptions LIMIT 50"
+   },
+   "output_chars": 268
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 30
+   },
+   "output_chars": 15117
+  },
+  {
+   "turn": 9,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold",
+    "limit": 30
+   },
+   "output_chars": 8782
+  },
+  {
+   "turn": 9,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  }
+ ]
+}

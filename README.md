@@ -12,6 +12,66 @@ Read [`problem_statement.md`](./problem_statement.md) for the complete challenge
 
 ---
 
+## Running this solution
+
+Architecture, build rules and decisions: [`code/PLAN.md`](./code/PLAN.md). Evaluation:
+[`code/evaluation/evaluation_report.md`](./code/evaluation/evaluation_report.md).
+
+**1. Setup** (Python 3.13; run every command from the repository root):
+
+```bash
+python -m venv .venv
+# activate the virtual environment (do this in every new terminal before the commands below)
+.venv\Scripts\activate          # Windows (PowerShell or cmd)
+source .venv/bin/activate       # macOS / Linux
+python -m pip install -r code/requirements.txt
+```
+
+Agent mode needs `ANTHROPIC_API_KEY` in a `.env` file at the repository root (loaded with
+python-dotenv; never commit it). Baseline mode, the tests and the UI need no key.
+
+**2. Run** (with the venv activated; writes `output.csv` at the repository root):
+
+```bash
+python code/main.py                                   # agent mode (default): claude-haiku-5-5 tool-calling agent
+python code/main.py --workers 8 --budget-usd 15       # same, 8 parallel cases, stop launching at ~$15 estimated
+python code/main.py --mode baseline                   # deterministic baseline, no LLM
+```
+
+The agent run checkpoints every case under `code/runs/agent/eval/v-<version>/`, where the
+version hashes all of `code/deletion_audit/` (prompts, tools, model settings) and the image
+transcriptions. Rerunning the same command resumes without re-paying for finished cases;
+with the shipped checkpoints of the final run it rebuilds `output.csv` without any model
+call. Any code or prompt change produces a new version, so older checkpoints are never reused.
+
+**3. Evaluate and test** (venv activated):
+
+```bash
+python code/evaluation/score.py --set dev              # baseline vs agent on the 20 dev samples
+python code/evaluation/custom_cases.py --modes agent   # 13 hand-written edge cases
+python -m unittest discover -s code/tests -v           # 27 unit tests, no API calls
+```
+
+**4. Regenerate derived files** (venv activated):
+
+```bash
+python code/evaluation/usage_report.py                 # rebuild code/evaluation/usage_report.md from the final run's checkpoints (no API calls)
+cd code && python -m deletion_audit.image_text --force && cd ..   # re-transcribe the 11 evidence screenshots (11 vision calls, needs the API key)
+```
+
+The image transcriptions are cached in `code/cache/image_text/` and shipped, so a normal
+run never makes vision calls. Re-transcribing changes the cache and therefore the judge
+version, so the next agent run starts a fresh checkpoint set.
+
+**5. Results UI** (read-only: saved results and the dataset, no model calls):
+
+```bash
+python -m pip install -r code/ui/requirements.txt
+streamlit run code/ui/app.py
+```
+
+---
+
 ## Quick Start
 
 Clone the repository and move into the project directory:

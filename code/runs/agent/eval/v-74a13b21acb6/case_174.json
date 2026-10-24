@@ -1,0 +1,478 @@
+{
+ "case_id": "case_174",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2138",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_84"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_1887",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_84"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2138",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1887",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2138",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_7011",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1887",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_174",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_2138",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_84",
+    "reason": "Search index document in customer_directory_v3 still carries the subject's exact email chughes6797@gmail.com (updated 2026-07-23T08:52:26Z, before audit_at). Linked directly to the subject by exact email; the deletion worker's FAILED result (activity_2657) is a claim, not proof of removal. DELETE required.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_1887",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_84",
+    "reason": "Support record still carries requester_email chughes6797@gmail.com (updated 2026-07-23T11:15:26Z). The message concerns an order update, so it holds order context that must be retained: REDACT the direct identifier, not delete. The REDACT activity (activity_2654) reported FAILED and is a claim only.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_246",
+    "reason": "Linked only via deletion-worker batch run activity_2642, which is shared with case_173, case_175, case_188, case_189, case_190. No usable evidence ties this account to chughes6797@gmail.com or user_172; absent from later account_service snapshots (evidence_84, evidence_83). Cannot attribute to subject."
+   },
+   {
+    "resource_id": "account_6554",
+    "reason": "Shared batch run (activity_2641) with other customers; no identifier or user_172 link found; absent from later account_service snapshots. Not attributable to subject."
+   },
+   {
+    "resource_id": "account_6659",
+    "reason": "Shared batch run (activity_2643) with other customers; no identifier link to subject; absent from later account_service snapshots. Not attributable."
+   },
+   {
+    "resource_id": "account_7063",
+    "reason": "Shared batch run (activity_2636) with other customers; the only observation (evidence_83) is a 404 with no identity data. Identity-free record in a shared run cannot be attributed to the subject."
+   },
+   {
+    "resource_id": "account_796",
+    "reason": "Shared batch run (activity_2638) with other customers; no identifier link to subject; absent from later account_service snapshots. Not attributable."
+   },
+   {
+    "resource_id": "analytics_8767",
+    "reason": "Shared batch run (activity_2639) with other customers; the only profile (evidence_83) is identity-free (all-null email, hash, phone, customer_reference). Cannot be attributed to subject."
+   },
+   {
+    "resource_id": "analytics_9505",
+    "reason": "Shared batch run (activity_2644) with other customers; evidence_84 shows an identity-free analytics profile (all identifiers null, cohort only). Cannot be attributed to subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer states they no longer use the account and asks for it to be permanently deleted, including associated records. This is a direct request to erase their own account and personal data; the request for confirmation of the result is a follow-up that does not negate the deletion.",
+   "summary: Subject chughes6797@gmail.com (user_172). Only two records in the evidence tie to the subject by exact email: search_2138 (search index, PRESENT, delete) and support_1887 (support message with order context, PRESENT, redact). Both are still present in the 2026-07-23 inventory snapshot, so the workflow's FAILED/NOT_STARTED claims are not reliable. The account, analytics and other batch-run candidates belong to a run shared with other customers and carry no subject identifiers, so they were rejected. No live account profile, hash, phone, name, export, connector or backup linked to this subject was found in the evidence. Nothing was found for user_172, the hash, the phone or the name.",
+   "future verification added for audit_record_7011 (post-audit identity link)"
+  ],
+  "usage": [
+   {
+    "case_id": "case_174",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 111,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_174",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 790,
+    "cache_creation_input_tokens": 4786,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_174",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 940,
+    "cache_creation_input_tokens": 9252,
+    "cache_read_input_tokens": 9657
+   },
+   {
+    "case_id": "case_174",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 342,
+    "cache_creation_input_tokens": 9116,
+    "cache_read_input_tokens": 18909
+   },
+   {
+    "case_id": "case_174",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1043,
+    "cache_creation_input_tokens": 3863,
+    "cache_read_input_tokens": 28025
+   },
+   {
+    "case_id": "case_174",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 479,
+    "cache_creation_input_tokens": 14466,
+    "cache_read_input_tokens": 31888
+   },
+   {
+    "case_id": "case_174",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2119,
+    "cache_creation_input_tokens": 5317,
+    "cache_read_input_tokens": 46354
+   },
+   {
+    "case_id": "case_174",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1548,
+    "cache_creation_input_tokens": 11675,
+    "cache_read_input_tokens": 51671
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chughes6797@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 1404
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_172",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "charlotte hughes",
+    "limit": 50
+   },
+   "output_chars": 56
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_246"
+   },
+   "output_chars": 1475
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6554"
+   },
+   "output_chars": 1481
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6659"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7063"
+   },
+   "output_chars": 2111
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_796"
+   },
+   "output_chars": 1476
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_8767"
+   },
+   "output_chars": 2264
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9505"
+   },
+   "output_chars": 2130
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2138"
+   },
+   "output_chars": 2145
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_1887"
+   },
+   "output_chars": 2167
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_82",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_19",
+    "offset": 0
+   },
+   "output_chars": 1517
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 4000
+   },
+   "output_chars": 3238
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 5000
+   },
+   "output_chars": 4618
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "39cb4e8e76e99eedcfc4ff7e2ed90f89ae4b862277547b6f9b16d0dd9f13aa11",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "447700900172",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chughes",
+    "limit": 50
+   },
+   "output_chars": 1390
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_174",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-01T00:00:00Z",
+    "end": "2026-07-23T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31515
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-01T12:00:00Z",
+    "end": "2026-07-03T14:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 11921
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "user_172",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "hughes",
+    "limit": 50
+   },
+   "output_chars": 12594
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6797",
+    "limit": 50
+   },
+   "output_chars": 2916
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "charlotte",
+    "limit": 50
+   },
+   "output_chars": 5102
+  }
+ ]
+}

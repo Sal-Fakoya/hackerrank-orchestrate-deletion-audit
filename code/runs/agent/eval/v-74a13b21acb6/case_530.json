@@ -1,0 +1,336 @@
+{
+ "case_id": "case_530",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_2152",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_62"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_530",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_2152",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_62",
+    "reason": "Security audit record for SUBJECT_REQUEST_AUDITED with subject_reference user_528 (the subject's user_id), captured 2026-01-29 inside the request window. retention_until 2033-12-31 is after audit_at, so the retention condition holds and the record is retained and verified as present.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3146",
+    "reason": "Only linked through deletion-worker batch run activity_89, which is shared with case_531 and case_532. No usable evidence ties this account to user_528 or the request email/hashes/phone. Not attributable to this subject; rejected."
+   },
+   {
+    "resource_id": "account_470",
+    "reason": "Linked only via shared batch run activity_91 (shared with case_531 and case_532). The only later observation (evidence_62) is an identity-free 404 profile lookup with no email, user or name, so it cannot be attributed to this subject. Rejected."
+   },
+   {
+    "resource_id": "account_6169",
+    "reason": "Linked only via shared batch run activity_90 (shared with other requests). Only observation is an identity-free 404 lookup in evidence_62 with no identifiers. Cannot be attributed to this subject. Rejected."
+   },
+   {
+    "resource_id": "analytics_3744",
+    "reason": "Shared batch run activity_92 (other requests). evidence_62 shows an all-null analytics profile (no email, hash, phone, customer_reference), so it is identity-free and cannot be attributed. Rejected."
+   },
+   {
+    "resource_id": "analytics_893",
+    "reason": "Shared batch run activity_93 (other requests). evidence_62 shows an all-null analytics profile, identity-free and not attributable to this subject. Rejected."
+   },
+   {
+    "resource_id": "user_528 account profile",
+    "reason": "No usable evidence shows a live or tombstoned account record for user_528 in account_service. The 404 lookups are unattributable (see account_470/account_6169); no ACCOUNT_TOMBSTONE or USER_PROFILE record linked to this subject was found."
+   },
+   {
+    "resource_id": "backup_6344 / data_flow_6987 / support_7724 / audit_record_4828",
+    "reason": "These reference user_530, a different customer, not the request subject user_528. Not in scope."
+   },
+   {
+    "resource_id": "backup_3382 / data_flow_2263 / data_flow_6588 / export_9388",
+    "reason": "Reference other customers' emails (k.amponsah80, chevalier.hugo, farah.s8042, nzielinski0123). Not linked to the subject's identifiers. Not in scope."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks the shop to permanently delete the account tied to their email address, including data linked through current or earlier identifiers. This is a clear erasure request for the person's own account and data; the verification request does not change that.",
+   "summary: Subject identifiers (user_528, chidi.oladipo emails, hashes, phone, name) found no direct match in usable evidence except audit_record_2152 (subject_reference user_528, retention to 2033), which is retained as PRESENT. The batch-run candidates (account_3146, account_470, account_6169, analytics_3744, analytics_893) are shared with other requests and have no evidence tying them to this subject; they were rejected. No support, search, export, backup, or connector records for this subject were found in usable evidence. Workflow claims were not relied on."
+  ],
+  "usage": [
+   {
+    "case_id": "case_530",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 103,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_530",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 550,
+    "cache_creation_input_tokens": 1092,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_530",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 698,
+    "cache_creation_input_tokens": 6168,
+    "cache_read_input_tokens": 5963
+   },
+   {
+    "case_id": "case_530",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 776,
+    "cache_creation_input_tokens": 15515,
+    "cache_read_input_tokens": 12131
+   },
+   {
+    "case_id": "case_530",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 729,
+    "cache_creation_input_tokens": 2958,
+    "cache_read_input_tokens": 27646
+   },
+   {
+    "case_id": "case_530",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1158,
+    "cache_creation_input_tokens": 6097,
+    "cache_read_input_tokens": 30604
+   },
+   {
+    "case_id": "case_530",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1413,
+    "cache_creation_input_tokens": 1655,
+    "cache_read_input_tokens": 36701
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3146"
+   },
+   "output_chars": 900
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_470"
+   },
+   "output_chars": 1385
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6169"
+   },
+   "output_chars": 1394
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_3744"
+   },
+   "output_chars": 1542
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_893"
+   },
+   "output_chars": 1535
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_2152"
+   },
+   "output_chars": 921
+  },
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 0
+   },
+   "output_chars": 4634
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chidi",
+    "limit": 50
+   },
+   "output_chars": 45
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 2500
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_528",
+    "limit": 50
+   },
+   "output_chars": 809
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chidi.oladipo",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348034031181",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-11T00:00:00Z",
+    "end": "2026-01-29T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31076
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 5000
+   },
+   "output_chars": 4615
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "09c82ded4f6fcf77f2ed073e9fa39781581276168970b1a38321dfe80b8b9d84",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "5f9f060583b4bbbe078360a21cde74c79ba10716292e3934caebd76fea367b6d",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "chidi.oladipo78@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 65
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_62",
+    "offset": 7500
+   },
+   "output_chars": 3385
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-01-11T12:00:00Z",
+    "end": "2026-01-12T23:59:59Z",
+    "limit": 100
+   },
+   "output_chars": 9625
+  },
+  {
+   "turn": 5,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4828"
+   },
+   "output_chars": 922
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_61",
+    "limit": 20
+   },
+   "output_chars": 48
+  }
+ ]
+}

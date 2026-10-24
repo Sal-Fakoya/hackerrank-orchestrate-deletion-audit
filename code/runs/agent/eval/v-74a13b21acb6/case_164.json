@@ -1,0 +1,324 @@
+{
+ "case_id": "case_164",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_9549",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_85"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6780",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_85"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_164",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_9549",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_85",
+    "reason": "Subject's primary profile (linked via direct lookup_key tomasz.stojanovic@outlook.com). Direct readback at 2026-07-28T04:44:49Z returned rows=0, http_status=404, so the profile no longer exists at audit_at. Deletion-worker activity_2846 SUCCESS is only a claim; the readback is the direct observation. Latest usable snapshots covering account_service (evidence_20, evidence_17, evidence_84) do not contain it.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6780",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_85",
+    "reason": "Security audit record referencing subject_reference=user_162 (event SUBJECT_REQUEST_AUDITED). Retention runs until 2033-12-31, which is after audit_at, so it is within the retention period and must be retained (verify presence only).",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1837",
+    "reason": "Linked only through deletion-worker run activity_2847, which is shared with case_165 and case_166 (other customers' emails). No usable evidence ties account_1837 to this subject (no identifier, user_id or name match in any observation), so it cannot be attributed and is rejected."
+   },
+   {
+    "resource_id": "analytics_6402",
+    "reason": "Linked only through shared batch run activity_2849 (shared with case_165 and case_166). Its only direct observation (evidence_85, rb-033654-006) returns customer_reference=null, email=null, phone=null, email_hash=null, with only an audience_cohort. It is an identity-free profile in a shared run and cannot be attributed to this subject, so it is rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer states they no longer use the account and asks for it to be permanently deleted, which is a direct request to erase their own account and personal data. The additional request to complete an identity review and confirm review status does not negate the deletion request.",
+   "summary: Subject tomasz.stojanovic@outlook.com (user_162). Confirmed the subject's primary account profile account_9549 is absent at audit_at (404 readback, evidence_85). The security audit record audit_record_6780 references user_162 and is within its 2033 retention, so it is retained and present. Rejected account_1837 and analytics_6402 as candidates from the shared batch run with no attributable identity. No secondary identifiers, support records, exports, marketing profiles, backups, or active data flows linked to this subject were found in usable evidence. The workflow's COMPLETE claim is consistent for the profile, but only account_9549 among the subject's own records is confirmed deleted."
+  ],
+  "usage": [
+   {
+    "case_id": "case_164",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 107,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_164",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 428,
+    "cache_creation_input_tokens": 4100,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_164",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 714,
+    "cache_creation_input_tokens": 4557,
+    "cache_read_input_tokens": 8971
+   },
+   {
+    "case_id": "case_164",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1633,
+    "cache_creation_input_tokens": 44857,
+    "cache_read_input_tokens": 13528
+   },
+   {
+    "case_id": "case_164",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 451,
+    "cache_creation_input_tokens": 8306,
+    "cache_read_input_tokens": 58385
+   },
+   {
+    "case_id": "case_164",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 678,
+    "cache_creation_input_tokens": 5376,
+    "cache_read_input_tokens": 66691
+   },
+   {
+    "case_id": "case_164",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1296,
+    "cache_creation_input_tokens": 7884,
+    "cache_read_input_tokens": 72067
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9549"
+   },
+   "output_chars": 2089
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1837"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6402"
+   },
+   "output_chars": 2128
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6780"
+   },
+   "output_chars": 1595
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tomasz.stojanovic@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 677
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_162",
+    "limit": 100
+   },
+   "output_chars": 771
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "stojanovi",
+    "limit": 100
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "4992088cd24991198de684e78d2f88d6179767c87b71ca4e1be2971bc9c1e9b0",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "48693837020",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_",
+    "limit": 100
+   },
+   "output_chars": 33429
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_",
+    "limit": 100
+   },
+   "output_chars": 35187
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-16T00:00:00Z",
+    "end": "2026-07-28T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31279
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-16T00:00:00Z",
+    "end": "2026-07-17T23:59:59Z",
+    "limit": 200
+   },
+   "output_chars": 10521
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_85",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_85",
+    "offset": 4000
+   },
+   "output_chars": 4231
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Tomasz",
+    "limit": 50
+   },
+   "output_chars": 1455
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tomasz.stojanovic",
+    "limit": 50
+   },
+   "output_chars": 665
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "+48",
+    "limit": 50
+   },
+   "output_chars": 4024
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "tombstone",
+    "limit": 20
+   },
+   "output_chars": 614
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "legal_hold",
+    "limit": 20
+   },
+   "output_chars": 14471
+  }
+ ]
+}

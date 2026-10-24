@@ -1,0 +1,429 @@
+{
+ "case_id": "case_170",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_665",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_85"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_4443",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_85"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_170",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_665",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_85",
+    "reason": "Subject's own profile. Lookup keyed by the subject's email jihoon.jang@gmail.com at 2026-07-28T04:56:58Z returned rows=0, http_status=404, so the profile no longer exists at audit_at. Deletion worker's activity_2751 reported FAILED, which is only a claim. Latest snapshots of account_service (evidence_17, evidence_84) also lack it.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_4443",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_85",
+    "reason": "Security audit record referencing the subject's user_id user_168 (event ACCOUNT_DELETION_RECORDED) with retention_until 2031-12-31, which is after audit_at 2026-07-28. Retained and available, so verify retention.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2362",
+    "reason": "Linked only through the shared deletion-worker batch run (activity_2755, shared with case_155, case_156, case_157, case_171, case_172). No usable evidence ties this account to jihoon.jang@gmail.com or user_168, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_5675",
+    "reason": "Linked only through the shared batch run (activity_2752, shared with other requests). No evidence ties it to this subject's identifiers, so it is rejected."
+   },
+   {
+    "resource_id": "account_7947",
+    "reason": "Linked only through the shared batch run (activity_2750, shared with other requests). Its only evidence is a FAILED activity claim, with no identifier linking it to this subject."
+   },
+   {
+    "resource_id": "analytics_6980",
+    "reason": "Linked only through the shared batch run (activity_2754). The only observation (evidence_85, rb-025710-005) is an identity-free profile with customer_reference, email, phone and email_hash all null, so it cannot be attributed to this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer asks to erase the account linked to their email address and to confirm the result, which is a clear request for account and personal data erasure.",
+   "summary: Subject jihoon.jang@gmail.com / user_168. Only account_665 (profile now 404 for the subject's email) and audit_record_4443 (security audit record retained until 2031) are tied to this subject by direct evidence. No backup, connector, export, support, search, or tombstone records for this subject were found in the usable evidence. account_2362, account_5675, account_7947 and analytics_6980 were rejected because they are linked only through a shared batch run and have no attributable identifiers. Caveat: the snapshot coverage search returned no rows for the subject's hash or phone, and the name search returned only unrelated customers. The workflow's NOT_STARTED claim is not supported by the evidence; the profile is already absent but the audit log remains."
+  ],
+  "usage": [
+   {
+    "case_id": "case_170",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1053,
+    "output_tokens": 78,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_170",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 536,
+    "cache_creation_input_tokens": 4561,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_170",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 724,
+    "cache_creation_input_tokens": 6021,
+    "cache_read_input_tokens": 9432
+   },
+   {
+    "case_id": "case_170",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 623,
+    "cache_creation_input_tokens": 7848,
+    "cache_read_input_tokens": 15453
+   },
+   {
+    "case_id": "case_170",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 589,
+    "cache_creation_input_tokens": 17595,
+    "cache_read_input_tokens": 23301
+   },
+   {
+    "case_id": "case_170",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 388,
+    "cache_creation_input_tokens": 3387,
+    "cache_read_input_tokens": 40896
+   },
+   {
+    "case_id": "case_170",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1544,
+    "cache_creation_input_tokens": 2600,
+    "cache_read_input_tokens": 44283
+   },
+   {
+    "case_id": "case_170",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1862,
+    "cache_creation_input_tokens": 4916,
+    "cache_read_input_tokens": 46883
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2362"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5675"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_665"
+   },
+   "output_chars": 2072
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7947"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_6980"
+   },
+   "output_chars": 2128
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_4443"
+   },
+   "output_chars": 1597
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jihoon.jang@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_168",
+    "limit": 50
+   },
+   "output_chars": 773
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jihoon",
+    "limit": 50
+   },
+   "output_chars": 1492
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821093456085",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "8a6fe18cdaf828c71795ece7a591cfa7c1926bc7835615498c441a11cf2c209d",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 0
+   },
+   "output_chars": 4247
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_17",
+    "offset": 0
+   },
+   "output_chars": 4642
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 0
+   },
+   "output_chars": 4639
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_84",
+    "offset": 6000
+   },
+   "output_chars": 1226
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_17",
+    "offset": 6000
+   },
+   "output_chars": 4650
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_83",
+    "offset": 6000
+   },
+   "output_chars": 4616
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-10T06:00:00Z",
+    "end": "2026-07-28T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31279
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-11T04:30:00Z",
+    "end": "2026-07-11T06:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 1918
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_85",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_20",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_85",
+    "offset": 6000
+   },
+   "output_chars": 3279
+  },
+  {
+   "turn": 5,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_85",
+    "trace_id": "rb-045658-015"
+   },
+   "output_chars": 395
+  },
+  {
+   "turn": 5,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_85",
+    "trace_id": "rb-042046-012"
+   },
+   "output_chars": 487
+  },
+  {
+   "turn": 5,
+   "tool": "get_log_trace",
+   "input": {
+    "file_id": "evidence_85",
+    "trace_id": "rb-025710-005"
+   },
+   "output_chars": 476
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Jang",
+    "limit": 50
+   },
+   "output_chars": 3116
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_665",
+    "limit": 50
+   },
+   "output_chars": 1253
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_6980",
+    "limit": 50
+   },
+   "output_chars": 1311
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_4443",
+    "limit": 50
+   },
+   "output_chars": 782
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jihoon.jang",
+    "limit": 50
+   },
+   "output_chars": 647
+  }
+ ]
+}

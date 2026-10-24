@@ -1,0 +1,307 @@
+{
+ "case_id": "case_146",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_2262",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_86"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4889",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_86"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4889",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_2262",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_2262",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_4889",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_146",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_2262",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_86",
+    "reason": "Search index document search_2262 in customer_directory_v3 still exposes aditi.patel@gmail.com (exact match to the request email) when queried at 2026-08-07T05:50:33Z. The deletion worker's DELETE_RECORD result (activity_2955) was FAILED, so the workflow's PARTIALLY_COMPLETE status is not proof of removal. Rule is Always/DELETE, so the entry must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_4889",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_86",
+    "reason": "Connector customer_events_connector (data_flow_4889) is enabled=true with last_delivery_status=delivered and customer_email=aditi.patel@gmail.com at 2026-08-07T05:17:19Z. An active connector can keep copying or recreating the subject's data, so it must be disabled. activity_2953 (a 2026-07-25 check) only reports the flow as enabled and is not a later state.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_9191",
+    "reason": "Linked only through deletion-worker run activity_2949, which is shared with case_147 and case_148 (other customers' emails). No usable evidence ties account_9191 to aditi.patel, user_144, or the subject's hash/phone. Export evidence_86 and the later snapshots show no record of it. Cannot attribute to this subject, so rejected. The claimed 'absent' status is also a workflow claim only."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks for a permanent account deletion for their email address and for associated records to be included, which is a request to erase their own account and personal data.",
+   "summary: Subject aditi.patel@gmail.com (user_144). Two in-scope resources remain live as of 2026-08-07T08:00Z: search_2262 (search index entry still holds the email, PRESENT, must be deleted) and data_flow_4889 (customer_events_connector enabled and delivering, ACTIVE, must be disabled). The deletion worker's FAILED search result and SUCCESS/active-flow claims are contradicted by evidence_86. account_9191 was rejected for lack of attribution to this subject. No other email, phone, hash, or user_144 hits were found across the evidence; \"aditi\" hits belong to other people (Aditi Sharma, Aditi Jain)."
+  ],
+  "usage": [
+   {
+    "case_id": "case_146",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1055,
+    "output_tokens": 84,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_146",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 386,
+    "cache_creation_input_tokens": 4156,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_146",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 715,
+    "cache_creation_input_tokens": 4759,
+    "cache_read_input_tokens": 9027
+   },
+   {
+    "case_id": "case_146",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 508,
+    "cache_creation_input_tokens": 17463,
+    "cache_read_input_tokens": 13786
+   },
+   {
+    "case_id": "case_146",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1043,
+    "cache_creation_input_tokens": 7366,
+    "cache_read_input_tokens": 31249
+   },
+   {
+    "case_id": "case_146",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1660,
+    "cache_creation_input_tokens": 3147,
+    "cache_read_input_tokens": 38615
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9191"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_4889"
+   },
+   "output_chars": 2288
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_2262"
+   },
+   "output_chars": 3121
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aditi.patel@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 2493
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_144",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "919352702583",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "6044a8be64800defd18ae2013d1b685ec04acd4c338fffa279af6e92f6e990f7",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aditi patel",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "patel",
+    "limit": 50
+   },
+   "output_chars": 8990
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-07-24T00:00:00Z",
+    "end": "2026-08-07T08:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31364
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "aditi",
+    "limit": 50
+   },
+   "output_chars": 9264
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9191",
+    "limit": 50
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "activity_2949",
+    "limit": 50
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 3900
+   },
+   "output_chars": 4614
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SEARCH_INDEX_ENTRY"
+   },
+   "output_chars": 113
+  },
+  {
+   "turn": 4,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "DATA_FLOW"
+   },
+   "output_chars": 148
+  }
+ ]
+}

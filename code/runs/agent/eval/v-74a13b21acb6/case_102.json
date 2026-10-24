@@ -1,0 +1,486 @@
+{
+ "case_id": "case_102",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_4586",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_345",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_89"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_4586",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_345",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_4586",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_345",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_102",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_4586",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_89",
+    "reason": "Customer search index document search_4586 still exposes the subject's email eaddo6629@gmail.com in the 2026-09-01T05:33:16Z search export (inside the request window, before audit_at). The deletion worker's activity_3418 reported FAILED. Index entries are always DELETE, so the record must be removed.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_345",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_89",
+    "reason": "Support ticket support_345 (2026-09-01T05:33:16Z export) still has requester_email eaddo6629@gmail.com. Its excerpt is only 'Customer contacted support about account access.' with no agent, order, or shared customer context that must be retained, so the REDACT condition does not hold and the ticket must be deleted. The redact activity_3417 reported FAILED.",
+    "condition_met": false
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_8473",
+    "reason": "Linked only through deletion-worker run activity_3413, which is a shared batch run (shared_with case_73, case_86, case_87, case_88). No usable evidence ties account_8473 to this subject: user_100, the name, the phone numbers and the email hash return no record, and no snapshot or log mentions it with this subject's identifiers. The DELETE SUCCESS claim is not used to prove state. Rejected as belonging to other customers."
+   },
+   {
+    "resource_id": "account_868",
+    "reason": "Linked only through deletion-worker run activity_3414, a shared batch run (shared_with other requests). No usable evidence ties account_868 to this subject; the identifiers return no matching record. Rejected as belonging to other customers."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks the shop to erase the account linked to their email address, which is a request for deletion of their own account and personal data. The request for a short confirmation is additional but does not change the classification.",
+   "summary: Subject eaddo6629@gmail.com (user_100). Two in-scope resources still hold the subject's direct identifiers at audit_at, per the 2026-09-01 service export (evidence_89): search_4586 (search index, PRESENT, delete) and support_345 (support ticket with requester email, PRESENT, no shared context so delete). The workflow's FAILED results for both are consistent with this. Candidate account_8473 and account_868 came only from a shared batch run with other customers and have no evidence tying them to this subject, so they were rejected. No other subject-linked copies were found in the snapshots, replicas, connectors, exports, backups, security logs, or traces searched for the email, hash, phones, user_id, or name."
+  ],
+  "usage": [
+   {
+    "case_id": "case_102",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 99,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_102",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 494,
+    "cache_creation_input_tokens": 4779,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_102",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 539,
+    "cache_creation_input_tokens": 5566,
+    "cache_read_input_tokens": 9650
+   },
+   {
+    "case_id": "case_102",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 326,
+    "cache_creation_input_tokens": 1962,
+    "cache_read_input_tokens": 15216
+   },
+   {
+    "case_id": "case_102",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 743,
+    "cache_creation_input_tokens": 14828,
+    "cache_read_input_tokens": 17178
+   },
+   {
+    "case_id": "case_102",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 310,
+    "cache_creation_input_tokens": 6624,
+    "cache_read_input_tokens": 32006
+   },
+   {
+    "case_id": "case_102",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1211,
+    "cache_creation_input_tokens": 2753,
+    "cache_read_input_tokens": 38630
+   },
+   {
+    "case_id": "case_102",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 462,
+    "cache_creation_input_tokens": 1373,
+    "cache_read_input_tokens": 41383
+   },
+   {
+    "case_id": "case_102",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1310,
+    "cache_creation_input_tokens": 15671,
+    "cache_read_input_tokens": 42756
+   },
+   {
+    "case_id": "case_102",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3194,
+    "cache_creation_input_tokens": 6982,
+    "cache_read_input_tokens": 58427
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "eaddo6629@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2531
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_100",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "efua addo",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_8473"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_868"
+   },
+   "output_chars": 1469
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_4586"
+   },
+   "output_chars": 3112
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_345"
+   },
+   "output_chars": 2312
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "025085603b82c32e7febf86ae064516d8af0f2c9bf1df1200bd611bec5843c98",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233240344993",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "233246603074",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_49",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_100",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "eaddo",
+    "limit": 100
+   },
+   "output_chars": 2517
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-01T00:00:00Z",
+    "end": "2026-09-01T06:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31240
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 0
+   },
+   "output_chars": 4627
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_87",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_12",
+    "offset": 0
+   },
+   "output_chars": 4651
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_18",
+    "offset": 0
+   },
+   "output_chars": 963
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_87",
+    "sql": "SELECT name, sql FROM sqlite_master"
+   },
+   "output_chars": 3068
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT * FROM customer_data_primary LIMIT 3"
+   },
+   "output_chars": 1745
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_87",
+    "sql": "SELECT 'profiles' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE email LIKE '%addo%' OR customer_reference='user_100' OR full_name LIKE '%addo%' OR phone LIKE '%3240344993%' OR phone LIKE '%3246603074%' OR email_hash LIKE '025085%' UNION ALL SELECT 'search', resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE email LIKE '%addo%' OR customer_reference='user_100' OR display_name LIKE '%addo%' UNION ALL SELECT 'analytics', resource_id, customer_reference, audience_cohort, email, phone, email_hash, updated_at FROM customer_analytics_profiles WHERE email LIKE '%addo%' OR customer_reference='user_100' UNION ALL SELECT 'support', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt, updated_at FROM support_records WHERE requester_email LIKE '%addo%' OR customer_reference='user_100' OR requester_name LIKE '%addo%' UNION ALL SELECT 'exports', resource_id, customer_reference, owner_email, owner_phone, object_key, updated_at, NULL FROM customer_exports WHERE owner_email LIKE '%addo%' OR customer_reference='user_100' UNION ALL SELECT 'connector', resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status, updated_at FROM connector_subscriptions WHERE customer_email LIKE '%addo%' OR customer_reference='user_100' UNION ALL SELECT 'backup', resource_id, customer_reference, customer_email, archive_key, restore_allowed, updated_at, NULL FROM backup_restore_entries WHERE customer_email LIKE '%addo%' OR customer_reference='user_100' UNION ALL SELECT 'security', resource_id, subject_reference, event_code, retention_until, updated_at, NULL, NULL FROM security_audit_records WHERE subject_reference LIKE '%addo%' OR subject_reference LIKE '%user_100%' OR subject_reference LIKE '%6629%'"
+   },
+   "output_chars": 130
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_10",
+    "sql": "SELECT resource_id, origin_system, collection_name, updated_at, record_json FROM customer_data_primary WHERE record_json LIKE '%addo%' OR record_json LIKE '%user_100%' OR record_json LIKE '%3240344993%' OR record_json LIKE '%3246603074%' OR record_json LIKE '%025085603b%'"
+   },
+   "output_chars": 105
+  },
+  {
+   "turn": 7,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-20T00:00:00Z",
+    "end": "2026-08-25T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 28167
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_88",
+    "offset": 0
+   },
+   "output_chars": 4228
+  },
+  {
+   "turn": 7,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_86",
+    "offset": 0
+   },
+   "output_chars": 4632
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_89",
+    "offset": 4000
+   },
+   "output_chars": 4611
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_09",
+    "offset": 0
+   },
+   "output_chars": 1354
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_11",
+    "offset": 0
+   },
+   "output_chars": 4461
+  },
+  {
+   "turn": 8,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_14",
+    "offset": 0
+   },
+   "output_chars": 1477
+  }
+ ]
+}

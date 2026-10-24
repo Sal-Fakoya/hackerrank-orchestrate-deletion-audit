@@ -1,0 +1,417 @@
+{
+ "case_id": "case_331",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_6814",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 2,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_6731",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_1403",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_8534",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": "evidence_73"
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "backup_service",
+   "resource_id": "backup_9376",
+   "operation": "VERIFY_RESTORE_BLOCKED",
+   "state": "BLOCKED",
+   "evidence_id": "evidence_73"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_331",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_6814",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_73",
+    "reason": "Live account_service lookup on the subject's email jules.m080@outlook.com returned 0 rows, HTTP 404 at 2026-05-09T08:15:29Z (trace rb-081529-007). Profile is gone; compliant.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "support_1403",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "TREATED",
+    "evidence_id": "evidence_73",
+    "reason": "Support ticket still exists (customer_reference user_329) at 2026-05-09T07:49:25Z, but requester_name, requester_email and requester_phone are all null. Only the stable internal reference remains, so it is redacted and must be kept as a REDACT-category conversation. Compliant.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "backup_9376",
+    "system_id": "backup_service",
+    "category": "BACKUP_ARCHIVE",
+    "state": "BLOCKED",
+    "evidence_id": "evidence_73",
+    "reason": "Restore policy read at 2026-05-09T09:26:12Z: archive_present=true, restore_allowed=false for user_329 archive. Restore of the subject's data is blocked.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_8534",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "DISABLED",
+    "evidence_id": "evidence_73",
+    "reason": "Connector support_profile_sync for user_329 read at 2026-05-09T08:36:30Z: enabled=false, last_delivery_status=stopped. No active recreation risk.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_6731",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_73",
+    "reason": "Security audit record with subject_reference user_329, event IDENTITY_CHANGE_RECORDED, retention_until 2034-09-30, still within the retention period at audit_at. Retain and verify it is available.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_2583",
+    "reason": "Linked only through shared deletion batch run activity_1556 (shared with other requests). No identifier or user_id in any usable evidence ties it to user_329. Not attributed to this subject."
+   },
+   {
+    "resource_id": "account_591",
+    "reason": "Linked only through shared deletion batch run activity_1562 (shared with other requests). No usable evidence ties it to this subject."
+   },
+   {
+    "resource_id": "account_6301",
+    "reason": "Linked only through shared deletion batch run activity_1557 (shared with other requests). No usable evidence ties it to this subject; the FAILED/present claim is about another customer's record."
+   },
+   {
+    "resource_id": "account_9523",
+    "reason": "Linked only through shared deletion batch run activity_1563 (shared with other requests). No usable evidence ties it to this subject."
+   },
+   {
+    "resource_id": "analytics_2022",
+    "reason": "Linked only through shared batch run activity_1558. The only observation (evidence_73, trace rb-093026-019) has lookup_key=null and all-null identifiers, so it cannot be attributed to the subject in a shared run."
+   },
+   {
+    "resource_id": "analytics_8403",
+    "reason": "Belongs to a different person (jules-fournier@gmail.com, user_459), not jules.m080@outlook.com / user_329. Name similarity only."
+   },
+   {
+    "resource_id": "search_9014",
+    "reason": "Belongs to jules-fournier (user_459), a different customer. Not this subject."
+   },
+   {
+    "resource_id": "support_3901",
+    "reason": "Belongs to jules-fournier (user_459) conversation CS-7901. Not this subject."
+   },
+   {
+    "resource_id": "data_flow_4612",
+    "reason": "Connector subject_selector is jules-fournier@gmail.com (a different customer). Not this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks for a permanent account deletion for their email address and for the covered records to be treated accordingly, which is erasure of the person's own account and data.",
+   "summary: Subject user_329 / jules.m080@outlook.com. Account_6814 is confirmed absent (404 on subject email). Support ticket support_1403 is redacted down to user_id only. Backup backup_9376 restore is blocked, connector data_flow_8534 is disabled, and security audit record audit_record_6731 is retained within its 2034 retention. Batch-run-only account and analytics candidates in a shared run were rejected for lack of attribution, and jules-fournier (user_459) records were rejected as a different person. No marketing, export, search index, cache, email log or tombstone evidence for this subject was found in usable files. The workflow COMPLETE claim was not relied on for the states."
+  ],
+  "usage": [
+   {
+    "case_id": "case_331",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 85,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_331",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 775,
+    "cache_creation_input_tokens": 3561,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_331",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 622,
+    "cache_creation_input_tokens": 14846,
+    "cache_read_input_tokens": 8432
+   },
+   {
+    "case_id": "case_331",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 801,
+    "cache_creation_input_tokens": 3128,
+    "cache_read_input_tokens": 23278
+   },
+   {
+    "case_id": "case_331",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1360,
+    "cache_creation_input_tokens": 15103,
+    "cache_read_input_tokens": 26406
+   },
+   {
+    "case_id": "case_331",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 5754,
+    "cache_creation_input_tokens": 8500,
+    "cache_read_input_tokens": 41509
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_73",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_2583"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_591"
+   },
+   "output_chars": 1474
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6301"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6814"
+   },
+   "output_chars": 2082
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9523"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2022"
+   },
+   "output_chars": 2137
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_6731"
+   },
+   "output_chars": 1601
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "backup_9376"
+   },
+   "output_chars": 2143
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_8534"
+   },
+   "output_chars": 2195
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_1403"
+   },
+   "output_chars": 2101
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jules",
+    "limit": 50
+   },
+   "output_chars": 8070
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_329",
+    "limit": 50
+   },
+   "output_chars": 2839
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "jules.m080@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 663
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "751d4c2d265225c247bfe1d08bf12c445ae246b795f20439a89d78a1515ac5e8",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "33693820397",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "moreau",
+    "limit": 50
+   },
+   "output_chars": 1504
+  },
+  {
+   "turn": 3,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_6301"
+   },
+   "output_chars": 1479
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT name, sql FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 2044
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-20T00:00:00Z",
+    "end": "2026-05-09T11:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31274
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-04-20T10:00:00Z",
+    "end": "2026-04-23T12:00:00Z",
+    "limit": 60
+   },
+   "output_chars": 17275
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'cp' t, resource_id, customer_reference, full_name, email, phone, email_hash, account_status FROM customer_profiles WHERE customer_reference='user_329' OR email LIKE '%jules%' OR email_hash LIKE '751d%' OR phone LIKE '%3693820397%' OR resource_id IN ('account_2583','account_591','account_6301','account_6814','account_9523')"
+   },
+   "output_chars": 130
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'sd' t, resource_id, customer_reference, display_name, email, phone, email_hash, index_name FROM customer_search_documents WHERE customer_reference='user_329' OR email LIKE '%jules%' OR email_hash LIKE '751d%' OR phone LIKE '%3693820397%'; SELECT 'an', resource_id, customer_reference, email, phone, email_hash, audience_cohort FROM customer_analytics_profiles WHERE customer_reference='user_329' OR email LIKE '%jules%' OR email_hash LIKE '751d%' OR phone LIKE '%3693820397%'"
+   },
+   "output_chars": 58
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_72",
+    "sql": "SELECT 'sr', resource_id, customer_reference, requester_name, requester_email, requester_phone, message_excerpt FROM support_records WHERE customer_reference='user_329' OR requester_email LIKE '%jules%' OR requester_phone LIKE '%3693820397%'; SELECT 'ce', resource_id, customer_reference, owner_email, owner_phone, object_key FROM customer_exports WHERE customer_reference='user_329' OR owner_email LIKE '%jules%'; SELECT 'cs', resource_id, customer_reference, customer_email, connector_name, enabled, last_delivery_status FROM connector_subscriptions WHERE customer_reference='user_329' OR customer_email LIKE '%jules%'; SELECT 'br', resource_id, customer_reference, customer_email, archive_key, restore_allowed FROM backup_restore_entries WHERE customer_reference='user_329' OR customer_email LIKE '%jules%'; SELECT 'au', resource_id, subject_reference, event_code, retention_until FROM security_audit_records WHERE subject_reference='user_329'"
+   },
+   "output_chars": 58
+  }
+ ]
+}

@@ -1,0 +1,300 @@
+{
+ "case_id": "case_244",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "COMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_9314",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": "evidence_78"
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_244",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "audit_record_9314",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_78",
+    "reason": "Security audit row ACCOUNT_DELETION_RECORDED with subject_reference=user_242 (the subject's user_id) and retention_until 2031-12-31, which is after audit_at. Retention applies, so the record is retained and reported as PRESENT for verification.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_5891",
+    "reason": "Linked only via deletion-worker run activity_2280, which was shared with case_243 (s.hamdan08@gmail.com). Its evidence_78 row has all-null identifiers and no customer_reference or subject reference, so it cannot be attributed to this subject. Identity-free record in a shared run is rejected."
+   },
+   {
+    "resource_id": "analytics_9166",
+    "reason": "Linked only via deletion-worker run activity_2279, which was shared with case_243. Its evidence_78 row has all-null identifiers and no subject reference, so it cannot be attributed to user_242 or this email. Rejected."
+   },
+   {
+    "resource_id": "account_3653",
+    "reason": "Matches n.ogunleye2679@yahoo.com, which is not a current or historical identifier of this subject. The only evidence is from 2026-02-28, before the request window, and nothing ties it to user_242. Rejected as not this subject's episode record."
+   },
+   {
+    "resource_id": "search_728",
+    "reason": "Matches n.ogunleye2679@yahoo.com, not a listed subject identifier. Evidence is dated 2026-02-28 and 2026-02-28 traces, before requested_at, with no link to user_242. Rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly requests deletion of the account registered to their own email address and asks that it be applied to the relevant account records, which is erasure of the person's own account and data. Asking to be contacted for verification does not change this.",
+   "summary: Subject user_242 (ogunleye.obinna@gmail.com). Only one resource in the request window is tied to the subject: audit_record_9314 (security audit, retained until 2031, PRESENT). The two analytics candidates from the shared deletion run have no identifiers and are rejected. No active data flows, backups, exports, or support records tied to the subject were found in the evidence. The workflow's COMPLETE claim is not relied on. Profile, search, export, and marketing rows for user_242 were not found in any usable snapshot; absence of these was not separately evidenced beyond the inventory snapshot evidence_78, which lists no subject-linked rows."
+  ],
+  "usage": [
+   {
+    "case_id": "case_244",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1057,
+    "output_tokens": 106,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_244",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 346,
+    "cache_creation_input_tokens": 3179,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_244",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 555,
+    "cache_creation_input_tokens": 5287,
+    "cache_read_input_tokens": 8050
+   },
+   {
+    "case_id": "case_244",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 580,
+    "cache_creation_input_tokens": 3374,
+    "cache_read_input_tokens": 13337
+   },
+   {
+    "case_id": "case_244",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 290,
+    "cache_creation_input_tokens": 15283,
+    "cache_read_input_tokens": 16711
+   },
+   {
+    "case_id": "case_244",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 771,
+    "cache_creation_input_tokens": 1182,
+    "cache_read_input_tokens": 31994
+   },
+   {
+    "case_id": "case_244",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1629,
+    "cache_creation_input_tokens": 10681,
+    "cache_read_input_tokens": 33176
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5891"
+   },
+   "output_chars": 2132
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_9166"
+   },
+   "output_chars": 2132
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_9314"
+   },
+   "output_chars": 1494
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_242",
+    "limit": 50
+   },
+   "output_chars": 662
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ogunleye",
+    "limit": 50
+   },
+   "output_chars": 3970
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "ogunleye.obinna@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 65
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f7fc10a9d4337ade5b8f975f2a5b4ebf678efa746ee7966593662f10ad59795a",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2348031827611",
+    "limit": 50
+   },
+   "output_chars": 53
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Obinna",
+    "limit": 50
+   },
+   "output_chars": 1501
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "n.ogunleye2679@yahoo.com",
+    "limit": 50
+   },
+   "output_chars": 3986
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_78",
+    "offset": 0
+   },
+   "output_chars": 4246
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "user_242",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 100
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-06T00:00:00Z",
+    "end": "2026-06-18T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31032
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_78",
+    "offset": 5000
+   },
+   "output_chars": 1018
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_242",
+    "limit": 100
+   },
+   "output_chars": 662
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "gmail.com ogunleye",
+    "limit": 50
+   },
+   "output_chars": 58
+  },
+  {
+   "turn": 5,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-05T00:00:00Z",
+    "end": "2026-06-10T23:59:59Z",
+    "limit": 100
+   },
+   "output_chars": 21019
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_23",
+    "offset": 0
+   },
+   "output_chars": 1517
+  }
+ ]
+}

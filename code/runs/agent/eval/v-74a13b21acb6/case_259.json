@@ -1,0 +1,451 @@
+{
+ "case_id": "case_259",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "account_service",
+   "resource_id": "account_9608",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_6990",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_24"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "account_service",
+   "resource_id": "account_9608",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_6990",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_9608",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_6990",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 7,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1421",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_259",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_9608",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Customer profile for user_257 still exposes full name 'Sibusiso Nkosi', email sibusiso.n9912@outlook.com and phone +27 72 753 9868 with account_status ACTIVE in the 2026-06-13 read-replica capture. The replica copy is present even though the primary-side profile row is no longer in that capture (replica drift). The deletion worker's PARTIAL/SUCCESS activities are claims and do not prove removal. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "search_6990",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Search document in customer_directory_v3 for customer_reference user_257 still contains display_name 'Sibusiso Nkosi' and email sibusiso.n9912@outlook.com in both the primary and read-replica tables at 2026-06-13T11:00:00Z. The deletion-worker SUCCESS activity (activity_1987) is a claim contradicted by this observation. Must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1421",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_24",
+    "reason": "Security audit event account_deletion_reviewed with subject_reference user_257 is present in both primary and replica tables at 2026-06-13T11:00:00Z. It is an audit trail of the deletion review and is retained under SECURITY_AUDIT_LOG. Caveat: this record carries no retention_until field in the evidence, so the retention window is inferred from the deletion-review record rather than read from a supplied period. Reviewers should confirm the period.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "analytics_2977",
+    "reason": "Analytics report linked only through the shared deletion-worker batch run (activity_1982, shared with case_257, case_258, case_272). Its row in evidence_24 is identity-free (user_id, email, phone and email_hash all null) and no usable evidence ties it to user_257, so it cannot be attributed to this subject."
+   },
+   {
+    "resource_id": "account_3601",
+    "reason": "Linked only through shared batch run activity_1980 (shared with other requests case_257, case_258, case_272). No identity evidence ties it to user_257. Its absent claim is not relied on here."
+   },
+   {
+    "resource_id": "account_7942",
+    "reason": "Linked only through shared batch run activity_1978 (shared with other requests). No usable evidence ties it to user_257. Not part of this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to remove their own account and the personal information linked to it, including identifiers connected to the account, which is erasure of their own personal data. The request for a short confirmation upon completion does not change this.",
+   "summary: Subject user_257 (sibusiso.n9912@outlook.com). Three resources of this subject remain live at audit_at 2026-06-13T11:00Z: account_9608 (customer profile, PII, ACTIVE, replica copy), search_6990 (search index document with name and email, primary and replica), and audit_record_1421 (retained security audit event). The workflow's SUCCESS/absent claims for search_6990 and the account rows are contradicted by the 2026-06-13 observation. Shared-run candidates account_3601, account_7942 and analytics_2977 were rejected for lack of attribution. No active data flow, restorable backup or active legal hold tied to this subject was found. Searches for the subject's email hash, phone, name variants and user_257 surfaced no support, email, cache or export records for this subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_259",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1063,
+    "output_tokens": 104,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_259",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 543,
+    "cache_creation_input_tokens": 3442,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_259",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 744,
+    "cache_creation_input_tokens": 11886,
+    "cache_read_input_tokens": 8313
+   },
+   {
+    "case_id": "case_259",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 399,
+    "cache_creation_input_tokens": 17095,
+    "cache_read_input_tokens": 20199
+   },
+   {
+    "case_id": "case_259",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 203,
+    "cache_creation_input_tokens": 4621,
+    "cache_read_input_tokens": 37294
+   },
+   {
+    "case_id": "case_259",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1348,
+    "cache_creation_input_tokens": 4463,
+    "cache_read_input_tokens": 41915
+   },
+   {
+    "case_id": "case_259",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 650,
+    "cache_creation_input_tokens": 5820,
+    "cache_read_input_tokens": 46378
+   },
+   {
+    "case_id": "case_259",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 247,
+    "cache_creation_input_tokens": 1448,
+    "cache_read_input_tokens": 52198
+   },
+   {
+    "case_id": "case_259",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 3006,
+    "cache_creation_input_tokens": 36687,
+    "cache_read_input_tokens": 53646
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_9608"
+   },
+   "output_chars": 2975
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3601"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7942"
+   },
+   "output_chars": 1488
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_2977"
+   },
+   "output_chars": 3797
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1421"
+   },
+   "output_chars": 2641
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_6990"
+   },
+   "output_chars": 3135
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sibusiso",
+    "limit": 50
+   },
+   "output_chars": 4517
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_257",
+    "limit": 50
+   },
+   "output_chars": 4329
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 0
+   },
+   "output_chars": 4519
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-05-17T00:00:00Z",
+    "end": "2026-06-13T11:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30902
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "722ba35a76f93f8851aa5c45afd2e2365d0bf45a9aa7ff550535844bff70f23b",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "27727539868",
+    "limit": 50
+   },
+   "output_chars": 920
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "sibusiso.n9912@outlook.com",
+    "limit": 50
+   },
+   "output_chars": 2587
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 4000
+   },
+   "output_chars": 4495
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 12000
+   },
+   "output_chars": 4483
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 8000
+   },
+   "output_chars": 4562
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_24",
+    "offset": 16000
+   },
+   "output_chars": 4107
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Nkosi",
+    "limit": 50
+   },
+   "output_chars": 4727
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "n9912",
+    "limit": 50
+   },
+   "output_chars": 2566
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_9608",
+    "limit": 50
+   },
+   "output_chars": 2145
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_259",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 5,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 50
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 6,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "audit_record_1421",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 20
+   },
+   "output_chars": 24
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "retention",
+    "limit": 50
+   },
+   "output_chars": 36583
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "security_audit",
+    "limit": 50
+   },
+   "output_chars": 43182
+  }
+ ]
+}

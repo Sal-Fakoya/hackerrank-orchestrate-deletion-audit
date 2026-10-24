@@ -1,0 +1,475 @@
+{
+ "case_id": "case_460",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "support_platform",
+   "resource_id": "support_4146",
+   "operation": "REPORT_EXPOSED_PII",
+   "state": "PRESENT",
+   "evidence_id": "evidence_43"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4146",
+   "operation": "REDACT_RECORD",
+   "state": "REDACTED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "legal_service",
+   "resource_id": "legal_hold_5622",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1369",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "support_platform",
+   "resource_id": "support_4146",
+   "operation": "VERIFY_RECORD_REDACTED",
+   "state": "REDACTED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_460",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "support_4146",
+    "system_id": "support_platform",
+    "category": "SUPPORT_MESSAGE",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Support conversation CS-8146 tied to subject_reference user_458 still shows parker.grace@gmail.com in message_text, plus shared order context (Ceramic coffee set delivery update). Rule requires REDACT, not delete. Current primary and replica copies both PRESENT; activity_480 REDACT reported FAILED.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1369",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Security audit event account_deletion_reviewed for subject_reference user_458 is present in primary and replica at audit_at. No expired retention_until is shown for this record in usable evidence, so retention is verified and the record is retained.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "legal_hold_5622",
+    "system_id": "legal_service",
+    "category": "LEGAL_HOLD_RECORD",
+    "state": "PRESENT",
+    "evidence_id": "evidence_43",
+    "reason": "Retained order record for user_458 (ORD-20265622, payment dispute and tax record) with retained_until 2033-12-31 is present in primary and replica at audit_at; legal hold treated as active, so RETAIN and verify.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_077",
+    "reason": "Linked only via deletion-worker batch run activity_474, which is shared with case_458 and case_459. No usable evidence ties this account to user_458 or parker.grace@gmail.com; not attributable to this subject."
+   },
+   {
+    "resource_id": "account_5167",
+    "reason": "Linked only via shared batch run activity_475 (case_458, case_459). No usable evidence ties it to this subject; not attributable."
+   },
+   {
+    "resource_id": "account_5892",
+    "reason": "Linked only via shared batch run activity_476 (case_458, case_459). No usable evidence ties it to this subject; not attributable."
+   },
+   {
+    "resource_id": "analytics_5221",
+    "reason": "Shared batch run activity_477 (case_458, case_459). Its record in evidence_43 has user_id, email, phone and email_hash all null, so it is identity-free and cannot be linked to this subject."
+   },
+   {
+    "resource_id": "backup_1140",
+    "reason": "Backup catalog entry subject_reference is d.romero12@gmail.com, which belongs to case_459, not this subject."
+   },
+   {
+    "resource_id": "data_flow_4612",
+    "reason": "Connector subject_selector is jules-fournier@gmail.com (another customer), not this subject."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to delete their account and its personal data, with a request to confirm the result. This is a clear erasure request for their own data, so it authorizes deletion.",
+   "summary: Subject parker.grace@gmail.com / user_458. Found no user_458 account profile, search, analytics, or export records tied to this subject in usable evidence. Subject-linked records are support_4146 (SUPPORT_MESSAGE, still shows email and order context: REDACT), audit_record_1369 (retained security audit), and legal_hold_5622 (active legal retention). The three account candidates and analytics_5221 come from a run shared with other customers, and nothing ties them to this subject, so they were rejected. The workflow NOT_STARTED claim and activity_478/480 results are not relied on."
+  ],
+  "usage": [
+   {
+    "case_id": "case_460",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1058,
+    "output_tokens": 92,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_460",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 735,
+    "cache_creation_input_tokens": 1649,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_460",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 659,
+    "cache_creation_input_tokens": 11922,
+    "cache_read_input_tokens": 6520
+   },
+   {
+    "case_id": "case_460",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 266,
+    "cache_creation_input_tokens": 17274,
+    "cache_read_input_tokens": 18442
+   },
+   {
+    "case_id": "case_460",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 515,
+    "cache_creation_input_tokens": 4369,
+    "cache_read_input_tokens": 35716
+   },
+   {
+    "case_id": "case_460",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1077,
+    "cache_creation_input_tokens": 5161,
+    "cache_read_input_tokens": 40085
+   },
+   {
+    "case_id": "case_460",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1040,
+    "cache_creation_input_tokens": 9774,
+    "cache_read_input_tokens": 45246
+   },
+   {
+    "case_id": "case_460",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 998,
+    "cache_creation_input_tokens": 3982,
+    "cache_read_input_tokens": 55020
+   },
+   {
+    "case_id": "case_460",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1495,
+    "cache_creation_input_tokens": 1135,
+    "cache_read_input_tokens": 59002
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "parker.grace@gmail.com",
+    "limit": 50
+   },
+   "output_chars": 1832
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_458",
+    "limit": 50
+   },
+   "output_chars": 5276
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Grace Parker",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "447700900458",
+    "limit": 50
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_077"
+   },
+   "output_chars": 1480
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5167"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_5892"
+   },
+   "output_chars": 1484
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "analytics_5221"
+   },
+   "output_chars": 3806
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1369"
+   },
+   "output_chars": 2670
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "legal_hold_5622"
+   },
+   "output_chars": 2697
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_4146"
+   },
+   "output_chars": 3262
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-02-05T00:00:00Z",
+    "end": "2026-03-05T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31158
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 0
+   },
+   "output_chars": 4531
+  },
+  {
+   "turn": 2,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 0
+   },
+   "output_chars": 4633
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 5000
+   },
+   "output_chars": 4523
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_65",
+    "offset": 4000
+   },
+   "output_chars": 4620
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_077",
+    "limit": 50
+   },
+   "output_chars": 653
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5892",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_5167",
+    "limit": 50
+   },
+   "output_chars": 657
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "analytics_5221",
+    "limit": 50
+   },
+   "output_chars": 2979
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 10000
+   },
+   "output_chars": 4555
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 12000
+   },
+   "output_chars": 4504
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 16000
+   },
+   "output_chars": 4521
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 2000
+   },
+   "output_chars": 4509
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 7000
+   },
+   "output_chars": 4540
+  },
+  {
+   "turn": 6,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_43",
+    "offset": 18000
+   },
+   "output_chars": 2680
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "SECURITY_AUDIT_LOG"
+   },
+   "output_chars": 153
+  },
+  {
+   "turn": 6,
+   "tool": "get_rule",
+   "input": {
+    "data_category": "LEGAL_HOLD_RECORD"
+   },
+   "output_chars": 137
+  },
+  {
+   "turn": 6,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "support_4146"
+   },
+   "output_chars": 3262
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "2a281960e606f04db81aa827a2400f2c9eb6ed91248d7031b586a02928272b7c",
+    "limit": 50
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "grace parker",
+    "limit": 50
+   },
+   "output_chars": 52
+  }
+ ]
+}

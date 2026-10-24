@@ -1,0 +1,445 @@
+{
+ "case_id": "case_248",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_677",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_78"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_677",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_677",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_248",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "data_flow_677",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_78",
+    "reason": "Connector subscription analytics_identity_bridge carries customer_email junseo.cho@outlook.com (exact match to the subject) and is enabled=1 with last_delivery_status delivered, updated 2026-06-18T09:38:20Z, per the 2026-06-18 inventory capture. An active connector can keep copying or recreating the subject's data, so it must be disabled. Workflow activity_2203 (CHECK_DATA_FLOW, 2026-06-03) only claimed it was enabled; it is not the state at audit_at.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_3631",
+    "reason": "Linked only through deletion-worker run activity_2196, which is shared with case_249 and case_250 (other customers' emails). No usable evidence ties account_3631 to user_246 or junseo.cho@outlook.com; search for the resource id returns only the activity row. Cannot be attributed to this subject, so rejected."
+   },
+   {
+    "resource_id": "account_7010",
+    "reason": "Linked only through shared deletion-worker run activity_2197 (case_249 and case_250 listed). No usable evidence ties account_7010 to this subject's identifiers or user_id user_246; only the activity row mentions it. Rejected as not attributable."
+   }
+  ],
+  "notes": [
+   "intent: deletion (en): The customer explicitly asks to close their account and process the associated personal-data deletion, which is erasure of their own data. The request for review of eligible data and verification contact does not negate this.",
+   "summary: Subject user_246 (junseo.cho@outlook.com). Searches for the subject's email, hash, phone, name and user_id across all usable evidence found no profile, search, support, analytics, export or backup records for this subject; the only subject-linked resource is connector data_flow_677 (analytics_identity_bridge, customer_email matches), which is still enabled/ACTIVE at audit_at per evidence_78 and must be disabled. Candidate account_3631 and account_7010 were rejected because they appear only in a deletion-worker run shared with other requests and no evidence ties them to this subject."
+  ],
+  "usage": [
+   {
+    "case_id": "case_248",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1060,
+    "output_tokens": 94,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_248",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 428,
+    "cache_creation_input_tokens": 3227,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_248",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 389,
+    "cache_creation_input_tokens": 1020,
+    "cache_read_input_tokens": 8098
+   },
+   {
+    "case_id": "case_248",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 383,
+    "cache_creation_input_tokens": 4360,
+    "cache_read_input_tokens": 9118
+   },
+   {
+    "case_id": "case_248",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 508,
+    "cache_creation_input_tokens": 12931,
+    "cache_read_input_tokens": 13478
+   },
+   {
+    "case_id": "case_248",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 388,
+    "cache_creation_input_tokens": 5331,
+    "cache_read_input_tokens": 26409
+   },
+   {
+    "case_id": "case_248",
+    "call": "turn_6",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 697,
+    "cache_creation_input_tokens": 1540,
+    "cache_read_input_tokens": 31740
+   },
+   {
+    "case_id": "case_248",
+    "call": "turn_7",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 800,
+    "cache_creation_input_tokens": 1166,
+    "cache_read_input_tokens": 33280
+   },
+   {
+    "case_id": "case_248",
+    "call": "turn_8",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1021,
+    "cache_creation_input_tokens": 8436,
+    "cache_read_input_tokens": 34446
+   },
+   {
+    "case_id": "case_248",
+    "call": "turn_9",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1386,
+    "cache_creation_input_tokens": 1596,
+    "cache_read_input_tokens": 42882
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "junseo.cho@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 692
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_246",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "1762d8628f7afb8055fc7db560ce9112df2b6404064ef09a8515d259a17b59d5",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "821040902216",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Jun-seo Cho",
+    "limit": 100
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_3631"
+   },
+   "output_chars": 1483
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_7010"
+   },
+   "output_chars": 1482
+  },
+  {
+   "turn": 2,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_677"
+   },
+   "output_chars": 2132
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_246",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "cho",
+    "limit": 100
+   },
+   "output_chars": 3395
+  },
+  {
+   "turn": 3,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 266
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-01T00:00:00Z",
+    "end": "2026-06-18T12:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 31032
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM snapshot_scope"
+   },
+   "output_chars": 377
+  },
+  {
+   "turn": 4,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM customer_profiles WHERE user_id='user_246' OR email LIKE '%cho%' OR email_hash LIKE '1762%' OR phone LIKE '%0902216%' OR display_name LIKE '%cho%'"
+   },
+   "output_chars": 36
+  },
+  {
+   "turn": 4,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-02T00:00:00Z",
+    "end": "2026-06-04T00:00:00Z",
+    "limit": 100
+   },
+   "output_chars": 11283
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM customer_profiles LIMIT 3"
+   },
+   "output_chars": 364
+  },
+  {
+   "turn": 5,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM connector_subscriptions LIMIT 3"
+   },
+   "output_chars": 265
+  },
+  {
+   "turn": 5,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_23",
+    "offset": 0
+   },
+   "output_chars": 1517
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM customer_profiles WHERE resource_id IN ('account_3631','account_7010','account_4181') OR email LIKE '%junseo%' OR full_name LIKE '%Cho%' OR full_name LIKE '%Jun%'"
+   },
+   "output_chars": 250
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM customer_search_documents WHERE email LIKE '%junseo%' OR display_name LIKE '%Cho%' OR customer_reference LIKE '%246%' LIMIT 20"
+   },
+   "output_chars": 138
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM support_records WHERE requester_email LIKE '%junseo%' OR requester_name LIKE '%Cho%' LIMIT 20"
+   },
+   "output_chars": 151
+  },
+  {
+   "turn": 6,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM customer_exports WHERE 1=1 LIMIT 5"
+   },
+   "output_chars": 243
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "junseo",
+    "limit": 100
+   },
+   "output_chars": 2448
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "246",
+    "limit": 100
+   },
+   "output_chars": 12923
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_3631",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_7010",
+    "limit": 100
+   },
+   "output_chars": 660
+  },
+  {
+   "turn": 7,
+   "tool": "search_evidence",
+   "input": {
+    "query": "case_248",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM customer_analytics_profiles WHERE 1=1 LIMIT 3"
+   },
+   "output_chars": 427
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_78",
+    "sql": "SELECT * FROM backup_restore_entries LIMIT 3"
+   },
+   "output_chars": 128
+  },
+  {
+   "turn": 8,
+   "tool": "query_sql_snapshot",
+   "input": {
+    "file_id": "evidence_24",
+    "sql": "SELECT name FROM sqlite_master WHERE type='table'"
+   },
+   "output_chars": 90
+  },
+  {
+   "turn": 8,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": "data_flow_677",
+    "event_type": null,
+    "start": null,
+    "end": null,
+    "limit": 50
+   },
+   "output_chars": 358
+  }
+ ]
+}

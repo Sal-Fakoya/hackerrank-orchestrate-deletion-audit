@@ -1,0 +1,321 @@
+{
+ "case_id": "case_200",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "search_service",
+   "resource_id": "search_7472",
+   "operation": "REPORT_REMAINING_RECORD",
+   "state": "PRESENT",
+   "evidence_id": "evidence_82"
+  },
+  {
+   "step_no": 2,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_2310",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_82"
+  },
+  {
+   "step_no": 3,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_2310",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "REMEDIATION",
+   "system_id": "search_service",
+   "resource_id": "search_7472",
+   "operation": "DELETE_RECORD",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "search_service",
+   "resource_id": "search_7472",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 6,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_2310",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_200",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "search_7472",
+    "system_id": "search_service",
+    "category": "SEARCH_INDEX_ENTRY",
+    "state": "PRESENT",
+    "evidence_id": "evidence_82",
+    "reason": "Index query at 2026-07-13T07:24:22Z (before audit_at, captured 2026-07-13T09:33:59Z) returned a hit on customer_directory_v3 for grace.reed@outlook.com, the subject's email. The deletion worker's DELETE result (activity_2390) reported FAILED, so the entry remains and must be deleted.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_2310",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_82",
+    "reason": "Connector config read at 2026-07-13T07:13:44Z shows connector support_profile_sync enabled=true, last_delivery_status=delivered, with customer_email=grace.reed@outlook.com. It can still copy or recreate the subject's data and must be disabled. The workflow's CHECK_DATA_FLOW claim (activity_2388) is superseded by this direct observation.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "account_1964",
+    "reason": "Linked only through the deletion-worker run activity_2387 (shared with case_201, j.girard1079@yahoo.com). No usable evidence ties account_1964 to user_198 or grace.reed@outlook.com; the only subject-linked lookup in evidence_82 for that run (account_2933) belongs to case_201's subject. Not attributable to this subject, so rejected."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer explicitly asks to delete this account and its personal data, which is an erasure request for their own data, and asks for confirmation of the outcome.",
+   "summary: Subject grace.reed@outlook.com (user_198). Two resources are attributable to this subject from in-window evidence: search_7472 still holds a directory hit for the subject's email (PRESENT, delete required; the deletion attempt reported FAILED), and data_flow_2310 (support_profile_sync connector keyed on the subject's email) is ACTIVE and can recreate the data, so it must be disabled. account_1964 was rejected because the only link is a shared batch run with another customer and no evidence ties it to this subject. No email-history, phone, or email-hash matches were found beyond the primary identifiers."
+  ],
+  "usage": [
+   {
+    "case_id": "case_200",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1063,
+    "output_tokens": 84,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_200",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 428,
+    "cache_creation_input_tokens": 3624,
+    "cache_read_input_tokens": 4871
+   },
+   {
+    "case_id": "case_200",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 731,
+    "cache_creation_input_tokens": 3957,
+    "cache_read_input_tokens": 8495
+   },
+   {
+    "case_id": "case_200",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 333,
+    "cache_creation_input_tokens": 18317,
+    "cache_read_input_tokens": 12452
+   },
+   {
+    "case_id": "case_200",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 952,
+    "cache_creation_input_tokens": 5647,
+    "cache_read_input_tokens": 30769
+   },
+   {
+    "case_id": "case_200",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1410,
+    "cache_creation_input_tokens": 13386,
+    "cache_read_input_tokens": 36416
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "grace.reed@outlook.com",
+    "limit": 100
+   },
+   "output_chars": 1536
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_198",
+    "limit": 100
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Grace Reed",
+    "limit": 100
+   },
+   "output_chars": 50
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_1964"
+   },
+   "output_chars": 1478
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_2310"
+   },
+   "output_chars": 2249
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "search_7472"
+   },
+   "output_chars": 2196
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "f4a974acdd0c219889fb24b6c2851b07e3f0329a4ace241a27c6dfc40a24c67a",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "447700900198",
+    "limit": 100
+   },
+   "output_chars": 52
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "account_1964",
+    "limit": 100
+   },
+   "output_chars": 661
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "batch_run",
+    "limit": 100
+   },
+   "output_chars": 49
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "reed",
+    "limit": 100
+   },
+   "output_chars": 10103
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-15T00:00:00Z",
+    "end": "2026-07-13T10:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 31095
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-06-15T00:00:00Z",
+    "end": "2026-06-17T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 8443
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_82",
+    "offset": 0
+   },
+   "output_chars": 4229
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "grace",
+    "limit": 100
+   },
+   "output_chars": 4109
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "198",
+    "limit": 100
+   },
+   "output_chars": 20423
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_2310",
+    "limit": 100
+   },
+   "output_chars": 1431
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "search_7472",
+    "limit": 100
+   },
+   "output_chars": 1383
+  }
+ ]
+}

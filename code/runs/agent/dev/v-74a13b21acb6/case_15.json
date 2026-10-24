@@ -1,0 +1,338 @@
+{
+ "case_id": "case_15",
+ "mode": "agent",
+ "judge_version": "74a13b21acb6",
+ "status": "INCOMPLETE",
+ "steps": [
+  {
+   "step_no": 1,
+   "phase": "FINDING",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9846",
+   "operation": "REPORT_ACTIVE_DATA_FLOW",
+   "state": "ACTIVE",
+   "evidence_id": "evidence_01"
+  },
+  {
+   "step_no": 2,
+   "phase": "REMEDIATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9846",
+   "operation": "DISABLE_DATA_FLOW",
+   "state": "DISABLED",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 3,
+   "phase": "VERIFICATION",
+   "system_id": "account_service",
+   "resource_id": "account_4745",
+   "operation": "VERIFY_RECORD_ABSENT",
+   "state": "ABSENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 4,
+   "phase": "VERIFICATION",
+   "system_id": "security_service",
+   "resource_id": "audit_record_1596",
+   "operation": "VERIFY_RECORD_PRESENT",
+   "state": "PRESENT",
+   "evidence_id": ""
+  },
+  {
+   "step_no": 5,
+   "phase": "VERIFICATION",
+   "system_id": "integration_service",
+   "resource_id": "data_flow_9846",
+   "operation": "VERIFY_DATA_FLOW_DISABLED",
+   "state": "DISABLED",
+   "evidence_id": ""
+  }
+ ],
+ "errors": [],
+ "judgment": {
+  "case_id": "case_15",
+  "mode": "agent",
+  "deletion_requested": true,
+  "facts": [
+   {
+    "resource_id": "account_4745",
+    "system_id": "account_service",
+    "category": "USER_PROFILE",
+    "state": "ABSENT",
+    "evidence_id": "evidence_92",
+    "reason": "Primary profile for the subject. Deletion worker reported SUCCESS (activity_3382), but that is only a claim. Direct evidence: 2026-09-15 account_service lookup keyed on lucia-torres@gmail.com returned 404 rows=0 (evidence_01, trace tr-9146590), and the account_service export captured 2026-09-15T11:44:55Z (evidence_92) does not contain account_4745. Record is gone. The run was shared with case_17, but this record is tied to this subject by the subject email correlation key, so it is kept.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "data_flow_9846",
+    "system_id": "integration_service",
+    "category": "DATA_FLOW",
+    "state": "ACTIVE",
+    "evidence_id": "evidence_01",
+    "reason": "Continuous connector data_flow_9846 sends lucia-torres@gmail.com to customer_analytics_warehouse (evidence_14, 2026-08-07). Latest observation at 2026-09-15T11:58:11Z (evidence_01, trace tr-9750867) shows enabled=true and scheduler_registered=true. It can keep copying or recreating the subject's data and must be disabled. The deletion worker's CHECK_DATA_FLOW SUCCESS (activity_3386) is a workflow claim that confirms it is still enabled.",
+    "condition_met": true
+   },
+   {
+    "resource_id": "audit_record_1596",
+    "system_id": "security_service",
+    "category": "SECURITY_AUDIT_LOG",
+    "state": "PRESENT",
+    "evidence_id": "evidence_01",
+    "reason": "Security audit record read for subject_ref user_15 (the subject's user_id) at 2026-09-15T11:59:37Z (evidence_01, trace tr-4314388), integrity_check=passed, so it is available. No retention expiry is shown for this record, so it is treated as within the retention period and retained. Retention is verified, not deleted.",
+    "condition_met": true
+   }
+  ],
+  "rejected": [
+   {
+    "resource_id": "data_flow_1121",
+    "reason": "Connector for a different customer (jain.aditi@gmail.com selector). Not related to this subject."
+   },
+   {
+    "resource_id": "analytics and search records for lucia-garcia@proton.me (analytics_1922, search_5146, support_3802, support_6569)",
+    "reason": "Different person (Lucía García, user_405, lucia-garcia@proton.me). No match on this subject's email, phone, hash, user_15 or full name."
+   },
+   {
+    "resource_id": "account_6784 / account_7606 (Torres surname matches)",
+    "reason": "Different people (n.torres30@yahoo.com, storres487178@fastmail.com). Surname-only matches, not identifier matches."
+   }
+  ],
+  "notes": [
+   "intent: deletion (English): The customer asks to close the account completely and stop it from sending their data to other systems. Closing the account fully is permanent account closure/erasure of the person's own account and data, so it authorizes deletion. The word 'disconnected' does not negate the request, since they are asking to finish closing the account.",
+   "summary: Subject lucia-torres@gmail.com (user_15). The primary account profile account_4745 is confirmed absent by the 2026-09-15 lookup and snapshot. The connector data_flow_9846 is still ACTIVE at 2026-09-15 and must be disabled, since it sends the subject's email to customer_analytics_warehouse. The security audit record audit_record_1596 is present and retained. No secondary identifier, search, analytics, support, export, marketing or backup records for this subject were found. Phone and hash searches returned nothing."
+  ],
+  "usage": [
+   {
+    "case_id": "case_15",
+    "call": "intent",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 1051,
+    "output_tokens": 129,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0
+   },
+   {
+    "case_id": "case_15",
+    "call": "turn_1",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 4,
+    "output_tokens": 497,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 10263
+   },
+   {
+    "case_id": "case_15",
+    "call": "turn_2",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 687,
+    "cache_creation_input_tokens": 5947,
+    "cache_read_input_tokens": 10263
+   },
+   {
+    "case_id": "case_15",
+    "call": "turn_3",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 565,
+    "cache_creation_input_tokens": 16382,
+    "cache_read_input_tokens": 16210
+   },
+   {
+    "case_id": "case_15",
+    "call": "turn_4",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 1935,
+    "cache_creation_input_tokens": 16901,
+    "cache_read_input_tokens": 32592
+   },
+   {
+    "case_id": "case_15",
+    "call": "turn_5",
+    "model": "claude-haiku-5-5",
+    "input_tokens": 2,
+    "output_tokens": 2325,
+    "cache_creation_input_tokens": 4353,
+    "cache_read_input_tokens": 49493
+   }
+  ]
+ },
+ "transcript": [
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lucia-torres@gmail.com",
+    "limit": 100
+   },
+   "output_chars": 2891
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "user_15",
+    "limit": 100
+   },
+   "output_chars": 953
+  },
+  {
+   "turn": 1,
+   "tool": "search_evidence",
+   "input": {
+    "query": "3a998570469df6b3cf40bb58e9b2a55e4890cded9f801df993ed6584f990826c",
+    "limit": 100
+   },
+   "output_chars": 104
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "data_flow_9846"
+   },
+   "output_chars": 3804
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "account_4745"
+   },
+   "output_chars": 2026
+  },
+  {
+   "turn": 1,
+   "tool": "get_resource_evidence",
+   "input": {
+    "resource_id": "audit_record_1596"
+   },
+   "output_chars": 1789
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "Torres",
+    "limit": 100
+   },
+   "output_chars": 6584
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34715351235",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "34728875900",
+    "limit": 50
+   },
+   "output_chars": 51
+  },
+  {
+   "turn": 2,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_50",
+    "limit": 50
+   },
+   "output_chars": 48
+  },
+  {
+   "turn": 2,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-21T00:00:00Z",
+    "end": "2026-09-15T12:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 30969
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "lucia",
+    "limit": 100
+   },
+   "output_chars": 13893
+  },
+  {
+   "turn": 3,
+   "tool": "search_evidence",
+   "input": {
+    "query": "data_flow_9846",
+    "limit": 100
+   },
+   "output_chars": 2975
+  },
+  {
+   "turn": 3,
+   "tool": "get_activity",
+   "input": {
+    "resource_id": null,
+    "event_type": null,
+    "start": "2026-08-21T00:00:00Z",
+    "end": "2026-08-23T00:00:00Z",
+    "limit": 200
+   },
+   "output_chars": 15016
+  },
+  {
+   "turn": 3,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_13",
+    "offset": 0
+   },
+   "output_chars": 4731
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_55",
+    "offset": 0
+   },
+   "output_chars": 846
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_27",
+    "offset": 0
+   },
+   "output_chars": 1244
+  },
+  {
+   "turn": 4,
+   "tool": "read_evidence_file",
+   "input": {
+    "file_id": "evidence_37",
+    "offset": 0
+   },
+   "output_chars": 1726
+  },
+  {
+   "turn": 4,
+   "tool": "search_evidence",
+   "input": {
+    "query": "audit_record_1596",
+    "limit": 50
+   },
+   "output_chars": 963
+  }
+ ]
+}
