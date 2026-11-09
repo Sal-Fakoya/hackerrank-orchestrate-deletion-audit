@@ -1,217 +1,109 @@
-# HackerRank Orchestrate - October 2026
+# Ghost Data Still Exists: a deletion-audit agent
 
-## Ghost Data Still Exists
+My solution to the HackerRank Orchestrate (October 2026) challenge "Ghost Data Still Exists".
 
-Build an AI agent that audits whether a user's personal data was actually deleted.
+This project is built on HackerRank's starter repository, [interviewstreet/hackerrank-orchestrate-october26](https://github.com/interviewstreet/hackerrank-orchestrate-october26), which provides the problem statement, the dataset in `dataset/` and the agent instructions in `AGENTS.md`. The commit history before my submission commit is theirs.
 
-A deletion workflow may report **Complete** while data still exists in databases, logs, support attachments, exports, search indexes, archives, or backups. Sync and restore processes may also bring deleted data back.
+## The challenge
 
-For each request, the agent must first determine whether deletion was actually requested. It then returns `COMPLETE`, `INCOMPLETE`, or `NOT_APPLICABLE`, reports any remaining data or recreation risk, and produces the ordered remediation and verification steps required to finish an authorized deletion safely.
+A deletion workflow can report a customer's data as deleted while copies survive in secondary databases, logs, support attachments, exports, search indexes and backups, and sync or restore jobs can bring deleted data back. For each of 518 requests, the system must decide whether deletion was actually requested and whether it is truly `COMPLETE`, `INCOMPLETE` or `NOT_APPLICABLE`, then produce the ordered finding, remediation and verification steps, each backed by evidence. The full contract is in [`problem_statement.md`](./problem_statement.md).
 
-Read [`problem_statement.md`](./problem_statement.md) for the complete challenge contract.
+## Architecture
 
----
+The system is a single tool-calling agent (Claude Haiku 5.5, `claude-haiku-5-5`, through the Anthropic SDK) inside a deterministic Python pipeline. The model only makes the judgments that need reading and reasoning. Everything that can be computed is computed in code.
 
-## Running this solution
+1. **Evidence index.** Built once. Every SQL row, JSON object, log trace, text line, PDF line and image transcription in `dataset/evidence/` becomes a record with its capture time, system, resource ids and identifiers.
+2. **Intent.** One structured-output call decides whether the request text is a deletion request, in any language. If it is not, the case ends as `NOT_APPLICABLE` with no steps.
+3. **Deterministic gathering.** Python resolves the subject's current and historical identifiers and collects candidate resources from records captured before the audit time. Each candidate is tagged with how it was linked.
+4. **Investigation loop.** The agent starts from the candidate list and can reject candidates or look for missed records. It has tools to search evidence, query SQL snapshots, read log traces, read system activity and look up deletion rules. It decides when it is done by calling `submit_facts`. A hard cap of 16 turns forces a submission.
+5. **Guard rails.** Python checks every submitted fact before it is used: the category and state vocabulary, whether the evidence was usable at audit time, whether the record is inside the request's episode, and attribution rules for deletion-worker runs shared with other requests.
+6. **Step builder and validator.** Deterministic code turns facts into ordered steps from `deletion_rules.csv`, and a validator enforces the output schema, allowed operations and states, phase order and evidence timing.
 
-Architecture, build rules and decisions: [`code/PLAN.md`](./code/PLAN.md). Evaluation:
-[`code/evaluation/evaluation_report.md`](./code/evaluation/evaluation_report.md).
+Design notes and build rules are in [`code/PLAN.md`](./code/PLAN.md).
 
-**1. Setup** (Python 3.13; run every command from the repository root):
+### Why a single agent
+
+The hard part of each case is one connected investigation. The agent has to tell which records belong to the subject, which copy of a record is authoritative, and whether a "deleted" claim is contradicted by a replica or a later sync. Those judgments depend on each other and on the same evidence. Splitting them across several agents would mean passing partial context between them, adding cost and new failure points at each handoff, and giving no clear gain on a task with one subject and one evidence set per case. The parts that are not judgment calls, such as identifier resolution, time filtering, rule lookup and step ordering, are better as plain code than as extra agents. With one agent and a deterministic frame, the full 518-case run cost about $7 (about $0.014 per request), and failures were easy to trace to a single judgment.
+
+### Why not purely rule-based
+
+The challenge notes that a purely deterministic solution solves roughly 20 to 30 percent of the problem, and my own baseline confirmed it. Keyword intent matching misses follow-ups such as "confirm that my profile is gone" and fails on requests in other languages. A fixed mapping from resource prefix to data category gets secondary copies wrong. Taking the latest observation at face value cannot weigh a workflow's claim against a surviving replica. Rules are still central to the design. They do the gathering, enforce scope and build the steps, and the model is used only where reading the evidence is required.
+
+## Evaluation method
+
+### Dev and holdout split
+
+The only labelled data is the 32 public samples. I split them once into 20 dev cases and 12 holdout cases, stratified by status, with a fixed seed (`code/evaluation/split.json`). All debugging and prompt changes used dev only. Holdout was scored only at milestones, only as aggregate numbers, and individual holdout cases were not inspected. Holdout is therefore the unbiased estimate, and dev is optimistic.
+
+### No-LLM baseline ablation
+
+Running `python code/main.py --mode baseline` uses the same evidence index, gathering, step builder and validator with the model removed. Intent is a keyword match, every gathered candidate is accepted, category comes from a fixed mapping, and state is the latest observation. Because only the judgment stage differs, the gap between the two modes measures what the agent adds.
+
+| metric (dev, 20 cases) | baseline, no LLM | agent |
+|---|---|---|
+| status accuracy | 70.0% | 100.0% |
+| step precision | 45.6% | 96.2% |
+| step recall | 65.3% | 86.4% |
+| step F1 | 53.7% | 91.1% |
+| exact sequence match | 15.0% | 45.0% |
+
+On holdout, the final version scored 100% status accuracy in both runs, with step F1 of 87.8% and 92.1% across two runs of identical code (baseline: 91.7% status, 67.7% step F1). On 13 hand-written edge cases, the agent passed 13 and the baseline passed 3. These cases cover non-English requests, negation, withdrawal, third-party requests, prompt injection, tombstones and expired retention.
+
+## Results
+
+On the official challenge scoring, the submission scored **80.6 / 100** overall, with a **code score of 25.5 / 30**.
+
+The final run judged all 518 requests with 0 format errors and 0 fallbacks to the baseline. It produced 355 `INCOMPLETE`, 153 `COMPLETE` and 10 `NOT_APPLICABLE` results. Full metrics, the iteration history and every fix are in [`code/evaluation/evaluation_report.md`](./code/evaluation/evaluation_report.md).
+
+## How to run
+
+Use Python 3.13 and run every command from the repository root.
 
 ```bash
 python -m venv .venv
-# activate the virtual environment (do this in every new terminal before the commands below)
-.venv\Scripts\activate          # Windows (PowerShell or cmd)
+.venv\Scripts\activate          # Windows
 source .venv/bin/activate       # macOS / Linux
 python -m pip install -r code/requirements.txt
 ```
 
-Agent mode needs `ANTHROPIC_API_KEY` in a `.env` file at the repository root (loaded with
-python-dotenv; never commit it). Baseline mode, the tests and the UI need no key.
-
-**2. Run** (with the venv activated; writes `output.csv` at the repository root):
+Agent mode needs an Anthropic API key. Copy `.env.example` to `.env` and set `ANTHROPIC_API_KEY`. Baseline mode, the tests and the results UI need no key.
 
 ```bash
-python code/main.py                                   # agent mode (default): claude-haiku-5-5 tool-calling agent
-python code/main.py --workers 8 --budget-usd 15       # same, 8 parallel cases, stop launching at ~$15 estimated
+python code/main.py                                   # agent mode, writes output.csv
+python code/main.py --workers 8 --budget-usd 15       # 8 parallel cases, stop launching at about $15
 python code/main.py --mode baseline                   # deterministic baseline, no LLM
 ```
 
-The agent run checkpoints every case under `code/runs/agent/eval/v-<version>/`, where the
-version hashes all of `code/deletion_audit/` (prompts, tools, model settings) and the image
-transcriptions. Rerunning the same command resumes without re-paying for finished cases;
-with the shipped checkpoints of the final run it rebuilds `output.csv` without any model
-call. Any code or prompt change produces a new version, so older checkpoints are never reused.
-
-**3. Evaluate and test** (venv activated):
+Each case is checkpointed under `code/runs/agent/eval/v-<version>/`, where the version is a hash of the judge code, prompts and image transcriptions. Rerunning resumes without paying again for finished cases. With the shipped checkpoints, the agent command rebuilds `output.csv` without any model call. Any code or prompt change produces a new version, so stale checkpoints are never reused.
 
 ```bash
-python code/evaluation/score.py --set dev              # baseline vs agent on the 20 dev samples
-python code/evaluation/custom_cases.py --modes agent   # 13 hand-written edge cases
-python -m unittest discover -s code/tests -v           # 27 unit tests, no API calls
-```
+python code/evaluation/score.py --set dev              # baseline vs agent on the dev split
+python code/evaluation/custom_cases.py --modes agent   # hand-written edge cases
+python -m unittest discover -s code/tests -v           # unit tests, no API calls
 
-**4. Regenerate derived files** (venv activated):
-
-```bash
-python code/evaluation/usage_report.py                 # rebuild code/evaluation/usage_report.md from the final run's checkpoints (no API calls)
-cd code && python -m deletion_audit.image_text --force && cd ..   # re-transcribe the 11 evidence screenshots (11 vision calls, needs the API key)
-```
-
-The image transcriptions are cached in `code/cache/image_text/` and shipped, so a normal
-run never makes vision calls. Re-transcribing changes the cache and therefore the judge
-version, so the next agent run starts a fresh checkpoint set.
-
-**5. Results UI** (read-only: saved results and the dataset, no model calls):
-
-```bash
 python -m pip install -r code/ui/requirements.txt
-streamlit run code/ui/app.py
+streamlit run code/ui/app.py                           # read-only results viewer
 ```
 
----
+## Limitations
 
-## Quick Start
+**Shared deletion-batch attribution (case_63).** The deletion workflow often processes several customers' requests in one batch run. Some records in those runs carry no identifier, name or resource link to any one customer, such as empty account lookups or all-null analytics profiles. The system rejects these records instead of guessing an owner. This keeps precision high but costs recall, because the subject's own identity-free records are missed when their run is shared. The clearest case is `case_63`, a valid deletion request where all seven candidates came only from a run shared with two other requests. One further candidate was rejected because a screenshot showed it held a different person's details, which contradicted the data catalog. The output for that case is `COMPLETE` with no steps, the only `COMPLETE` result without verification steps. Fixing it would need a policy change and a full re-run for one case, so I left it as is.
 
-Clone the repository and move into the project directory:
+**Position-based attribution was tested and rejected.** I tested whether a record's position inside a shared batch run identifies its owner, for example the i-th account in the run belonging to the i-th request. On dev gold labels, owner order reversed between record types in 6 of 10 comparable pairs, and rank attribution was 29 to 42 percent accurate depending on the ordering, at or below chance. Simulated on the saved dev judgments, the best ordering recovered 4 correct records but added 13 wrong ones. It lowered step F1 from 90.6% to 83.9% and turned one correct `COMPLETE` case into `INCOMPLETE`. The reject policy was kept. Details are in `code/evaluation/position_test.py` and `code/evaluation/results/position_test.md`.
 
-```bash
-git clone https://github.com/interviewstreet/hackerrank-orchestrate-october26.git
-cd hackerrank-orchestrate-october26
-```
+**Run-to-run variance.** The agent is not fully deterministic. Two dev runs of identical code agreed on aggregate step F1 to within 0.5 points, but 3 of 20 individual cases changed. Two holdout runs of identical code differed by 4.3 points of step F1, which is large because one case moves the 12-case holdout score by about 4 to 8 points. Single-case results and small holdout differences should be read as noisy. The differences were in operation, state or evidence choices on correct resources. Which resources were found stayed the same.
 
-Start your AI coding tool from the **repository root** so it automatically reads [`AGENTS.md`](./AGENTS.md) and logs your session turns to `log.txt` in the root directory.
+Other known gaps include one dev resource that appears in no supplied file, and edge cases such as identity collisions that the dataset does not contain. These are documented in the evaluation report and `code/PLAN.md`.
 
-Build your solution in `code/main.py`, or use another language and document its setup and run command clearly in your README.
+## Repository layout
 
-Your solution must:
-
-- Read the input files from `dataset/`
-- Generate one prediction row for every request in `dataset/deletion_requests.csv`
-- Write the final predictions to `output.csv` in the repository root
-
-Run the starter Python entry point with:
-
-```bash
-python3 code/main.py
-```
-
-The blank template at `dataset/output.csv` is provided as a reference. Your final generated file for submission must be the root-level `output.csv`.
-
-
-## Dataset
-
-All participant-facing files are in `dataset/`:
-
-| File | Contents |
-| --- | --- |
-| `deletion_requests.csv` | 518 requests |
-| `sample_deletion_requests.csv` | 32 sample requests |
-| `sample_output.csv` | Correct sample answers |
-| `user_identities.csv` | Current user identities |
-| `user_audit_log.csv` | Historical identity changes |
-| `system_activity.csv` | Activity across services and data processes |
-| `deletion_rules.csv` | Required treatment for each data category |
-| `evidence_files.csv` | Manifest of supplied evidence files |
-| `output.csv` | Blank output template |
-
-Evidence is stored under `dataset/evidence/` and may include PDFs, images, logs, JSON, plain text, or SQL snapshot exports. SQL captures may contain a primary database, regional replicas, a reporting replica, or a failover replica so replication drift can be investigated directly. The `.sql` files are readable as text and executable with SQLite.
-
-Only `deletion_requests.csv` requires answers. The other files provide evidence and context.
-
----
-
-## Output
-
-Create `output.csv` with these columns in this exact order:
-
-```text
-case_id,deletion_status,steps_json
-```
-
-Produce exactly one row per request. `deletion_status` is `COMPLETE`, `INCOMPLETE`, or `NOT_APPLICABLE`. `steps_json` is an ordered JSON array containing findings, remediation actions, and verification checks. Use an empty array (`[]`) for `NOT_APPLICABLE`. Evidence references may be a `file_id`, `activity_id`, or `audit_id`. Determine the resource state at `audit_at` from the available evidence; reported workflow statuses and operation results are claims. Use `dataset/sample_output.csv` as the format reference.
-
-The final file must contain 518 data rows sorted by `case_id` (plus the header row). The grader parses `steps_json` as JSON, so object-key order and whitespace do not matter; array order does. Order findings, remediation, and verification in that phase order. Within a phase, follow the operation order in the problem statement, then sort by `system_id` and `resource_id`.
-
----
-
-## Evaluation
-
-`output.csv` will be compared with hidden canonical answers. Scoring considers:
-
-- deletion assessment accuracy;
-- current and historical identity resolution;
-- discovery of remaining data and recreation risks;
-- correct policy application and evidence references; and
-- completeness and ordering of remediation and verification steps.
-
-Your `code.zip` must include:
-
-```text
-code/evaluation/evaluation_report.md
-code/evaluation/usage_report.md
-```
-
-- `evaluation_report.md` must cover case, row, field, and sequence accuracy, at least three additional evaluation cases created by you, failures found, and improvements made.
-- `usage_report.md` must cover the final full-dataset run, including model providers and names, model calls, input and output tokens, total and average tokens per request, and estimated total and per-request cost. Include per-model and overall totals when using multiple models.
-
-**Important:** Place `evaluation_report.md` and `usage_report.md` inside `code/evaluation/` (matching `code/evaluation/main.py` in this starter layout), write your complete evaluation metrics, custom evaluation test cases, and token/cost breakdowns directly inside those Markdown files, and keep prompts in source code or Markdown files. Automated code evaluation ignores raw data files (`.csv`, `.tsv`, `.json`, `.jsonl`, `.sql`, `.log`), so content stored only in those formats will not be visible to the code judge or AI interviewer.
-
----
-
-## Chat Transcript
-
-This repository includes [`AGENTS.md`](./AGENTS.md), which instructs compatible AI coding tools to append conversation summaries to `log.txt` in the repository root:
-
-| Platform | Path |
-| --- | --- |
-| macOS / Linux | `<repo root>/log.txt` |
-| Windows | `<repo root>\log.txt` |
-
-- Always launch your AI coding agent from the repository root (or explicitly ask it to read `./AGENTS.md` first) so every turn is logged to `log.txt` with the required `User Prompt`, `Agent Response Summary`, `Actions`, and `Context` sections.
-- Upload `log.txt` directly as your `chat_transcript` submission on HackerRank.
-- Do not include API keys, tokens, credentials, or secrets in prompts, code, configuration, or `log.txt`.
-
----
-
-## Packaging `code.zip` and Submission
-
-| Item | Description |
-| --- | --- |
-| `code.zip` | Runnable solution, prompts, configuration, `README.md`, and `evaluation/` reports |
-| `output.csv` | One answer row for each of the 518 requests in `dataset/deletion_requests.csv` |
-| `chat_transcript` | The root `log.txt` file generated by your coding agent |
-| AI interview | Live explanation of your architecture, approach, and evaluation |
-
-You may use any programming language, model, framework, or retrieval approach. Include clear setup and execution instructions in `README.md` inside `code.zip`.
-
-To package `code.zip` from the repository root without bundling the dataset:
-
-**macOS / Linux:**
-
-```bash
-zip -r code.zip README.md code -x "*/__pycache__/*" "*/.venv/*" "*/venv/*" "*/node_modules/*" "*/.git/*" "*/.DS_Store"
-```
-
-**Windows (PowerShell):**
-
-```powershell
-Compress-Archive -Path README.md, code -DestinationPath code.zip -Force
-```
-
-When packaging `code.zip`:
-
-- Keep your evaluation reports in `code/evaluation/` so they are bundled automatically with `code` (or add `evaluation` to the archive command above if you placed them in a top-level `evaluation/` directory).
-- Do **not** include `dataset/`, virtual environments (`.venv`, `venv`, `node_modules`), or build caches (`__pycache__`). On Windows, keep `.venv` at the repository root (outside `code/`) and remove any `code/__pycache__` folders before running `Compress-Archive`.
-- Do **not** include nested archives (`.zip`, `.tar`, `.gz`, `.tgz`, `.7z`, `.rar`) inside `code.zip` — submissions containing nested archive files will be rejected.
-
-Before submitting, confirm that:
-
-- `output.csv` has the exact header `case_id,deletion_status,steps_json` and contains all 518 data rows sorted by `case_id`;
-- every `steps_json` value is a valid JSON array with consecutive step numbers starting at `1`;
-- findings cite valid evidence IDs, and `COMPLETE` verification steps cite evidence proving the current state;
-- proposed remediation and future verification steps use an empty `evidence_id` (`""`);
-- `code.zip` includes your runnable code, `README.md`, `code/evaluation/evaluation_report.md`, and `code/evaluation/usage_report.md`;
-- `log.txt` follows the `AGENTS.md` turn format and is uploaded to the `chat_transcript` slot; and
-- no API keys, credentials, real personal data, or sensitive configuration values are included.
+| path | contents |
+|---|---|
+| `code/deletion_audit/` | evidence index, gathering, agent, tools, prompts, policy, step builder, validator |
+| `code/main.py` | entry point for both modes |
+| `code/evaluation/` | scorer, split, custom cases, coverage and position tests, reports |
+| `code/runs/` | checkpoints of the final runs |
+| `code/tests/` | unit tests with a scripted fake model client |
+| `code/ui/` | Streamlit viewer for saved results |
+| `dataset/` | challenge data provided by HackerRank |
+| `output.csv` | final submission |

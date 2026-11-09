@@ -1,8 +1,28 @@
-
+# Secrets
 .env
+.env.*
+!.env.example
 
-code.zip
-
-.venv/
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Large intermediate output (the submission output.csv and the checkpoints under code/runs/ stay tracked)
+code.zip
+*.zip
+log.txt
+*.log
+output_*.csv
